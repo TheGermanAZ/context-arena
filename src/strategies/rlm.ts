@@ -3,6 +3,17 @@ import { chat } from "../utils/llm";
 import type { MemoryStrategy } from "./base";
 
 /**
+ * A single delegation log entry — captures what the sub-LLM produced
+ * at a given compression cycle.
+ */
+export interface DelegationLogEntry {
+  cycle: number;
+  step: number; // conversation step when delegation happened
+  content: string; // the sub-LLM's output
+  messagesCompressed: number; // how many messages were sent to sub-LLM
+}
+
+/**
  * Recursive Language Model (RLM) strategy.
  *
  * Inspired by Prime Intellect's RLM paper. Instead of compressing old context,
@@ -25,6 +36,12 @@ export class RLMStrategy implements MemoryStrategy {
   private recentWindow: number;
   private totalOverheadTokens = 0;
   private messagesSinceDelegation = 0;
+  private currentStep = 0;
+  private delegationCycle = 0;
+
+  /** Opt-in: when true, sub-LLM outputs are captured in delegationLog */
+  enableLogging = false;
+  delegationLog: DelegationLogEntry[] = [];
 
   constructor(delegateEvery = 8, recentWindow = 4) {
     this.delegateEvery = delegateEvery;
@@ -37,11 +54,15 @@ export class RLMStrategy implements MemoryStrategy {
     this.delegatedKnowledge = [];
     this.totalOverheadTokens = 0;
     this.messagesSinceDelegation = 0;
+    this.currentStep = 0;
+    this.delegationCycle = 0;
+    this.delegationLog = [];
   }
 
   addMessage(message: LLMMessage): void {
     this.messages.push(message);
     this.messagesSinceDelegation++;
+    this.currentStep++;
   }
 
   async getContext() {
@@ -87,6 +108,17 @@ Be exhaustive. Every specific detail matters. Do NOT generalize.`,
 
       overheadThisStep = subLLMResult.inputTokens + subLLMResult.outputTokens;
       this.totalOverheadTokens += overheadThisStep;
+
+      // Capture sub-LLM output for analysis (opt-in)
+      if (this.enableLogging) {
+        this.delegationCycle++;
+        this.delegationLog.push({
+          cycle: this.delegationCycle,
+          step: this.currentStep,
+          content: subLLMResult.content,
+          messagesCompressed: toDelegate.length,
+        });
+      }
 
       // Replace old delegated knowledge with the new comprehensive state
       this.delegatedKnowledge = [subLLMResult.content];
