@@ -1,0 +1,128 @@
+[
+  {
+    "strategyName": "CorrectionAware",
+    "scenarioName": "Contradiction Resolution",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 60,
+        "outputTokens": 229,
+        "latencyMs": 3050.1064159999996,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 314,
+        "outputTokens": 322,
+        "latencyMs": 3295.245333,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 663,
+        "outputTokens": 307,
+        "latencyMs": 3515.7808750000004,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 1005,
+        "outputTokens": 349,
+        "latencyMs": 3051.933709000001,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 843,
+        "outputTokens": 298,
+        "latencyMs": 3230.205332999998,
+        "memoryOverheadTokens": 2812
+      },
+      {
+        "step": 6,
+        "inputTokens": 1180,
+        "outputTokens": 326,
+        "latencyMs": 2662.9872499999983,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 1534,
+        "outputTokens": 357,
+        "latencyMs": 3302.712707999999,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 1927,
+        "outputTokens": 368,
+        "latencyMs": 3347.3847080000014,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 913,
+        "outputTokens": 245,
+        "latencyMs": 2324.5282499999958,
+        "memoryOverheadTokens": 5630
+      },
+      {
+        "step": 10,
+        "inputTokens": 1193,
+        "outputTokens": 330,
+        "latencyMs": 3824.4242499999964,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 1555,
+        "outputTokens": 382,
+        "latencyMs": 2712.865540999999,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 1962,
+        "outputTokens": 408,
+        "latencyMs": 3397.5815830000065,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 1006,
+        "outputTokens": 384,
+        "latencyMs": 2738.8687500000015,
+        "memoryOverheadTokens": 5828
+      },
+      {
+        "step": 14,
+        "inputTokens": 1418,
+        "outputTokens": 384,
+        "latencyMs": 2913.9942079999964,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 1845,
+        "outputTokens": 412,
+        "latencyMs": 3226.7180000000008,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 2307,
+        "outputTokens": 326,
+        "latencyMs": 2433.5926249999975,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "# Complete Trip Summary 📋\n\n## Trip Overview\n- **Dates:** June 1-18, 2024 (18 nights)\n- **Total Trip Cost:** $10,785\n- **Your Budget:** $8,500\n- **Budget Shortfall:** -$2,285\n\n---\n\n## Flight Details\n- **Airline:** ANA\n- **Base Cost:** $1,200\n- **Change Fee:** $150\n- **Total Flight Cost:** $1,350\n\n---\n\n## Accommodation\n- **Hotel:** Aman Tokyo\n- **Nightly Rate:** $500/night\n- **Number of Nights:** 18\n- **Total Hotel Cost:** $9,000\n\n---\n\n## Activities & Transportation\n- **June 3:** Toyosu Market visit\n- **June 7-9:** Kyoto excursion (Shinkansen round trip): $280\n- **June 8 (Kyoto):** Cooking class: $95\n- **June 8 (Kyoto):** Tea ceremony: $60\n- **June 10:** Dinner with Kenji\n\n---\n\n## Kenji Details\n- **Neighborhood:** Shinjuku\n- **Phone:** 090-8765-4321\n- **Meeting Date:** June 10\n\n---\n\n**Note:** You still have a $2,285 shortfall to address. Would you like to adjust the trip? 💰",
+    "correct": true,
+    "totalInputTokens": 19725,
+    "totalOutputTokens": 5427,
+    "totalMemoryOverheadTokens": 14270,
+    "totalLatencyMs": 49028.92953899999,
+    "estimatedCostUsd": 0.048904,
+    "peakContextTokens": 2307
+  }
+]

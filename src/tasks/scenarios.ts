@@ -251,10 +251,229 @@ const longHorizonWithNoise: Scenario = {
   },
 };
 
+/**
+ * Scenario 6: CASCADING CORRECTIONS
+ * Tests whether correcting one fact propagates to derived/dependent facts.
+ * Changing the round size should change post-money valuation, dilution, ownership %.
+ */
+const cascadingCorrections: Scenario = {
+  name: "Cascading Corrections",
+  description:
+    "When one fact changes, do dependent/derived facts update correctly?",
+  systemPrompt:
+    "You are a startup financial advisor. Track all deal terms precisely. When a number changes, recalculate all dependent figures. Always use the most recent values for calculations.",
+  steps: [
+    "We're raising a seed round. The pre-money valuation is $10M. We're raising $2M. So the post-money valuation is $12M and total dilution is 16.67%.",
+    "Our lead investor is Sequoia. They're putting in $1M of the $2M round. So Sequoia gets 8.33% ownership.",
+    "The second investor is Y Combinator with $500K. That's 4.17% ownership. The remaining $500K is from angels.",
+    "Legal fees are estimated at $50K, paid from the round proceeds. So we net $1.95M in usable capital.",
+    "We have 10M shares outstanding pre-round. At $10M pre-money, that's $1.00 per share. New shares issued: 2M shares at $1.00 each.",
+    "Our runway with $1.95M net proceeds at $150K monthly burn rate is 13 months.",
+    "The board structure will be: 2 founder seats, 1 Sequoia seat, 1 independent. Sequoia gets the seat because they're the lead.",
+    "Actually, I just got off the phone. We're raising $3M, not $2M. The pre-money valuation stays at $10M.",
+    "Sequoia is now putting in $1.5M of the $3M round. Y Combinator stays at $500K. Angels cover the remaining $1M.",
+    "Legal fees went up too: $75K now. So net proceeds are $2.925M.",
+    "Oh, and our burn rate increased to $175K per month because we're hiring a head of sales.",
+    "One more update: the pre-money valuation was renegotiated to $12M, not $10M. Round size stays at $3M.",
+    "Sequoia's investment amount stays at $1.5M. YC stays at $500K. Angels still $1M.",
+    "The share price needs to be recalculated based on the new $12M pre-money with 10M shares outstanding. That's $1.20 per share now.",
+  ],
+  finalQuestion:
+    "Give me the final deal summary: 1) Pre-money valuation, 2) Round size, 3) Post-money valuation, 4) Total dilution percentage, 5) Sequoia's ownership percentage, 6) Net proceeds after legal fees, 7) Monthly burn rate, 8) Runway in months.",
+  checkAnswer: (answer: string) => {
+    // Pre-money: $12M
+    // Round size: $3M
+    // Post-money: $12M + $3M = $15M
+    // Total dilution: $3M / $15M = 20%
+    // Sequoia: $1.5M / $15M = 10%
+    // Net proceeds: $3M - $75K = $2.925M
+    // Burn: $175K/month
+    // Runway: $2.925M / $175K = 16.7 months ≈ 16-17 months
+    const lower = answer.toLowerCase();
+    const checks = [
+      (lower.includes("12") && lower.includes("pre-money")) || answer.includes("$12M") || answer.includes("12,000,000") || lower.includes("$12 million"),
+      answer.includes("$15M") || answer.includes("15,000,000") || lower.includes("$15 million") || /post.money.*15|15.*post.money/i.test(answer),
+      answer.includes("20%") || answer.includes("20 %") || lower.includes("20 percent"),
+      answer.includes("10%") || answer.includes("10 %") || lower.includes("10 percent"),
+      answer.includes("2.925") || answer.includes("2,925"),
+      answer.includes("175") && (lower.includes("burn") || lower.includes("month")),
+      /\b1[67]\b/.test(answer) && lower.includes("month"),
+    ];
+    // Need at least 5 of 7 correct
+    return checks.filter(Boolean).length >= 5;
+  },
+};
+
+/**
+ * Scenario 7: IMPLICIT CORRECTIONS
+ * Tests whether the agent detects corrections that have NO signal words.
+ * No "actually", "wait", "change" — just restated values that differ from earlier ones.
+ */
+const implicitCorrections: Scenario = {
+  name: "Implicit Corrections",
+  description:
+    "Can the agent detect corrections when there are no signal words like 'actually' or 'wait'?",
+  systemPrompt:
+    "You are a personal chef assistant. Track all recipe details precisely. The user may restate ingredients or instructions — always use the most recently stated value for any item.",
+  steps: [
+    "I'm making a three-course dinner. Appetizer: bruschetta. Main: pan-seared salmon. Dessert: tiramisu.",
+    "For the bruschetta: 6 Roma tomatoes, 4 cloves garlic, fresh basil, baguette, olive oil, balsamic vinegar. Serves 4.",
+    "Salmon recipe: 4 salmon fillets (6oz each), 2 tablespoons butter, lemon juice, capers, dill. Cook at 400°F for 12 minutes.",
+    "Side dish with the salmon: roasted asparagus. 1 bunch asparagus, olive oil, salt, pepper. Roast at 425°F for 10 minutes.",
+    "Tiramisu: 6 egg yolks, 3/4 cup sugar, 1 1/3 cups mascarpone, 2 cups heavy cream, 2 cups espresso, 3 tablespoons coffee liqueur, 24 ladyfingers.",
+    "Shopping list note: we need to buy mascarpone, ladyfingers, and capers. Everything else we have.",
+    "For the tomatoes, use 8 San Marzano tomatoes.",
+    "The salmon fillets — 8oz each.",
+    "I want the asparagus at 400°F alongside the salmon. 15 minutes.",
+    "Use 5 egg yolks for the tiramisu.",
+    "The dinner is for 6 people, so scale the bruschetta accordingly.",
+    "For the garlic in the bruschetta, 6 cloves.",
+    "The salmon needs 3 tablespoons of butter.",
+    "Heavy cream for the tiramisu: 2.5 cups.",
+    "Ladyfingers — we need 30 of them.",
+    "Cook the salmon for 14 minutes.",
+  ],
+  finalQuestion:
+    "Give me the final recipe card for each course with exact quantities and cooking instructions. Include: 1) Bruschetta ingredients and serving size, 2) Salmon ingredients, weight per fillet, butter amount, cooking temp and time, 3) Asparagus temp and time, 4) Tiramisu: egg yolks, heavy cream, and ladyfinger count.",
+  checkAnswer: (answer: string) => {
+    const lower = answer.toLowerCase();
+    // Use regex with proximity to avoid cross-item false positives
+    const checks = [
+      // Bruschetta: 8 San Marzano (not 6 Roma)
+      /8\s*(san marzano|tomato)/i.test(answer),
+      // 6 cloves garlic (not 4)
+      /6\s*clove/i.test(answer),
+      // Serves 6 (not 4)
+      /serv\w*\s*6|for\s*6\s*(people|guest|person)/i.test(answer),
+      // Salmon: 8oz fillets (not 6oz)
+      /8\s*(-?\s*)oz|8\s*(-?\s*)ounce/i.test(answer),
+      // 3 tbsp butter (not 2)
+      /3\s*(tablespoon|tbsp).*butter|butter.*3\s*(tablespoon|tbsp)/i.test(answer),
+      // 14 minutes cook time (not 12)
+      /14\s*min/i.test(answer),
+      // Asparagus: 400°F (not 425°F) — check proximity
+      /asparagus[\s\S]{0,100}400|400[\s\S]{0,100}asparagus/i.test(answer),
+      // Tiramisu: 5 egg yolks (not 6) — \b prevents matching "2.5"
+      /\b5\s*egg\s*yolk/i.test(answer),
+      // 2.5 cups heavy cream (not 2)
+      /2\.5\s*(cup)?.*cream|cream.*2\.5/i.test(answer),
+      // 30 ladyfingers (not 24)
+      /30\s*lady\s*finger/i.test(answer),
+    ];
+    // Need at least 7 of 10 correct
+    return checks.filter(Boolean).length >= 7;
+  },
+};
+
+/**
+ * Scenario 8: RAPID-FIRE CORRECTIONS
+ * Tests whether the agent can handle many corrections in quick succession.
+ * Seating chart with frequent swaps — the final state is all that matters.
+ */
+const rapidFireCorrections: Scenario = {
+  name: "Rapid-fire Corrections",
+  description:
+    "Can the agent handle many corrections in quick succession and report the final state?",
+  systemPrompt:
+    "You are a wedding planner managing the seating chart. Track every guest's table assignment. When guests are moved, update immediately. Only the final assignment matters.",
+  steps: [
+    "We have 5 tables. Table 1 is the head table (bride & groom's family). Tables 2-5 are guest tables. Each table seats 8.",
+    "Initial assignments: Table 1: Alice, Bob, Carol, David, Emma, Frank. Table 2: Grace, Henry, Iris, Jack. Table 3: Karen, Leo, Mia, Noah. Table 4: Olivia, Paul, Quinn, Rose. Table 5: Sam, Tina, Uma, Victor.",
+    "Move Grace from Table 2 to Table 1. She's the bride's sister, she should be at the head table.",
+    "Jack and Iris don't get along. Move Jack to Table 4.",
+    "Actually, move Jack to Table 5 instead. Table 4 is full enough.",
+    "Paul and Quinn are a couple — put them together at Table 3 with Karen and Leo.",
+    "That means we need to move Mia and Noah somewhere. Put Mia at Table 2 and Noah at Table 4.",
+    "Rose wants to sit with her college friends. Move her from Table 4 to Table 5.",
+    "New guest: Wendy. Add her to Table 2.",
+    "New guest: Xavier. Add him to Table 4.",
+    "Uma can't make it anymore. Remove her from Table 5.",
+    "Move Sam from Table 5 to Table 2. He knows Henry well.",
+    "Actually, move Sam to Table 3 instead. Table 2 is getting crowded.",
+    "Tina wants to be at Table 4 with Olivia. Move Tina from Table 5 to Table 4.",
+    "New guest: Yuki. Add her to Table 5. And new guest: Zara, also Table 5.",
+    "Final swap: move Frank from Table 1 to Table 3. He's not immediate family.",
+  ],
+  finalQuestion:
+    "Give me the final seating chart. List every table with its guests. Make sure the count per table is right.",
+  checkAnswer: (answer: string) => {
+    const lower = answer.toLowerCase();
+    // Table 1: Alice, Bob, Carol, David, Emma, Grace (Frank moved out, Grace moved in)
+    // Table 2: Henry, Iris, Mia, Wendy (Grace→T1, Jack→T5, +Mia, +Wendy, Sam→T3)
+    // Table 3: Karen, Leo, Paul, Quinn, Sam, Frank (Mia→T2, Noah→T4, +Paul, +Quinn from T4, +Sam, +Frank)
+    // Table 4: Olivia, Noah, Jack, Xavier, Tina (Jack from T2→T5→wait, Jack went to T5. Let me retrace.)
+
+    // Let me retrace carefully:
+    // Initial: T1:[Alice,Bob,Carol,David,Emma,Frank] T2:[Grace,Henry,Iris,Jack] T3:[Karen,Leo,Mia,Noah] T4:[Olivia,Paul,Quinn,Rose] T5:[Sam,Tina,Uma,Victor]
+    // Move Grace T2→T1: T1:[Alice,Bob,Carol,David,Emma,Frank,Grace] T2:[Henry,Iris,Jack]
+    // Move Jack T2→T4: T2:[Henry,Iris] T4:[Olivia,Paul,Quinn,Rose,Jack]
+    // Move Jack T4→T5: T4:[Olivia,Paul,Quinn,Rose] T5:[Sam,Tina,Uma,Victor,Jack]
+    // Move Paul,Quinn T4→T3: T3:[Karen,Leo,Mia,Noah,Paul,Quinn] T4:[Olivia,Rose]
+    // Move Mia T3→T2, Noah T3→T4: T2:[Henry,Iris,Mia] T3:[Karen,Leo,Paul,Quinn] T4:[Olivia,Rose,Noah]
+    // Move Rose T4→T5: T4:[Olivia,Noah] T5:[Sam,Tina,Uma,Victor,Jack,Rose]
+    // Add Wendy T2: T2:[Henry,Iris,Mia,Wendy]
+    // Add Xavier T4: T4:[Olivia,Noah,Xavier]
+    // Remove Uma T5: T5:[Sam,Tina,Victor,Jack,Rose]
+    // Move Sam T5→T2: T2:[Henry,Iris,Mia,Wendy,Sam] T5:[Tina,Victor,Jack,Rose]
+    // Move Sam T2→T3: T2:[Henry,Iris,Mia,Wendy] T3:[Karen,Leo,Paul,Quinn,Sam]
+    // Move Tina T5→T4: T4:[Olivia,Noah,Xavier,Tina] T5:[Victor,Jack,Rose]
+    // Add Yuki,Zara T5: T5:[Victor,Jack,Rose,Yuki,Zara]
+    // Move Frank T1→T3: T1:[Alice,Bob,Carol,David,Emma,Grace] T3:[Karen,Leo,Paul,Quinn,Sam,Frank]
+
+    // FINAL:
+    // T1(6): Alice, Bob, Carol, David, Emma, Grace
+    // T2(4): Henry, Iris, Mia, Wendy
+    // T3(6): Karen, Leo, Paul, Quinn, Sam, Frank
+    // T4(4): Olivia, Noah, Xavier, Tina
+    // T5(5): Victor, Jack, Rose, Yuki, Zara
+
+    // Split answer into table sections to verify actual assignments
+    // Look for "Table N" headers and check which names follow each one
+    const getTableSection = (tableNum: number): string => {
+      // Match from "table N" to the next "table" or end of string
+      const pattern = new RegExp(
+        `table\\s*${tableNum}[^]*?(?=table\\s*[${tableNum + 1}-9]|$)`,
+        "i"
+      );
+      const match = lower.match(pattern);
+      return match ? match[0] : "";
+    };
+
+    const t1 = getTableSection(1);
+    const t2 = getTableSection(2);
+    const t3 = getTableSection(3);
+    const t4 = getTableSection(4);
+    const t5 = getTableSection(5);
+
+    const checks = [
+      // Table 1: Grace IN, Frank OUT
+      t1.includes("grace") && !t1.includes("frank"),
+      // Table 2: Henry, Iris, Mia, Wendy
+      t2.includes("henry") && t2.includes("wendy"),
+      // Table 3: Karen, Leo, Paul, Quinn, Sam, Frank
+      t3.includes("frank") && t3.includes("sam"),
+      t3.includes("paul") && t3.includes("quinn"),
+      // Table 4: Olivia, Noah, Xavier, Tina
+      t4.includes("xavier") && t4.includes("tina"),
+      t4.includes("olivia") && t4.includes("noah"),
+      // Table 5: Victor, Jack, Rose, Yuki, Zara
+      t5.includes("yuki") && t5.includes("zara"),
+      t5.includes("jack") && t5.includes("victor"),
+      // Uma should NOT appear in any table
+      !t1.includes("uma") && !t2.includes("uma") && !t3.includes("uma") && !t4.includes("uma") && !t5.includes("uma"),
+    ];
+    // Need at least 7 of 9
+    return checks.filter(Boolean).length >= 7;
+  },
+};
+
 export const ALL_SCENARIOS: Scenario[] = [
   earlyFactRecall,
   stateChangeTracking,
   contradictionResolution,
   multiHopReasoning,
   longHorizonWithNoise,
+  cascadingCorrections,
+  implicitCorrections,
+  rapidFireCorrections,
 ];

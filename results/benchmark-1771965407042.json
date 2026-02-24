@@ -1,0 +1,121 @@
+[
+  {
+    "strategyName": "CorrectionAware",
+    "scenarioName": "Cascading Corrections",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 88,
+        "outputTokens": 258,
+        "latencyMs": 3698.332084,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 383,
+        "outputTokens": 287,
+        "latencyMs": 3656.109125,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 704,
+        "outputTokens": 342,
+        "latencyMs": 3267.4182500000006,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 1077,
+        "outputTokens": 315,
+        "latencyMs": 3775.7505409999994,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 873,
+        "outputTokens": 407,
+        "latencyMs": 3661.893250000001,
+        "memoryOverheadTokens": 3138
+      },
+      {
+        "step": 6,
+        "inputTokens": 1306,
+        "outputTokens": 390,
+        "latencyMs": 5445.2694169999995,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 1736,
+        "outputTokens": 466,
+        "latencyMs": 5421.805958000001,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 2238,
+        "outputTokens": 433,
+        "latencyMs": 4238.464457999999,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 1147,
+        "outputTokens": 499,
+        "latencyMs": 5209.049207999997,
+        "memoryOverheadTokens": 6687
+      },
+      {
+        "step": 10,
+        "inputTokens": 1670,
+        "outputTokens": 483,
+        "latencyMs": 5001.3632080000025,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 2178,
+        "outputTokens": 444,
+        "latencyMs": 5022.757666999998,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 2658,
+        "outputTokens": 797,
+        "latencyMs": 6217.345417000004,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 1611,
+        "outputTokens": 629,
+        "latencyMs": 5341.154500000004,
+        "memoryOverheadTokens": 8087
+      },
+      {
+        "step": 14,
+        "inputTokens": 2281,
+        "outputTokens": 227,
+        "latencyMs": 2609.344624999998,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 2584,
+        "outputTokens": 234,
+        "latencyMs": 1814.4446670000034,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "# FINAL DEAL SUMMARY\n\n| Metric | Value |\n|--------|-------|\n| **1) Pre-money valuation** | $12,000,000 |\n| **2) Round size** | $3,000,000 |\n| **3) Post-money valuation** | $15,000,000 |\n| **4) Total dilution percentage** | 20% |\n| **5) Sequoia's ownership percentage** | 10% |\n| **6) Net proceeds after legal fees** | $2,925,000 |\n| **7) Monthly burn rate** | $175,000 |\n| **8) Runway in months** | 16.7 months |\n\n---\n\n**Derived metrics:**\n- Price per share: $1.20\n- New shares issued: 2,500,000\n- Post-round shares outstanding: 12,500,000\n- Founder ownership: 80%\n- Series A prep window: ~10-11 months from close",
+    "correct": true,
+    "totalInputTokens": 22534,
+    "totalOutputTokens": 6211,
+    "totalMemoryOverheadTokens": 17912,
+    "totalLatencyMs": 64380.502375000004,
+    "estimatedCostUsd": 0.05720080000000001,
+    "peakContextTokens": 2658
+  }
+]

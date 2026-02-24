@@ -4,6 +4,7 @@ import { SummarizationStrategy } from "./strategies/summarizer";
 import { StructuredExtractionStrategy } from "./strategies/structured";
 import { HybridStrategy } from "./strategies/hybrid";
 import { RLMStrategy } from "./strategies/rlm";
+import { CorrectionAwareStrategy } from "./strategies/correction-aware";
 import { ALL_SCENARIOS } from "./tasks/scenarios";
 import { runScenario } from "./tasks/task-runner";
 import { printComparisonTable, type BenchmarkResult } from "./utils/metrics";
@@ -30,6 +31,7 @@ async function main() {
     new StructuredExtractionStrategy(8, 4),
     new HybridStrategy(8, 4),
     new RLMStrategy(8, 4),
+    new CorrectionAwareStrategy(8, 4),
   ].filter((s) => !onlyStrategy || s.name.toLowerCase().includes(onlyStrategy.toLowerCase()));
 
   const scenarios = ALL_SCENARIOS.filter(

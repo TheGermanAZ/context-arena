@@ -1,0 +1,135 @@
+[
+  {
+    "strategyName": "CorrectionAware",
+    "scenarioName": "Rapid-fire Corrections",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 79,
+        "outputTokens": 257,
+        "latencyMs": 2249.35825,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 413,
+        "outputTokens": 197,
+        "latencyMs": 1391.0964159999999,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 640,
+        "outputTokens": 219,
+        "latencyMs": 1551.8686249999996,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 878,
+        "outputTokens": 220,
+        "latencyMs": 1561.9972079999998,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 562,
+        "outputTokens": 225,
+        "latencyMs": 1539.1281670000008,
+        "memoryOverheadTokens": 2747
+      },
+      {
+        "step": 6,
+        "inputTokens": 810,
+        "outputTokens": 231,
+        "latencyMs": 1652.1876670000001,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 1073,
+        "outputTokens": 250,
+        "latencyMs": 1772.027458999999,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 1347,
+        "outputTokens": 228,
+        "latencyMs": 1651.7712499999998,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 660,
+        "outputTokens": 221,
+        "latencyMs": 1346.3827500000007,
+        "memoryOverheadTokens": 4402
+      },
+      {
+        "step": 10,
+        "inputTokens": 896,
+        "outputTokens": 219,
+        "latencyMs": 1331.6159589999988,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 1132,
+        "outputTokens": 222,
+        "latencyMs": 1366.3319169999995,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 1374,
+        "outputTokens": 237,
+        "latencyMs": 2279.637084000002,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 695,
+        "outputTokens": 236,
+        "latencyMs": 1504.4476250000007,
+        "memoryOverheadTokens": 4371
+      },
+      {
+        "step": 14,
+        "inputTokens": 964,
+        "outputTokens": 243,
+        "latencyMs": 1633.2082499999997,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 1237,
+        "outputTokens": 242,
+        "latencyMs": 1475.9653749999998,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 1503,
+        "outputTokens": 243,
+        "latencyMs": 1971.8482089999998,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 17,
+        "inputTokens": 789,
+        "outputTokens": 399,
+        "latencyMs": 3096.430999999997,
+        "memoryOverheadTokens": 4573
+      }
+    ],
+    "finalAnswer": "# Final Wedding Seating Chart\n\n## Table 1\n**Capacity: 8/8 (Full)**\n1. Alice\n2. Bob\n3. Carol\n4. David\n5. Emma\n6. Grace\n7. (Empty)\n8. (Empty)\n\n**Wait** - Recounting: Alice, Bob, Carol, David, Emma, Grace = **6 guests**\n**Capacity: 6/8**\n\n---\n\n## Table 2\n**Capacity: 4/8**\n1. Henry\n2. Iris\n3. Mia\n4. Wendy\n\n---\n\n## Table 3\n**Capacity: 8/8 (Full)**\n1. Karen\n2. Leo\n3. Paul\n4. Quinn\n5. Sam\n6. Frank\n\n**Recounting: 6 guests**\n**Capacity: 6/8**\n\n---\n\n## Table 4\n**Capacity: 4/8**\n1. Olivia\n2. Noah\n3. Xavier\n4. Tina\n\n---\n\n## Table 5\n**Capacity: 5/8**\n1. Victor\n2. Jack\n3. Rose\n4. Yuki\n5. Zara\n\n---\n\n## TOTAL GUESTS SEATED: 25/40\n\n| Table | Guests | Capacity |\n|-------|--------|----------|\n| 1 | 6 | 8 |\n| 2 | 4 | 8 |\n| 3 | 6 | 8 |\n| 4 | 4 | 8 |\n| 5 | 5 | 8 |\n| **TOTAL** | **25** | **40** |",
+    "correct": true,
+    "totalInputTokens": 15052,
+    "totalOutputTokens": 4089,
+    "totalMemoryOverheadTokens": 16093,
+    "totalLatencyMs": 29375.303211,
+    "estimatedCostUsd": 0.041272,
+    "peakContextTokens": 1503
+  }
+]

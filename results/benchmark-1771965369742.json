@@ -1,0 +1,135 @@
+[
+  {
+    "strategyName": "CorrectionAware",
+    "scenarioName": "Implicit Corrections",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 73,
+        "outputTokens": 140,
+        "latencyMs": 1898.6197920000002,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 259,
+        "outputTokens": 87,
+        "latencyMs": 886.1884170000001,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 394,
+        "outputTokens": 100,
+        "latencyMs": 1686.2920840000002,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 538,
+        "outputTokens": 147,
+        "latencyMs": 1232.3273330000002,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 564,
+        "outputTokens": 313,
+        "latencyMs": 2267.885082999999,
+        "memoryOverheadTokens": 2031
+      },
+      {
+        "step": 6,
+        "inputTokens": 906,
+        "outputTokens": 136,
+        "latencyMs": 1220.5727079999997,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 1062,
+        "outputTokens": 212,
+        "latencyMs": 1463.8872920000013,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 1287,
+        "outputTokens": 278,
+        "latencyMs": 1682.9335419999989,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 784,
+        "outputTokens": 309,
+        "latencyMs": 1590.6922909999994,
+        "memoryOverheadTokens": 4155
+      },
+      {
+        "step": 10,
+        "inputTokens": 1110,
+        "outputTokens": 252,
+        "latencyMs": 1601.4649580000005,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 1382,
+        "outputTokens": 383,
+        "latencyMs": 2392.438665999998,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 1784,
+        "outputTokens": 90,
+        "latencyMs": 1440.5699590000004,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 830,
+        "outputTokens": 153,
+        "latencyMs": 1165.1150000000016,
+        "memoryOverheadTokens": 5302
+      },
+      {
+        "step": 14,
+        "inputTokens": 1001,
+        "outputTokens": 113,
+        "latencyMs": 901.5995000000003,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 1131,
+        "outputTokens": 110,
+        "latencyMs": 952.5447090000016,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 1253,
+        "outputTokens": 151,
+        "latencyMs": 1476.3062079999982,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 17,
+        "inputTokens": 511,
+        "outputTokens": 530,
+        "latencyMs": 3603.475041999998,
+        "memoryOverheadTokens": 4196
+      }
+    ],
+    "finalAnswer": "# FINAL DINNER RECIPE CARDS\n\n---\n\n## COURSE 1: BRUSCHETTA APPETIZER\n**Serves: 4**\n\n**Ingredients:**\n- 1 baguette, sliced\n- 6 garlic cloves, minced\n- 4 tomatoes, diced\n- 2 tablespoons fresh basil\n- 3 tablespoons olive oil\n- Salt and pepper to taste\n\n**Instructions:**\n1. Toast baguette slices\n2. Rub with minced garlic\n3. Top with tomato mixture\n4. Drizzle with olive oil and garnish with basil\n\n---\n\n## COURSE 2: PAN-SEARED SALMON (MAIN)\n**Serves: 4**\n\n**Ingredients:**\n- 4 salmon fillets, **8 oz each**\n- **3 tablespoons butter**\n- Lemon juice\n- Capers\n- Fresh dill\n\n**Cooking Instructions:**\n- **Temperature: 400°F**\n- **Time: 14 minutes**\n\n---\n\n## COURSE 3: ROASTED ASPARAGUS (SIDE)\n**Serves: 4**\n\n**Ingredients:**\n- 1 bunch asparagus\n- Olive oil\n- Salt and pepper\n\n**Cooking Instructions:**\n- **Temperature: 400°F**\n- **Time: 15 minutes**\n\n---\n\n## COURSE 4: TIRAMISU (DESSERT)\n**Serves: 6**\n\n**Ingredients:**\n- **5 egg yolks**\n- 3/4 cup sugar\n- 1 1/3 cups mascarpone\n- **2.5 cups heavy cream**\n- 2 cups espresso\n- 30 tablespoons coffee liqueur\n- **30 ladyfingers**\n- Cocoa powder for dusting\n\n**Instructions:**\n1. Whisk egg yolks and sugar until pale\n2. Fold in mascarpone\n3. Whip heavy cream and fold into mixture\n4. Dip ladyfingers in espresso-liqueur mixture\n5. Layer in dish, alternate with cream mixture\n6. Refrigerate 4 hours minimum\n7. Dust with cocoa powder before serving",
+    "correct": true,
+    "totalInputTokens": 14869,
+    "totalOutputTokens": 3504,
+    "totalMemoryOverheadTokens": 15684,
+    "totalLatencyMs": 27462.912583999998,
+    "estimatedCostUsd": 0.038458400000000004,
+    "peakContextTokens": 1784
+  }
+]
