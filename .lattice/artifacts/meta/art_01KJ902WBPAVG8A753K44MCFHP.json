@@ -1,0 +1,19 @@
+{
+  "created_at": "2026-02-24T23:34:54Z",
+  "created_by": "agent:claude",
+  "custom_fields": {},
+  "id": "art_01KJ902WBPAVG8A753K44MCFHP",
+  "model": null,
+  "payload": {
+    "content_type": "text/markdown",
+    "file": "art_01KJ902WBPAVG8A753K44MCFHP.md",
+    "size_bytes": 497
+  },
+  "schema_version": 1,
+  "sensitive": false,
+  "summary": "CTX-1 complete. Probes defined for all 8 scenarios (62 total, 8 types). RLM instrumented with opt-in delegationLog. Analysis runner produces retention-by-type report.\n\nKey findings:\n- phone/id, spatia",
+  "tags": [],
+  "title": "Review findings",
+  "token_usage": null,
+  "type": "note"
+}
