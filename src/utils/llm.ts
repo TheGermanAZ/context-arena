@@ -29,12 +29,13 @@ export async function chat(
   messages: LLMMessage[],
   system?: string,
   model = "claude-haiku-4-5-20251001",
+  maxTokens = 1024,
 ): Promise<LLMResponse> {
   const start = performance.now();
 
   const response = await client.messages.create({
     model,
-    max_tokens: 1024,
+    max_tokens: maxTokens,
     system: system ?? "",
     messages,
   });

@@ -1,61 +1,68 @@
 import type { LLMMessage } from "../utils/llm";
-import { chat, summarize } from "../utils/llm";
+import { chat } from "../utils/llm";
 import type { MemoryStrategy } from "./base";
 
 /**
- * A single fact in the versioned store.
- * The key is the topic (e.g. "hotel_name", "budget").
- * Tracks version history so corrections are explicit, not silent overwrites.
+ * A correction entry: tracks what changed and what it replaced.
  */
-interface FactEntry {
+interface CorrectionEntry {
   key: string;
   current: string;
-  version: number;
-  corrected: boolean; // was this ever explicitly corrected?
-  history: Array<{ value: string; step: number }>;
+  previous: string;
+  step: number;
 }
 
 /**
- * Correction-Aware Memory Strategy (A+C mix).
+ * Correction-Aware Memory Strategy v2 — summary-primary architecture.
+ *
+ * v1 problem: key-value extraction destroyed structural relationships
+ * and produced "TBD" placeholders, causing Multi-hop and Implicit
+ * Correction failures.
+ *
+ * v2 fix: flip the hierarchy.
+ *   - PRIMARY memory: detailed narrative summary (preserves relationships
+ *     and specific values — the reason Hybrid scores 8/8)
+ *   - OVERLAY: correction log (only tracks facts that *changed*, not all
+ *     facts — highlights what the model must not regress on)
  *
  * Architecture:
- *   Two extraction tracks populate a single versioned store.
- *
- *   Track 1 (Fact Extractor):  Extracts {key, value} pairs from conversation.
- *   Track 2 (Correction Detector): Scans for explicit corrections {key, old, new}.
- *     Correction detector has VETO POWER — it force-updates the store.
- *
- *   Both tracks run in parallel (Promise.all).
- *   A rolling narrative summary supplements the facts for context.
+ *   Two tracks run in parallel (Promise.all):
+ *   Track 1 (Detailed Summarizer): Produces a thorough narrative that
+ *     preserves ALL quantities, relationships, and structure.
+ *   Track 2 (Correction Detector): Compares new transcript against
+ *     the previous summary to find contradictions/updates.
  *
  * Context injection format:
- *   [CORRECTED] hotel_name: Aman Tokyo (was: Park Hyatt)
- *   budget: $8,500
- *   ...
- *   CONVERSATION SUMMARY: <rolling narrative>
+ *   CONVERSATION SUMMARY: <detailed narrative>
+ *
+ *   CORRECTION LOG (values that changed — trust these over the summary):
+ *   [CORRECTED] budget: $12,000 (was: $8,500)
+ *   [CORRECTED] hotel: Aman Tokyo (was: Park Hyatt)
  *   <recent N messages>
+ *
+ * Key insight: 2 LLM calls instead of 3, less overhead, better fidelity.
  */
 export class CorrectionAwareStrategy implements MemoryStrategy {
   name = "CorrectionAware";
   private messages: LLMMessage[] = [];
-  private store: Map<string, FactEntry> = new Map();
+  private corrections: CorrectionEntry[] = [];
   private narrativeSummary = "";
   private compressEvery: number;
   private recentWindow: number;
-  private maxFacts: number;
+  private maxCorrections: number;
   private totalOverheadTokens = 0;
   private messagesSinceCompression = 0;
   private currentStep = 0;
 
-  constructor(compressEvery = 8, recentWindow = 4, maxFacts = 60) {
+  constructor(compressEvery = 8, recentWindow = 4, maxCorrections = 30) {
     this.compressEvery = compressEvery;
     this.recentWindow = recentWindow;
-    this.maxFacts = maxFacts;
+    this.maxCorrections = maxCorrections;
   }
 
   reset(): void {
     this.messages = [];
-    this.store = new Map();
+    this.corrections = [];
     this.narrativeSummary = "";
     this.totalOverheadTokens = 0;
     this.messagesSinceCompression = 0;
@@ -83,49 +90,52 @@ export class CorrectionAwareStrategy implements MemoryStrategy {
         .map((m) => `${m.role}: ${m.content}`)
         .join("\n");
 
-      // Build existing facts context for the extractors
-      const existingFacts =
-        this.store.size > 0
-          ? `Currently known facts:\n${[...this.store.values()].map((f) => `${f.key}: ${f.current}`).join("\n")}\n\n`
+      // Build correction context for the detector
+      const existingCorrections =
+        this.corrections.length > 0
+          ? `Previously detected corrections:\n${this.corrections.map((c) => `${c.key}: ${c.previous} → ${c.current}`).join("\n")}\n\n`
           : "";
 
-      // Run all three tracks in parallel
-      const [factResult, correctionResult, summaryResult] = await Promise.all([
-        this.extractFacts(transcript, existingFacts),
-        this.detectCorrections(transcript, existingFacts),
-        summarize(
-          (this.narrativeSummary
-            ? `Previous summary:\n${this.narrativeSummary}\n\nNew messages:\n`
-            : "") + transcript,
-        ),
+      // Run both tracks in parallel
+      const [summaryResult, correctionResult] = await Promise.all([
+        this.detailedSummarize(transcript),
+        this.detectCorrections(transcript, existingCorrections),
       ]);
 
       overheadThisStep =
-        factResult.inputTokens +
-        factResult.outputTokens +
-        correctionResult.inputTokens +
-        correctionResult.outputTokens +
         summaryResult.inputTokens +
-        summaryResult.outputTokens;
+        summaryResult.outputTokens +
+        correctionResult.inputTokens +
+        correctionResult.outputTokens;
       this.totalOverheadTokens += overheadThisStep;
 
-      // Step 1: Apply Track 1 (facts) — inserts and updates
-      const facts = this.parseFacts(factResult.content);
-      for (const { key, value } of facts) {
-        this.upsertFact(key, value, false);
-      }
-
-      // Step 2: Apply Track 2 (corrections) — veto pass
-      const corrections = this.parseCorrections(correctionResult.content);
-      for (const { key, newValue } of corrections) {
-        this.upsertFact(key, newValue, true);
-      }
-
-      // Step 3: Update narrative summary
+      // Update narrative summary (primary memory)
       this.narrativeSummary = summaryResult.content;
 
-      // Step 4: Trim if over capacity
-      this.trimStore();
+      // DEBUG: inspect what the summarizer and detector produce
+      if (process.env.DEBUG_STRATEGY) {
+        console.log(`\n  [DEBUG] Step ${this.currentStep} compression (${toCompress.length} messages compressed):`);
+        console.log(`  [TRANSCRIPT] ${transcript.slice(0, 200)}...`);
+        console.log(`  [SUMMARY]\n${summaryResult.content}\n  [/SUMMARY]`);
+        console.log(`  [CORRECTIONS]\n${correctionResult.content}\n  [/CORRECTIONS]`);
+        console.log(`  [STORE] ${JSON.stringify(this.corrections.map(c => `${c.key}: ${c.current} (was: ${c.previous})`))}`);
+      }
+
+      // Parse and accumulate corrections + missing details (overlay)
+      const newCorrections = this.parseCorrections(correctionResult.content);
+      for (const { key, oldValue, newValue } of newCorrections) {
+        if (oldValue.toUpperCase() === "NEW") {
+          this.upsertNewDetail(key, newValue);
+        } else {
+          this.upsertCorrection(key, oldValue, newValue);
+        }
+      }
+
+      // Trim corrections if over capacity
+      if (this.corrections.length > this.maxCorrections) {
+        // Keep the most recent corrections
+        this.corrections = this.corrections.slice(-this.maxCorrections);
+      }
 
       // Keep only recent messages
       this.messages = this.messages.slice(-this.recentWindow);
@@ -139,25 +149,21 @@ export class CorrectionAwareStrategy implements MemoryStrategy {
 
     const systemParts: string[] = [];
 
-    if (this.store.size > 0) {
-      const factLines = [...this.store.values()]
-        .sort((a, b) => {
-          // Corrected facts first (higher signal), then by version desc
-          if (a.corrected !== b.corrected) return a.corrected ? -1 : 1;
-          return b.version - a.version;
-        })
-        .map((f) => {
-          if (f.corrected && f.history.length > 0) {
-            const prev = f.history[f.history.length - 1]!.value;
-            return `[CORRECTED] ${f.key}: ${f.current} (was: ${prev})`;
-          }
-          return `${f.key}: ${f.current}`;
-        });
-      systemParts.push(`KNOWN FACTS:\n${factLines.join("\n")}`);
-    }
-
+    // Summary FIRST — it's the primary memory
     if (this.narrativeSummary) {
       systemParts.push(`CONVERSATION SUMMARY:\n${this.narrativeSummary}`);
+    }
+
+    // Corrections + critical details SECOND — overlay
+    if (this.corrections.length > 0) {
+      const correctionLines = this.corrections.map((c) =>
+        c.previous
+          ? `[CORRECTED] ${c.key}: ${c.current} (was: ${c.previous})`
+          : `[DETAIL] ${c.key}: ${c.current}`,
+      );
+      systemParts.push(
+        `CORRECTION LOG (trust these over the summary if they conflict):\n${correctionLines.join("\n")}`,
+      );
     }
 
     return {
@@ -167,150 +173,108 @@ export class CorrectionAwareStrategy implements MemoryStrategy {
     };
   }
 
-  // ── Track 1: Fact Extractor ──────────────────────────────────
+  // ── Track 1: Detailed Summarizer (Primary Memory) ──────────
 
-  private extractFacts(transcript: string, existingFacts: string) {
+  private detailedSummarize(transcript: string) {
+    const input = this.narrativeSummary
+      ? `Previous summary:\n${this.narrativeSummary}\n\nNew conversation:\n${transcript}`
+      : transcript;
+
     return chat(
       [
         {
           role: "user",
-          content: `${existingFacts}New conversation segment:\n${transcript}\n\nExtract every discrete fact from this conversation as key-value pairs.
-Use consistent, descriptive keys in snake_case.
-Group related facts under a common prefix (e.g. hotel_name, hotel_rate, hotel_total).
-
-Output format (one per line):
-key: value
-
-If a fact was updated during this segment, output ONLY the latest value.
-Do NOT include opinions, chit-chat, or hypotheticals — only stated facts.`,
+          content: `Produce a structured reference document from this conversation. This document is the ONLY record — omitted details are lost forever.\n\n${input}`,
         },
       ],
-      "You extract structured key-value facts from conversations. Output one fact per line in the format 'key: value'. Be exhaustive and precise. Every specific detail matters.",
+      `You produce structured reference documents from conversations. Format as organized sections with bullet points.
+
+CRITICAL RULES:
+- Group related information under topic headings (## People, ## Costs, ## Schedule, etc.)
+- Preserve EVERY specific number, phone number, email, date, name, address, and measurement exactly as stated
+- Preserve structural relationships (e.g. "Floor 1: Room A (capacity 200), Room B (capacity 50)")
+- If the new conversation CONTRADICTS the previous summary, the NEW conversation is always correct — UPDATE the value in your output
+- When a value was updated or corrected, output ONLY the final/current value — do NOT keep the old value
+- Do NOT use placeholders like "TBD", "various", or "several" — use the exact values stated
+- Do NOT summarize lists as counts — list every item
+- Do NOT omit contact details, phone numbers, IDs, or reference numbers — these are critical
+- Every person mentioned must include ALL their known details (name, location, phone, role, etc.)`,
+      undefined, // model
+      2048, // higher token limit for detailed summaries
     );
   }
 
-  // ── Track 2: Correction Detector ─────────────────────────────
+  // ── Track 2: Diff Detector (corrections + missing details) ──
 
-  private detectCorrections(transcript: string, existingFacts: string) {
+  private detectCorrections(transcript: string, existingCorrections: string) {
+    const summaryContext = this.narrativeSummary
+      ? `Current conversation summary:\n${this.narrativeSummary}\n\n`
+      : "";
+
     return chat(
       [
         {
           role: "user",
-          content: `${existingFacts}New conversation segment:\n${transcript}\n\nYour ONLY job is to find corrections, updates, and changes in this conversation.
-A correction is when a previously stated fact is changed to a new value.
+          content: `${summaryContext}${existingCorrections}New conversation segment:\n${transcript}\n\nYou have TWO jobs:
+
+JOB 1 — CORRECTIONS: Find facts that changed from a previous value.
 This includes EXPLICIT corrections ("actually", "wait", "change that") AND
-IMPLICIT corrections (simply restating a value that differs from what was said before).
+IMPLICIT corrections (restating a value that differs from what was said before).
+Compare the new conversation against the summary above. If a statement contradicts the summary, that IS a correction.
 
-Compare the new conversation against the currently known facts above.
-If a new statement contradicts a known fact, that IS a correction.
+JOB 2 — MISSING DETAILS: Find specific details in the transcript that are NOT in the summary above.
+Focus on: phone numbers, email addresses, exact dollar amounts, dates, addresses, ID numbers, names of people/places.
+These are details the summary might have dropped but that matter.
 
-Output format (one per line):
-key: old_value -> new_value
+Output format:
+For corrections: key: old_value -> new_value
+For missing details: key: NEW -> value
 
-If nothing was corrected, output exactly: NO_CORRECTIONS`,
+If nothing found, output exactly: NO_CORRECTIONS`,
         },
       ],
-      "You are a correction detector. Your ONLY job is finding where facts changed. Compare new statements against known facts. Report every discrepancy. Do NOT invent corrections — only report actual changes. Be thorough: implicit corrections (restating a different value without saying 'actually') count too.",
+      "You detect corrections and missing details. Compare the transcript against the summary. Report (1) any fact that changed from a previous value, and (2) any specific detail (phone numbers, dates, amounts, names) in the transcript but missing from the summary. Be thorough but do NOT invent — only report what's actually in the transcript.",
     );
   }
 
-  // ── Store Operations ─────────────────────────────────────────
+  // ── Correction Store ───────────────────────────────────────
 
-  private upsertFact(key: string, value: string, isCorrection: boolean): void {
+  private upsertCorrection(
+    key: string,
+    oldValue: string,
+    newValue: string,
+  ): void {
     const normalizedKey = key.toLowerCase().trim();
-    const trimmedValue = value.trim();
+    const trimmedNew = newValue.trim();
+    const trimmedOld = oldValue.trim();
 
-    // Try to find existing entry by exact key match first
-    let existing = this.store.get(normalizedKey);
-
-    // If no exact match, try fuzzy key matching (e.g. "hotel" matches "hotel_name")
-    if (!existing) {
-      for (const [k, v] of this.store) {
-        if (
-          k.includes(normalizedKey) ||
-          normalizedKey.includes(k) ||
-          this.keysSimilar(k, normalizedKey)
-        ) {
-          existing = v;
-          // Use the more specific key
-          if (normalizedKey.length > k.length) {
-            this.store.delete(k);
-            existing.key = normalizedKey;
-          }
-          break;
-        }
-      }
-    }
+    // Find existing correction for this key
+    const existing = this.corrections.find(
+      (c) =>
+        c.key === normalizedKey ||
+        c.key.includes(normalizedKey) ||
+        normalizedKey.includes(c.key),
+    );
 
     if (existing) {
-      // Key exists — check if value actually changed
-      if (existing.current.toLowerCase() === trimmedValue.toLowerCase()) {
-        return; // Same value, skip
+      // Update: keep the original "previous" if the key already exists,
+      // unless the old value from this detection is different from current
+      if (existing.current.toLowerCase() !== trimmedNew.toLowerCase()) {
+        existing.previous = existing.current;
+        existing.current = trimmedNew;
+        existing.step = this.currentStep;
       }
-      // Value changed — push old to history, update current
-      existing.history.push({
-        value: existing.current,
+    } else {
+      this.corrections.push({
+        key: normalizedKey,
+        current: trimmedNew,
+        previous: trimmedOld,
         step: this.currentStep,
       });
-      existing.current = trimmedValue;
-      existing.version++;
-      if (isCorrection) existing.corrected = true;
-      this.store.set(existing.key, existing);
-    } else {
-      // New fact
-      this.store.set(normalizedKey, {
-        key: normalizedKey,
-        current: trimmedValue,
-        version: 1,
-        corrected: isCorrection,
-        history: [],
-      });
     }
   }
 
-  private keysSimilar(a: string, b: string): boolean {
-    // Check if keys share a meaningful prefix (at least 5 chars)
-    const minLen = Math.min(a.length, b.length);
-    if (minLen < 5) return false;
-    let shared = 0;
-    for (let i = 0; i < minLen; i++) {
-      if (a[i] === b[i]) shared++;
-      else break;
-    }
-    return shared >= 5;
-  }
-
-  private trimStore(): void {
-    if (this.store.size <= this.maxFacts) return;
-
-    // Sort entries: corrected facts are protected, then by version (lower = less important)
-    const entries = [...this.store.entries()].sort(([, a], [, b]) => {
-      // Corrected facts always survive
-      if (a.corrected !== b.corrected) return a.corrected ? 1 : -1;
-      // Higher version = more important (updated more often)
-      return a.version - b.version;
-    });
-
-    // Remove lowest-priority entries until under limit
-    while (entries.length > this.maxFacts) {
-      const [key] = entries.shift()!;
-      this.store.delete(key);
-    }
-  }
-
-  // ── Parsers ──────────────────────────────────────────────────
-
-  private parseFacts(output: string): Array<{ key: string; value: string }> {
-    const results: Array<{ key: string; value: string }> = [];
-    for (const line of output.split("\n")) {
-      // Match "key: value" but not "key: old -> new" (that's corrections format)
-      const match = line.match(/^([a-z_][a-z0-9_]*)\s*:\s*(.+)$/i);
-      if (match && !match[2]!.includes("->")) {
-        results.push({ key: match[1]!.trim(), value: match[2]!.trim() });
-      }
-    }
-    return results;
-  }
+  // ── Parser ─────────────────────────────────────────────────
 
   private parseCorrections(
     output: string,
@@ -335,5 +299,24 @@ If nothing was corrected, output exactly: NO_CORRECTIONS`,
       }
     }
     return results;
+  }
+
+  /** Handle "NEW -> value" entries: store them as corrections with empty previous */
+  private upsertNewDetail(key: string, value: string): void {
+    const normalizedKey = key.toLowerCase().trim();
+    const existing = this.corrections.find(
+      (c) =>
+        c.key === normalizedKey ||
+        c.key.includes(normalizedKey) ||
+        normalizedKey.includes(c.key),
+    );
+    if (!existing) {
+      this.corrections.push({
+        key: normalizedKey,
+        current: value.trim(),
+        previous: "",
+        step: this.currentStep,
+      });
+    }
   }
 }
