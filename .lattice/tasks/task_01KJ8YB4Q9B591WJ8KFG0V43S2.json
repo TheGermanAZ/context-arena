@@ -1,0 +1,41 @@
+{
+  "assigned_to": null,
+  "branch_links": [],
+  "comment_count": 1,
+  "complexity": null,
+  "created_at": "2026-02-24T23:04:27Z",
+  "created_by": "human:german",
+  "custom_fields": {},
+  "description": null,
+  "done_at": null,
+  "evidence_refs": [],
+  "id": "task_01KJ8YB4Q9B591WJ8KFG0V43S2",
+  "last_event_id": "ev_01KJ8YBZ6MCC1S0PN000BZ6EZT",
+  "last_status_changed_at": "2026-02-24T23:04:27Z",
+  "priority": "medium",
+  "relationships_out": [
+    {
+      "created_at": "2026-02-24T23:04:54Z",
+      "created_by": "human:german",
+      "note": null,
+      "target_task_id": "task_01KJ8YB28ZEAYJM7D88K55GV0P",
+      "type": "depends_on"
+    },
+    {
+      "created_at": "2026-02-24T23:04:54Z",
+      "created_by": "human:german",
+      "note": null,
+      "target_task_id": "task_01KJ8YB3N6J8AVAWDRZG4GQ7CJ",
+      "type": "depends_on"
+    }
+  ],
+  "reopened_count": 0,
+  "schema_version": 1,
+  "short_id": "CTX-5",
+  "status": "backlog",
+  "tags": null,
+  "title": "Hybrid-RLM: delegation + narrative safety net",
+  "type": "task",
+  "updated_at": "2026-02-24T23:04:54Z",
+  "urgency": null
+}

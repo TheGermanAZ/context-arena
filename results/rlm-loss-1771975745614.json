@@ -1,0 +1,1324 @@
+{
+  "results": [
+    {
+      "scenarioName": "Early Fact Recall",
+      "probeResults": [
+        {
+          "fact": "project name Mercury",
+          "type": "entity",
+          "introducedAtStep": 1,
+          "retainedByCycle": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 0
+        },
+        {
+          "fact": "budget $347,250",
+          "type": "quantity",
+          "introducedAtStep": 1,
+          "retainedByCycle": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 0
+        },
+        {
+          "fact": "project lead Dr. Sarah Chen",
+          "type": "entity",
+          "introducedAtStep": 1,
+          "retainedByCycle": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 0
+        },
+        {
+          "fact": "deadline March 15, 2027",
+          "type": "date",
+          "introducedAtStep": 1,
+          "retainedByCycle": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 0
+        },
+        {
+          "fact": "frontend uses Svelte (corrected from React)",
+          "type": "correction",
+          "introducedAtStep": 4,
+          "retainedByCycle": [
+            false,
+            true,
+            true,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 1
+        },
+        {
+          "fact": "QA lead Marcus Williams",
+          "type": "entity",
+          "introducedAtStep": 6,
+          "retainedByCycle": [
+            false,
+            true,
+            true,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 1
+        },
+        {
+          "fact": "production region us-east-1",
+          "type": "spatial",
+          "introducedAtStep": 7,
+          "retainedByCycle": [
+            false,
+            true,
+            true,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 1
+        },
+        {
+          "fact": "backend salary $145k-$175k",
+          "type": "quantity",
+          "introducedAtStep": 12,
+          "retainedByCycle": [
+            false,
+            false,
+            false,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 2
+        },
+        {
+          "fact": "sponsor James Rodriguez VP Engineering",
+          "type": "entity",
+          "introducedAtStep": 15,
+          "retainedByCycle": [
+            false,
+            false,
+            false,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 2
+        },
+        {
+          "fact": "API rate limit 1000 req/min standard",
+          "type": "quantity",
+          "introducedAtStep": 17,
+          "retainedByCycle": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "firstLostAtCycle": 2
+        }
+      ],
+      "delegationCycles": 5,
+      "delegationLog": [
+        {
+          "cycle": 1,
+          "step": 9,
+          "content": "# KNOWLEDGE STATE EXTRACTION - Mercury Project Segment\n\n## 1. ENTITIES\n\n**People:**\n- Dr. Sarah Chen | Role: Project Lead | Project: Mercury\n\n**Projects:**\n- Mercury | Budget: $347,250 | Deadline: March 15, 2027 | Lead: Dr. Sarah Chen\n\n**Positions to Hire:**\n- Backend Engineers | Quantity: 3 | Technology: Rust | Focus: API layer | Project: Mercury\n- Frontend Engineers | Quantity: 2 | Project: Mercury\n\n**Technologies/Systems:**\n- Rust | Purpose: API layer development | Quantity needed: 3 engineers skilled\n- PostgreSQL | Purpose: Database | Project: Mercury\n- TimescaleDB | Type: PostgreSQL extension | Purpose: Database | Project: Mercury\n\n**Milestones:**\n- Database Schema Design | Due Date: January 10, 2027 | Project: Mercury | Technology Stack: PostgreSQL with TimescaleDB extension\n\n## 2. DECISIONS\n\n**Made:**\n- Decided to hire 3 backend engineers (not 2, not 4, not 5)\n- Decided to hire 2 frontend engineers (not 1, not 3)\n- Decided to use Rust for API layer backend development\n- Decided to use PostgreSQL as database system\n- Decided to use TimescaleDB extension for PostgreSQL\n- Decided on January 10, 2027 as the database schema design milestone deadline\n\n**Not rejected or explicitly declined:** None stated\n\n## 3. CORRECTIONS\n\n**None detected.** No previous facts were corrected, updated, or changed in this segment. All information was additive.\n\n## 4. NUMBERS\n\n| Number | Context | Unit |\n|--------|---------|------|\n| 347,250 | Mercury project budget | USD |\n| 3 | Backend engineers to hire | count |\n| 2 | Frontend engineers to hire | count |\n| 5 | Total engineering positions | count (3+2) |\n| January 10, 2027 | Database schema design milestone due date | date |\n| March 15, 2027 | Mercury project deadline | date |\n\n## 5. CURRENT STATE\n\n**Mercury Project - Current State (End of Segment):**\n- **Project Name:** Mercury\n- **Budget:** $347,250\n- **Overall Deadline:** March 15, 2027\n- **Project Lead:** Dr. Sarah Chen\n- **Staffing Plan:**\n  - 3 Backend Engineers (Rust, API layer)\n  - 2 Frontend Engineers\n- **Technology Stack:**\n  - Backend: Rust\n  - Database: PostgreSQL with TimescaleDB extension\n- **First Milestone:** Database Schema Design\n  - Due: January 10, 2027\n  - Technology: PostgreSQL with TimescaleDB",
+          "messagesCompressed": 5
+        },
+        {
+          "cycle": 2,
+          "step": 17,
+          "content": "# KNOWLEDGE STATE EXTRACTION - Mercury Project Segment (Continued)\n\n## 1. ENTITIES\n\n**People:**\n- Dr. Sarah Chen | Role: Project Lead | Project: Mercury\n- Marcus Williams | Role: QA Team Lead | Project: Mercury\n\n**Projects:**\n- Mercury | Budget: $347,250 | Deadline: March 15, 2027 | Lead: Dr. Sarah Chen\n\n**Positions to Hire:**\n- Backend Engineers | Quantity: 3 | Technology: Rust | Focus: API layer | Project: Mercury\n- Frontend Engineers | Quantity: 2 | Technology: Svelte | Project: Mercury\n\n**Technologies/Systems:**\n- Rust | Purpose: API layer development | Quantity needed: 3 engineers skilled | Project: Mercury\n- Svelte | Purpose: Frontend development | Quantity needed: 2 engineers skilled | Project: Mercury\n- PostgreSQL | Purpose: Database | Project: Mercury\n- TimescaleDB | Type: PostgreSQL extension | Purpose: Database | Project: Mercury\n- AWS us-east-1 | Type: Cloud region | Purpose: Production environment | Project: Mercury\n- AWS us-west-2 | Type: Cloud region | Purpose: Staging environment | Project: Mercury\n\n**Milestones:**\n- Database Schema Design | Due Date: January 10, 2027 | Project: Mercury | Technology Stack: PostgreSQL with TimescaleDB extension\n\n**Processes/Requirements:**\n- Weekly Progress Reports | Frequency: Every Friday | Time: 3pm EST | Project: Mercury\n- Integration Tests | Coverage requirement: At least 85% of API endpoints | QA Lead: Marcus Williams | Project: Mercury\n\n## 2. DECISIONS\n\n**Made:**\n- Decided to hire 3 backend engineers (not 2, not 4, not 5)\n- Decided to hire 2 frontend engineers (not 1, not 3)\n- Decided to use Rust for API layer backend development\n- Decided to use Svelte for frontend development\n- Decided to use PostgreSQL as database system\n- Decided to use TimescaleDB extension for PostgreSQL\n- Decided on January 10, 2027 as the database schema design milestone deadline\n- Decided to implement weekly progress reports every Friday at 3pm EST\n- Decided to require integration tests covering at least 85% of API endpoints\n- Decided to use AWS us-east-1 region for production environment\n- Decided to use AWS us-west-2 region for staging environment\n\n**Not rejected or explicitly declined:** React (replaced by Svelte), but no explicit rejection stated\n\n## 3. CORRECTIONS\n\n**One correction detected:**\n\n| Field | Previous Value | New Value | Context |\n|-------|----------------|-----------|---------|\n| Frontend Technology | React (implied/not stated) | Svelte | User explicitly stated \"The frontend team will use Svelte, not React\" |\n\nAll other information was additive with no corrections to previous facts.\n\n## 4. NUMBERS\n\n| Number | Context | Unit |\n|--------|---------|------|\n| 347,250 | Mercury project budget | USD |\n| 3 | Backend engineers to hire | count |\n| 2 | Frontend engineers to hire | count |\n| 5 | Total engineering positions | count (3+2) |\n| January 10, 2027 | Database schema design milestone due date | date |\n| March 15, 2027 | Mercury project deadline | date |\n| Friday | Weekly progress report frequency | day of week |\n| 3pm EST | Weekly progress report time | time |\n| 85 | Integration test coverage requirement for API endpoints | percentage (%) |\n| us-east-1 | AWS production region | AWS region identifier |\n| us-west-2 | AWS staging region | AWS region identifier |\n\n## 5. CURRENT STATE\n\n**Mercury Project - Current State (End of Segment):**\n- **Project Name:** Mercury\n- **Budget:** $347,250\n- **Overall Deadline:** March 15, 2027\n- **Project Lead:** Dr. Sarah Chen\n- **QA Team Lead:** Marcus Williams\n\n**Staffing Plan:**\n- 3 Backend Engineers (Rust, API layer)\n- 2 Frontend Engineers (Svelte)\n\n**Technology Stack:**\n- Backend: Rust\n- Frontend: Svelte\n- Database: PostgreSQL with TimescaleDB extension\n- Cloud Infrastructure: AWS (us-east-1 production, us-west-2 staging)",
+          "messagesCompressed": 8
+        },
+        {
+          "cycle": 3,
+          "step": 25,
+          "content": "# KNOWLEDGE STATE EXTRACTION - Mercury Project Segment (Continued)\n\n## 1. ENTITIES\n\n**People:**\n- Dr. Sarah Chen | Role: Project Lead | Project: Mercury\n- Marcus Williams | Role: QA Team Lead | Project: Mercury\n\n**Projects:**\n- Mercury | Budget: $347,250 | Deadline: March 15, 2027 | Lead: Dr. Sarah Chen\n\n**Positions to Hire:**\n- Backend Engineers | Quantity: 3 | Technology: Rust | Focus: API layer | Project: Mercury\n- Frontend Engineers | Quantity: 2 | Technology: Svelte | Project: Mercury\n\n**Technologies/Systems:**\n- Rust | Purpose: API layer development | Quantity needed: 3 engineers skilled | Project: Mercury\n- Svelte | Purpose: Frontend development | Quantity needed: 2 engineers skilled | Project: Mercury\n- PostgreSQL | Purpose: Database | Project: Mercury\n- TimescaleDB | Type: PostgreSQL extension | Purpose: Database | Project: Mercury\n- AWS us-east-1 | Type: Cloud region | Purpose: Production environment | Project: Mercury\n- AWS us-west-2 | Type: Cloud region | Purpose: Staging environment | Project: Mercury\n- Stripe | Type: External API | Purpose: Payments | Project: Mercury\n- SendGrid | Type: External API | Purpose: Email | Project: Mercury\n- Twilio | Type: External API | Purpose: SMS | Project: Mercury\n\n**Design Artifacts:**\n- Mockups | Status: Completed | Total Screens: 47 | Project: Mercury\n- Login Flow | Type: User flow screens | Screen Count: 5 | Part of: Mockups | Project: Mercury\n\n**Milestones:**\n- Database Schema Design | Due Date: January 10, 2027 | Project: Mercury | Technology Stack: PostgreSQL with TimescaleDB extension\n- Security Audit | Due Date: February 28, 2027 | Project: Mercury | Compliance Required: SOC 2 Type II\n\n**Processes/Requirements:**\n- Weekly Progress Reports | Frequency: Every Friday | Time: 3pm EST | Project: Mercury\n- Integration Tests | Coverage requirement: At least 85% of API endpoints | QA Lead: Marcus Williams | Project: Mercury\n- Data Retention Policy | Requirement: 7 years of audit logs | Status: Legal reviewed and approved | Project: Mercury\n- SOC 2 Type II Compliance | Requirement: Required | Audit Scheduled: February 28, 2027 | Project: Mercury\n\n## 2. DECISIONS\n\n**Made:**\n- Decided to hire 3 backend engineers (Rust, API layer)\n- Decided to hire 2 frontend engineers (Svelte)\n- Decided to use Rust for API layer backend development\n- Decided to use Svelte for frontend development\n- Decided to use PostgreSQL as database system\n- Decided to use TimescaleDB extension for PostgreSQL\n- Decided on January 10, 2027 as the database schema design milestone deadline\n- Decided to implement weekly progress reports every Friday at 3pm EST\n- Decided to require integration tests covering at least 85% of API endpoints\n- Decided to use AWS us-east-1 region for production environment\n- Decided to use AWS us-west-2 region for staging environment\n- Decided to implement 7-year data retention policy for audit logs\n- Decided to integrate with Stripe for payment processing\n- Decided to integrate with SendGrid for email communication\n- Decided to integrate with Twilio for SMS communication\n- Decided on February 28, 2027 as the security audit date\n- Decided to pursue SOC 2 Type II compliance\n\n**Not rejected or explicitly declined:** None in this segment\n\n## 3. CORRECTIONS\n\n**No corrections detected in this segment.** All information was additive with no updates to previous facts.\n\n## 4. NUMBERS\n\n| Number | Context | Unit |\n|--------|---------|------|\n| 347,250 | Mercury project budget | USD |\n| 3 | Backend engineers to hire | count |\n| 2 | Frontend engineers to hire | count |\n| 5 | Total engineering positions | count (3+2) |\n| 47 | Total design mockup screens | count |\n| 5 | Login flow screens | count |\n| 7 | Data retention requirement for audit logs | years |\n| 3 | External API integrations required | count (Stripe, Send",
+          "messagesCompressed": 8
+        },
+        {
+          "cycle": 4,
+          "step": 33,
+          "content": "# KNOWLEDGE STATE EXTRACTION - Mercury Project Segment (Continued)\n\n## 1. ENTITIES\n\n**People:**\n- Dr. Sarah Chen | Role: Project Lead | Project: Mercury\n- Marcus Williams | Role: QA Team Lead | Project: Mercury\n- James Rodriguez | Role: VP of Engineering | Title: Project Sponsor | Project: Mercury | Reports to: Lisa Park\n- Lisa Park | Role: CTO | Reports from: James Rodriguez\n\n**Projects:**\n- Mercury | Budget: $347,250 | Deadline: March 15, 2027 | Lead: Dr. Sarah Chen | Sponsor: James Rodriguez | Phase Structure: Phase 1 (Web), Phase 2 (Mobile)\n\n**Positions to Hire:**\n- Backend Engineers | Quantity: 3 | Technology: Rust | Focus: API layer | Project: Mercury | Salary Range: $145,000 - $175,000\n- Frontend Engineers | Quantity: 2 | Technology: Svelte | Project: Mercury | Salary Range: $130,000 - $160,000\n\n**Technologies/Systems:**\n- Rust | Purpose: API layer development | Quantity needed: 3 engineers skilled | Project: Mercury\n- Svelte | Purpose: Frontend development | Quantity needed: 2 engineers skilled | Project: Mercury\n- PostgreSQL | Purpose: Database | Project: Mercury\n- TimescaleDB | Type: PostgreSQL extension | Purpose: Database | Project: Mercury\n- AWS us-east-1 | Type: Cloud region | Purpose: Production environment | Project: Mercury | Monthly Cost: $12,400\n- AWS us-west-2 | Type: Cloud region | Purpose: Staging environment | Project: Mercury | Monthly Cost: $3,100\n- Stripe | Type: External API | Purpose: Payments | Project: Mercury\n- SendGrid | Type: External API | Purpose: Email | Project: Mercury\n- Twilio | Type: External API | Purpose: SMS | Project: Mercury\n\n**Design Artifacts:**\n- Mockups | Status: Completed | Total Screens: 47 | Project: Mercury\n- Login Flow | Type: User flow screens | Screen Count: 5 | Part of: Mockups | Project: Mercury\n\n**Milestones:**\n- Database Schema Design | Due Date: January 10, 2027 | Project: Mercury | Technology Stack: PostgreSQL with TimescaleDB extension\n- Security Audit | Due Date: February 28, 2027 | Project: Mercury | Compliance Required: SOC 2 Type II\n\n**Processes/Requirements:**\n- Weekly Progress Reports | Frequency: Every Friday | Time: 3pm EST | Project: Mercury\n- Integration Tests | Coverage requirement: At least 85% of API endpoints | QA Lead: Marcus Williams | Project: Mercury\n- Data Retention Policy | Requirement: 7 years of audit logs | Status: Legal reviewed and approved | Project: Mercury\n- SOC 2 Type II Compliance | Requirement: Required | Audit Scheduled: February 28, 2027 | Project: Mercury\n\n## 2. DECISIONS\n\n**Made in this segment:**\n- Decided that Phase 1 (web application) is the focus through March 15, 2027 deadline\n- Decided that Phase 2 (mobile app) will start after March 15, 2027\n- Decided to establish salary range for Backend Engineers: $145,000 - $175,000\n- Decided to establish salary range for Frontend Engineers: $130,000 - $160,000\n- Decided on infrastructure costs: $12,400/month for production (AWS us-east-1)\n- Decided on infrastructure costs: $3,100/month for staging (AWS us-west-2)\n- Identified James Rodriguez as Project Sponsor (VP of Engineering)\n\n**Previously made (from prior segments):**\n- Decided to hire 3 backend engineers (Rust, API layer)\n- Decided to hire 2 frontend engineers (Svelte)\n- Decided to use Rust for API layer backend development\n- Decided to use Svelte for frontend development\n- Decided to use PostgreSQL as database system\n- Decided to use TimescaleDB extension for PostgreSQL\n- Decided on January 10, 2027 as the database schema design milestone deadline\n- Decided to implement weekly progress reports every Friday at 3pm EST\n- Decided to require integration tests covering at least 85% of API endpoints\n- Decided to use AWS us-east-1 region for production environment\n-",
+          "messagesCompressed": 8
+        },
+        {
+          "cycle": 5,
+          "step": 41,
+          "content": "# KNOWLEDGE STATE EXTRACTION - Mercury Project Segment (Continued)\n\n## 1. ENTITIES\n\n**People:**\n- Dr. Sarah Chen | Role: Project Lead | Project: Mercury\n- Marcus Williams | Role: QA Team Lead | Project: Mercury\n- James Rodriguez | Role: VP of Engineering | Title: Project Sponsor | Project: Mercury | Reports to: Lisa Park\n- Lisa Park | Role: CTO | Reports from: James Rodriguez\n\n**Projects:**\n- Mercury | Budget: $347,250 | Deadline: March 15, 2027 | Lead: Dr. Sarah Chen | Sponsor: James Rodriguez | Phase Structure: Phase 1 (Web), Phase 2 (Mobile)\n\n**Positions to Hire:**\n- Backend Engineers | Quantity: 3 | Technology: Rust | Focus: API layer | Project: Mercury | Salary Range: $145,000 - $175,000\n- Frontend Engineers | Quantity: 2 | Technology: Svelte | Project: Mercury | Salary Range: $130,000 - $160,000\n\n**Technologies/Systems:**\n- Rust | Purpose: API layer development | Quantity needed: 3 engineers skilled | Project: Mercury\n- Svelte | Purpose: Frontend development | Quantity needed: 2 engineers skilled | Project: Mercury\n- PostgreSQL | Purpose: Database | Project: Mercury\n- TimescaleDB | Type: PostgreSQL extension | Purpose: Database | Project: Mercury\n- AWS us-east-1 | Type: Cloud region | Purpose: Production environment | Project: Mercury | Monthly Cost: $12,400\n- AWS us-west-2 | Type: Cloud region | Purpose: Staging environment | Project: Mercury | Monthly Cost: $3,100\n- Stripe | Type: External API | Purpose: Payments | Project: Mercury\n- SendGrid | Type: External API | Purpose: Email | Project: Mercury\n- Twilio | Type: External API | Purpose: SMS | Project: Mercury\n\n**Design Artifacts:**\n- Mockups | Status: Completed | Total Screens: 47 | Project: Mercury\n- Login Flow | Type: User flow screens | Screen Count: 5 | Part of: Mockups | Project: Mercury\n\n**Milestones:**\n- Database Schema Design | Due Date: January 10, 2027 | Project: Mercury | Technology Stack: PostgreSQL with TimescaleDB extension\n- Security Audit | Due Date: February 28, 2027 | Project: Mercury | Compliance Required: SOC 2 Type II\n\n**Processes/Requirements:**\n- Weekly Progress Reports | Frequency: Every Friday | Time: 3pm EST | Project: Mercury\n- Sprint Schedule | Duration: 2 weeks | Sprint 1 Start Date: January 6, 2027 | Sprint Reviews: Fridays | Project: Mercury\n- Integration Tests | Coverage requirement: At least 85% of API endpoints | QA Lead: Marcus Williams | Project: Mercury\n- Data Retention Policy | Requirement: 7 years of audit logs | Status: Legal reviewed and approved | Project: Mercury\n- SOC 2 Type II Compliance | Requirement: Required | Audit Scheduled: February 28, 2027 | Project: Mercury\n- API Rate Limiting | Standard Tier: 1,000 requests per minute | Premium Tier: 5,000 requests per minute | Project: Mercury\n- Data Encryption at Rest | Method: AES-256 | Data Type: Customer data | Project: Mercury\n- Data Encryption in Transit | Method: TLS 1.3 | Data Type: Customer data | Project: Mercury\n- Backup Strategy | Full Backup Frequency: Daily at 2am UTC | Incremental Backup Frequency: Every 6 hours | Retention Period: 30 days | Project: Mercury\n\n## 2. DECISIONS\n\n**Made in this segment:**\n- Decided on 2-week sprint duration\n- Decided Sprint 1 starts January 6, 2027\n- Decided sprint reviews occur on Fridays\n- Decided API rate limit for Standard Tier: 1,000 requests per minute\n- Decided API rate limit for Premium Tier: 5,000 requests per minute\n- Decided customer data encryption at rest: AES-256\n- Decided customer data encryption in transit: TLS 1.3\n- Decided full backup schedule: Daily at 2am UTC\n- Decided incremental backup schedule: Every 6 hours\n- Decided backup retention period: 30 days\n\n**Previously",
+          "messagesCompressed": 8
+        }
+      ]
+    },
+    {
+      "scenarioName": "State Change Tracking",
+      "probeResults": [
+        {
+          "fact": "initial Widget-A: 500",
+          "type": "quantity",
+          "introducedAtStep": 1,
+          "retainedByCycle": [
+            true,
+            true,
+            false
+          ],
+          "firstLostAtCycle": 3
+        },
+        {
+          "fact": "initial Widget-B: 300",
+          "type": "quantity",
+          "introducedAtStep": 1,
+          "retainedByCycle": [
+            true,
+            true,
+            false
+          ],
+          "firstLostAtCycle": 3
+        },
+        {
+          "fact": "new product Gizmo-Z",
+          "type": "entity",
+          "introducedAtStep": 4,
+          "retainedByCycle": [
+            false,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 1
+        },
+        {
+          "fact": "Gadget-X discontinued/clearance",
+          "type": "decision",
+          "introducedAtStep": 6,
+          "retainedByCycle": [
+            false,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 1
+        },
+        {
+          "fact": "warehouse fire -30 Widget-B",
+          "type": "quantity",
+          "introducedAtStep": 7,
+          "retainedByCycle": [
+            false,
+            true,
+            false
+          ],
+          "firstLostAtCycle": 1
+        },
+        {
+          "fact": "new product MegaPart-Q 400 units",
+          "type": "entity",
+          "introducedAtStep": 13,
+          "retainedByCycle": [
+            false,
+            false,
+            false
+          ],
+          "firstLostAtCycle": 2
+        },
+        {
+          "fact": "Widget-A price $24.99",
+          "type": "quantity",
+          "introducedAtStep": 14,
+          "retainedByCycle": [
+            false,
+            false,
+            false
+          ],
+          "firstLostAtCycle": 2
+        }
+      ],
+      "delegationCycles": 3,
+      "delegationLog": [
+        {
+          "cycle": 1,
+          "step": 9,
+          "content": "# Complete Knowledge State Extraction\n\n## 1. ENTITIES\n\n**Products:**\n- Widget-A: Inventory item\n- Widget-B: Inventory item\n- Gadget-X: Inventory item\n\n**Systems/Processes:**\n- Inventory management system\n- Quality control process\n- Customer order fulfillment\n\n**Locations:**\n- Warehouse (storage location for inventory)\n\n## 2. DECISIONS\n\n- **Decision 1**: Accept shipment and add all items to inventory (no rejection)\n- **Decision 2**: Process customer order and remove 50 units of Widget-A from inventory\n- **Decision 3**: Remove defective units from inventory per quality control findings (no alternative considered)\n\n## 3. CORRECTIONS (OLD → NEW VALUES)\n\n**Widget-A Inventory:**\n- Initial state (after shipment): 500 units\n- After customer order removal: 450 units\n\n**Widget-B Inventory:**\n- Initial state (after shipment): 300 units\n- After defective unit removal: 285 units *(CORRECTION IN PROGRESS - see Current State)*\n\n**Total Warehouse Count:**\n- After shipment: 1,000 units\n- After customer order: 950 units\n- After defective removal: 935 units *(CORRECTION IN PROGRESS - see Current State)*\n\n## 4. NUMBERS\n\n| Number | Context |\n|--------|---------|\n| 500 | Widget-A units received in shipment |\n| 300 | Widget-B units received in shipment |\n| 200 | Gadget-X units received in shipment |\n| 1,000 | Total warehouse units after shipment |\n| 50 | Widget-A units removed for customer order |\n| 950 | Total warehouse units after customer order |\n| 15 | Widget-B defective units removed by quality control |\n| 935 | Total warehouse units after defective removal |\n\n## 5. CURRENT STATE (End of Segment)\n\n**Inventory Levels:**\n- Widget-A: 450 units\n- Widget-B: 285 units *(300 - 15 defective units)*\n- Gadget-X: 200 units\n- **Total warehouse: 935 units**\n\n**Transaction History (Chronological):**\n1. Shipment received: +500 Widget-A, +300 Widget-B, +200 Gadget-X\n2. Customer order fulfilled: -50 Widget-A\n3. Quality control rejection: -15 Widget-B (defective)",
+          "messagesCompressed": 5
+        },
+        {
+          "cycle": 2,
+          "step": 17,
+          "content": "# Complete Knowledge State Extraction\n\n## 1. ENTITIES\n\n**Products:**\n- Widget-A: Inventory item, active status\n- Widget-B: Inventory item, active status\n- Gadget-X: Inventory item, discontinued, moved to clearance section\n- Gizmo-Z: Inventory item (new), active status\n\n**Systems/Processes:**\n- Inventory management system\n- Quality control process\n- Customer order fulfillment\n- Product return processing\n- Clearance management system\n- Warehouse damage assessment\n\n**Locations:**\n- Warehouse (main storage location for inventory)\n- Clearance section (within warehouse, designated for discontinued items)\n\n**Events:**\n- Warehouse fire (damage incident)\n\n## 2. DECISIONS\n\n- **Decision 1**: Accept new shipment of 100 Widget-A and 75 Gizmo-Z units (no rejection)\n- **Decision 2**: Process customer return of 10 Widget-A units and add back to inventory\n- **Decision 3**: Discontinue Gadget-X product line and relocate all units to clearance section (no destruction, count preserved)\n- **Decision 4**: Remove 30 damaged Widget-B units from inventory due to warehouse fire damage (no alternative considered)\n\n## 3. CORRECTIONS (OLD → NEW VALUES)\n\n**Widget-A Inventory:**\n- After defective removal: 450 units\n- After new shipment: 550 units\n- After customer return: 560 units\n\n**Widget-B Inventory:**\n- After defective removal: 285 units\n- After warehouse fire damage: 255 units *(CORRECTION: 285 - 30 damaged units)*\n\n**Gadget-X Inventory:**\n- After defective removal: 200 units\n- Status change: Active → **Clearance** (count remains 200 units)\n\n**Gizmo-Z Inventory:**\n- Did not exist\n- After new shipment: 75 units *(NEW PRODUCT ADDED)*\n\n**Total Warehouse Count:**\n- After defective removal: 935 units\n- After new shipment: 1,110 units\n- After customer return: 1,120 units\n- After warehouse fire damage: 1,090 units *(CORRECTION: 1,120 - 30 damaged Widget-B units)*\n\n**Active vs. Clearance Breakdown:**\n- After Gadget-X moved to clearance: 920 active, 200 clearance\n- After warehouse fire: 890 active, 200 clearance *(Widget-B reduced from 285 to 255)*\n\n## 4. NUMBERS\n\n| Number | Context |\n|--------|---------|\n| 100 | Widget-A units received in new shipment |\n| 75 | Gizmo-Z units received in new shipment |\n| 550 | Widget-A units after new shipment |\n| 10 | Widget-A units returned by customer |\n| 560 | Widget-A units after customer return |\n| 200 | Gadget-X units moved to clearance section |\n| 1,110 | Total warehouse units after new shipment |\n| 1,120 | Total warehouse units after customer return |\n| 30 | Widget-B units damaged in warehouse fire |\n| 255 | Widget-B units after fire damage removal |\n| 1,090 | Total warehouse units after fire damage removal |\n| 890 | Active inventory units after fire damage |\n| 200 | Clearance inventory units (unchanged) |\n\n## 5. CURRENT STATE (End of Segment)\n\n**Inventory Levels by Product:**\n- Widget-A: 560 units (Active)\n- Widget-B: 255 units (Active) *(damaged units removed)*\n- Gadget-X: 200 units (Clearance)\n- Gizmo-Z: 75 units (Active)\n\n**Inventory Summary:**\n- **Total warehouse: 1,090 units**\n- **Active inventory: 890 units**\n- **Clearance inventory: 200 units**\n\n**Transaction History (Chronological):**\n1. Shipment received: +500 Widget-A, +300 Widget-B, +200 Gadget-X\n2. Customer order fulfilled: -50 Widget-A\n3. Quality control rejection: -15 Widget-B (defective)",
+          "messagesCompressed": 8
+        },
+        {
+          "cycle": 3,
+          "step": 25,
+          "content": "# Complete Knowledge State Extraction - Current Segment\n\n## 1. ENTITIES\n\n**Products:**\n- Widget-A: Inventory item, active status\n- Widget-B: Inventory item, active status\n- Gadget-X: Inventory item, discontinued, clearance section status\n- Gizmo-Z: Inventory item (new), active status\n\n**Systems/Processes:**\n- Inventory management system\n- Quality control process\n- Customer order fulfillment\n- Product return processing\n- Clearance management system\n- Warehouse damage assessment\n- Internal transfer system\n- Year-end audit process\n\n**Locations:**\n- Warehouse (main storage location)\n- Clearance section (within warehouse, for discontinued items)\n- Downtown location (receiving internal transfer)\n\n**Events:**\n- Emergency customer order (200 Widget-A units)\n- Bulk shipment received (1,000 Widget-B units)\n- Internal transfer to downtown location (50 Gizmo-Z units)\n- Year-end audit (inventory count correction)\n\n## 2. DECISIONS\n\n- **Decision 1**: Process emergency order for 200 Widget-A units and ship immediately (approved, no alternative considered)\n- **Decision 2**: Accept bulk shipment of 1,000 Widget-B units to replenish stock (approved, no rejection)\n- **Decision 3**: Transfer 50 Gizmo-Z units to downtown location via internal transfer (approved)\n- **Decision 4**: Apply year-end audit correction of +10 Widget-A units to inventory (approved, discrepancy resolved)\n\n## 3. CORRECTIONS (OLD → NEW VALUES)\n\n**Widget-A Inventory:**\n- Before emergency order: 560 units\n- After emergency order: 360 units *(CORRECTION: 560 - 200 emergency shipment)*\n- After audit correction: 370 units *(CORRECTION: 360 + 10 audit adjustment)*\n\n**Widget-B Inventory:**\n- Before bulk shipment: 255 units\n- After bulk shipment: 1,255 units *(CORRECTION: 255 + 1,000 new shipment)*\n\n**Gizmo-Z Inventory:**\n- Before internal transfer: 75 units\n- After internal transfer: 25 units *(CORRECTION: 75 - 50 units to downtown location)*\n\n**Total Warehouse Count:**\n- Before emergency order: 1,090 units\n- After emergency order: 890 units *(CORRECTION: 1,090 - 200 Widget-A shipped)*\n- After bulk shipment: 1,890 units *(CORRECTION: 890 + 1,000 Widget-B)*\n- After internal transfer: 1,840 units *(CORRECTION: 1,890 - 50 Gizmo-Z)*\n- After audit correction: 1,850 units *(CORRECTION: 1,840 + 10 Widget-A audit adjustment)*\n\n**Active vs. Clearance Breakdown:**\n- Before emergency order: 890 active, 200 clearance\n- After emergency order: 690 active, 200 clearance *(Widget-A reduced)*\n- After bulk shipment: 1,690 active, 200 clearance *(Widget-B increased)*\n- After internal transfer: 1,640 active, 200 clearance *(Gizmo-Z reduced)*\n- After audit correction: 1,650 active, 200 clearance *(Widget-A increased)*\n\n## 4. NUMBERS\n\n| Number | Context |\n|--------|---------|\n| 200 | Widget-A units shipped in emergency customer order |\n| 360 | Widget-A units after emergency order shipment |\n| 1,000 | Widget-B units received in bulk shipment |\n| 1,255 | Widget-B units after bulk shipment received |\n| 50 | Gizmo-Z units transferred to downtown location |\n| 25 | Gizmo-Z units remaining after downtown transfer |\n| 1,840 | Total warehouse units after downtown transfer |\n| 10 | Widget-A units added via year-end audit correction |\n| 370 | Widget-A units after audit correction |\n| 1,850 | Total warehouse units after audit correction |\n| 1,650 | Active inventory units after audit correction |\n| 200 | Clearance inventory units",
+          "messagesCompressed": 8
+        }
+      ]
+    },
+    {
+      "scenarioName": "Contradiction Resolution",
+      "probeResults": [
+        {
+          "fact": "budget $8,500 (corrected from $5,000)",
+          "type": "correction",
+          "introducedAtStep": 7,
+          "retainedByCycle": [
+            false,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 1
+        },
+        {
+          "fact": "hotel Aman Tokyo (corrected from Park Hyatt)",
+          "type": "correction",
+          "introducedAtStep": 4,
+          "retainedByCycle": [
+            false,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 1
+        },
+        {
+          "fact": "Aman rate $500/night (corrected from $800)",
+          "type": "correction",
+          "introducedAtStep": 15,
+          "retainedByCycle": [
+            false,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 0
+        },
+        {
+          "fact": "Kenji lives in Shinjuku (corrected from Shibuya)",
+          "type": "correction",
+          "introducedAtStep": 9,
+          "retainedByCycle": [
+            false,
+            false,
+            true
+          ],
+          "firstLostAtCycle": 1
+        },
+        {
+          "fact": "Kenji phone 090-8765-4321",
+          "type": "phone/id",
+          "introducedAtStep": 9,
+          "retainedByCycle": [
+            false,
+            false,
+            true
+          ],
+          "firstLostAtCycle": 1
+        },
+        {
+          "fact": "trip dates June 1-18 (extended from June 14)",
+          "type": "correction",
+          "introducedAtStep": 11,
+          "retainedByCycle": [
+            false,
+            false,
+            true
+          ],
+          "firstLostAtCycle": 2
+        },
+        {
+          "fact": "flight cost $1,350",
+          "type": "quantity",
+          "introducedAtStep": 12,
+          "retainedByCycle": [
+            false,
+            false,
+            false
+          ],
+          "firstLostAtCycle": 2
+        },
+        {
+          "fact": "cooking class $95 Kyoto",
+          "type": "quantity",
+          "introducedAtStep": 13,
+          "retainedByCycle": [
+            false,
+            false,
+            false
+          ],
+          "firstLostAtCycle": 2
+        }
+      ],
+      "delegationCycles": 3,
+      "delegationLog": [
+        {
+          "cycle": 1,
+          "step": 9,
+          "content": "# KNOWLEDGE STATE EXTRACTION\n\n## 1. ENTITIES\n\n**PERSON:**\n- User: Planning a trip (no name provided)\n\n**PLACES:**\n- Tokyo, Japan (destination)\n- Park Hyatt Tokyo (specific hotel)\n\n**ORGANIZATIONS:**\n- ANA (All Nippon Airways) - airline\n- Park Hyatt (hotel chain/property)\n\n**PRODUCTS/SERVICES:**\n- ANA round-trip flight package\n- Park Hyatt Tokyo hotel room (nightly rate)\n\n**ATTRIBUTES:**\n- Park Hyatt Tokyo: $450/night rate\n\n---\n\n## 2. DECISIONS\n\n| Decision | Choice | Rejected/Alternative |\n|----------|--------|----------------------|\n| Airline selection | ANA round-trip flight | Other airlines (unspecified) |\n| Hotel selection | Park Hyatt Tokyo | Budget hostels/mid-range hotels previously discussed |\n| Hotel nightly rate | $450/night accepted | Previous options: $30-150/night range |\n\n---\n\n## 3. CORRECTIONS\n\n**CRITICAL CORRECTION - Budget Feasibility:**\n\n| Aspect | Previous State | New State | Impact |\n|--------|---|---|---|\n| Accommodation strategy | Budget: $520-1,560 for 13 nights ($40-120/night) | New cost: $5,850 for 13 nights ($450/night × 13) | **BUDGET EXCEEDED by $2,050** |\n| Total trip cost assumption | $3,800 remaining after flights | $1,200 (flights) + $5,850 (hotel) = $7,050 total | **EXCEEDS $5,000 budget by $2,050** |\n\n---\n\n## 4. NUMBERS\n\n| Number | Context | Unit |\n|--------|---------|------|\n| June 1 | Trip start date | Date |\n| June 14 | Trip end date | Date |\n| 14 | Total trip duration | Days |\n| 13 | Number of nights (June 1-14) | Nights |\n| $5,000 | Total budget | USD |\n| $1,200 | ANA round-trip flight cost | USD |\n| $3,800 | Remaining budget after flight | USD |\n| $450 | Park Hyatt Tokyo nightly rate | USD/night |\n| $5,850 | Park Hyatt total cost (13 nights × $450) | USD |\n\n---\n\n## 5. CURRENT STATE\n\n**Trip Details:**\n- Destination: Tokyo\n- Dates: June 1-14, 2024 (assumption)\n- Duration: 14 days / 13 nights\n- Total Budget: $5,000\n\n**Bookings Made:**\n- ✓ Flight: ANA round-trip, $1,200\n- ⚠️ Hotel: Park Hyatt Tokyo selected at $450/night\n\n**Financial Status:**\n- Flight Cost: $1,200\n- Proposed Hotel Cost: $5,850 (13 nights × $450)\n- **TOTAL: $7,050**\n- **BUDGET STATUS: OVER BY $2,050 (41% over budget)**\n- Remaining after flight: $3,800\n- Remaining after proposed hotel: **-$2,050 (DEFICIT)**\n\n**Outstanding Information:**\n- Trip interests/activities not yet specified\n- Local transportation preferences not yet determined\n- Daily activity budget not allocated\n- Food/dining budget not allocated\n- User has not acknowledged budget constraint violation",
+          "messagesCompressed": 5
+        },
+        {
+          "cycle": 2,
+          "step": 17,
+          "content": "# KNOWLEDGE STATE EXTRACTION - SEGMENT UPDATE\n\n## 1. ENTITIES\n\n**PERSON:**\n- User: Planning Tokyo trip (no name provided)\n- Kenji: User's friend, lives in Shibuya, phone: 090-1234-5678\n\n**PLACES:**\n- Tokyo, Japan (destination)\n- Shibuya (district in Tokyo, where Kenji lives)\n- Toyosu Market (formerly Tsukiji Fish Market, new location)\n- Tsukiji (old market location - OBSOLETE)\n\n**ORGANIZATIONS:**\n- ANA (All Nippon Airways) - airline\n- Park Hyatt Tokyo (hotel - now fully booked/rejected)\n- Aman Tokyo (hotel - currently selected)\n\n**PRODUCTS/SERVICES:**\n- ANA round-trip flight package\n- Park Hyatt Tokyo hotel room (rejected due to full booking)\n- Aman Tokyo hotel room (nightly rate)\n\n**ATTRIBUTES:**\n- Park Hyatt Tokyo: $450/night (REJECTED - fully booked)\n- Aman Tokyo: $800/night (SELECTED)\n\n---\n\n## 2. DECISIONS\n\n| Decision | Choice | Rejected/Alternative | Rationale |\n|----------|--------|----------------------|-----------|\n| Hotel selection (PRIMARY) | Park Hyatt Tokyo at $450/night | Budget hostels, mid-range hotels | CHANGED: Park Hyatt became unavailable |\n| Hotel selection (SECONDARY) | Aman Tokyo at $800/night | (implicit: other options) | Selected after Park Hyatt fully booked |\n| Budget approval | $8,500 total budget | $5,000 original budget | Boss approved travel bonus |\n| June 3 activity | Toyosu Market visit | Tsukiji Market (old location) | Updated due to market relocation |\n| June 5 activity | Dinner with Kenji in Shibuya | Not yet specified | Social commitment added |\n\n---\n\n## 3. CORRECTIONS\n\n| Aspect | Previous State | New State | Reason | Impact |\n|--------|---|---|---|---|\n| **BUDGET - CRITICAL** | $5,000 total | $8,500 total | Boss approved travel bonus | **Budget deficit eliminated**: was -$6,600 with Aman Tokyo, now +$1,900 remaining |\n| Hotel Selection | Park Hyatt Tokyo ($450/night) | Aman Tokyo ($800/night) | Park Hyatt fully booked | Cost increased by $4,550 total (13 nights × $350/night difference) |\n| Market Location | Tsukiji Fish Market | Toyosu Market | Market permanently relocated | No functional change to trip; user corrected own knowledge |\n\n---\n\n## 4. NUMBERS\n\n| Number | Context | Unit | Status |\n|--------|---------|------|--------|\n| June 1 | Trip start date | Date | Confirmed |\n| June 3 | Toyosu Market visit date | Date | Confirmed activity |\n| June 5 | Dinner with Kenji date | Date | Confirmed activity |\n| June 14 | Trip end date | Date | Confirmed |\n| 14 | Total trip duration | Days | Confirmed |\n| 13 | Number of nights (June 1-14) | Nights | Confirmed |\n| 090-1234-5678 | Kenji's phone number | Phone | Contact information |\n| $5,000 | Original total budget | USD | SUPERSEDED |\n| $8,500 | **NEW total budget** | USD | **ACTIVE** |\n| $1,200 | ANA round-trip flight cost | USD | Confirmed |\n| $450 | Park Hyatt Tokyo nightly rate | USD/night | REJECTED (fully booked) |\n| $800 | Aman Tokyo nightly rate | USD/night | **ACTIVE SELECTION** |\n| $10,400 | Aman Tokyo total cost (13 nights × $800) | USD | Current hotel cost |\n\n---\n\n## 5. CURRENT STATE\n\n**Trip Details:**\n- Destination: Tokyo, Japan\n- Dates: June 1-14, 2024 (assumption)\n- Duration: 14 days / 13 nights\n- **Updated Budget: $8,500** (approved by boss)\n\n**Bookings Made:**\n- ✓ Flight: ANA",
+          "messagesCompressed": 8
+        },
+        {
+          "cycle": 3,
+          "step": 25,
+          "content": "# KNOWLEDGE STATE EXTRACTION - SEGMENT UPDATE\n\n## 1. ENTITIES\n\n**PERSON:**\n- User: Planning Tokyo/Kyoto trip (no name provided)\n- Kenji: User's friend, lives in Shinjuku, phone: 090-8765-4321\n\n**PLACES:**\n- Tokyo, Japan (primary destination)\n- Shinjuku (district in Tokyo, where Kenji lives)\n- Shibuya (former district mentioned, Kenji's previous location - OBSOLETE)\n- Toyosu Market (market in Tokyo, visit planned)\n- Kyoto, Japan (secondary destination, bullet train trip)\n\n**ORGANIZATIONS:**\n- ANA (All Nippon Airways) - airline\n- Aman Tokyo (hotel - currently selected)\n- Japanese Railways / JR (implied, operates Shinkansen)\n\n**PRODUCTS/SERVICES:**\n- ANA round-trip flight package\n- Aman Tokyo hotel room (nightly rate)\n- Shinkansen (bullet train) round-trip ticket Tokyo-Kyoto\n\n**ATTRIBUTES:**\n- Aman Tokyo: $600/night (CORRECTED from $800/night)\n- Shinkansen round-trip: $280\n- ANA round-trip flight: $1,200\n\n---\n\n## 2. DECISIONS\n\n| Decision | Choice | Rejected/Alternative | Rationale |\n|----------|--------|----------------------|-----------|\n| Hotel selection | Aman Tokyo at $600/night | Park Hyatt Tokyo (fully booked), mid-range hotels | Selected after Park Hyatt unavailable |\n| Budget approval | $8,500 total budget | $5,000 original budget | Boss approved travel bonus |\n| Kyoto excursion | Shinkansen round-trip June 7-9 | Not specified | Added to itinerary |\n| Trip extension | June 1-18 (18 days) | June 1-14 (14 days, previous) | Extended trip duration |\n| Return flight date | June 18 (NEW) | June 14 (PREVIOUS) | Changed to accommodate extended trip |\n| June 3 activity | Toyosu Market visit | Tsukiji Market (old location) | Market relocation |\n| June 5 activity | Dinner with Kenji in Shinjuku | Shibuya (Kenji's old location) | Kenji relocated |\n\n---\n\n## 3. CORRECTIONS\n\n| Aspect | Previous State | New State | Reason | Impact |\n|--------|---|---|---|---|\n| **Kenji's Location - CRITICAL** | Shibuya | Shinjuku | Kenji moved last month | June 5 dinner venue changed to Shinjuku |\n| **Kenji's Phone Number - CRITICAL** | 090-1234-5678 | 090-8765-4321 | Kenji got new number | Contact information updated |\n| **Aman Tokyo Nightly Rate - CRITICAL** | $800/night | $600/night | User was looking at wrong room type | Hotel total cost reduced by $2,600 |\n| **Trip End Date - CRITICAL** | June 14 | June 18 | Trip extension approved | Added 4 days; total nights increased from 13 to 17 |\n| **Total Trip Duration - CRITICAL** | 14 days / 13 nights | 18 days / 17 nights | Extended trip dates | 4 additional days added |\n| **Hotel Stay Duration** | 13 nights at Aman Tokyo | 17 nights at Aman Tokyo (with 2-night Kyoto gap) | Trip extension | Additional 4 nights at $600/night = $2,400 additional cost |\n\n---\n\n## 4. NUMBERS\n\n| Number | Context | Unit | Status |\n|--------|---------|------|--------|\n| June 1 | Trip start date | Date | Confirmed |\n| June 3 | Toyosu Market visit date | Date | Confirmed activity |\n| June 5 | Dinner with Kenji date | Date | Confirmed activity |\n| June 7 | Shinkansen departure to Kyoto | Date | Confirmed |\n| June 9 | Shinkansen return from Kyoto | Date | Confirmed |\n| June 18 | Trip end date | Date | **UPDATED (was June 14)** |",
+          "messagesCompressed": 8
+        }
+      ]
+    },
+    {
+      "scenarioName": "Multi-hop Reasoning",
+      "probeResults": [
+        {
+          "fact": "engineering team 24 people",
+          "type": "quantity",
+          "introducedAtStep": 2,
+          "retainedByCycle": [
+            true,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 0
+        },
+        {
+          "fact": "floor 3 conference room 50 people",
+          "type": "spatial",
+          "introducedAtStep": 5,
+          "retainedByCycle": [
+            false,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 1
+        },
+        {
+          "fact": "floor 2 conference room 30 people",
+          "type": "spatial",
+          "introducedAtStep": 5,
+          "retainedByCycle": [
+            false,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 1
+        },
+        {
+          "fact": "catering $35 per person per meal",
+          "type": "quantity",
+          "introducedAtStep": 8,
+          "retainedByCycle": [
+            false,
+            false,
+            true
+          ],
+          "firstLostAtCycle": 1
+        },
+        {
+          "fact": "3 catered meals",
+          "type": "quantity",
+          "introducedAtStep": 8,
+          "retainedByCycle": [
+            false,
+            false,
+            true
+          ],
+          "firstLostAtCycle": 1
+        },
+        {
+          "fact": "2 charter buses 30 each",
+          "type": "quantity",
+          "introducedAtStep": 11,
+          "retainedByCycle": [
+            false,
+            false,
+            true
+          ],
+          "firstLostAtCycle": 2
+        },
+        {
+          "fact": "keynote in largest conference room",
+          "type": "relationship",
+          "introducedAtStep": 7,
+          "retainedByCycle": [
+            false,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 1
+        },
+        {
+          "fact": "engineering budget $15k",
+          "type": "quantity",
+          "introducedAtStep": 15,
+          "retainedByCycle": [
+            false,
+            false,
+            false
+          ],
+          "firstLostAtCycle": 2
+        }
+      ],
+      "delegationCycles": 3,
+      "delegationLog": [
+        {
+          "cycle": 1,
+          "step": 9,
+          "content": "# Complete Knowledge State Extraction\n\n## 1. ENTITIES\n\n**Places:**\n- Aspen Mountain Lodge (venue for annual company retreat)\n- Floor 1 (assigned to HR)\n- Floor 2 (assigned to Sales)\n- Floor 3 (assigned to Engineering)\n- Floor 4 (assigned to Marketing)\n\n**Organizations/Teams:**\n- Engineering team\n- Sales team\n- Marketing team\n- HR team\n- (Parent company - unnamed)\n\n**Attributes by Team:**\n- Engineering: 24 people, Floor 3\n- Sales: 18 people, Floor 2\n- Marketing: 12 people, Floor 4\n- HR: 6 people, Floor 1\n\n---\n\n## 2. DECISIONS\n\n**Decision Made:**\n- Room assignments by floor and team were finalized:\n  - Engineering → Floor 3\n  - Sales → Floor 2\n  - Marketing → Floor 4\n  - HR → Floor 1\n\n**No rejected options mentioned.**\n\n---\n\n## 3. CORRECTIONS\n\n**None.** No previous facts were corrected, updated, or contradicted in this segment. All information provided was additive/new.\n\n---\n\n## 4. NUMBERS\n\n- Engineering team size: **24** people\n- Sales team size: **18** people\n- Marketing team size: **12** people\n- HR team size: **6** people\n- **Total attendees: 60** people\n- Floor assignments: **1, 2, 3, 4** (four floors assigned)\n\n---\n\n## 5. CURRENT STATE\n\n**Retreat Details (As of End of Segment):**\n- **Venue:** Aspen Mountain Lodge\n- **Total Attendees:** 60 people\n- **Attendance by Team:**\n  - Engineering: 24 people → Floor 3\n  - Sales: 18 people → Floor 2\n  - Marketing: 12 people → Floor 4\n  - HR: 6 people → Floor 1\n- **Room Assignments:** COMPLETE (all teams assigned to specific floors)\n- **Dates:** NOT SPECIFIED\n- **Budget:** NOT SPECIFIED\n- **Duration (nights):** NOT SPECIFIED\n- **Activities/Programs:** NOT SPECIFIED\n- **Catering:** NOT SPECIFIED",
+          "messagesCompressed": 5
+        },
+        {
+          "cycle": 2,
+          "step": 17,
+          "content": "# Complete Knowledge State Extraction – Segment 3\n\n## 1. ENTITIES\n\n**People:**\n- Patricia Walsh (CEO, keynote speaker on Day 1)\n\n**Places:**\n- Aspen Mountain Lodge (venue for annual company retreat)\n- Floor 1 (assigned to HR, 8 rooms, 4-person capacity per room)\n- Floor 2 (assigned to Sales, 8 rooms, 4-person capacity per room, 30-person conference room)\n- Floor 3 (assigned to Engineering, 8 rooms, 4-person capacity per room, 50-person conference room)\n- Floor 4 (assigned to Marketing, 8 rooms, 4-person capacity per room, 20-person conference room)\n\n**Organizations/Teams:**\n- Engineering team (24 people, Floor 3)\n- Sales team (18 people, Floor 2)\n- Marketing team (12 people, Floor 4)\n- HR team (6 people, Floor 1)\n\n**Venue Facilities:**\n- Floor 1 Conference Room: None mentioned\n- Floor 2 Conference Room: 30-person capacity\n- Floor 3 Conference Room: 50-person capacity\n- Floor 4 Conference Room: 20-person capacity\n- Largest conference room at Aspen Mountain Lodge: Identified as the location for keynote\n\n---\n\n## 2. DECISIONS\n\n**Decision Made:**\n- Day 1 keynote will be held in the largest conference room available at Aspen Mountain Lodge\n- CEO Patricia Walsh designated as keynote speaker\n- Day 1 agenda structure finalized:\n  - Morning: Company-wide keynote (all 60 people)\n  - Afternoon: Team breakout sessions (each team separately in their respective conference rooms)\n\n**No rejected options mentioned.**\n\n---\n\n## 3. CORRECTIONS\n\n**One implicit correction identified:**\n\n| Aspect | Previous State | New State | Reason |\n|--------|---|---|---|\n| Keynote Location | Assumed to be Floor 3 Conference Room (50-person capacity) | Will be in the largest conference room available at the lodge (capacity unspecified, but sufficient for 60 people) | User clarified keynote uses \"largest conference room available,\" implying a larger venue than Floor 3's 50-person room exists at the lodge |\n\n---\n\n## 4. NUMBERS\n\n- Total attendees: **60** people\n- Engineering team size: **24** people\n- Sales team size: **18** people\n- Marketing team size: **12** people\n- HR team size: **6** people\n- Rooms per floor: **8** rooms\n- Capacity per room: **4** people per room\n- Total room capacity per floor: **32** people (8 rooms × 4 capacity)\n- Total rooms needed: **16** rooms\n- Unused rooms: **16** rooms\n- Floor 2 Conference Room capacity: **30** people\n- Floor 3 Conference Room capacity: **50** people\n- Floor 4 Conference Room capacity: **20** people\n\n---\n\n## 5. CURRENT STATE\n\n**Retreat Details (As of End of Segment):**\n- **Venue:** Aspen Mountain Lodge\n- **Total Attendees:** 60 people\n- **Attendance by Team:**\n  - Engineering: 24 people → Floor 3 (needs 6 rooms)\n  - Sales: 18 people → Floor 2 (needs 5 rooms)\n  - Marketing: 12 people → Floor 4 (needs 3 rooms)\n  - HR: 6 people → Floor 1 (needs 2 rooms)\n\n**Room/Facility Details:**\n- Each floor: 8 rooms, 4-person capacity per room (32 people per floor)\n- Floor 2 Conference Room: 30-person capacity\n- Floor 3 Conference Room: 50-person capacity\n- Floor 4 Conference Room: 20-person capacity\n- Floor 1 Conference Room: None\n\n**Day 1 Agenda (FINALIZED):**\n- **Morning:** Company-wide keynote with CEO Patricia Walsh\n  - **Location:** Largest conference room at Aspen Mountain Lodge\n  - **Attendees:** All 60 people\n  - **Capacity:** Sufficient (unspecified exact capacity, but > 50)\n- **Afternoon:** Team breakout sessions\n  - Sales (18 people) → Floor 2 ",
+          "messagesCompressed": 8
+        },
+        {
+          "cycle": 3,
+          "step": 25,
+          "content": "# Complete Knowledge State Extraction – Segment 4\n\n## 1. ENTITIES\n\n**People:**\n- Patricia Walsh (CEO, keynote speaker on Day 1)\n\n**Places:**\n- Aspen Mountain Lodge (venue for annual company retreat)\n- Denver (departure point for charter buses)\n- Floor 1 (assigned to HR, 8 rooms, 4-person capacity per room)\n- Floor 2 (assigned to Sales, 8 rooms, 4-person capacity per room, 30-person conference room)\n- Floor 3 (assigned to Engineering, 8 rooms, 4-person capacity per room, 50-person conference room)\n- Floor 4 (assigned to Marketing, 8 rooms, 4-person capacity per room, 20-person conference room)\n\n**Organizations/Teams:**\n- Engineering team (24 people, Floor 3)\n- Sales team (18 people, Floor 2)\n- Marketing team (12 people, Floor 4)\n- HR team (6 people, Floor 1)\n\n**Vendors/Service Providers:**\n- Alpine Gourmet (catering company)\n- Charter bus company (transportation provider, 2 buses)\n\n**Venue Facilities:**\n- Floor 1 Conference Room: None mentioned\n- Floor 2 Conference Room: 30-person capacity\n- Floor 3 Conference Room: 50-person capacity\n- Floor 4 Conference Room: 20-person capacity\n- Largest conference room at Aspen Mountain Lodge: Location for Day 1 keynote (capacity >50, unspecified exact number)\n\n---\n\n## 2. DECISIONS\n\n**Decisions Made:**\n\n| Decision | Details |\n|----------|---------|\n| Day 1 keynote location | Largest conference room at Aspen Mountain Lodge |\n| Day 1 keynote speaker | Patricia Walsh (CEO) |\n| Day 1 agenda structure | Morning: Company-wide keynote (60 people); Afternoon: Team breakout sessions |\n| Catering provider | Alpine Gourmet |\n| Catering meals | 3 catered meals total at $35 per person per meal |\n| Day 2 morning activity | Cross-team hackathon (12 teams of 5, mixed departments) |\n| Day 2 morning hackathon location | Floor 3 Conference Room |\n| Day 2 afternoon activity | Outdoor adventure activity |\n| Outdoor adventure participation | 40 people signed up (out of 60) |\n| Transportation method | 2 charter buses |\n| Bus capacity | 30 people per bus |\n| Bus departure point | Denver |\n| Bus departure time | 8:00 AM |\n\n**No explicitly rejected options mentioned.**\n\n---\n\n## 3. CORRECTIONS\n\n| Aspect | Previous State | New State | Reason |\n|--------|---|---|---|\n| Day 2 schedule clarity | Only hackathon mentioned for Day 2 | Day 2 has both hackathon (morning) AND outdoor adventure activity (afternoon) | New information provided about Day 2 structure and timing |\n| Outdoor adventure details | Not mentioned | Activity scheduled for Day 2 afternoon; 40 of 60 people signed up; costs $75/person | New activity introduced with specific details |\n| Transportation details | Not mentioned | 2 charter buses, 30-person capacity each, departing Denver at 8am | New transportation details provided |\n\n---\n\n## 4. NUMBERS\n\n| Number | Context | Unit |\n|--------|---------|------|\n| 60 | Total attendees at retreat | people |\n| 24 | Engineering team size | people |\n| 18 | Sales team size | people |\n| 12 | Marketing team size | people |\n| 6 | HR team size | people |\n| 8 | Rooms per floor | rooms |\n| 4 | Capacity per room | people per room |\n| 32 | Total capacity per floor | people |\n| 16 | Total rooms needed across all floors | rooms |\n| 16 | Unused rooms | rooms |\n| 30 | Floor 2 Conference Room capacity | people |\n| 50 | Floor 3 Conference Room capacity | people |\n| 20 | Floor 4 Conference Room capacity | people |\n| 3 | Total catered meals | meals |\n| 35 | Catering cost per person per meal | dollars |\n| 105",
+          "messagesCompressed": 8
+        }
+      ]
+    },
+    {
+      "scenarioName": "Long Horizon + Noise",
+      "probeResults": [
+        {
+          "fact": "Dr. Martinez appointment 2:30pm Thursday",
+          "type": "date",
+          "introducedAtStep": 1,
+          "retainedByCycle": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 0
+        },
+        {
+          "fact": "patient ID RMC-2847",
+          "type": "phone/id",
+          "introducedAtStep": 1,
+          "retainedByCycle": [
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          "firstLostAtCycle": 5
+        },
+        {
+          "fact": "mechanic phone 555-0147",
+          "type": "phone/id",
+          "introducedAtStep": 7,
+          "retainedByCycle": [
+            false,
+            true,
+            true,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 1
+        },
+        {
+          "fact": "son's school play Friday March 14 6pm",
+          "type": "date",
+          "introducedAtStep": 10,
+          "retainedByCycle": [
+            false,
+            false,
+            true,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 2
+        },
+        {
+          "fact": "insurance policy HLT-99284-B",
+          "type": "phone/id",
+          "introducedAtStep": 12,
+          "retainedByCycle": [
+            false,
+            false,
+            false,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 2
+        },
+        {
+          "fact": "house alarm code 8472",
+          "type": "phone/id",
+          "introducedAtStep": 16,
+          "retainedByCycle": [
+            false,
+            false,
+            false,
+            false,
+            true
+          ],
+          "firstLostAtCycle": 2
+        },
+        {
+          "fact": "passport number P-847291",
+          "type": "phone/id",
+          "introducedAtStep": 18,
+          "retainedByCycle": [
+            false,
+            false,
+            false,
+            false,
+            true
+          ],
+          "firstLostAtCycle": 3
+        },
+        {
+          "fact": "flight UA447 gate B12 code XKRM47",
+          "type": "phone/id",
+          "introducedAtStep": 20,
+          "retainedByCycle": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "firstLostAtCycle": 3
+        }
+      ],
+      "delegationCycles": 5,
+      "delegationLog": [
+        {
+          "cycle": 1,
+          "step": 9,
+          "content": "# KNOWLEDGE STATE EXTRACTION\n\n## 1. ENTITIES\n\n**PEOPLE:**\n- Dr. Martinez (role: doctor/physician)\n- LeBron (role: basketball player, team: Lakers)\n- User (role: patient, has upcoming appointment)\n\n**ORGANIZATIONS/LOCATIONS:**\n- Riverside Medical Center (type: medical facility)\n- Lakers (type: basketball team)\n\n**PRODUCTS/SYSTEMS:**\n- None specifically mentioned with identifying details\n\n## 2. DECISIONS\n\n- User decided to ask for a chicken tikka masala recipe\n- User decided to make it this weekend\n- **Decision NOT to provide detailed recipe:** Assistant did not provide a full chicken tikka masala recipe in response (conversation ended with the question)\n\n## 3. CORRECTIONS\n\n**None.** No previous facts were corrected or updated. All information stated about the appointment remains consistent and unchanged from initial mention.\n\n## 4. NUMBERS\n\n- **2:30 PM** - appointment time\n- **Thursday** - appointment day (no specific date given)\n- **RMC-2847** - patient ID\n- **112** - Lakers final score (user's claim)\n- **108** - opposing team final score (user's claim)\n- **34** - LeBron points (user's claim)\n\n## 5. CURRENT STATE\n\n**Active Appointment Record:**\n- Doctor: Dr. Martinez\n- Time: 2:30 PM Thursday\n- Location: Riverside Medical Center\n- Patient ID: RMC-2847\n- Status: Upcoming (date not specified beyond \"Thursday\")\n\n**User Interests Noted:**\n- Interested in Lakers basketball games\n- Plans to cook chicken tikka masala this weekend\n- Recipe request: PENDING (not yet answered in this segment)",
+          "messagesCompressed": 5
+        },
+        {
+          "cycle": 2,
+          "step": 17,
+          "content": "# KNOWLEDGE STATE EXTRACTION - NEW SEGMENT\n\n## 1. ENTITIES\n\n**PEOPLE:**\n- Dr. Martinez (role: physician/doctor)\n- LeBron (role: basketball player, team: Lakers)\n- User (role: patient, has upcoming appointment; husband; car owner)\n- User's wife (role: spouse, birthday: March 8th)\n- Mechanic (role: auto mechanic, phone: 555-0147)\n\n**ORGANIZATIONS/LOCATIONS:**\n- Riverside Medical Center (type: medical facility)\n- Lakers (type: basketball team)\n\n**PRODUCTS/SYSTEMS:**\n- User's car (type: vehicle, current mileage: 38,500 miles, maintenance need: oil change)\n- Lisinopril 10mg (type: prescription medication)\n\n## 2. DECISIONS\n\n- User decided to ask for chicken tikka masala recipe → **DECISION FULFILLED** (recipe was provided)\n- User decided to make chicken tikka masala this weekend → CONFIRMED\n- User decided to plan something special for wife's birthday → DECISION MADE\n- User decided to get oil change for car → DECISION MADE (mechanic identified, mileage threshold noted)\n- User asked for blockchain explanation → DECISION MADE (explanation provided; not relevant to personal record-keeping)\n\n## 3. CORRECTIONS\n\n**RECIPE REQUEST STATUS:**\n- **Previous state:** \"Recipe request: PENDING (not yet answered in this segment)\"\n- **New state:** Recipe request FULFILLED (detailed chicken tikka masala recipe provided in assistant response)\n\n**No other corrections.** All previously recorded facts remain consistent and unchanged:\n- Appointment time, date, location, doctor, and patient ID remain the same\n- Medication information (Lisinopril 10mg) was added as new information, not a correction\n\n## 4. NUMBERS\n\n**Time/Date:**\n- **2:30 PM** - appointment time\n- **Thursday** - appointment day (no specific date)\n- **March 8th** - wife's birthday\n- **Weekend** - when user plans to cook chicken tikka masala\n\n**Medical/Identification:**\n- **RMC-2847** - patient ID\n- **10mg** - Lisinopril dosage\n- **1** - times daily Lisinopril is taken (morning)\n\n**Sports (from previous segment):**\n- **112** - Lakers final score (user's claim)\n- **108** - opposing team final score (user's claim)\n- **34** - LeBron points (user's claim)\n\n**Automotive:**\n- **555-0147** - mechanic's phone number\n- **40,000** - miles threshold for oil change (mechanic's requirement)\n- **38,500** - current car mileage (user's car)\n\n**Recipe/Cooking (ingredient quantities):**\n- **1 cup** - yogurt\n- **2 tbsp** - tikka paste/garam masala\n- **1** - lemon (juice)\n- **2 tbsp** - oil\n- **1** - onion\n- **3** - cloves garlic\n- **1 tbsp** - ginger\n- **1 can (14 oz)** - crushed tomatoes\n- **1 cup** - heavy cream\n- **2 tsp** - garam masala\n- **1 tsp** - cumin\n\n## 5. CURRENT STATE\n\n**Active Appointment Record:**\n- Doctor: Dr. Martinez\n- Time: 2:30 PM Thursday\n- Location: Riverside Medical Center\n- Patient ID: RMC-2847\n- Status: Upcoming (specific date not given beyond \"Thursday\")\n\n**Active Medication Record:**\n- Medication: Lisinopril\n- Dosage: 10mg\n- Frequency: Once daily\n- Timing: Morning\n\n**Important Dates:**\n- Wife's Birthday: March 8th (special event planning required)\n\n**Weekend Plans:**\n- Make chicken tikka masala (recipe obtained and documented)\n\n**Vehicle Maintenance Record:**\n- Car Status: Needs oil change\n- Current Mileage: 38,500 miles\n- Required Threshold: Before 40,000 miles\n- Mechanic Contact: 555-0147\n- Urgency: High (1,500 miles remaining before threshold)\n\n**User Interests Noted:**\n- Basketball (Lakers fan)\n- Cooking/recipes\n- Workplace",
+          "messagesCompressed": 8
+        },
+        {
+          "cycle": 3,
+          "step": 25,
+          "content": "# KNOWLEDGE STATE EXTRACTION - CONVERSATION SEGMENT\n\n## 1. ENTITIES\n\n**PEOPLE:**\n- Dr. Martinez (role: physician/doctor)\n- LeBron (role: basketball player, team: Lakers)\n- User (role: patient, husband, car owner, tech worker, father)\n- User's wife (role: spouse, birthday: March 8th)\n- User's son (role: student, school: Jefferson Elementary, current role in play: Peter Pan/lead role)\n- Mechanic (role: auto mechanic, phone: 555-0147)\n\n**ORGANIZATIONS/LOCATIONS:**\n- Riverside Medical Center (type: medical facility)\n- Lakers (type: basketball team)\n- Jefferson Elementary (type: school, location: hosts school play)\n\n**PRODUCTS/SYSTEMS:**\n- User's car (type: vehicle, current mileage: 38,500 miles, maintenance need: oil change)\n- Lisinopril 10mg (type: prescription medication)\n\n## 2. DECISIONS\n\n- User decided to ask for chicken tikka masala recipe → **DECISION FULFILLED** (recipe was provided in previous segment)\n- User decided to make chicken tikka masala this weekend → CONFIRMED\n- User decided to plan something special for wife's birthday → DECISION MADE\n- User decided to get oil change for car → DECISION MADE (mechanic identified: 555-0147)\n- User asked about Cancun weather in April for potential spring break trip → **DECISION PENDING** (exploring options; no commitment made yet)\n- User is considering a Cancun trip for spring break → **DECISION IN EXPLORATION PHASE** (asked about weather, considering but not confirmed)\n- User asked for haiku about winter → **DECISION MADE** (haiku requested in this segment; awaiting response generation)\n\n## 3. CORRECTIONS\n\n**SON INFORMATION - NEW ENTITY ADDED:**\n- **Previous state:** Son not mentioned in prior segments\n- **New state:** Son exists, attends Jefferson Elementary, playing lead role (Peter Pan) in school play on March 14th at 6 PM\n\n**No corrections to existing facts.** All previously recorded information remains accurate:\n- Appointment details unchanged\n- Medication information unchanged\n- Wife's birthday unchanged\n- Car maintenance details unchanged\n- Mechanic contact unchanged\n\n## 4. NUMBERS\n\n**Time/Date:**\n- **2:30 PM** - appointment time with Dr. Martinez\n- **Thursday** - appointment day (no specific date given)\n- **March 8th** - wife's birthday\n- **March 14th** - son's school play date (NEW)\n- **6:00 PM** - son's school play time (NEW)\n- **Weekend** - when user plans to cook chicken tikka masala\n- **April** - potential month for Cancun spring break trip\n\n**Medical/Identification:**\n- **RMC-2847** - patient ID\n- **10mg** - Lisinopril dosage\n- **1** - times daily Lisinopril is taken (morning)\n\n**Sports (from earlier segment):**\n- **112** - Lakers final score (user's claim)\n- **108** - opposing team final score (user's claim)\n- **34** - LeBron points (user's claim)\n\n**Automotive:**\n- **555-0147** - mechanic's phone number\n- **40,000** - miles threshold for oil change (mechanic's requirement)\n- **38,500** - current car mileage (user's car)\n- **1,500** - miles remaining before oil change is required\n\n**Weather (Cancun, April):**\n- **75-85°F (24-29°C)** - typical temperature range\n- **80°F (27°C)** - water temperature\n\n**Recipe/Cooking (ingredient quantities from previous segment):**\n- **1 cup** - yogurt\n- **2 tbsp** - tikka paste/garam masala\n- **1** - lemon (juice)\n- **2 tbsp** - oil\n- **1** - onion\n- **3** - cloves garlic\n- **1 tbsp** - ginger\n- **1 can (14 oz)** - crushed tomatoes\n- **1 cup** - heavy cream\n- **2 tsp** - garam masala\n- **1 tsp** - cumin\n\n## 5. CURRENT STATE\n\n**Active",
+          "messagesCompressed": 8
+        },
+        {
+          "cycle": 4,
+          "step": 33,
+          "content": "# KNOWLEDGE STATE EXTRACTION - CONVERSATION SEGMENT\n\n## 1. ENTITIES\n\n**PEOPLE:**\n- Dr. Martinez (role: physician/doctor, location: Riverside Medical Center)\n- LeBron (role: basketball player, team: Lakers)\n- User (role: patient, husband, car owner, tech worker, father)\n- User's wife (role: spouse, birthday: March 8th, favorite flower: peonies, favorite restaurant: Bella Notte)\n- User's son (role: student, school: Jefferson Elementary, current role in play: Peter Pan/lead role, play date: March 14th at 6 PM)\n- User's manager (role: workplace supervisor, recommended leadership book to user)\n- Mechanic (role: auto mechanic, phone: 555-0147)\n\n**ORGANIZATIONS/LOCATIONS:**\n- Riverside Medical Center (type: medical facility)\n- Lakers (type: basketball team)\n- Jefferson Elementary (type: school, location: hosts school play)\n- Bella Notte (type: restaurant, location: Main Street)\n\n**PRODUCTS/SYSTEMS:**\n- User's car (type: vehicle, current mileage: 38,500 miles, maintenance need: oil change)\n- Lisinopril 10mg (type: prescription medication)\n- Insurance policy (type: health insurance, policy number: HLT-99284-B)\n\n## 2. DECISIONS\n\n- User decided to ask for chicken tikka masala recipe → **DECISION FULFILLED** (recipe provided in previous segment)\n- User decided to make chicken tikka masala this weekend → **CONFIRMED**\n- User decided to plan something special for wife's birthday → **DECISION MADE → UPDATED THIS SEGMENT**\n  - Sub-decision: Book a table at Bella Notte for March 8th → **NEW DECISION (in planning phase)**\n  - Sub-decision: Get peonies for wife → **NEW DECISION (in consideration phase)**\n- User decided to get oil change for car → **DECISION MADE** (mechanic identified: 555-0147)\n- User asked about Cancun weather in April → **DECISION IN EXPLORATION PHASE** (no commitment)\n- User asked for haiku about winter → **DECISION FULFILLED** (haiku provided in previous segment)\n- User needs to call insurance company → **DECISION MADE** (phone call pending)\n- User asked for leadership book recommendations → **DECISION MADE** (awaiting recall of manager's recommendation)\n- User asked for fun fact about octopuses → **REQUEST MADE THIS SEGMENT** (awaiting response generation)\n\n## 3. CORRECTIONS\n\n**WIFE'S INFORMATION - EXPANDED:**\n- **Previous state:** Wife exists, birthday March 8th\n- **New state:** Wife exists, birthday March 8th, favorite flower is peonies, favorite restaurant is Bella Notte on Main Street\n\n**BIRTHDAY PLANNING - EXPANDED:**\n- **Previous state:** User decided to plan something special for wife's birthday (vague/undefined)\n- **New state:** User has identified specific birthday plans: dinner reservation at Bella Notte on Main Street + peonies (both in planning phase)\n\n**No corrections to previously established facts.** All other information remains accurate:\n- Appointment details unchanged\n- Medication information unchanged\n- Son's play details unchanged\n- Car maintenance details unchanged\n- Mechanic contact unchanged\n- Insurance information newly added (not a correction, first mention)\n\n## 4. NUMBERS\n\n**Time/Date:**\n- **2:30 PM** - appointment time with Dr. Martinez\n- **Thursday** - appointment day\n- **March 8th** - wife's birthday\n- **March 14th** - son's school play date\n- **6:00 PM** - son's school play time\n- **Weekend** - when user plans to cook chicken tikka masala\n- **April** - potential month for Cancun spring break trip\n- **2 weeks** - approximate time until wife's birthday (from segment perspective)\n\n**Medical/Identification:**\n- **RMC-2847** - patient ID (Riverside Medical Center)\n- **10mg** - Lisinopril dosage\n- **1** - times daily Lisinopril is taken (morning)\n- **HLT-99284-B** - insurance policy number (NEW THIS SEGMENT)\n- **CLM-2024-0892** - insurance claim reference number (NEW THIS SEGMENT)\n\n**",
+          "messagesCompressed": 8
+        },
+        {
+          "cycle": 5,
+          "step": 41,
+          "content": "# KNOWLEDGE STATE EXTRACTION - CONVERSATION SEGMENT\n\n## 1. ENTITIES\n\n**PEOPLE:**\n- Dr. Martinez (role: physician/doctor, location: Riverside Medical Center)\n- LeBron (role: basketball player, team: Lakers)\n- User (role: patient, husband, car owner, tech worker, father, passport holder)\n- User's wife (role: spouse, birthday: March 8th, favorite flower: peonies, favorite restaurant: Bella Notte)\n- User's son (role: student, school: Jefferson Elementary, current role in play: Peter Pan/lead role, play date: March 14th at 6 PM)\n- User's manager (role: workplace supervisor, recommended leadership book to user)\n- Mechanic (role: auto mechanic, phone: 555-0147)\n\n**ORGANIZATIONS/LOCATIONS:**\n- Riverside Medical Center (type: medical facility)\n- Lakers (type: basketball team)\n- Jefferson Elementary (type: school, location: hosts school play)\n- Bella Notte (type: restaurant, location: Main Street)\n- SafeGuard (type: security company, service: house alarm monitoring)\n\n**PRODUCTS/SYSTEMS:**\n- User's car (type: vehicle, current mileage: 38,500 miles, maintenance need: oil change)\n- Lisinopril 10mg (type: prescription medication)\n- Insurance policy (type: health insurance, policy number: HLT-99284-B, claim reference: CLM-2024-0892)\n- House alarm system (type: security system, current code: 8472, security company: SafeGuard)\n- User's passport (type: travel document, number: P-847291, expiration date: July 3rd)\n\n## 2. DECISIONS\n\n- User decided to ask for chicken tikka masala recipe → **DECISION FULFILLED** (recipe provided in previous segment)\n- User decided to make chicken tikka masala this weekend → **CONFIRMED**\n- User decided to plan something special for wife's birthday → **DECISION MADE → EXPANDED THIS SEGMENT**\n  - Sub-decision: Book a table at Bella Notte for March 8th → **IN PLANNING PHASE**\n  - Sub-decision: Get peonies for wife → **IN CONSIDERATION PHASE**\n- User decided to get oil change for car → **DECISION MADE** (mechanic identified: 555-0147)\n- User asked about Cancun weather in April → **EXPLORATION PHASE** (no commitment)\n- User asked for haiku about winter → **DECISION FULFILLED** (provided in previous segment)\n- User needs to call insurance company → **PENDING** (phone call not yet made)\n- User asked for leadership book recommendations → **AWAITING RECALL** (manager's recommendation)\n- User asked for fun fact about octopuses → **DECISION FULFILLED** (three hearts fact provided this segment)\n- User asked for differences between crocodile and alligator → **DECISION FULFILLED** (comparison provided this segment)\n- User needs to renew passport → **DECISION MADE** (deadline: before June, expiration: July 3rd)\n- User asked for understanding of term life vs. whole life insurance → **REQUEST MADE THIS SEGMENT** (awaiting response generation)\n\n## 3. CORRECTIONS\n\n**SECURITY INFORMATION - NEW ADDITION:**\n- **Previous state:** No security system information recorded\n- **New state:** House alarm code is 8472 (current), previous code was 1234 (old/outdated), security company is SafeGuard\n\n**PASSPORT INFORMATION - NEW ADDITION:**\n- **Previous state:** No passport information recorded\n- **New state:** Passport number P-847291, expiration date July 3rd, renewal action needed before June\n\n**No corrections to previously established facts.** All other information remains accurate:\n- Family information unchanged\n- Medical appointment details unchanged\n- Medication information unchanged\n- Son's play details unchanged\n- Car maintenance details unchanged\n- Mechanic contact unchanged\n- Insurance information unchanged (previously added)\n- Wife's birthday preferences unchanged (peonies, Bella Notte)\n\n## 4. NUMBERS\n\n**Time/Date:**\n- **2:30 PM** - appointment time with Dr. Martinez\n- **Thursday** - appointment day\n- **March 8th** - wife's birthday\n- **March 14th** - son's school play date\n- **6:00 PM** - son",
+          "messagesCompressed": 8
+        }
+      ]
+    },
+    {
+      "scenarioName": "Cascading Corrections",
+      "probeResults": [
+        {
+          "fact": "pre-money valuation $12M (corrected from $10M)",
+          "type": "correction",
+          "introducedAtStep": 12,
+          "retainedByCycle": [
+            true,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 0
+        },
+        {
+          "fact": "round size $3M (corrected from $2M)",
+          "type": "correction",
+          "introducedAtStep": 8,
+          "retainedByCycle": [
+            true,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 0
+        },
+        {
+          "fact": "Sequoia investment $1.5M",
+          "type": "quantity",
+          "introducedAtStep": 9,
+          "retainedByCycle": [
+            false,
+            false,
+            true
+          ],
+          "firstLostAtCycle": 1
+        },
+        {
+          "fact": "legal fees $75K (corrected from $50K)",
+          "type": "correction",
+          "introducedAtStep": 10,
+          "retainedByCycle": [
+            false,
+            false,
+            true
+          ],
+          "firstLostAtCycle": 2
+        },
+        {
+          "fact": "monthly burn $175K (corrected from $150K)",
+          "type": "correction",
+          "introducedAtStep": 11,
+          "retainedByCycle": [
+            false,
+            false,
+            true
+          ],
+          "firstLostAtCycle": 2
+        },
+        {
+          "fact": "net proceeds $2.925M",
+          "type": "quantity",
+          "introducedAtStep": 10,
+          "retainedByCycle": [
+            false,
+            false,
+            true
+          ],
+          "firstLostAtCycle": 2
+        },
+        {
+          "fact": "share price $1.20",
+          "type": "quantity",
+          "introducedAtStep": 14,
+          "retainedByCycle": [
+            false,
+            false,
+            false
+          ],
+          "firstLostAtCycle": 2
+        }
+      ],
+      "delegationCycles": 3,
+      "delegationLog": [
+        {
+          "cycle": 1,
+          "step": 9,
+          "content": "# COMPLETE KNOWLEDGE STATE EXTRACTION\n\n## 1. ENTITIES\n\n### Organizations\n| Entity | Role | Attributes |\n|--------|------|-----------|\n| Sequoia | Lead investor | Investing $1M, 8.33% ownership, leading the seed round |\n| Y Combinator | Investor | Investing $500K, 4.17% ownership |\n| User's Company | Fundraising startup | Pre-money valuation $10M, raising $2M seed round |\n\n### Individuals\n- User: Founder/representative of the company raising the seed round (no name provided)\n- Sequoia representative(s): (not named)\n- Y Combinator representative(s): (not named)\n- Angel investors: (unnamed, collective group)\n\n### Products/Systems\n- None mentioned\n\n---\n\n## 2. DECISIONS\n\n| Decision | Status |\n|----------|--------|\n| Accept Sequoia as lead investor with $1M | Made/Committed |\n| Accept Y Combinator with $500K | Made/Committed |\n| Solicit angel investors for remaining $500K | Made/In Progress |\n| Pre-money valuation set at $10M | Made/Committed |\n| Total raise target set at $2M | Made/Committed |\n\n**Decisions NOT yet made:**\n- Board seat allocation (mentioned as TBD)\n- Pro-rata rights terms with Sequoia\n- Anti-dilution structure\n- Liquidation preference terms\n- Information rights specifics\n\n---\n\n## 3. CORRECTIONS\n\n### Major Correction in Round Structure\nThe investor composition changed between message 2 and message 3:\n\n| Aspect | Initial State (Message 2) | Corrected State (Message 3) |\n|--------|---------------------------|---------------------------|\n| Investor breakdown | Single investor mentioned (Sequoia $1M, other $1M unspecified) | Specified: Sequoia $1M + Y Combinator $500K + Angels $500K |\n| Y Combinator position | Not mentioned | $500K = 4.17% ownership |\n| Angel investor position | Grouped as \"other investors\" ($1M unspecified) | $500K from angels |\n\n**No numerical corrections to valuations or dilution percentages** — all original math remained valid.\n\n---\n\n## 4. NUMBERS\n\n| Number | Context | Source |\n|--------|---------|--------|\n| $10M | Pre-money valuation | User stated |\n| $2M | Total seed round size | User stated |\n| $12M | Post-money valuation | Calculated ($10M + $2M) |\n| 16.67% | Total dilution to existing shareholders | Calculated ($2M / $12M) |\n| $1M | Sequoia investment amount | User stated |\n| 8.33% | Sequoia ownership percentage | Calculated ($1M / $12M) |\n| $500K | Y Combinator investment amount | User stated |\n| 4.17% | Y Combinator ownership percentage | Calculated ($500K / $12M) |\n| $500K | Angels investment amount | User stated (remaining from $2M) |\n| 83.33% | Existing shareholders' ownership post-round | Calculated ($10M / $12M) |\n\n---\n\n## 5. CURRENT STATE\n\n### Cap Table (As of End of Segment)\n\n| Investor | Investment | Ownership % | Notes |\n|----------|-----------|-------------|-------|\n| Sequoia | $1M | 8.33% | Lead investor |\n| Y Combinator | $500K | 4.17% | |\n| Angels (collective) | $500K | 4.17% | Unnamed individual/group investors |\n| **Existing Shareholders** | — | **83.33%** | Pre-existing ownership diluted |\n| **TOTAL** | **$2M raised** | **100%** | **$12M post-money** |\n\n### Round Summary\n- **Pre-money valuation:** $10M (locked)\n- **Seed round size:** $2M (fully allocated)\n- **Post-money valuation:** $12M\n- **Total dilution:** 16.67%\n\n### Status\n- **Sequoia:** Committed to $1M investment\n- **Y Combinator:** Committed to $500K investment\n- **Angels:** $500K being raised from unnamed angel investors\n- **",
+          "messagesCompressed": 5
+        },
+        {
+          "cycle": 2,
+          "step": 17,
+          "content": "# COMPLETE KNOWLEDGE STATE EXTRACTION - SEGMENT 2\n\n## 1. ENTITIES\n\n### Organizations\n| Entity | Role | Attributes |\n|--------|------|-----------|\n| Sequoia | Lead investor | Investing $1M, 8.33% ownership, 1 board seat, leading the seed round |\n| Y Combinator | Investor | Investing $500K, 4.17% ownership, no board seat mentioned |\n| User's Company | Fundraising startup | Pre-money valuation $10M, raising $2M seed round (gross), $1.95M net, 10M shares pre-round, 12M shares post-round, $150K monthly burn rate |\n\n### Individuals\n- User: Founder (2 founder seats allocated, specific founder names not provided)\n- Additional Founder(s): (name/count not specified, but 2 seats allocated)\n- Sequoia representative(s): (not named, will occupy 1 board seat)\n- Y Combinator representative(s): (not named, no board seat)\n- Angel investors: (unnamed, collective group investing $500K)\n- Independent board member: (not yet named/identified)\n\n### Products/Systems\n- None mentioned\n\n---\n\n## 2. DECISIONS\n\n| Decision | Status | Details |\n|----------|--------|---------|\n| Accept Sequoia as lead investor with $1M | Made/Committed | 8.33% ownership |\n| Accept Y Combinator with $500K | Made/Committed | 4.17% ownership |\n| Solicit angel investors for remaining $500K | Made/Committed | 4.17% ownership |\n| Pre-money valuation set at $10M | Made/Committed | $1.00 per share basis |\n| Total gross raise target set at $2M | Made/Committed | At $1.00/share |\n| Issue 2M new shares at $1.00/share | Made/Committed | Sequoia 1M, YC 500K, Angels 500K |\n| Allocate $50K from proceeds for legal fees | Made/Committed | Reduces net proceeds to $1.95M |\n| Board structure composition | Made/Committed | 2 founder seats + 1 Sequoia seat + 1 independent seat = 4 total |\n| Award Sequoia the investor board seat | Made/Committed | Based on lead investor status |\n\n**Decisions NOT yet made:**\n- Identity of independent board member\n- Pro-rata rights terms with Sequoia\n- Anti-dilution structure\n- Liquidation preference terms\n- Information rights specifics\n- Whether legal fees come from investor proceeds or separate company cash\n- Specific burn rate scaling plan for Series A window\n\n---\n\n## 3. CORRECTIONS\n\n### Major Correction: Board Seat Allocation\n| Aspect | Previous State (Segment 1) | Current State (Segment 2) |\n|--------|---------------------------|--------------------------|\n| Board seat allocation | Mentioned as \"TBD\" | **Finalized: 2 founder + 1 Sequoia + 1 independent = 4 seats total** |\n| Sequoia board seat | Status unknown | **Confirmed: Sequoia gets 1 seat as lead investor** |\n| Y Combinator board seat | Not specified | **Not mentioned for board seat (implied: no seat)** |\n\n### Major Addition: Share Mechanics\n| Aspect | Previous State (Segment 1) | Current State (Segment 2) |\n|--------|---------------------------|--------------------------|\n| Share count pre-round | Not disclosed | **10M shares outstanding** |\n| Share price | Calculated at $1.00/share (implicit) | **Explicitly confirmed: $1.00/share** |\n| New shares issued | Calculated as needed | **Explicitly confirmed: 2M new shares (1M Sequoia, 500K YC, 500K Angels)** |\n| Total shares post-round | Not stated | **12M shares total** |\n\n### Addition: Net vs. Gross Proceeds\n| Aspect | Previous State (Segment 1) | Current State (Segment 2) |\n|--------|---------------------------|--------------------------|\n| Legal fees impact | Not mentioned | **$50K deducted from $2M gross = $1.95M net** |\n| Net usable capital | Not calculated | **$1.95M confirmed** |\n\n### Addition: Runway",
+          "messagesCompressed": 8
+        },
+        {
+          "cycle": 3,
+          "step": 25,
+          "content": "# COMPLETE KNOWLEDGE STATE EXTRACTION - SEGMENT 3\n\n## 1. ENTITIES\n\n### Organizations\n| Entity | Role | Attributes |\n|--------|------|-----------|\n| Sequoia | Lead investor | Investing $1.5M, 11.54% ownership, 1 board seat |\n| Y Combinator | Investor | Investing $500K, 3.85% ownership, no board seat |\n| Angel Investors | Investor group | Investing $1M collectively, 7.69% ownership, no board seats mentioned |\n| User's Company | Fundraising startup | Pre-money valuation $10M, post-money $13M, raising $3M seed round (gross), $2.925M net, 10M shares pre-round, 13M shares post-round, $175K monthly burn rate (updated) |\n\n### Individuals\n- User: Founder (2 founder seats allocated, specific founder names not provided)\n- Additional Founder(s): (name/count not specified, but 2 seats allocated)\n- Sequoia representative(s): (not named, will occupy 1 board seat)\n- Y Combinator representative(s): (not named, no board seat)\n- Angel investors: (unnamed, collective group)\n- Independent board member: (not yet named/identified)\n- Head of Sales: (newly hired, triggering increased burn rate, name not provided)\n\n### Products/Systems\n- None mentioned\n\n---\n\n## 2. DECISIONS\n\n| Decision | Status | Details |\n|----------|--------|---------|\n| Accept Sequoia as lead investor with $1.5M | Made/Committed | 11.54% ownership (increased from $1M) |\n| Accept Y Combinator with $500K | Made/Committed | 3.85% ownership (unchanged investment amount) |\n| Solicit angel investors for $1M | Made/Committed | 7.69% ownership (increased from $500K) |\n| Pre-money valuation set at $10M | Made/Committed | Maintained from previous decision |\n| Total gross raise target set at $3M | Made/Committed | Increased from $2M |\n| Issue 3M new shares at $1.00/share | Made/Committed | Sequoia 1.5M, YC 500K, Angels 1M |\n| Allocate $75K from proceeds for legal fees | Made/Committed | Reduces net proceeds to $2.925M |\n| Board structure composition | Made/Committed | 2 founder seats + 1 Sequoia seat + 1 independent seat = 4 total (unchanged structure) |\n| Award Sequoia the investor board seat | Made/Committed | Based on lead investor status with increased ownership |\n| Hire Head of Sales | Made/Committed | Increases monthly burn rate to $175K |\n\n**Decisions NOT yet made:**\n- Identity of independent board member\n- Pro-rata rights terms with Sequoia\n- Anti-dilution structure\n- Liquidation preference terms\n- Information rights specifics\n- Burn rate scaling plan for Series A window\n\n---\n\n## 3. CORRECTIONS\n\n### Major Correction: Seed Round Size and Structure\n| Aspect | Previous State (Segment 2) | Current State (Segment 3) |\n|--------|---------------------------|--------------------------|\n| **Gross raise target** | $2M | **$3M** |\n| **Post-money valuation** | $12M | **$13M** |\n| **Total new shares issued** | 2M | **3M** |\n| **Total shares post-round** | 12M | **13M** |\n| **Total dilution** | 16.67% | **23.08%** |\n\n### Major Correction: Sequoia Investment and Ownership\n| Aspect | Previous State (Segment 2) | Current State (Segment 3) |\n|--------|---------------------------|--------------------------|\n| **Sequoia investment amount** | $1M | **$1.5M** |\n| **Sequoia shares** | 1M | **1.5M** |\n| **Sequoia ownership %** | 8.33% | **11.54%** |\n\n### Major Correction: Y Combinator Ownership\n| Aspect | Previous State (Segment 2) | Current State (Segment 3) |\n|--------|---------------------------|--------------------------|\n| **Y Combinator",
+          "messagesCompressed": 8
+        }
+      ]
+    },
+    {
+      "scenarioName": "Implicit Corrections",
+      "probeResults": [
+        {
+          "fact": "8 San Marzano tomatoes (corrected from 6 Roma)",
+          "type": "correction",
+          "introducedAtStep": 7,
+          "retainedByCycle": [
+            false,
+            true,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 1
+        },
+        {
+          "fact": "salmon 8oz fillets (corrected from 6oz)",
+          "type": "correction",
+          "introducedAtStep": 8,
+          "retainedByCycle": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "firstLostAtCycle": 1
+        },
+        {
+          "fact": "asparagus 400F (corrected from 425F)",
+          "type": "correction",
+          "introducedAtStep": 9,
+          "retainedByCycle": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 0
+        },
+        {
+          "fact": "5 egg yolks (corrected from 6)",
+          "type": "correction",
+          "introducedAtStep": 10,
+          "retainedByCycle": [
+            false,
+            true,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 0
+        },
+        {
+          "fact": "serves 6 (corrected from 4)",
+          "type": "correction",
+          "introducedAtStep": 11,
+          "retainedByCycle": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 0
+        },
+        {
+          "fact": "6 garlic cloves (corrected from 4)",
+          "type": "correction",
+          "introducedAtStep": 12,
+          "retainedByCycle": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 0
+        },
+        {
+          "fact": "30 ladyfingers (corrected from 24)",
+          "type": "correction",
+          "introducedAtStep": 15,
+          "retainedByCycle": [
+            false,
+            false,
+            false,
+            true
+          ],
+          "firstLostAtCycle": 2
+        }
+      ],
+      "delegationCycles": 4,
+      "delegationLog": [
+        {
+          "cycle": 1,
+          "step": 9,
+          "content": "# COMPLETE KNOWLEDGE STATE EXTRACTION\n\n## 1. ENTITIES\n\n**Meal/Event:**\n- Three-course dinner (no host name given)\n- Serves: 4 people\n\n**Dishes:**\n- Bruschetta (Appetizer)\n- Pan-seared salmon (Main)\n- Tiramisu (Dessert)\n\n**Ingredients - Bruschetta:**\n- Roma tomatoes (quantity: 6)\n- Garlic cloves (quantity: 4)\n- Fresh basil (quantity: unspecified)\n- Baguette (quantity: 1, unspecified size)\n- Olive oil (quantity: unspecified)\n- Balsamic vinegar (quantity: unspecified)\n\n**Ingredients - Salmon:**\n- Salmon fillets (quantity: 4, size: 6oz each)\n- Butter (quantity: 2 tablespoons)\n- Lemon juice (quantity: unspecified)\n- Capers (quantity: unspecified)\n- Dill (quantity: unspecified)\n\n**Ingredients - Tiramisu:**\n- No ingredients specified yet\n\n**Cooking Equipment/Methods:**\n- Oven (400°F temperature specified for salmon)\n- Pan (for searing salmon - implied by \"pan-seared\")\n\n---\n\n## 2. DECISIONS\n\n**Made:**\n- ✓ Selected bruschetta as appetizer\n- ✓ Selected pan-seared salmon as main course\n- ✓ Selected tiramisu as dessert\n- ✓ Serving size: 4 people\n- ✓ Salmon cooking method: 400°F oven, 12 minutes\n- ✓ Salmon preparation: pan-seared (initial searing, then oven finish implied)\n\n**NOT Made:**\n- Tiramisu recipe/ingredients not yet decided\n- Bruschetta cooking instructions not yet finalized\n- Exact measurements for bruschetta's olive oil, balsamic vinegar, basil not specified\n- Exact measurements for salmon's lemon juice, capers, dill not specified\n\n---\n\n## 3. CORRECTIONS\n\n**No corrections made in this segment.** All information provided is new; no previous facts were contradicted or changed.\n\n---\n\n## 4. NUMBERS\n\n| Number | Context | Unit |\n|--------|---------|------|\n| 3 | Courses in dinner | (count) |\n| 4 | Number of people served | (count) |\n| 6 | Roma tomatoes | (count) |\n| 4 | Garlic cloves | (count) |\n| 4 | Salmon fillets | (count) |\n| 6 | Weight per salmon fillet | oz (ounces) |\n| 2 | Butter | tablespoons |\n| 400 | Salmon cooking temperature | °F (Fahrenheit) |\n| 12 | Salmon cooking time | minutes |\n\n---\n\n## 5. CURRENT STATE (As of End of Segment)\n\n**Menu Structure:**\n- **Appetizer:** Bruschetta (Serves 4)\n- **Main:** Pan-seared salmon (Serves 4)\n- **Dessert:** Tiramisu (recipe/ingredients NOT YET PROVIDED)\n\n**Bruschetta - LOCKED INGREDIENTS:**\n- 6 Roma tomatoes\n- 4 cloves garlic\n- Fresh basil (amount TBD)\n- 1 baguette (size TBD)\n- Olive oil (amount TBD)\n- Balsamic vinegar (amount TBD)\n- **Instructions:** NOT YET PROVIDED\n\n**Salmon - LOCKED INGREDIENTS & METHOD:**\n- 4 salmon fillets, 6oz each\n- 2 tablespoons butter\n- Lemon juice (amount TBD)\n- Capers (amount TBD)\n- Dill (amount TBD)\n- **Cooking Method:** Pan-seared, then 400°F oven for 12 minutes\n- **Assembly/plating:** NOT YET PROVIDED\n\n**Tiramisu:**\n- **Status:** NOT STARTED\n- Ingredients: None specified\n- Instructions: None specified",
+          "messagesCompressed": 5
+        },
+        {
+          "cycle": 2,
+          "step": 17,
+          "content": "# COMPLETE KNOWLEDGE STATE EXTRACTION\n\n## 1. ENTITIES\n\n**Meal/Event:**\n- Three-course dinner (no host name given)\n- Serves: 4 people\n\n**Dishes:**\n- Bruschetta (Appetizer)\n- Pan-seared salmon (Main)\n- Roasted asparagus (Side dish)\n- Tiramisu (Dessert)\n\n**Ingredients - Bruschetta:**\n- San Marzano tomatoes (quantity: 8) **[UPDATED]**\n- Garlic cloves (quantity: 4)\n- Fresh basil (quantity: unspecified)\n- Baguette (quantity: 1, size unspecified)\n- Olive oil (quantity: unspecified)\n- Balsamic vinegar (quantity: unspecified)\n\n**Ingredients - Pan-Seared Salmon:**\n- Salmon fillets (quantity: 4, size: 6 oz each)\n- Butter (quantity: 2 tablespoons)\n- Lemon juice (quantity: unspecified)\n- Capers (quantity: unspecified)\n- Dill (quantity: unspecified)\n\n**Ingredients - Roasted Asparagus:**\n- Asparagus (quantity: 1 bunch)\n- Olive oil (quantity: unspecified)\n- Salt (quantity: unspecified)\n- Pepper (quantity: unspecified)\n\n**Ingredients - Tiramisu:**\n- Egg yolks (quantity: 6)\n- Sugar (quantity: 3/4 cup)\n- Mascarpone (quantity: 1 1/3 cups)\n- Heavy cream (quantity: 2 cups)\n- Espresso (quantity: 2 cups)\n- Coffee liqueur (quantity: 3 tablespoons)\n- Ladyfingers (quantity: 24)\n\n**Cooking Equipment/Methods:**\n- Oven (400°F for salmon; 425°F for asparagus)\n- Pan (for searing salmon)\n\n**Shopping Status:**\n- To Purchase: Mascarpone, Ladyfingers, Capers\n- On Hand: Roma/San Marzano tomatoes, garlic cloves, fresh basil, baguette, olive oil, balsamic vinegar, salmon fillets, butter, lemon, dill, asparagus, salt, pepper, egg yolks, sugar, heavy cream, espresso, coffee liqueur\n\n---\n\n## 2. DECISIONS\n\n**Made:**\n- ✓ Selected bruschetta as appetizer\n- ✓ Selected pan-seared salmon as main course\n- ✓ Selected roasted asparagus as side dish\n- ✓ Selected tiramisu as dessert\n- ✓ Serving size: 4 people\n- ✓ Salmon cooking method: Pan-sear, then 400°F oven for 12 minutes\n- ✓ Asparagus cooking method: 425°F oven for 10 minutes\n- ✓ Tiramisu ingredients locked in\n- ✓ Shopping list finalized: Mascarpone, Ladyfingers, Capers to purchase\n- ✓ Tomato type: San Marzano (changed from Roma)\n- ✓ Tomato quantity: 8\n\n**NOT Made:**\n- Bruschetta cooking/assembly instructions not yet finalized\n- Tiramisu assembly/chilling instructions not yet finalized\n- Exact measurements for bruschetta's olive oil, balsamic vinegar, basil not specified\n- Exact measurements for salmon's lemon juice, capers, dill not specified\n- Exact measurements for asparagus's olive oil, salt, pepper not specified\n- Cooking timeline/prep order for dinner service not yet provided\n\n---\n\n## 3. CORRECTIONS\n\n**ONE CORRECTION MADE IN THIS SEGMENT:**\n\n| Field | Previous Value | New Value | Context |\n|-------|---|---|---|\n| Bruschetta Tomato Type | 6 Roma tomatoes | 8 San Marzano tomatoes | User specified \"use 8 San Marzano tomatoes\" instead of Roma |\n| Bruschetta Tomato Quantity | 6 | 8 | Quantity increased alongside type change |\n\n---\n\n## 4. NUMBERS\n\n| Number | Context",
+          "messagesCompressed": 8
+        },
+        {
+          "cycle": 3,
+          "step": 25,
+          "content": "# COMPLETE KNOWLEDGE STATE EXTRACTION - UPDATED SEGMENT\n\n## 1. ENTITIES\n\n**Meal/Event:**\n- Three-course dinner (no host name given)\n- Serves: 6 people *(updated from 4 people)*\n\n**Dishes:**\n- Bruschetta (Appetizer)\n- Pan-seared salmon (Main)\n- Roasted asparagus (Side dish)\n- Tiramisu (Dessert)\n\n**Ingredients - Bruschetta:**\n- San Marzano tomatoes (quantity: REQUIRES SCALING - previously 8 for 4 people)\n- Garlic cloves (quantity: REQUIRES SCALING - previously 4 for 4 people)\n- Fresh basil (quantity: unspecified)\n- Baguette (quantity: REQUIRES SCALING - previously 1 for 4 people)\n- Olive oil (quantity: unspecified)\n- Balsamic vinegar (quantity: unspecified)\n\n**Ingredients - Pan-Seared Salmon:**\n- Salmon fillets (quantity: 6, size: 8 oz each) *(updated from 4 fillets at 6 oz each)*\n- Butter (quantity: REQUIRES SCALING - previously 2 tablespoons for 4 people)\n- Lemon juice (quantity: unspecified)\n- Capers (quantity: unspecified)\n- Dill (quantity: unspecified)\n\n**Ingredients - Roasted Asparagus:**\n- Asparagus (quantity: REQUIRES SCALING - previously 1 bunch for 4 people)\n- Olive oil (quantity: unspecified)\n- Salt (quantity: unspecified)\n- Pepper (quantity: unspecified)\n\n**Ingredients - Tiramisu:**\n- Egg yolks (quantity: 5) *(updated from 6)*\n- Sugar (quantity: 3/4 cup)\n- Mascarpone (quantity: 1 1/3 cups)\n- Heavy cream (quantity: 2 cups)\n- Espresso (quantity: 2 cups)\n- Coffee liqueur (quantity: 3 tablespoons)\n- Ladyfingers (quantity: 24)\n\n**Cooking Equipment/Methods:**\n- Oven (400°F for salmon AND asparagus)\n- Pan (for searing salmon)\n\n**Shopping Status:**\n- To Purchase: Mascarpone, Ladyfingers, Capers, San Marzano tomatoes (quantity TBD after scaling)\n- On Hand: Garlic cloves, fresh basil, baguette, olive oil, balsamic vinegar, salmon fillets (6 × 8 oz), butter, lemon, dill, asparagus, salt, pepper, egg yolks (5), sugar, heavy cream, espresso, coffee liqueur\n\n---\n\n## 2. DECISIONS\n\n**Made:**\n- ✓ Selected bruschetta as appetizer\n- ✓ Selected pan-seared salmon as main course\n- ✓ Selected roasted asparagus as side dish\n- ✓ Selected tiramisu as dessert\n- ✓ Serving size: 6 people *(updated from 4)*\n- ✓ Salmon fillets: 8 oz each *(updated from 6 oz each)*\n- ✓ Asparagus cooking: 400°F for 15 minutes *(updated from 425°F for 10 minutes)*\n- ✓ Salmon and asparagus cook together at same temperature and time\n- ✓ Tiramisu: Use 5 egg yolks *(updated from 6)*\n- ✓ Tomato type: San Marzano\n- ✓ Bruschetta requires scaling for 6 people\n\n**NOT Yet Made:**\n- Exact scaled quantities for bruschetta (tomatoes, garlic, baguette) for 6 people not yet provided\n- Exact scaled quantities for salmon butter/lemon/capers/dill for 6 people not yet provided\n- Exact scaled quantities for asparagus (oil, salt, pepper) for 6 people not yet provided\n- Bruschetta cooking/assembly instructions not finalized\n- Tiramisu assembly/chilling instructions not finalized\n- Cooking timeline/prep order",
+          "messagesCompressed": 8
+        },
+        {
+          "cycle": 4,
+          "step": 33,
+          "content": "# COMPLETE KNOWLEDGE STATE EXTRACTION - UPDATED SEGMENT\n\n## 1. ENTITIES\n\n**Meal/Event:**\n- Three-course dinner (no host name given)\n- Serves: 6 people\n\n**Dishes:**\n- Bruschetta (Appetizer)\n- Pan-seared salmon (Main)\n- Roasted asparagus (Side dish)\n- Tiramisu (Dessert)\n\n**Ingredients - Bruschetta:**\n- San Marzano tomatoes (quantity: 12)\n- Garlic cloves (quantity: 6)\n- Fresh basil (quantity: unspecified)\n- Baguette (quantity: 1, size unspecified)\n- Olive oil (quantity: unspecified)\n- Balsamic vinegar (quantity: unspecified)\n\n**Ingredients - Pan-Seared Salmon:**\n- Salmon fillets (quantity: 6, size: 8 oz each)\n- Butter (quantity: 3 tablespoons)\n- Lemon juice (quantity: unspecified)\n- Capers (quantity: unspecified)\n- Dill (quantity: unspecified)\n\n**Ingredients - Roasted Asparagus:**\n- Asparagus (quantity: 1 bunch)\n- Olive oil (quantity: unspecified)\n- Salt (quantity: unspecified)\n- Pepper (quantity: unspecified)\n\n**Ingredients - Tiramisu:**\n- Egg yolks (quantity: 5)\n- Sugar (quantity: 3/4 cup)\n- Mascarpone (quantity: 1 1/3 cups)\n- Heavy cream (quantity: 2.5 cups)\n- Espresso (quantity: 2 cups)\n- Coffee liqueur (quantity: 3 tablespoons)\n- Ladyfingers (quantity: 30)\n\n**Cooking Equipment/Methods:**\n- Oven (400°F for salmon AND asparagus, 15 minutes)\n- Pan (for searing salmon)\n\n**Shopping Status:**\n- To Purchase: Mascarpone, Ladyfingers (30), Capers, San Marzano tomatoes (12)\n- On Hand: Garlic cloves (6), fresh basil, baguette (1), olive oil, balsamic vinegar, salmon fillets (6 × 8 oz), butter, lemon, dill, asparagus (1 bunch), salt, pepper, egg yolks (5), sugar, heavy cream, espresso, coffee liqueur\n\n---\n\n## 2. DECISIONS\n\n**Made in This Segment:**\n- ✓ Bruschetta garlic: 6 cloves (confirmed)\n- ✓ Salmon butter: 3 tablespoons (confirmed)\n- ✓ Tiramisu heavy cream: 2.5 cups (confirmed)\n- ✓ Tiramisu ladyfingers: 30 (confirmed)\n\n**Previously Made (Retained):**\n- ✓ Selected bruschetta as appetizer\n- ✓ Selected pan-seared salmon as main course\n- ✓ Selected roasted asparagus as side dish\n- ✓ Selected tiramisu as dessert\n- ✓ Serving size: 6 people\n- ✓ Salmon fillets: 8 oz each\n- ✓ Asparagus cooking: 400°F for 15 minutes\n- ✓ Salmon and asparagus cook together at same temperature and time\n- ✓ Tiramisu: Use 5 egg yolks\n- ✓ Tomato type: San Marzano\n- ✓ Bruschetta tomatoes: 12 (scaled for 6 people)\n\n**NOT Yet Made:**\n- Exact quantities for lemon juice, capers, dill for salmon (6 people)\n- Exact quantities for olive oil, salt, pepper for asparagus\n- Exact quantities for fresh basil, olive oil, balsamic vinegar for bruschetta\n- Bruschetta cooking/assembly instructions not finalized\n- Tiramisu assembly/chilling instructions not finalized\n- Cooking timeline/prep order\n\n---\n\n## 3. CORRECTIONS\n\n**Heavy Cream (Tiramisu):**\n- OLD VALUE: 2",
+          "messagesCompressed": 8
+        }
+      ]
+    },
+    {
+      "scenarioName": "Rapid-fire Corrections",
+      "probeResults": [
+        {
+          "fact": "Grace moved to Table 1",
+          "type": "correction",
+          "introducedAtStep": 3,
+          "retainedByCycle": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 0
+        },
+        {
+          "fact": "Jack and Iris conflict",
+          "type": "relationship",
+          "introducedAtStep": 4,
+          "retainedByCycle": [
+            false,
+            true,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 1
+        },
+        {
+          "fact": "Paul and Quinn couple at Table 3",
+          "type": "relationship",
+          "introducedAtStep": 6,
+          "retainedByCycle": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 0
+        },
+        {
+          "fact": "Uma removed (can't make it)",
+          "type": "correction",
+          "introducedAtStep": 11,
+          "retainedByCycle": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "firstLostAtCycle": 4
+        },
+        {
+          "fact": "Xavier added to Table 4",
+          "type": "entity",
+          "introducedAtStep": 10,
+          "retainedByCycle": [
+            false,
+            false,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 2
+        },
+        {
+          "fact": "Frank moved to Table 3 (not immediate family)",
+          "type": "correction",
+          "introducedAtStep": 16,
+          "retainedByCycle": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "firstLostAtCycle": 0
+        },
+        {
+          "fact": "Yuki and Zara added to Table 5",
+          "type": "entity",
+          "introducedAtStep": 15,
+          "retainedByCycle": [
+            false,
+            false,
+            false,
+            true
+          ],
+          "firstLostAtCycle": 2
+        }
+      ],
+      "delegationCycles": 4,
+      "delegationLog": [
+        {
+          "cycle": 1,
+          "step": 9,
+          "content": "# Knowledge State Extraction\n\n## 1. ENTITIES\n\n**People (Guests):**\n- Alice (Table 1)\n- Bob (Table 1)\n- Carol (Table 1)\n- David (Table 1)\n- Emma (Table 1)\n- Frank (Table 1)\n- Grace (relationship: bride's sister; moved from Table 2 to Table 1)\n- Henry (Table 2)\n- Iris (Table 2)\n- Jack (Table 2)\n- Karen (Table 3)\n- Leo (Table 3)\n- Mia (Table 3)\n- Noah (Table 3)\n- Olivia (Table 4)\n- Paul (Table 4)\n- Quinn (Table 4)\n- Rose (Table 4)\n- Sam (Table 5)\n- Tina (Table 5)\n- Uma (Table 5)\n- Victor (Table 5)\n\n**Tables (Venue/System):**\n- Table 1 (Head Table - bride & groom's family)\n- Table 2 (Guest table)\n- Table 3 (Guest table)\n- Table 4 (Guest table)\n- Table 5 (Guest table)\n\n**Relationships:**\n- Bride & Groom (reference point; not named)\n- Grace: bride's sister\n\n---\n\n## 2. DECISIONS\n\n| Decision | Choice | Rationale |\n|----------|--------|-----------|\n| Grace's table assignment | Move to Table 1 | She is the bride's sister; should be at head table |\n| Initial seating structure | 5 tables (1 head, 4 guest); 8 seats each | Established in first message |\n\n---\n\n## 3. CORRECTIONS\n\n| Attribute | Old Value | New Value | Reason |\n|-----------|-----------|-----------|--------|\n| Grace's table | Table 2 | Table 1 | Family relationship; appropriate for head table |\n| Table 1 occupancy | 6/8 seats | 7/8 seats | Grace added |\n| Table 2 occupancy | 4/8 seats | 3/8 seats | Grace removed |\n\n---\n\n## 4. NUMBERS\n\n| Number | Context |\n|--------|---------|\n| 5 | Total tables |\n| 1 | Head table designation |\n| 2-5 | Guest table numbers |\n| 8 | Seats per table |\n| 40 | Total venue capacity |\n| 22 | Initial guests assigned |\n| 23 | Current guests assigned (after Grace move) |\n| 17 | Current available seats |\n| 2 | Open spots at Table 1 (before Grace move) |\n| 1 | Open spots at Table 1 (after Grace move) |\n| 4 | Open spots per guest table (baseline) |\n| 5 | Open spots at Table 2 (after Grace removal) |\n\n---\n\n## 5. CURRENT STATE\n\n**Table 1 (Head Table):** 7/8 seats\n- Alice\n- Bob\n- Carol\n- David\n- Emma\n- Frank\n- Grace\n\n**Table 2:** 3/8 seats\n- Henry\n- Iris\n- Jack\n\n**Table 3:** 4/8 seats\n- Karen\n- Leo\n- Mia\n- Noah\n\n**Table 4:** 4/8 seats\n- Olivia\n- Paul\n- Quinn\n- Rose\n\n**Table 5:** 4/8 seats\n- Sam\n- Tina\n- Uma\n- Victor\n\n**Summary:**\n- **Total guests assigned:** 23/40\n- **Available seats:** 17\n- **Table 1:** 1 open spot remaining\n- **Table 2:** 5 open spots\n- **Tables 3-5:** 4 open spots each",
+          "messagesCompressed": 5
+        },
+        {
+          "cycle": 2,
+          "step": 17,
+          "content": "# Knowledge State Extraction\n\n## 1. ENTITIES\n\n**People (Guests):**\n- Alice (Table 1)\n- Bob (Table 1)\n- Carol (Table 1)\n- David (Table 1)\n- Emma (Table 1)\n- Frank (Table 1)\n- Grace (Table 1; relationship: bride's sister)\n- Henry (Table 2)\n- Iris (Table 2; relationship: doesn't get along with Jack)\n- Jack (Table 5; moved from Table 2, then Table 4)\n- Karen (Table 3)\n- Leo (Table 3)\n- Mia (Table 2; moved from Table 3)\n- Noah (Table 4; moved from Table 3)\n- Olivia (Table 4)\n- Paul (Table 3; relationship: couple with Quinn; moved from Table 4)\n- Quinn (Table 3; relationship: couple with Paul; moved from Table 4)\n- Rose (Table 4)\n- Sam (Table 5)\n- Tina (Table 5)\n- Uma (Table 5)\n- Victor (Table 5)\n\n**Tables (Venue/System):**\n- Table 1 (Head Table - bride & groom's family)\n- Table 2 (Guest table)\n- Table 3 (Guest table)\n- Table 4 (Guest table)\n- Table 5 (Guest table)\n\n**Relationships:**\n- Bride & Groom (reference point; not named)\n- Grace: bride's sister\n- Paul & Quinn: couple\n- Jack & Iris: conflict (don't get along)\n\n---\n\n## 2. DECISIONS\n\n| Decision | Choice | Rationale |\n|----------|--------|-----------|\n| Grace's table assignment | Table 1 | Family relationship; appropriate for head table |\n| Jack's seating (conflict) | Table 5 | Separate from Iris (Table 2); avoid conflict |\n| Paul & Quinn placement | Table 3 together | Couple should sit together; with Karen and Leo |\n| Mia's reassignment | Table 2 | Needed to move out of Table 3 for Paul & Quinn |\n| Noah's reassignment | Table 4 | Needed to move out of Table 3 for Paul & Quinn |\n\n---\n\n## 3. CORRECTIONS\n\n| Attribute | Old Value | New Value | Reason |\n|-----------|-----------|-----------|--------|\n| Jack's table | Table 2 | Table 4 | Initial move to separate from Iris |\n| Jack's table (revised) | Table 4 | Table 5 | User preference; Table 4 full enough |\n| Table 4 occupancy | 4/8 seats | 5/8 seats | Jack added |\n| Table 4 occupancy (revised) | 5/8 seats | 4/8 seats | Jack removed |\n| Table 5 occupancy | 4/8 seats | 5/8 seats | Jack added |\n| Paul's table | Table 4 | Table 3 | Couple placement with Quinn |\n| Quinn's table | Table 4 | Table 3 | Couple placement with Paul |\n| Table 3 occupancy | 4/8 seats | 6/8 seats | Paul & Quinn added |\n| Table 4 occupancy | 4/8 seats | 2/8 seats | Paul & Quinn removed |\n| Mia's table | Table 3 | Table 2 | Displaced from Table 3 by Paul & Quinn |\n| Noah's table | Table 3 | Table 4 | Displaced from Table 3 by Paul & Quinn |\n| Table 2 occupancy | 2/8 seats | 3/8 seats | Mia added |\n| Table 3 occupancy | 6/8 seats | 4/8 seats | Mia & Noah removed |\n| Table 4 occupancy | 2/8 seats | 3/8 seats | Noah added |\n\n---\n\n## 4. NUMBERS\n\n| Number | Context |\n|--------|---------|\n| 5 | Total tables |\n| 1 | Head table designation |\n| 2-5 | Guest table numbers |\n| 8 | Seats per table |\n| 40 | Total venue capacity |\n| 22 | Total",
+          "messagesCompressed": 8
+        },
+        {
+          "cycle": 3,
+          "step": 25,
+          "content": "# Knowledge State Extraction - Current Segment\n\n## 1. ENTITIES\n\n**People (Guests):**\n- Alice (Table 1)\n- Bob (Table 1)\n- Carol (Table 1)\n- David (Table 1)\n- Emma (Table 1)\n- Frank (Table 1)\n- Grace (Table 1; relationship: bride's sister)\n- Henry (Table 2)\n- Iris (Table 2; relationship: doesn't get along with Jack)\n- Jack (Table 5)\n- Karen (Table 3)\n- Leo (Table 3)\n- Mia (Table 2)\n- Noah (Table 4)\n- Olivia (Table 4)\n- Paul (Table 3; relationship: couple with Quinn)\n- Quinn (Table 3; relationship: couple with Paul)\n- Rose (Table 5; college friends group)\n- Sam (Table 5)\n- Tina (Table 5)\n- Uma (REMOVED - no longer attending)\n- Victor (Table 5)\n- Wendy (Table 2; new guest added this segment)\n- Xavier (Table 4; new guest added this segment)\n\n**Tables (Venue/System):**\n- Table 1 (Head Table - bride & groom's family)\n- Table 2 (Guest table)\n- Table 3 (Guest table)\n- Table 4 (Guest table)\n- Table 5 (Guest table)\n\n**Relationships:**\n- Bride & Groom (reference point; not named)\n- Grace: bride's sister\n- Paul & Quinn: couple\n- Jack & Iris: conflict (don't get along)\n- Rose: sits with college friends (Sam, Tina, Victor at Table 5)\n\n---\n\n## 2. DECISIONS\n\n| Decision | Choice | Rationale |\n|----------|--------|-----------|\n| Rose's table reassignment | Table 5 | College friends located at Table 5; guest preference |\n| Wendy's table assignment | Table 2 | New guest placement |\n| Xavier's table assignment | Table 4 | New guest placement |\n| Uma's removal | Remove from Table 5 | Guest cancellation; can't attend |\n\n---\n\n## 3. CORRECTIONS\n\n| Attribute | Old Value | New Value | Reason |\n|-----------|-----------|-----------|--------|\n| Rose's table | Table 4 | Table 5 | Guest preference; college friends at Table 5 |\n| Table 4 occupancy | 3/8 seats | 2/8 seats | Rose removed |\n| Table 5 occupancy | 5/8 seats | 6/8 seats | Rose added |\n| Wendy's status | Not present | Table 2 guest | New guest added |\n| Table 2 occupancy | 3/8 seats | 4/8 seats | Wendy added |\n| Xavier's status | Not present | Table 4 guest | New guest added |\n| Table 4 occupancy (revised) | 2/8 seats | 3/8 seats | Xavier added |\n| Uma's status | Table 5 guest | Removed/Not attending | Cancellation |\n| Table 5 occupancy (revised) | 6/8 seats | 5/8 seats | Uma removed |\n| Total guests assigned | 22 | 24 | Wendy & Xavier added |\n| Total guests assigned (revised) | 24 | 23 | Uma removed |\n| Available seats | 18 | 17 (Wendy+Xavier) → 16 (Uma removed) | Net: Wendy, Xavier added; Uma removed |\n\n---\n\n## 4. NUMBERS\n\n| Number | Context |\n|--------|---------|\n| 5 | Total tables |\n| 1 | Head table designation |\n| 2-5 | Guest table numbers |\n| 8 | Seats per table |\n| 40 | Total venue capacity |\n| 23 | Total guests currently assigned |\n| 17 | Total available seats |\n| 1 | Open spots at Table 1 |\n| 4 | Open spots at Table 2 |\n| 4 | Open spots at Table 3 |\n| 5 | Open spots at Table 4 |\n| 2 | Open spots at Table 5 |\n\n---\n\n## 5",
+          "messagesCompressed": 8
+        },
+        {
+          "cycle": 4,
+          "step": 33,
+          "content": "# Knowledge State Extraction - Current Segment\n\n## 1. ENTITIES\n\n**People (Guests):**\n- Alice (Table 1)\n- Bob (Table 1)\n- Carol (Table 1)\n- David (Table 1)\n- Emma (Table 1)\n- Frank (Table 1)\n- Grace (Table 1; relationship: bride's sister)\n- Henry (Table 2)\n- Iris (Table 2; relationship: doesn't get along with Jack)\n- Jack (Table 5)\n- Karen (Table 3)\n- Leo (Table 3)\n- Mia (Table 2)\n- Noah (Table 4)\n- Olivia (Table 4; relationship: Tina wants to sit with her)\n- Paul (Table 3; relationship: couple with Quinn)\n- Quinn (Table 3; relationship: couple with Paul)\n- Rose (Table 5; college friends group)\n- Sam (Table 3; relationship: knows Henry well; moved from Table 5)\n- Tina (Table 4; relationship: wants to sit with Olivia; moved from Table 5)\n- Victor (Table 5)\n- Wendy (Table 2)\n- Xavier (Table 4)\n- Yuki (Table 5; NEW guest added this segment)\n- Zara (Table 5; NEW guest added this segment)\n\n**Tables (Venue/System):**\n- Table 1 (Head Table - bride & groom's family)\n- Table 2 (Guest table)\n- Table 3 (Guest table)\n- Table 4 (Guest table)\n- Table 5 (Guest table)\n\n**Relationships:**\n- Bride & Groom (reference point; not named)\n- Grace: bride's sister\n- Paul & Quinn: couple\n- Jack & Iris: conflict (don't get along)\n- Rose: sits with college friends (Victor at Table 5)\n- Sam: knows Henry well\n- Tina: wants to sit with Olivia\n- Olivia: Tina wants to sit with her\n\n---\n\n## 2. DECISIONS\n\n| Decision | Choice | Rationale |\n|----------|--------|-----------|\n| Sam's table reassignment (2nd instruction) | Table 3 | Guest preference; reduce crowding at Table 2 |\n| Tina's table reassignment | Table 4 | Guest preference; sit with Olivia |\n| Yuki's table assignment | Table 5 | New guest placement |\n| Zara's table assignment | Table 5 | New guest placement |\n\n---\n\n## 3. CORRECTIONS\n\n| Attribute | Old Value | New Value | Reason |\n|-----------|-----------|-----------|--------|\n| Sam's table (1st instruction) | Table 5 | Table 2 | Guest preference; knows Henry well |\n| Sam's table (2nd instruction) | Table 2 | Table 3 | Space constraint; Table 2 crowding |\n| Table 2 occupancy (after 1st Sam move) | 4/8 seats | 5/8 seats | Sam added |\n| Table 5 occupancy (after 1st Sam move) | 5/8 seats | 4/8 seats | Sam removed |\n| Table 2 occupancy (after 2nd Sam move) | 5/8 seats | 4/8 seats | Sam removed |\n| Table 3 occupancy (after 2nd Sam move) | 4/8 seats | 5/8 seats | Sam added |\n| Table 5 occupancy (after Tina move) | 4/8 seats | 3/8 seats | Tina removed |\n| Table 4 occupancy (after Tina move) | 3/8 seats | 4/8 seats | Tina added |\n| Yuki's status | Not present | Table 5 guest | New guest added |\n| Table 5 occupancy (after Yuki added) | 3/8 seats | 4/8 seats | Yuki added |\n| Zara's status | Not present | Table 5 guest | New guest added |\n| Table 5 occupancy (after Zara added) | 4/8 seats | 5/8 seats | Zara added |\n| Total guests assigned | 23 | 25 |",
+          "messagesCompressed": 8
+        }
+      ]
+    }
+  ],
+  "byType": [
+    {
+      "type": "spatial",
+      "totalProbes": 3,
+      "retentionByCycle": [
+        0,
+        1,
+        1,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "overallRetention": 0,
+      "losses": [
+        {
+          "scenario": "Early Fact Recall",
+          "fact": "production region us-east-1",
+          "lostAtCycle": 1
+        },
+        {
+          "scenario": "Multi-hop Reasoning",
+          "fact": "floor 3 conference room 50 people",
+          "lostAtCycle": 1
+        },
+        {
+          "scenario": "Multi-hop Reasoning",
+          "fact": "floor 2 conference room 30 people",
+          "lostAtCycle": 1
+        }
+      ]
+    },
+    {
+      "type": "decision",
+      "totalProbes": 1,
+      "retentionByCycle": [
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "overallRetention": 0,
+      "losses": [
+        {
+          "scenario": "State Change Tracking",
+          "fact": "Gadget-X discontinued/clearance",
+          "lostAtCycle": 1
+        }
+      ]
+    },
+    {
+      "type": "phone/id",
+      "totalProbes": 7,
+      "retentionByCycle": [
+        0.14285714285714285,
+        0.2857142857142857,
+        0.42857142857142855,
+        0.42857142857142855,
+        0.5714285714285714
+      ],
+      "overallRetention": 0,
+      "losses": [
+        {
+          "scenario": "Contradiction Resolution",
+          "fact": "Kenji phone 090-8765-4321",
+          "lostAtCycle": 1
+        },
+        {
+          "scenario": "Long Horizon + Noise",
+          "fact": "patient ID RMC-2847",
+          "lostAtCycle": 5
+        },
+        {
+          "scenario": "Long Horizon + Noise",
+          "fact": "mechanic phone 555-0147",
+          "lostAtCycle": 1
+        },
+        {
+          "scenario": "Long Horizon + Noise",
+          "fact": "insurance policy HLT-99284-B",
+          "lostAtCycle": 2
+        },
+        {
+          "scenario": "Long Horizon + Noise",
+          "fact": "house alarm code 8472",
+          "lostAtCycle": 2
+        },
+        {
+          "scenario": "Long Horizon + Noise",
+          "fact": "passport number P-847291",
+          "lostAtCycle": 3
+        },
+        {
+          "scenario": "Long Horizon + Noise",
+          "fact": "flight UA447 gate B12 code XKRM47",
+          "lostAtCycle": 3
+        }
+      ]
+    },
+    {
+      "type": "quantity",
+      "totalProbes": 17,
+      "retentionByCycle": [
+        0.23529411764705882,
+        0.29411764705882354,
+        0.4117647058823529,
+        0.11764705882352941,
+        0.11764705882352941
+      ],
+      "overallRetention": 0.11764705882352941,
+      "losses": [
+        {
+          "scenario": "Early Fact Recall",
+          "fact": "backend salary $145k-$175k",
+          "lostAtCycle": 2
+        },
+        {
+          "scenario": "Early Fact Recall",
+          "fact": "API rate limit 1000 req/min standard",
+          "lostAtCycle": 2
+        },
+        {
+          "scenario": "State Change Tracking",
+          "fact": "initial Widget-A: 500",
+          "lostAtCycle": 3
+        },
+        {
+          "scenario": "State Change Tracking",
+          "fact": "initial Widget-B: 300",
+          "lostAtCycle": 3
+        },
+        {
+          "scenario": "State Change Tracking",
+          "fact": "warehouse fire -30 Widget-B",
+          "lostAtCycle": 1
+        },
+        {
+          "scenario": "State Change Tracking",
+          "fact": "Widget-A price $24.99",
+          "lostAtCycle": 2
+        },
+        {
+          "scenario": "Contradiction Resolution",
+          "fact": "flight cost $1,350",
+          "lostAtCycle": 2
+        },
+        {
+          "scenario": "Contradiction Resolution",
+          "fact": "cooking class $95 Kyoto",
+          "lostAtCycle": 2
+        },
+        {
+          "scenario": "Multi-hop Reasoning",
+          "fact": "catering $35 per person per meal",
+          "lostAtCycle": 1
+        },
+        {
+          "scenario": "Multi-hop Reasoning",
+          "fact": "3 catered meals",
+          "lostAtCycle": 1
+        },
+        {
+          "scenario": "Multi-hop Reasoning",
+          "fact": "2 charter buses 30 each",
+          "lostAtCycle": 2
+        },
+        {
+          "scenario": "Multi-hop Reasoning",
+          "fact": "engineering budget $15k",
+          "lostAtCycle": 2
+        },
+        {
+          "scenario": "Cascading Corrections",
+          "fact": "Sequoia investment $1.5M",
+          "lostAtCycle": 1
+        },
+        {
+          "scenario": "Cascading Corrections",
+          "fact": "net proceeds $2.925M",
+          "lostAtCycle": 2
+        },
+        {
+          "scenario": "Cascading Corrections",
+          "fact": "share price $1.20",
+          "lostAtCycle": 2
+        }
+      ]
+    },
+    {
+      "type": "entity",
+      "totalProbes": 8,
+      "retentionByCycle": [
+        0.25,
+        0.5,
+        0.625,
+        0.75,
+        0.5
+      ],
+      "overallRetention": 0.25,
+      "losses": [
+        {
+          "scenario": "Early Fact Recall",
+          "fact": "QA lead Marcus Williams",
+          "lostAtCycle": 1
+        },
+        {
+          "scenario": "Early Fact Recall",
+          "fact": "sponsor James Rodriguez VP Engineering",
+          "lostAtCycle": 2
+        },
+        {
+          "scenario": "State Change Tracking",
+          "fact": "new product Gizmo-Z",
+          "lostAtCycle": 1
+        },
+        {
+          "scenario": "State Change Tracking",
+          "fact": "new product MegaPart-Q 400 units",
+          "lostAtCycle": 2
+        },
+        {
+          "scenario": "Rapid-fire Corrections",
+          "fact": "Xavier added to Table 4",
+          "lostAtCycle": 2
+        },
+        {
+          "scenario": "Rapid-fire Corrections",
+          "fact": "Yuki and Zara added to Table 5",
+          "lostAtCycle": 2
+        }
+      ]
+    },
+    {
+      "type": "relationship",
+      "totalProbes": 3,
+      "retentionByCycle": [
+        0.3333333333333333,
+        1,
+        1,
+        0.6666666666666666,
+        0
+      ],
+      "overallRetention": 0.3333333333333333,
+      "losses": [
+        {
+          "scenario": "Multi-hop Reasoning",
+          "fact": "keynote in largest conference room",
+          "lostAtCycle": 1
+        },
+        {
+          "scenario": "Rapid-fire Corrections",
+          "fact": "Jack and Iris conflict",
+          "lostAtCycle": 1
+        }
+      ]
+    },
+    {
+      "type": "correction",
+      "totalProbes": 20,
+      "retentionByCycle": [
+        0.4,
+        0.7,
+        0.9,
+        0.45,
+        0.05
+      ],
+      "overallRetention": 0.45,
+      "losses": [
+        {
+          "scenario": "Early Fact Recall",
+          "fact": "frontend uses Svelte (corrected from React)",
+          "lostAtCycle": 1
+        },
+        {
+          "scenario": "Contradiction Resolution",
+          "fact": "budget $8,500 (corrected from $5,000)",
+          "lostAtCycle": 1
+        },
+        {
+          "scenario": "Contradiction Resolution",
+          "fact": "hotel Aman Tokyo (corrected from Park Hyatt)",
+          "lostAtCycle": 1
+        },
+        {
+          "scenario": "Contradiction Resolution",
+          "fact": "Kenji lives in Shinjuku (corrected from Shibuya)",
+          "lostAtCycle": 1
+        },
+        {
+          "scenario": "Contradiction Resolution",
+          "fact": "trip dates June 1-18 (extended from June 14)",
+          "lostAtCycle": 2
+        },
+        {
+          "scenario": "Cascading Corrections",
+          "fact": "legal fees $75K (corrected from $50K)",
+          "lostAtCycle": 2
+        },
+        {
+          "scenario": "Cascading Corrections",
+          "fact": "monthly burn $175K (corrected from $150K)",
+          "lostAtCycle": 2
+        },
+        {
+          "scenario": "Implicit Corrections",
+          "fact": "8 San Marzano tomatoes (corrected from 6 Roma)",
+          "lostAtCycle": 1
+        },
+        {
+          "scenario": "Implicit Corrections",
+          "fact": "salmon 8oz fillets (corrected from 6oz)",
+          "lostAtCycle": 1
+        },
+        {
+          "scenario": "Implicit Corrections",
+          "fact": "30 ladyfingers (corrected from 24)",
+          "lostAtCycle": 2
+        },
+        {
+          "scenario": "Rapid-fire Corrections",
+          "fact": "Uma removed (can't make it)",
+          "lostAtCycle": 4
+        }
+      ]
+    },
+    {
+      "type": "date",
+      "totalProbes": 3,
+      "retentionByCycle": [
+        0.6666666666666666,
+        0.6666666666666666,
+        1,
+        1,
+        1
+      ],
+      "overallRetention": 0.6666666666666666,
+      "losses": [
+        {
+          "scenario": "Long Horizon + Noise",
+          "fact": "son's school play Friday March 14 6pm",
+          "lostAtCycle": 2
+        }
+      ]
+    }
+  ]
+}

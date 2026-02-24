@@ -1,5 +1,22 @@
 import type { LLMMessage } from "../utils/llm";
 
+export type ProbeType =
+  | "entity"
+  | "phone/id"
+  | "relationship"
+  | "quantity"
+  | "date"
+  | "decision"
+  | "correction"
+  | "spatial";
+
+export interface Probe {
+  fact: string; // human-readable description
+  type: ProbeType;
+  patterns: string[]; // lowercase substrings — ALL must be present to count as retained
+  introducedAtStep: number; // 1-indexed step where this fact first appears
+}
+
 export interface Scenario {
   name: string;
   description: string;
@@ -11,6 +28,8 @@ export interface Scenario {
   checkAnswer: (answer: string) => boolean;
   // System prompt for the agent during the scenario
   systemPrompt: string;
+  // Probe facts for information loss analysis (optional)
+  probes?: Probe[];
 }
 
 /**
@@ -477,6 +496,94 @@ const rapidFireCorrections: Scenario = {
     return checks.filter(Boolean).length >= 7;
   },
 };
+
+// ── Probes: attach to each scenario for information loss analysis ──
+
+earlyFactRecall.probes = [
+  { fact: "project name Mercury", type: "entity", patterns: ["mercury"], introducedAtStep: 1 },
+  { fact: "budget $347,250", type: "quantity", patterns: ["347,250"], introducedAtStep: 1 },
+  { fact: "project lead Dr. Sarah Chen", type: "entity", patterns: ["sarah chen"], introducedAtStep: 1 },
+  { fact: "deadline March 15, 2027", type: "date", patterns: ["march 15"], introducedAtStep: 1 },
+  { fact: "frontend uses Svelte (corrected from React)", type: "correction", patterns: ["svelte"], introducedAtStep: 4 },
+  { fact: "QA lead Marcus Williams", type: "entity", patterns: ["marcus williams"], introducedAtStep: 6 },
+  { fact: "production region us-east-1", type: "spatial", patterns: ["us-east-1"], introducedAtStep: 7 },
+  { fact: "backend salary $145k-$175k", type: "quantity", patterns: ["145"], introducedAtStep: 12 },
+  { fact: "sponsor James Rodriguez VP Engineering", type: "entity", patterns: ["james rodriguez"], introducedAtStep: 15 },
+  { fact: "API rate limit 1000 req/min standard", type: "quantity", patterns: ["1000"], introducedAtStep: 17 },
+];
+
+stateChangeTracking.probes = [
+  { fact: "initial Widget-A: 500", type: "quantity", patterns: ["widget-a", "500"], introducedAtStep: 1 },
+  { fact: "initial Widget-B: 300", type: "quantity", patterns: ["widget-b", "300"], introducedAtStep: 1 },
+  { fact: "new product Gizmo-Z", type: "entity", patterns: ["gizmo-z"], introducedAtStep: 4 },
+  { fact: "Gadget-X discontinued/clearance", type: "decision", patterns: ["gadget-x", "clearance"], introducedAtStep: 6 },
+  { fact: "warehouse fire -30 Widget-B", type: "quantity", patterns: ["fire", "30"], introducedAtStep: 7 },
+  { fact: "new product MegaPart-Q 400 units", type: "entity", patterns: ["megapart-q"], introducedAtStep: 13 },
+  { fact: "Widget-A price $24.99", type: "quantity", patterns: ["24.99"], introducedAtStep: 14 },
+];
+
+contradictionResolution.probes = [
+  { fact: "budget $8,500 (corrected from $5,000)", type: "correction", patterns: ["8,500"], introducedAtStep: 7 },
+  { fact: "hotel Aman Tokyo (corrected from Park Hyatt)", type: "correction", patterns: ["aman"], introducedAtStep: 4 },
+  { fact: "Aman rate $500/night (corrected from $800)", type: "correction", patterns: ["500"], introducedAtStep: 15 },
+  { fact: "Kenji lives in Shinjuku (corrected from Shibuya)", type: "correction", patterns: ["shinjuku"], introducedAtStep: 9 },
+  { fact: "Kenji phone 090-8765-4321", type: "phone/id", patterns: ["090-8765-4321"], introducedAtStep: 9 },
+  { fact: "trip dates June 1-18 (extended from June 14)", type: "correction", patterns: ["june 18"], introducedAtStep: 11 },
+  { fact: "flight cost $1,350", type: "quantity", patterns: ["1,350"], introducedAtStep: 12 },
+  { fact: "cooking class $95 Kyoto", type: "quantity", patterns: ["95", "cooking"], introducedAtStep: 13 },
+];
+
+multiHopReasoning.probes = [
+  { fact: "engineering team 24 people", type: "quantity", patterns: ["24", "engineering"], introducedAtStep: 2 },
+  { fact: "floor 3 conference room 50 people", type: "spatial", patterns: ["floor 3", "50"], introducedAtStep: 5 },
+  { fact: "floor 2 conference room 30 people", type: "spatial", patterns: ["floor 2", "30"], introducedAtStep: 5 },
+  { fact: "catering $35 per person per meal", type: "quantity", patterns: ["35", "per person"], introducedAtStep: 8 },
+  { fact: "3 catered meals", type: "quantity", patterns: ["3", "meal"], introducedAtStep: 8 },
+  { fact: "2 charter buses 30 each", type: "quantity", patterns: ["bus", "30"], introducedAtStep: 11 },
+  { fact: "keynote in largest conference room", type: "relationship", patterns: ["keynote", "largest"], introducedAtStep: 7 },
+  { fact: "engineering budget $15k", type: "quantity", patterns: ["15", "engineering"], introducedAtStep: 15 },
+];
+
+longHorizonWithNoise.probes = [
+  { fact: "Dr. Martinez appointment 2:30pm Thursday", type: "date", patterns: ["martinez", "2:30"], introducedAtStep: 1 },
+  { fact: "patient ID RMC-2847", type: "phone/id", patterns: ["rmc-2847"], introducedAtStep: 1 },
+  { fact: "mechanic phone 555-0147", type: "phone/id", patterns: ["555-0147"], introducedAtStep: 7 },
+  { fact: "son's school play Friday March 14 6pm", type: "date", patterns: ["march 14", "peter pan"], introducedAtStep: 10 },
+  { fact: "insurance policy HLT-99284-B", type: "phone/id", patterns: ["hlt-99284-b"], introducedAtStep: 12 },
+  { fact: "house alarm code 8472", type: "phone/id", patterns: ["8472"], introducedAtStep: 16 },
+  { fact: "passport number P-847291", type: "phone/id", patterns: ["p-847291"], introducedAtStep: 18 },
+  { fact: "flight UA447 gate B12 code XKRM47", type: "phone/id", patterns: ["ua447", "xkrm47"], introducedAtStep: 20 },
+];
+
+cascadingCorrections.probes = [
+  { fact: "pre-money valuation $12M (corrected from $10M)", type: "correction", patterns: ["12"], introducedAtStep: 12 },
+  { fact: "round size $3M (corrected from $2M)", type: "correction", patterns: ["3"], introducedAtStep: 8 },
+  { fact: "Sequoia investment $1.5M", type: "quantity", patterns: ["sequoia", "1.5"], introducedAtStep: 9 },
+  { fact: "legal fees $75K (corrected from $50K)", type: "correction", patterns: ["75"], introducedAtStep: 10 },
+  { fact: "monthly burn $175K (corrected from $150K)", type: "correction", patterns: ["175"], introducedAtStep: 11 },
+  { fact: "net proceeds $2.925M", type: "quantity", patterns: ["2.925"], introducedAtStep: 10 },
+  { fact: "share price $1.20", type: "quantity", patterns: ["1.20"], introducedAtStep: 14 },
+];
+
+implicitCorrections.probes = [
+  { fact: "8 San Marzano tomatoes (corrected from 6 Roma)", type: "correction", patterns: ["8", "san marzano"], introducedAtStep: 7 },
+  { fact: "salmon 8oz fillets (corrected from 6oz)", type: "correction", patterns: ["8oz"], introducedAtStep: 8 },
+  { fact: "asparagus 400F (corrected from 425F)", type: "correction", patterns: ["400"], introducedAtStep: 9 },
+  { fact: "5 egg yolks (corrected from 6)", type: "correction", patterns: ["5", "egg yolk"], introducedAtStep: 10 },
+  { fact: "serves 6 (corrected from 4)", type: "correction", patterns: ["6", "serv"], introducedAtStep: 11 },
+  { fact: "6 garlic cloves (corrected from 4)", type: "correction", patterns: ["6", "garlic"], introducedAtStep: 12 },
+  { fact: "30 ladyfingers (corrected from 24)", type: "correction", patterns: ["30", "ladyfinger"], introducedAtStep: 15 },
+];
+
+rapidFireCorrections.probes = [
+  { fact: "Grace moved to Table 1", type: "correction", patterns: ["grace", "table 1"], introducedAtStep: 3 },
+  { fact: "Jack and Iris conflict", type: "relationship", patterns: ["jack", "iris", "conflict"], introducedAtStep: 4 },
+  { fact: "Paul and Quinn couple at Table 3", type: "relationship", patterns: ["paul", "quinn"], introducedAtStep: 6 },
+  { fact: "Uma removed (can't make it)", type: "correction", patterns: ["uma", "remov"], introducedAtStep: 11 },
+  { fact: "Xavier added to Table 4", type: "entity", patterns: ["xavier", "table 4"], introducedAtStep: 10 },
+  { fact: "Frank moved to Table 3 (not immediate family)", type: "correction", patterns: ["frank", "table 3"], introducedAtStep: 16 },
+  { fact: "Yuki and Zara added to Table 5", type: "entity", patterns: ["yuki", "zara"], introducedAtStep: 15 },
+];
 
 export const ALL_SCENARIOS: Scenario[] = [
   earlyFactRecall,
