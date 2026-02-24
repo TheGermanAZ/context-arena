@@ -1,4 +1,4 @@
-# ambition
+# context-arena
 
 To install dependencies:
 
