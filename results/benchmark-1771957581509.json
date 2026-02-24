@@ -1,0 +1,576 @@
+[
+  {
+    "strategyName": "RLM(8)",
+    "scenarioName": "Early Fact Recall",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 74,
+        "outputTokens": 79,
+        "latencyMs": 1258.6833749999998,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 185,
+        "outputTokens": 104,
+        "latencyMs": 1665.261208,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 320,
+        "outputTokens": 122,
+        "latencyMs": 1481.4720420000003,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 471,
+        "outputTokens": 55,
+        "latencyMs": 2083.0986249999996,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 691,
+        "outputTokens": 74,
+        "latencyMs": 1298.701083,
+        "memoryOverheadTokens": 1065
+      },
+      {
+        "step": 6,
+        "inputTokens": 792,
+        "outputTokens": 73,
+        "latencyMs": 1709.0991670000003,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 896,
+        "outputTokens": 76,
+        "latencyMs": 1052.1335,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 1000,
+        "outputTokens": 67,
+        "latencyMs": 1282.9994589999988,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 1172,
+        "outputTokens": 102,
+        "latencyMs": 1447.2043750000012,
+        "memoryOverheadTokens": 2226
+      },
+      {
+        "step": 10,
+        "inputTokens": 1303,
+        "outputTokens": 112,
+        "latencyMs": 1433.484292000001,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 1443,
+        "outputTokens": 118,
+        "latencyMs": 1841.018333,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 1592,
+        "outputTokens": 118,
+        "latencyMs": 1494.224166,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 1257,
+        "outputTokens": 181,
+        "latencyMs": 2256.8778749999983,
+        "memoryOverheadTokens": 2745
+      },
+      {
+        "step": 14,
+        "inputTokens": 1468,
+        "outputTokens": 136,
+        "latencyMs": 1809.284832999998,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 1628,
+        "outputTokens": 94,
+        "latencyMs": 1326.2009999999937,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 1755,
+        "outputTokens": 140,
+        "latencyMs": 1880.2728750000024,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 17,
+        "inputTokens": 1278,
+        "outputTokens": 94,
+        "latencyMs": 1591.5435829999988,
+        "memoryOverheadTokens": 2972
+      },
+      {
+        "step": 18,
+        "inputTokens": 1399,
+        "outputTokens": 112,
+        "latencyMs": 1582.9952080000003,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 19,
+        "inputTokens": 1543,
+        "outputTokens": 137,
+        "latencyMs": 1835.198332999993,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 20,
+        "inputTokens": 1706,
+        "outputTokens": 133,
+        "latencyMs": 1618.935166999996,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 21,
+        "inputTokens": 1191,
+        "outputTokens": 158,
+        "latencyMs": 1909.476125000001,
+        "memoryOverheadTokens": 2784
+      }
+    ],
+    "finalAnswer": "I don't have that information available. Based on our conversation, I can only confirm:\n\n**What I DO know:**\n- Frontend framework: **Svelte**\n- Sprint structure: 2-week sprints starting January 6, 2027\n- Performance targets: API p95 <200ms, page load <2 seconds\n- Security/infrastructure details (encryption, backups, rate limiting)\n\n**What I DON'T know:**\n- Project budget (exact amount)\n- Project lead (name/role)\n- Project deadline (end date)\n\nYou'll need to provide these details from your project charter or planning documents so I can include them in the board summary. Do you have this information available?",
+    "correct": false,
+    "totalInputTokens": 23164,
+    "totalOutputTokens": 2285,
+    "totalMemoryOverheadTokens": 11792,
+    "totalLatencyMs": 33858.16462399998,
+    "estimatedCostUsd": 0.0371048,
+    "peakContextTokens": 1755
+  },
+  {
+    "strategyName": "RLM(8)",
+    "scenarioName": "State Change Tracking",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 77,
+        "outputTokens": 110,
+        "latencyMs": 1334.510334000006,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 207,
+        "outputTokens": 64,
+        "latencyMs": 1053.2158340000024,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 293,
+        "outputTokens": 70,
+        "latencyMs": 1223.1019159999996,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 397,
+        "outputTokens": 115,
+        "latencyMs": 1073.4257079999952,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 694,
+        "outputTokens": 112,
+        "latencyMs": 1290.7775419999962,
+        "memoryOverheadTokens": 982
+      },
+      {
+        "step": 6,
+        "inputTokens": 841,
+        "outputTokens": 165,
+        "latencyMs": 1436.6474159999925,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 1027,
+        "outputTokens": 179,
+        "latencyMs": 1425.7175839999982,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 1229,
+        "outputTokens": 198,
+        "latencyMs": 1477.070458000002,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 1274,
+        "outputTokens": 214,
+        "latencyMs": 2013.591292000012,
+        "memoryOverheadTokens": 2280
+      },
+      {
+        "step": 10,
+        "inputTokens": 1516,
+        "outputTokens": 209,
+        "latencyMs": 1628.9189170000027,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 1755,
+        "outputTokens": 201,
+        "latencyMs": 1468.1203750000132,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 1982,
+        "outputTokens": 240,
+        "latencyMs": 1771.8998340000107,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 1363,
+        "outputTokens": 221,
+        "latencyMs": 1775.0933340000047,
+        "memoryOverheadTokens": 3162
+      },
+      {
+        "step": 14,
+        "inputTokens": 1611,
+        "outputTokens": 268,
+        "latencyMs": 2265.825708000004,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 1896,
+        "outputTokens": 291,
+        "latencyMs": 2584.9915000000037,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 2211,
+        "outputTokens": 258,
+        "latencyMs": 2299.6147499999934,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "# Current Inventory Count - Main Warehouse\n\n**Active Products:**\n| Item | Quantity | Unit Price | Status |\n|------|----------|------------|--------|\n| Widget-A | 370 units | $24.99 | Active |\n| Widget-B | 1,005 units | — | Active |\n| Gizmo-Z | 0 units | — | Active |\n| MegaPart-Q | 400 units | — | Active |\n\n**Clearance Products:**\n| Item | Quantity | Status |\n|------|----------|--------|\n| Gadget-X | 200 units | CLEARANCE (Discontinued) |\n\n---\n\n**INVENTORY SUMMARY:**\n- **Total Active Inventory:** 1,775 units\n- **Total Clearance Inventory:** 200 units\n- **Grand Total:** 1,975 units\n\n**Note:** This reflects the current state at the main warehouse location. The East Warehouse holds 150 units of Widget-B (transferred today). Gizmo-Z inventory at the main warehouse is currently depleted following the recent customer order.",
+    "correct": true,
+    "totalInputTokens": 18373,
+    "totalOutputTokens": 2915,
+    "totalMemoryOverheadTokens": 6424,
+    "totalLatencyMs": 26122.522502000036,
+    "estimatedCostUsd": 0.0314976,
+    "peakContextTokens": 2211
+  },
+  {
+    "strategyName": "RLM(8)",
+    "scenarioName": "Contradiction Resolution",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 60,
+        "outputTokens": 393,
+        "latencyMs": 4221.890291999996,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 478,
+        "outputTokens": 400,
+        "latencyMs": 3450.6342920000025,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 905,
+        "outputTokens": 360,
+        "latencyMs": 4691.664082999996,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 1300,
+        "outputTokens": 420,
+        "latencyMs": 4179.98541600001,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 1566,
+        "outputTokens": 380,
+        "latencyMs": 4143.180832999991,
+        "memoryOverheadTokens": 2151
+      },
+      {
+        "step": 6,
+        "inputTokens": 1985,
+        "outputTokens": 354,
+        "latencyMs": 3690.473417000001,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 2367,
+        "outputTokens": 387,
+        "latencyMs": 4300.269166999991,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 2790,
+        "outputTokens": 437,
+        "latencyMs": 3582.7424159999937,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 1574,
+        "outputTokens": 284,
+        "latencyMs": 3076.230958,
+        "memoryOverheadTokens": 3962
+      },
+      {
+        "step": 10,
+        "inputTokens": 1893,
+        "outputTokens": 384,
+        "latencyMs": 3507.896666000015,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 2309,
+        "outputTokens": 427,
+        "latencyMs": 3811.290500000003,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 2761,
+        "outputTokens": 331,
+        "latencyMs": 3037.871124999976,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 1457,
+        "outputTokens": 384,
+        "latencyMs": 3110.698000000004,
+        "memoryOverheadTokens": 3931
+      },
+      {
+        "step": 14,
+        "inputTokens": 1869,
+        "outputTokens": 343,
+        "latencyMs": 4316.739125000022,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 2255,
+        "outputTokens": 392,
+        "latencyMs": 3477.8121249999967,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 2697,
+        "outputTokens": 598,
+        "latencyMs": 5177.322084000014,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "# COMPLETE TRIP SUMMARY\n\n## Trip Overview\n- **Destination:** Tokyo & Kyoto, Japan\n- **Travel Dates:** June 1-18, 2024 (18 days / 17 nights)\n- **Total Budget:** $8,500\n\n---\n\n## Flight Details\n- **Airline:** ANA (All Nippon Airways)\n- **Route:** Round trip\n- **Cost:** $1,350 (includes $150 date change fee)\n- **Status:** ✓ BOOKED\n\n---\n\n## Tokyo Hotel\n- **Hotel:** Aman Tokyo\n- **Nightly Rate:** $500/night\n- **Stay Duration:** 15 nights (June 1-7, June 9-18)\n- **Total Cost:** $7,500\n- **Special Rate:** 10+ night discount applied\n- **Status:** ✓ READY TO BOOK\n\n---\n\n## Kyoto Hotel\n- **Hotel:** TBD (not yet selected)\n- **Stay Duration:** 2 nights (June 7-9)\n- **Estimated Cost:** TBD\n- **Status:** ⏳ PENDING\n\n---\n\n## Transportation\n- **Shinkansen (Bullet Train):** Tokyo ↔ Kyoto\n- **Cost:** $280 round trip\n- **Dates:** Depart June 7, Return June 9\n- **Status:** ✓ PLANNED\n\n---\n\n## Kenji (Friend Meeting)\n- **Neighborhood:** Shinjuku, Tokyo\n- **Phone Number:** 090-8765-4321\n- **Meeting Date:** June 10\n- **Activity:** Dinner\n- **Time:** TBD\n- **Status:** ✓ CONFIRMED\n\n---\n\n## Kyoto Activities (June 8)\n- **Cooking Class:** $95\n- **Tea Ceremony:** $60\n- **Subtotal:** $155\n\n---\n\n## Budget Breakdown\n| Category | Cost |\n|----------|------|\n| **ANA Flight** | $1,350 |\n| **Aman Tokyo (15 nights)** | $7,500 |\n| **Shinkansen** | $280 |\n| **Kyoto Activities** | $155 |\n| **Subtotal (Known)** | $9,285 |\n| **Budget** | $8,500 |\n| **Overage** | ($785) |\n\n⚠️ **Note:** You need to select an affordable Kyoto hotel to stay within budget. Current known costs exceed budget by $785.",
+    "correct": false,
+    "totalInputTokens": 28266,
+    "totalOutputTokens": 6274,
+    "totalMemoryOverheadTokens": 10044,
+    "totalLatencyMs": 61776.70049900001,
+    "estimatedCostUsd": 0.055744,
+    "peakContextTokens": 2790
+  },
+  {
+    "strategyName": "RLM(8)",
+    "scenarioName": "Long Horizon + Noise",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 66,
+        "outputTokens": 88,
+        "latencyMs": 2506.6970410000067,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 191,
+        "outputTokens": 94,
+        "latencyMs": 1529.13400000002,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 308,
+        "outputTokens": 326,
+        "latencyMs": 2814.842249999987,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 666,
+        "outputTokens": 122,
+        "latencyMs": 1327.3374590000021,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 675,
+        "outputTokens": 153,
+        "latencyMs": 2243.5146669999813,
+        "memoryOverheadTokens": 994
+      },
+      {
+        "step": 6,
+        "inputTokens": 846,
+        "outputTokens": 320,
+        "latencyMs": 3419.019666999986,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 1218,
+        "outputTokens": 291,
+        "latencyMs": 3136.483750000014,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 1532,
+        "outputTokens": 309,
+        "latencyMs": 3683.478625000047,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 1285,
+        "outputTokens": 335,
+        "latencyMs": 4755.915625000023,
+        "memoryOverheadTokens": 2655
+      },
+      {
+        "step": 10,
+        "inputTokens": 1655,
+        "outputTokens": 345,
+        "latencyMs": 4426.494540999993,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 2013,
+        "outputTokens": 113,
+        "latencyMs": 2244.2578750000685,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 2163,
+        "outputTokens": 303,
+        "latencyMs": 3686.621374999988,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 1423,
+        "outputTokens": 289,
+        "latencyMs": 3376.08825000003,
+        "memoryOverheadTokens": 3545
+      },
+      {
+        "step": 14,
+        "inputTokens": 1745,
+        "outputTokens": 294,
+        "latencyMs": 3892.423916999949,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 2052,
+        "outputTokens": 264,
+        "latencyMs": 3235.198417000007,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 2348,
+        "outputTokens": 306,
+        "latencyMs": 4300.560083999997,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 17,
+        "inputTokens": 1418,
+        "outputTokens": 296,
+        "latencyMs": 3046.6646659999387,
+        "memoryOverheadTokens": 3406
+      },
+      {
+        "step": 18,
+        "inputTokens": 1744,
+        "outputTokens": 331,
+        "latencyMs": 3107.350333999959,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 19,
+        "inputTokens": 2093,
+        "outputTokens": 341,
+        "latencyMs": 3399.950291000074,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 20,
+        "inputTokens": 2478,
+        "outputTokens": 384,
+        "latencyMs": 3563.2670839999337,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 21,
+        "inputTokens": 1573,
+        "outputTokens": 316,
+        "latencyMs": 2247.5837499999907,
+        "memoryOverheadTokens": 3598
+      }
+    ],
+    "finalAnswer": "# IMPORTANT PERSONAL INFORMATION\n\n**1) DOCTOR APPOINTMENT**\n- Patient ID: RMC-2847\n- Doctor: Dr. Martinez\n- Location: Riverside Medical Center\n- Appointment: Thursday, 2:30 PM\n\n**2) PRESCRIPTION**\n- Medication: Lisinopril\n- Dosage: 10mg\n- Frequency: Once daily in morning\n\n**3) CAR MAINTENANCE**\n- Mechanic: 555-0147\n- Current Mileage: 38,500 miles\n- Oil Change Needed: Before 40,000 miles\n\n**4) SON'S SCHOOL PLAY**\n- School: Jefferson Elementary\n- Play: Peter Pan\n- Son's Role: Lead (Peter Pan)\n- Date: March 14\n- Time: 6:00 PM\n\n**5) INSURANCE**\n- Policy Number: HLT-99284-B\n- Claim Reference: CLM-2024-0892\n\n**6) HOUSE ALARM CODE**\n- Code: 8472\n- Company: SafeGuard\n\n**7) FLIGHT DETAILS**\n- Airline: United\n- Flight: UA447\n- Destination: Denver\n- Date: March 20\n- Departure: 7:15 AM\n- Gate: B12\n- Confirmation Code: XKRM47",
+    "correct": true,
+    "totalInputTokens": 29492,
+    "totalOutputTokens": 5620,
+    "totalMemoryOverheadTokens": 14198,
+    "totalLatencyMs": 65942.883668,
+    "estimatedCostUsd": 0.057432000000000004,
+    "peakContextTokens": 2478
+  }
+]

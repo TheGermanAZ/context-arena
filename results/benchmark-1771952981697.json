@@ -1,0 +1,1724 @@
+[
+  {
+    "strategyName": "Full Context",
+    "scenarioName": "Early Fact Recall",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 74,
+        "outputTokens": 85,
+        "latencyMs": 1363.6825000000001,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 191,
+        "outputTokens": 91,
+        "latencyMs": 1429.8820420000002,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 313,
+        "outputTokens": 111,
+        "latencyMs": 1497.8695000000002,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 453,
+        "outputTokens": 70,
+        "latencyMs": 953.7923329999994,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 548,
+        "outputTokens": 71,
+        "latencyMs": 1412.8536670000003,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 6,
+        "inputTokens": 646,
+        "outputTokens": 79,
+        "latencyMs": 1158.6471250000004,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 756,
+        "outputTokens": 76,
+        "latencyMs": 1002.7034999999996,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 860,
+        "outputTokens": 88,
+        "latencyMs": 1234.7631660000006,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 969,
+        "outputTokens": 92,
+        "latencyMs": 1331.3087499999983,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 10,
+        "inputTokens": 1090,
+        "outputTokens": 95,
+        "latencyMs": 1242.1175000000003,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 1213,
+        "outputTokens": 106,
+        "latencyMs": 1612.1794580000005,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 1350,
+        "outputTokens": 107,
+        "latencyMs": 1437.7979999999989,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 1488,
+        "outputTokens": 140,
+        "latencyMs": 2359.9024579999987,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 14,
+        "inputTokens": 1658,
+        "outputTokens": 124,
+        "latencyMs": 1598.9010420000013,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 1806,
+        "outputTokens": 85,
+        "latencyMs": 1264.7340000000004,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 1924,
+        "outputTokens": 109,
+        "latencyMs": 1787.1860840000008,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 17,
+        "inputTokens": 2061,
+        "outputTokens": 96,
+        "latencyMs": 1314.0690419999992,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 18,
+        "inputTokens": 2184,
+        "outputTokens": 122,
+        "latencyMs": 1427.0849589999998,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 19,
+        "inputTokens": 2338,
+        "outputTokens": 105,
+        "latencyMs": 1410.9307499999995,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 20,
+        "inputTokens": 2469,
+        "outputTokens": 103,
+        "latencyMs": 1249.7651250000017,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 21,
+        "inputTokens": 2609,
+        "outputTokens": 75,
+        "latencyMs": 1142.760875,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "Here's the summary for the board:\n\n**Mercury Project Summary:**\n- **Project Budget:** $347,250\n- **Project Lead:** Dr. Sarah Chen\n- **Deadline:** March 15, 2027\n- **Frontend Framework:** Svelte\n\nIs there anything else you'd like me to include in the board summary?",
+    "correct": true,
+    "totalInputTokens": 27000,
+    "totalOutputTokens": 2030,
+    "totalMemoryOverheadTokens": 0,
+    "totalLatencyMs": 29232.931876000002,
+    "estimatedCostUsd": 0.029720000000000003,
+    "peakContextTokens": 2609
+  },
+  {
+    "strategyName": "Window(10)",
+    "scenarioName": "Early Fact Recall",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 74,
+        "outputTokens": 71,
+        "latencyMs": 1069.0195830000011,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 177,
+        "outputTokens": 101,
+        "latencyMs": 1568.7260419999984,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 309,
+        "outputTokens": 157,
+        "latencyMs": 1763.853833000001,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 495,
+        "outputTokens": 51,
+        "latencyMs": 957.8171250000014,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 571,
+        "outputTokens": 156,
+        "latencyMs": 1460.8052499999976,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 6,
+        "inputTokens": 645,
+        "outputTokens": 187,
+        "latencyMs": 5812.671541000003,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 730,
+        "outputTokens": 207,
+        "latencyMs": 1866.737709000001,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 777,
+        "outputTokens": 209,
+        "latencyMs": 1377.0484169999982,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 927,
+        "outputTokens": 228,
+        "latencyMs": 1566.6621670000022,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 10,
+        "inputTokens": 1003,
+        "outputTokens": 261,
+        "latencyMs": 1613.7350420000002,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 1078,
+        "outputTokens": 282,
+        "latencyMs": 1679.5312919999997,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 1153,
+        "outputTokens": 304,
+        "latencyMs": 1618.1745410000003,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 1251,
+        "outputTokens": 368,
+        "latencyMs": 2099.988249999995,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 14,
+        "inputTokens": 1400,
+        "outputTokens": 377,
+        "latencyMs": 2221.075708000004,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 1511,
+        "outputTokens": 381,
+        "latencyMs": 2203.7714160000032,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 1615,
+        "outputTokens": 423,
+        "latencyMs": 2242.8752079999977,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 17,
+        "inputTokens": 1731,
+        "outputTokens": 453,
+        "latencyMs": 2393.935709000005,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 18,
+        "inputTokens": 1812,
+        "outputTokens": 467,
+        "latencyMs": 4756.686290999998,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 19,
+        "inputTokens": 1904,
+        "outputTokens": 511,
+        "latencyMs": 2310.681125000003,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 20,
+        "inputTokens": 2036,
+        "outputTokens": 525,
+        "latencyMs": 3776.0794999999925,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 21,
+        "inputTokens": 2142,
+        "outputTokens": 82,
+        "latencyMs": 987.2820829999982,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "**Mercury Project - Board Summary**\n\n| Item | Details |\n|------|---------|\n| **Project Budget** | $347,250 |\n| **Project Lead** | Dr. Sarah Chen |\n| **Deadline** | March 15, 2027 (Phase 1 - Web) |\n| **Frontend Framework** | Svelte |",
+    "correct": true,
+    "totalInputTokens": 23341,
+    "totalOutputTokens": 5801,
+    "totalMemoryOverheadTokens": 0,
+    "totalLatencyMs": 45347.157832000004,
+    "estimatedCostUsd": 0.0418768,
+    "peakContextTokens": 2142
+  },
+  {
+    "strategyName": "Window(6)",
+    "scenarioName": "Early Fact Recall",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 74,
+        "outputTokens": 90,
+        "latencyMs": 1468.3854580000043,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 196,
+        "outputTokens": 103,
+        "latencyMs": 1719.805416999996,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 330,
+        "outputTokens": 109,
+        "latencyMs": 1615.0589590000018,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 340,
+        "outputTokens": 113,
+        "latencyMs": 1557.6839159999945,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 343,
+        "outputTokens": 76,
+        "latencyMs": 1178.1716659999947,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 6,
+        "inputTokens": 306,
+        "outputTokens": 56,
+        "latencyMs": 1002.4310410000035,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 251,
+        "outputTokens": 55,
+        "latencyMs": 1082.5445829999953,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 233,
+        "outputTokens": 56,
+        "latencyMs": 935.3877089999878,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 227,
+        "outputTokens": 67,
+        "latencyMs": 1138.6460420000076,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 10,
+        "inputTokens": 237,
+        "outputTokens": 81,
+        "latencyMs": 970.9376670000056,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 262,
+        "outputTokens": 71,
+        "latencyMs": 2781.154957999999,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 276,
+        "outputTokens": 69,
+        "latencyMs": 1328.565625000003,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 266,
+        "outputTokens": 87,
+        "latencyMs": 1219.8325830000103,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 14,
+        "inputTokens": 284,
+        "outputTokens": 72,
+        "latencyMs": 906.1169590000063,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 280,
+        "outputTokens": 72,
+        "latencyMs": 1517.2265000000043,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 267,
+        "outputTokens": 108,
+        "latencyMs": 1378.9089999999997,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 17,
+        "inputTokens": 301,
+        "outputTokens": 75,
+        "latencyMs": 1183.3654160000006,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 18,
+        "inputTokens": 307,
+        "outputTokens": 62,
+        "latencyMs": 973.5396250000049,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 19,
+        "inputTokens": 260,
+        "outputTokens": 81,
+        "latencyMs": 1083.7361250000104,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 20,
+        "inputTokens": 264,
+        "outputTokens": 63,
+        "latencyMs": 774.6727089999913,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 21,
+        "inputTokens": 275,
+        "outputTokens": 117,
+        "latencyMs": 1356.1189169999998,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "I don't have information about those items. Based on our conversation so far, I only know:\n\n- **Backup Strategy:** Full daily at 2am UTC, incremental every 6 hours, retained for 30 days\n- **Performance Requirements:** API response time p95 under 200ms, page load time under 2 seconds\n\nI don't have details on:\n- Project budget\n- Project lead\n- Deadline\n- Frontend framework\n\nCould you provide those details so I can help you prepare the board summary?",
+    "correct": false,
+    "totalInputTokens": 5579,
+    "totalOutputTokens": 1683,
+    "totalMemoryOverheadTokens": 0,
+    "totalLatencyMs": 27172.29087500002,
+    "estimatedCostUsd": 0.011195199999999999,
+    "peakContextTokens": 343
+  },
+  {
+    "strategyName": "Summarize(8)",
+    "scenarioName": "Early Fact Recall",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 74,
+        "outputTokens": 72,
+        "latencyMs": 1139.9577909999934,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 178,
+        "outputTokens": 104,
+        "latencyMs": 1542.3225410000014,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 313,
+        "outputTokens": 122,
+        "latencyMs": 1564.6754999999976,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 464,
+        "outputTokens": 128,
+        "latencyMs": 1623.4535000000033,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 617,
+        "outputTokens": 91,
+        "latencyMs": 1439.4082909999997,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 6,
+        "inputTokens": 735,
+        "outputTokens": 104,
+        "latencyMs": 1416.794333999991,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 870,
+        "outputTokens": 117,
+        "latencyMs": 1632.024624999991,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 524,
+        "outputTokens": 132,
+        "latencyMs": 2250.444791999995,
+        "memoryOverheadTokens": 828
+      },
+      {
+        "step": 9,
+        "inputTokens": 677,
+        "outputTokens": 149,
+        "latencyMs": 1644.6344169999938,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 10,
+        "inputTokens": 855,
+        "outputTokens": 156,
+        "latencyMs": 1965.218000000008,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 1039,
+        "outputTokens": 214,
+        "latencyMs": 2973.144207999998,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 1284,
+        "outputTokens": 165,
+        "latencyMs": 2470.9314999999915,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 693,
+        "outputTokens": 250,
+        "latencyMs": 2692.763834000012,
+        "memoryOverheadTokens": 1163
+      },
+      {
+        "step": 14,
+        "inputTokens": 973,
+        "outputTokens": 273,
+        "latencyMs": 3192.660208999994,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 1270,
+        "outputTokens": 189,
+        "latencyMs": 2542.230333000014,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 1492,
+        "outputTokens": 326,
+        "latencyMs": 3377.629874999984,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 17,
+        "inputTokens": 1846,
+        "outputTokens": 278,
+        "latencyMs": 3676.429084000003,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 18,
+        "inputTokens": 958,
+        "outputTokens": 379,
+        "latencyMs": 3579.0915410000016,
+        "memoryOverheadTokens": 1685
+      },
+      {
+        "step": 19,
+        "inputTokens": 1369,
+        "outputTokens": 367,
+        "latencyMs": 3484.6084170000104,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 20,
+        "inputTokens": 1762,
+        "outputTokens": 381,
+        "latencyMs": 3888.0009579999896,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 21,
+        "inputTokens": 2180,
+        "outputTokens": 239,
+        "latencyMs": 3762.6516249999986,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "Based on what we've discussed in this conversation, here's what I can confirm:\n\n**Project Budget:** $347,250 (noted earlier, but we flagged that this needs reconciliation against actual salary + infrastructure costs)\n\n**Project Lead:** James Rodriguez, VP of Engineering (reports to Lisa Park, CTO)\n\n**Deadline:** March 15, 2027\n\n**Frontend Framework:** Not yet specified in our conversation\n\n---\n\n**Important caveat for the board:** We haven't discussed or decided on a frontend framework yet. Before presenting to the board, you'll need to clarify:\n\n- Are you using React, Vue, Angular, or another framework?\n- Is this tied to any existing tech stack decisions?\n- Does it need to support the Phase 2 mobile app (React Native, Flutter, etc.)?\n\nAlso, **flag the budget reconciliation issue**—the $347,250 should be verified against actual personnel costs and infrastructure expenses to ensure accuracy for board reporting.\n\nWould you like to decide on the frontend framework now, or do you have other details to add before the board summary?",
+    "correct": false,
+    "totalInputTokens": 20173,
+    "totalOutputTokens": 4236,
+    "totalMemoryOverheadTokens": 3676,
+    "totalLatencyMs": 51859.07537499997,
+    "estimatedCostUsd": 0.036023200000000005,
+    "peakContextTokens": 2180
+  },
+  {
+    "strategyName": "Structured(8)",
+    "scenarioName": "Early Fact Recall",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 74,
+        "outputTokens": 70,
+        "latencyMs": 1170.913499999995,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 176,
+        "outputTokens": 111,
+        "latencyMs": 1643.1709160000028,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 318,
+        "outputTokens": 96,
+        "latencyMs": 1525.3225419999799,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 443,
+        "outputTokens": 70,
+        "latencyMs": 1018.6870409999974,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 299,
+        "outputTokens": 61,
+        "latencyMs": 1345.6152500000026,
+        "memoryOverheadTokens": 511
+      },
+      {
+        "step": 6,
+        "inputTokens": 387,
+        "outputTokens": 65,
+        "latencyMs": 1210.150082999986,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 483,
+        "outputTokens": 61,
+        "latencyMs": 1076.3379159999895,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 572,
+        "outputTokens": 69,
+        "latencyMs": 1368.2287499999802,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 463,
+        "outputTokens": 98,
+        "latencyMs": 1496.2170000000042,
+        "memoryOverheadTokens": 752
+      },
+      {
+        "step": 10,
+        "inputTokens": 590,
+        "outputTokens": 97,
+        "latencyMs": 1365.9098329999833,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 715,
+        "outputTokens": 135,
+        "latencyMs": 1752.3757920000062,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 881,
+        "outputTokens": 140,
+        "latencyMs": 1817.222167,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 734,
+        "outputTokens": 189,
+        "latencyMs": 2276.9154590000107,
+        "memoryOverheadTokens": 826
+      },
+      {
+        "step": 14,
+        "inputTokens": 953,
+        "outputTokens": 168,
+        "latencyMs": 3809.583333000017,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 1145,
+        "outputTokens": 95,
+        "latencyMs": 1500.0381669999915,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 1273,
+        "outputTokens": 153,
+        "latencyMs": 1895.0381670000206,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 17,
+        "inputTokens": 746,
+        "outputTokens": 75,
+        "latencyMs": 1130.4547080000048,
+        "memoryOverheadTokens": 912
+      },
+      {
+        "step": 18,
+        "inputTokens": 848,
+        "outputTokens": 74,
+        "latencyMs": 1530.570624999993,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 19,
+        "inputTokens": 954,
+        "outputTokens": 94,
+        "latencyMs": 1086.0284999999858,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 20,
+        "inputTokens": 1074,
+        "outputTokens": 101,
+        "latencyMs": 1553.5273750000051,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 21,
+        "inputTokens": 696,
+        "outputTokens": 74,
+        "latencyMs": 872.4605839999858,
+        "memoryOverheadTokens": 700
+      }
+    ],
+    "finalAnswer": "# Project Mercury - Board Summary\n\n| Item | Details |\n|------|---------|\n| **Project Budget** | $347,250 |\n| **Project Lead** | Dr. Sarah Chen |\n| **Project Deadline** | March 15, 2027 |\n| **Frontend Framework** | Svelte |",
+    "correct": true,
+    "totalInputTokens": 13824,
+    "totalOutputTokens": 2096,
+    "totalMemoryOverheadTokens": 3701,
+    "totalLatencyMs": 32444.76770799994,
+    "estimatedCostUsd": 0.022404,
+    "peakContextTokens": 1273
+  },
+  {
+    "strategyName": "Hybrid",
+    "scenarioName": "Early Fact Recall",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 74,
+        "outputTokens": 88,
+        "latencyMs": 1264.9292919999862,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 194,
+        "outputTokens": 85,
+        "latencyMs": 1607.0380420000001,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 310,
+        "outputTokens": 79,
+        "latencyMs": 1228.886999999988,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 418,
+        "outputTokens": 53,
+        "latencyMs": 957.5422079999989,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 430,
+        "outputTokens": 58,
+        "latencyMs": 1141.5475839999854,
+        "memoryOverheadTokens": 1000
+      },
+      {
+        "step": 6,
+        "inputTokens": 515,
+        "outputTokens": 53,
+        "latencyMs": 897.9672500000161,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 599,
+        "outputTokens": 53,
+        "latencyMs": 796.4454170000099,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 680,
+        "outputTokens": 47,
+        "latencyMs": 1022.3531249999942,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 504,
+        "outputTokens": 44,
+        "latencyMs": 680.3044999999984,
+        "memoryOverheadTokens": 1340
+      },
+      {
+        "step": 10,
+        "inputTokens": 577,
+        "outputTokens": 54,
+        "latencyMs": 954.8144169999869,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 659,
+        "outputTokens": 58,
+        "latencyMs": 843.9793749999953,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 748,
+        "outputTokens": 58,
+        "latencyMs": 906.7896670000046,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 801,
+        "outputTokens": 71,
+        "latencyMs": 938.4678329999733,
+        "memoryOverheadTokens": 1209
+      },
+      {
+        "step": 14,
+        "inputTokens": 902,
+        "outputTokens": 71,
+        "latencyMs": 896.3248329999915,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 997,
+        "outputTokens": 51,
+        "latencyMs": 762.0570000000007,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 1081,
+        "outputTokens": 63,
+        "latencyMs": 855.191582999978,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 17,
+        "inputTokens": 1178,
+        "outputTokens": 58,
+        "latencyMs": 780.7055840000103,
+        "memoryOverheadTokens": 1751
+      },
+      {
+        "step": 18,
+        "inputTokens": 1263,
+        "outputTokens": 52,
+        "latencyMs": 1058.4994169999845,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 19,
+        "inputTokens": 1347,
+        "outputTokens": 65,
+        "latencyMs": 1463.7394170000043,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 20,
+        "inputTokens": 1438,
+        "outputTokens": 53,
+        "latencyMs": 829.3699170000036,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 21,
+        "inputTokens": 1050,
+        "outputTokens": 76,
+        "latencyMs": 992.848874999996,
+        "memoryOverheadTokens": 1457
+      }
+    ],
+    "finalAnswer": "Here's the summary for the board:\n\n**Project Mercury - Key Details:**\n- **Budget:** $347,250\n- **Project Lead:** Dr. Sarah Chen\n- **Deadline:** March 15, 2027\n- **Frontend Framework:** Svelte\n\nIs there anything else you'd like me to include in the board summary?",
+    "correct": true,
+    "totalInputTokens": 15765,
+    "totalOutputTokens": 1290,
+    "totalMemoryOverheadTokens": 6757,
+    "totalLatencyMs": 20879.802335999906,
+    "estimatedCostUsd": 0.0231776,
+    "peakContextTokens": 1438
+  },
+  {
+    "strategyName": "Full Context",
+    "scenarioName": "State Change Tracking",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 77,
+        "outputTokens": 123,
+        "latencyMs": 1158.6092500000086,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 220,
+        "outputTokens": 77,
+        "latencyMs": 989.5178749999905,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 319,
+        "outputTokens": 81,
+        "latencyMs": 872.7365419999987,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 434,
+        "outputTokens": 128,
+        "latencyMs": 1176.700582999998,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 585,
+        "outputTokens": 97,
+        "latencyMs": 1007.7187080000003,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 6,
+        "inputTokens": 717,
+        "outputTokens": 127,
+        "latencyMs": 1314.0705000000016,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 865,
+        "outputTokens": 100,
+        "latencyMs": 951.1848329999775,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 988,
+        "outputTokens": 99,
+        "latencyMs": 898.4194169999973,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 1113,
+        "outputTokens": 104,
+        "latencyMs": 978.2297499999986,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 10,
+        "inputTokens": 1245,
+        "outputTokens": 106,
+        "latencyMs": 1129.2113750000135,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 1381,
+        "outputTokens": 106,
+        "latencyMs": 974.0785420000029,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 1513,
+        "outputTokens": 134,
+        "latencyMs": 1263.833083000005,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 1669,
+        "outputTokens": 114,
+        "latencyMs": 947.5376249999972,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 14,
+        "inputTokens": 1810,
+        "outputTokens": 132,
+        "latencyMs": 1100.7948329999927,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 1959,
+        "outputTokens": 126,
+        "latencyMs": 1012.1626249999972,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 2109,
+        "outputTokens": 130,
+        "latencyMs": 1176.6610829999845,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "# Current Warehouse Inventory\n\n**Complete Inventory Report:**\n\n| Item | Quantity | Notes |\n|------|----------|-------|\n| Widget-A | 370 units | @ $24.99 each |\n| Widget-B | 1,005 units | |\n| Gadget-X | 200 units | CLEARANCE |\n| Gizmo-Z | 0 units | Out of stock |\n| MegaPart-Q | 400 units | |\n\n**Total items in warehouse: 1,975 units**",
+    "correct": true,
+    "totalInputTokens": 17004,
+    "totalOutputTokens": 1784,
+    "totalMemoryOverheadTokens": 0,
+    "totalLatencyMs": 16951.466623999964,
+    "estimatedCostUsd": 0.0207392,
+    "peakContextTokens": 2109
+  },
+  {
+    "strategyName": "Window(10)",
+    "scenarioName": "State Change Tracking",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 77,
+        "outputTokens": 86,
+        "latencyMs": 1160.460374999995,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 183,
+        "outputTokens": 84,
+        "latencyMs": 1271.8198749999865,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 289,
+        "outputTokens": 84,
+        "latencyMs": 976.0853749999951,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 407,
+        "outputTokens": 94,
+        "latencyMs": 910.5537079999922,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 524,
+        "outputTokens": 100,
+        "latencyMs": 986.5229999999865,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 6,
+        "inputTokens": 530,
+        "outputTokens": 121,
+        "latencyMs": 1336.124125000002,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 568,
+        "outputTokens": 118,
+        "latencyMs": 1006.8274999999849,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 603,
+        "outputTokens": 114,
+        "latencyMs": 922.6636250000156,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 615,
+        "outputTokens": 121,
+        "latencyMs": 959.9720419999794,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 10,
+        "inputTokens": 641,
+        "outputTokens": 121,
+        "latencyMs": 1028.4869999999937,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 636,
+        "outputTokens": 120,
+        "latencyMs": 922.3471669999708,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 643,
+        "outputTokens": 130,
+        "latencyMs": 2432.532708999992,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 658,
+        "outputTokens": 137,
+        "latencyMs": 1030.657917000004,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 14,
+        "inputTokens": 675,
+        "outputTokens": 158,
+        "latencyMs": 1077.7852920000441,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 701,
+        "outputTokens": 151,
+        "latencyMs": 1110.0314999999828,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 726,
+        "outputTokens": 100,
+        "latencyMs": 978.7937079999829,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "# Current Inventory Count\n\n| Item | Quantity |\n|------|----------|\n| Widget-A | 370 units |\n| Widget-B | 1,005 units |\n| Gadget-X | 200 units |\n| Gizmo-Z | 0 units |\n| MegaPart-Q | 400 units |\n\n**Current Inventory Total: 1,975 units**",
+    "correct": true,
+    "totalInputTokens": 8476,
+    "totalOutputTokens": 1839,
+    "totalMemoryOverheadTokens": 0,
+    "totalLatencyMs": 18111.664917999908,
+    "estimatedCostUsd": 0.0141368,
+    "peakContextTokens": 726
+  },
+  {
+    "strategyName": "Window(6)",
+    "scenarioName": "State Change Tracking",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 77,
+        "outputTokens": 104,
+        "latencyMs": 1110.4867499999818,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 201,
+        "outputTokens": 63,
+        "latencyMs": 776.6587500000023,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 286,
+        "outputTokens": 63,
+        "latencyMs": 1250.3250000000116,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 236,
+        "outputTokens": 70,
+        "latencyMs": 805.2860000000219,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 246,
+        "outputTokens": 76,
+        "latencyMs": 792.0598749999772,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 6,
+        "inputTokens": 272,
+        "outputTokens": 80,
+        "latencyMs": 973.1431669999729,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 269,
+        "outputTokens": 79,
+        "latencyMs": 875.8010000000359,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 272,
+        "outputTokens": 81,
+        "latencyMs": 905.187042000005,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 264,
+        "outputTokens": 86,
+        "latencyMs": 1215.4608330000192,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 10,
+        "inputTokens": 278,
+        "outputTokens": 87,
+        "latencyMs": 919.1860829999787,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 291,
+        "outputTokens": 86,
+        "latencyMs": 754.6875829999917,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 291,
+        "outputTokens": 94,
+        "latencyMs": 1208.4379160000244,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 292,
+        "outputTokens": 101,
+        "latencyMs": 882.3642910000053,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 14,
+        "inputTokens": 304,
+        "outputTokens": 115,
+        "latencyMs": 1242.0997920000227,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 316,
+        "outputTokens": 102,
+        "latencyMs": 916.5751659999951,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 319,
+        "outputTokens": 117,
+        "latencyMs": 1213.7197500000475,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "# Current Inventory Count\n\n**Warehouse Inventory Summary:**\n\n1. **Widget-A**: 370 units @ $24.99 each\n2. **Widget-B**: 1,005 units\n3. **Gadget-X (Clearance)**: 200 units\n4. **Gizmo-Z**: 0 units\n5. **MegaPart-Q**: 400 units\n\n**Total Items in Stock**: 1,975 units across 5 product lines",
+    "correct": true,
+    "totalInputTokens": 4214,
+    "totalOutputTokens": 1404,
+    "totalMemoryOverheadTokens": 0,
+    "totalLatencyMs": 15841.478998000093,
+    "estimatedCostUsd": 0.0089872,
+    "peakContextTokens": 319
+  },
+  {
+    "strategyName": "Summarize(8)",
+    "scenarioName": "State Change Tracking",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 77,
+        "outputTokens": 121,
+        "latencyMs": 2268.654042000009,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 218,
+        "outputTokens": 73,
+        "latencyMs": 746.4934589999611,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 313,
+        "outputTokens": 79,
+        "latencyMs": 1397.2840829999768,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 426,
+        "outputTokens": 126,
+        "latencyMs": 1985.6746250000433,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 575,
+        "outputTokens": 93,
+        "latencyMs": 1492.4316249999683,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 6,
+        "inputTokens": 703,
+        "outputTokens": 119,
+        "latencyMs": 1167.503417,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 843,
+        "outputTokens": 98,
+        "latencyMs": 953.0458339999896,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 430,
+        "outputTokens": 99,
+        "latencyMs": 966.2146669999929,
+        "memoryOverheadTokens": 707
+      },
+      {
+        "step": 9,
+        "inputTokens": 555,
+        "outputTokens": 107,
+        "latencyMs": 1235.2342910000007,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 10,
+        "inputTokens": 690,
+        "outputTokens": 104,
+        "latencyMs": 976.7060419999762,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 824,
+        "outputTokens": 105,
+        "latencyMs": 1069.2327919999952,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 955,
+        "outputTokens": 113,
+        "latencyMs": 921.2187080000294,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 441,
+        "outputTokens": 117,
+        "latencyMs": 959.0486659999588,
+        "memoryOverheadTokens": 925
+      },
+      {
+        "step": 14,
+        "inputTokens": 585,
+        "outputTokens": 130,
+        "latencyMs": 1565.3122909999802,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 732,
+        "outputTokens": 122,
+        "latencyMs": 965.0035829999833,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 878,
+        "outputTokens": 93,
+        "latencyMs": 1090.5659999999916,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "# Current Inventory Report\n\n**Inventory at this location:**\n- Widget-A: 370 units\n- Widget-B: 1,005 units\n- Gadget-X: 200 units (CLEARANCE)\n- Gizmo-Z: 0 units\n- MegaPart-Q: 400 units\n\n**Total items: 1,975 units**",
+    "correct": true,
+    "totalInputTokens": 9245,
+    "totalOutputTokens": 1699,
+    "totalMemoryOverheadTokens": 1632,
+    "totalLatencyMs": 19759.624124999857,
+    "estimatedCostUsd": 0.0154976,
+    "peakContextTokens": 955
+  },
+  {
+    "strategyName": "Structured(8)",
+    "scenarioName": "State Change Tracking",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 77,
+        "outputTokens": 83,
+        "latencyMs": 966.5327079999843,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 180,
+        "outputTokens": 80,
+        "latencyMs": 860.4054170000018,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 282,
+        "outputTokens": 81,
+        "latencyMs": 819.5152910000179,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 397,
+        "outputTokens": 97,
+        "latencyMs": 887.0444580000476,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 408,
+        "outputTokens": 96,
+        "latencyMs": 921.1413339999854,
+        "memoryOverheadTokens": 569
+      },
+      {
+        "step": 6,
+        "inputTokens": 539,
+        "outputTokens": 139,
+        "latencyMs": 1221.780875000055,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 699,
+        "outputTokens": 112,
+        "latencyMs": 960.2925420000101,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 834,
+        "outputTokens": 110,
+        "latencyMs": 929.6928750000079,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 661,
+        "outputTokens": 156,
+        "latencyMs": 1303.1533329999656,
+        "memoryOverheadTokens": 1000
+      },
+      {
+        "step": 10,
+        "inputTokens": 845,
+        "outputTokens": 169,
+        "latencyMs": 1503.163165999984,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 1044,
+        "outputTokens": 152,
+        "latencyMs": 1104.6504580000183,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 1222,
+        "outputTokens": 215,
+        "latencyMs": 2378.1118750000023,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 980,
+        "outputTokens": 161,
+        "latencyMs": 1323.7940839999937,
+        "memoryOverheadTokens": 1119
+      },
+      {
+        "step": 14,
+        "inputTokens": 1168,
+        "outputTokens": 193,
+        "latencyMs": 1421.13400000002,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 1378,
+        "outputTokens": 205,
+        "latencyMs": 1331.6895840000361,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 1607,
+        "outputTokens": 173,
+        "latencyMs": 1500.4190829999861,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "# Current Inventory Count\n\nHere is the complete inventory at our location:\n\n| Item | Quantity | Status |\n|------|----------|--------|\n| Widget-A | 370 units | Active |\n| Widget-B | 1,005 units | Active |\n| Gadget-X | 200 units | Clearance |\n| Gizmo-Z | 0 units | Active |\n| MegaPart-Q | 400 units | Active |\n\n**Total warehouse inventory: 1,975 units**\n\n**Summary:**\n- 4 items in stock with available quantities\n- 1 item depleted (Gizmo-Z)\n- 1 item in clearance status (Gadget-X)",
+    "correct": true,
+    "totalInputTokens": 12321,
+    "totalOutputTokens": 2222,
+    "totalMemoryOverheadTokens": 2688,
+    "totalLatencyMs": 19432.521083000116,
+    "estimatedCostUsd": 0.020895200000000003,
+    "peakContextTokens": 1607
+  },
+  {
+    "strategyName": "Hybrid",
+    "scenarioName": "State Change Tracking",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 77,
+        "outputTokens": 85,
+        "latencyMs": 1079.9297919999808,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 182,
+        "outputTokens": 90,
+        "latencyMs": 874.0905829999829,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 294,
+        "outputTokens": 90,
+        "latencyMs": 908.5059170000022,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 418,
+        "outputTokens": 100,
+        "latencyMs": 880.9045829999959,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 646,
+        "outputTokens": 294,
+        "latencyMs": 1928.4285839999793,
+        "memoryOverheadTokens": 1137
+      },
+      {
+        "step": 6,
+        "inputTokens": 975,
+        "outputTokens": 351,
+        "latencyMs": 2030.0839160000323,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 1347,
+        "outputTokens": 371,
+        "latencyMs": 2307.7261249999865,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 1741,
+        "outputTokens": 380,
+        "latencyMs": 2482.426000000036,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 1491,
+        "outputTokens": 413,
+        "latencyMs": 2269.5939159999834,
+        "memoryOverheadTokens": 3303
+      },
+      {
+        "step": 10,
+        "inputTokens": 1932,
+        "outputTokens": 437,
+        "latencyMs": 2255.823458000028,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 2399,
+        "outputTokens": 462,
+        "latencyMs": 2215.8125,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 2887,
+        "outputTokens": 497,
+        "latencyMs": 3013.9784579999978,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 1798,
+        "outputTokens": 538,
+        "latencyMs": 2442.473875000025,
+        "memoryOverheadTokens": 4876
+      },
+      {
+        "step": 14,
+        "inputTokens": 2363,
+        "outputTokens": 594,
+        "latencyMs": 2734.9085000000196,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 2974,
+        "outputTokens": 608,
+        "latencyMs": 3783.7804590000305,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 3606,
+        "outputTokens": 112,
+        "latencyMs": 1152.8399590000045,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "# Current Inventory Count\n\nHere is the exact quantity for each item at our location:\n\n| Item | Quantity |\n|------|----------|\n| Widget-A | 370 units |\n| Widget-B | 1,005 units |\n| Gadget-X | 200 units |\n| Gizmo-Z | 0 units |\n| MegaPart-Q | 400 units |\n\n**Total warehouse inventory: 1,975 units**",
+    "correct": true,
+    "totalInputTokens": 25130,
+    "totalOutputTokens": 5422,
+    "totalMemoryOverheadTokens": 9316,
+    "totalLatencyMs": 32361.306625000085,
+    "estimatedCostUsd": 0.0492448,
+    "peakContextTokens": 3606
+  }
+]
