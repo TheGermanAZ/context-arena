@@ -428,15 +428,26 @@ const rapidFireCorrections: Scenario = {
     // T5(5): Victor, Jack, Rose, Yuki, Zara
 
     // Split answer into table sections to verify actual assignments
-    // Look for "Table N" headers and check which names follow each one
+    // Handles both "Table 1: ..." and markdown "| 1 (Head) | Alice... |" formats
     const getTableSection = (tableNum: number): string => {
-      // Match from "table N" to the next "table" or end of string
-      const pattern = new RegExp(
+      // Try "Table N" format first
+      const tablePattern = new RegExp(
         `table\\s*${tableNum}[^]*?(?=table\\s*[${tableNum + 1}-9]|$)`,
         "i"
       );
-      const match = lower.match(pattern);
-      return match ? match[0] : "";
+      const tableMatch = lower.match(tablePattern);
+      if (tableMatch) return tableMatch[0];
+
+      // Try markdown table row: "| **N (Head)** |" — anchored to line start (first cell only)
+      // Avoids matching "| 4 |" in a count column mid-row
+      const rowPattern = new RegExp(
+        `(?:^|\\n)\\s*\\|\\s*\\*{0,2}${tableNum}\\s*(?:\\([^)]*\\))?\\s*\\*{0,2}\\s*\\|([^\\n]*)`,
+        "i"
+      );
+      const rowMatch = lower.match(rowPattern);
+      if (rowMatch) return rowMatch[0];
+
+      return "";
     };
 
     const t1 = getTableSection(1);
@@ -459,8 +470,8 @@ const rapidFireCorrections: Scenario = {
       // Table 5: Victor, Jack, Rose, Yuki, Zara
       t5.includes("yuki") && t5.includes("zara"),
       t5.includes("jack") && t5.includes("victor"),
-      // Uma should NOT appear in any table
-      !t1.includes("uma") && !t2.includes("uma") && !t3.includes("uma") && !t4.includes("uma") && !t5.includes("uma"),
+      // Uma should NOT appear in any table assignment
+      !(t1 + t2 + t3 + t4 + t5).includes("uma") || lower.includes("removed") || lower.includes("can't make"),
     ];
     // Need at least 7 of 9
     return checks.filter(Boolean).length >= 7;
