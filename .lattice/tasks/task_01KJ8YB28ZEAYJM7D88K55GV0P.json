@@ -10,8 +10,8 @@
   "done_at": null,
   "evidence_refs": [],
   "id": "task_01KJ8YB28ZEAYJM7D88K55GV0P",
-  "last_event_id": "ev_01KJ8YBYYXEBZ2MC2NMHBN7K00",
-  "last_status_changed_at": "2026-02-24T23:04:25Z",
+  "last_event_id": "ev_01KJ906C9RTSEVP7YAHRHMN90J",
+  "last_status_changed_at": "2026-02-24T23:36:48Z",
   "priority": "medium",
   "relationships_out": [
     {
@@ -25,10 +25,10 @@
   "reopened_count": 0,
   "schema_version": 1,
   "short_id": "CTX-2",
-  "status": "backlog",
+  "status": "in_progress",
   "tags": null,
   "title": "Test RLM at delegation depth 2+",
   "type": "task",
-  "updated_at": "2026-02-24T23:04:54Z",
+  "updated_at": "2026-02-24T23:36:48Z",
   "urgency": null
 }
