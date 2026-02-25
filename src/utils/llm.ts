@@ -11,6 +11,7 @@ if (!process.env.OPENROUTER_API_KEY) {
 const client = new Anthropic({
   baseURL: "https://openrouter.ai/api",
   apiKey: process.env.OPENROUTER_API_KEY,
+  timeout: 120_000, // 2 minutes per request (OpenRouter can be slow)
 });
 
 export interface LLMMessage {
