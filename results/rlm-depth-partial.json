@@ -1,0 +1,22 @@
+{
+  "note": "Partial data from first CTX-2 run (depth 3 timed out). Depth 1 and 2 complete.",
+  "results": [
+    { "scenarioName": "Early Fact Recall", "depth": 1, "retainedCount": 1, "totalProbes": 10 },
+    { "scenarioName": "State Change Tracking", "depth": 1, "retainedCount": 2, "totalProbes": 7 },
+    { "scenarioName": "Contradiction Resolution", "depth": 1, "retainedCount": 4, "totalProbes": 8 },
+    { "scenarioName": "Multi-hop Reasoning", "depth": 1, "retainedCount": 6, "totalProbes": 8 },
+    { "scenarioName": "Long Horizon + Noise", "depth": 1, "retainedCount": 7, "totalProbes": 8 },
+    { "scenarioName": "Cascading Corrections", "depth": 1, "retainedCount": 5, "totalProbes": 7 },
+    { "scenarioName": "Implicit Corrections", "depth": 1, "retainedCount": 6, "totalProbes": 7 },
+    { "scenarioName": "Rapid-fire Corrections", "depth": 1, "retainedCount": 6, "totalProbes": 7 },
+
+    { "scenarioName": "Early Fact Recall", "depth": 2, "retainedCount": 8, "totalProbes": 10 },
+    { "scenarioName": "State Change Tracking", "depth": 2, "retainedCount": 3, "totalProbes": 7 },
+    { "scenarioName": "Contradiction Resolution", "depth": 2, "retainedCount": 4, "totalProbes": 8 },
+    { "scenarioName": "Multi-hop Reasoning", "depth": 2, "retainedCount": 7, "totalProbes": 8 },
+    { "scenarioName": "Long Horizon + Noise", "depth": 2, "retainedCount": 3, "totalProbes": 8 },
+    { "scenarioName": "Cascading Corrections", "depth": 2, "retainedCount": 4, "totalProbes": 7 },
+    { "scenarioName": "Implicit Corrections", "depth": 2, "retainedCount": 5, "totalProbes": 7 },
+    { "scenarioName": "Rapid-fire Corrections", "depth": 2, "retainedCount": 7, "totalProbes": 7 }
+  ]
+}
