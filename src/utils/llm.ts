@@ -1,17 +1,16 @@
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 
-if (!process.env.OPENROUTER_API_KEY) {
+if (!process.env.OPENAI_API_KEY) {
   console.error(
-    "\n  Missing OPENROUTER_API_KEY. Set it before running:\n" +
-      "  export OPENROUTER_API_KEY=sk-or-...\n",
+    "\n  Missing OPENAI_API_KEY. Set it before running:\n" +
+      "  export OPENAI_API_KEY=sk-...\n",
   );
   process.exit(1);
 }
 
-const client = new Anthropic({
-  baseURL: "https://openrouter.ai/api",
-  apiKey: process.env.OPENROUTER_API_KEY,
-  timeout: 120_000, // 2 minutes per request (OpenRouter can be slow)
+const client = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+  timeout: 120_000,
 });
 
 export interface LLMMessage {
@@ -29,27 +28,35 @@ export interface LLMResponse {
 export async function chat(
   messages: LLMMessage[],
   system?: string,
-  model = "claude-haiku-4-5-20251001",
+  model = "gpt-5-mini",
   maxTokens = 1024,
 ): Promise<LLMResponse> {
   const start = performance.now();
 
-  const response = await client.messages.create({
+  const systemMessages: OpenAI.ChatCompletionMessageParam[] = system
+    ? [{ role: "system", content: system }]
+    : [];
+
+  const response = await client.chat.completions.create({
     model,
     max_tokens: maxTokens,
-    system: system ?? "",
-    messages,
+    messages: [
+      ...systemMessages,
+      ...messages.map((m) => ({
+        role: m.role as "user" | "assistant",
+        content: m.content,
+      })),
+    ],
   });
 
   const latencyMs = performance.now() - start;
 
-  const content =
-    response.content[0]?.type === "text" ? response.content[0].text : "";
+  const content = response.choices[0]?.message?.content ?? "";
 
   return {
     content,
-    inputTokens: response.usage.input_tokens,
-    outputTokens: response.usage.output_tokens,
+    inputTokens: response.usage?.prompt_tokens ?? 0,
+    outputTokens: response.usage?.completion_tokens ?? 0,
     latencyMs,
   };
 }
