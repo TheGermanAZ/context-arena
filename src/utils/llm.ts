@@ -28,7 +28,7 @@ export interface LLMResponse {
 export async function chat(
   messages: LLMMessage[],
   system?: string,
-  model = "gpt-5-mini",
+  model = "gpt-5-nano",
   maxTokens = 1024,
 ): Promise<LLMResponse> {
   const start = performance.now();
