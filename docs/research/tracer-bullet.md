@@ -10,7 +10,7 @@
 | Document | Purpose |
 |----------|---------|
 | **This file** (tracer-bullet.md) | The problem, the landscape, the benchmarks, the gaps, the terminology |
-| [reading-list.md](./reading-list.md) | 20 papers — what to read, in what order, and how each connects to our work |
+| [reading-list.md](./reading-list.md) | 34 papers — what to read, in what order, and how each connects to our work |
 | [findings.md](./findings.md) | Our benchmark results, the depth experiment, and what we learned |
 
 ---
@@ -42,16 +42,16 @@ AI agents that run for many steps (50-250+) accumulate context that grows unboun
 Solutions exist at different layers of the stack, from architecture to application:
 
 ```
-Layer 5: Application    │ Agent-controlled memory (AgeMem, Focus Loop, A-MEM, MemRL, Memory-R1)
-Layer 4: Prompt         │ Scoring/compression (AFM, ACON, Scaling Paradox constraints)
-Layer 3: Orchestration  │ Multi-agent distribution (Chain-of-Agents, RLMs, MemEvolve)
-Layer 2: Retrieval      │ RAG, hybrid RAG+LC, SELF-ROUTE, MemSearcher
-Layer 1: Architecture   │ TTT (context → weights), PaTH Attention, extended windows
+Layer 5: Application    │ Agent-controlled memory (AgeMem, A-MEM, MemRL, Memory-R1, CAT, ACE, MemGPT, Mem0, EverMemOS)
+Layer 4: Prompt         │ Scoring/compression (AFM, ACON, Scaling Paradox, CorrectBench)
+Layer 3: Orchestration  │ Multi-agent distribution (Chain-of-Agents, RLMs, MemEvolve, MAGMA)
+Layer 2: Retrieval      │ RAG, hybrid RAG+LC, SELF-ROUTE, MemSearcher, graph memory
+Layer 1: Architecture   │ TTT (context → weights), PaTH Attention, positional encoding (Lost in the Middle)
 ```
 
-**Key insight:** The field is converging toward Layer 5 — agents that manage their own memory as a first-class capability. Multiple groups (AgeMem, Memory-R1, MemSearcher, MemRL) are independently converging on RL-trained memory operations. But every layer still has open problems.
+**Key insight:** The field is converging toward Layer 5 — agents that manage their own memory as a first-class capability. Multiple groups (AgeMem, Memory-R1, MemSearcher, MemRL) are independently converging on RL-trained memory operations. A parallel trend treats context management as an active decision (CAT, ACE) rather than a passive heuristic. But every layer still has open problems.
 
-> **Paper details and reading order:** See [reading-list.md](./reading-list.md) (20 papers, ~16-20 hours total).
+> **Paper details and reading order:** See [reading-list.md](./reading-list.md) (34 papers, ~30-35 hours total).
 
 ---
 
@@ -150,8 +150,16 @@ Memory system performance varies wildly across LLM backends (format error rates 
 | **Stability-plasticity** | Tradeoff between retaining stable facts and updating changed ones (MemRL) |
 | **Zettelkasten** | Interconnected note-taking method used in A-MEM's memory organization |
 | **Episodic memory** | Storing specific past experiences for future retrieval (MemRL) |
+| **Primacy/recency bias** | Models attend better to info at the start/end of context, not the middle |
+| **Context collapse** | Iterative rewriting progressively erodes detail (ACE) |
+| **Brevity bias** | Compressors drop domain insights in favor of conciseness (ACE) |
+| **Belief entrenchment** | Prior beliefs resist updating even when contradicted (Martingale Score) |
+| **Cascading failure** | Single root-cause error propagates through subsequent agent decisions (AgentDebug) |
+| **Virtual context** | OS-style memory hierarchy for LLMs: main context (RAM) + archival (disk) (MemGPT) |
+| **Foresight signal** | Predicting what information will be needed later, stored proactively (EverMemOS) |
+| **MemCell/MemScene** | Episodic memory units and their thematic groupings (EverMemOS) |
 
 ---
 
-*Last updated: 2026-02-25*
+*Last updated: 2026-02-26*
 *Built for: German's Week 4 Ambition Project*
