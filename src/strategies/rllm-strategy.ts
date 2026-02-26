@@ -84,7 +84,12 @@ export class RLLMStrategy implements MemoryStrategy {
 
       try {
         const rlm = new RLLM({
-          client: { model: "gpt-5-nano", provider: "openai" },
+          client: {
+            model: "gpt-5-nano",
+            provider: "custom",
+            baseUrl: "https://opencode.ai/zen/v1",
+            apiKey: process.env.OPENCODE_ZEN_KEY!,
+          },
           maxIterations: this.maxIterations,
           verbose: false,
         });
