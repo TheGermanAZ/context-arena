@@ -20,6 +20,7 @@ import { DiscoveredRLMStrategy } from "../strategies/discovered-rlm";
 import { SummarizationStrategy } from "../strategies/summarizer";
 import { StructuredExtractionStrategy } from "../strategies/structured";
 import { SlidingWindowStrategy } from "../strategies/sliding-window";
+import { PersistentRLMStrategy } from "../strategies/persistent-rlm";
 
 // ── Types ──────────────────────────────────────────────────────────
 
@@ -213,6 +214,7 @@ async function main() {
     new FullContextStrategy(),
     new HybridStrategy(),
     new RLMStrategy(),
+    new PersistentRLMStrategy(),
     new RLLMStrategy(),
     new DiscoveredRLMStrategy(),
     new SummarizationStrategy(),

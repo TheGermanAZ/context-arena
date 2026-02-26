@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+:root {
+  /* Strategy colors */
+  --color-strategy-full-context: #3b82f6;
+  --color-strategy-window-6: #f59e0b;
+  --color-strategy-window-10: #d97706;
+  --color-strategy-rlm: #10b981;
+  --color-strategy-summarize: #06b6d4;
+  --color-strategy-structured: #84cc16;
+  --color-strategy-correction-aware: #8b5cf6;
+  --color-strategy-hybrid: #ec4899;
+
+  /* Probe type colors */
+  --color-probe-entity: #3b82f6;
+  --color-probe-quantity: #10b981;
+  --color-probe-date: #f59e0b;
+  --color-probe-correction: #ef4444;
+  --color-probe-spatial: #8b5cf6;
+  --color-probe-relationship: #ec4899;
+  --color-probe-phone-id: #06b6d4;
+
+  /* Surface colors */
+  --color-surface-0: #030712;
+  --color-surface-1: #111827;
+  --color-surface-2: #1f2937;
+  --color-border: #374151;
+  --color-border-subtle: #1f2937;
+
+  /* Text */
+  --color-text-primary: #f3f4f6;
+  --color-text-secondary: #9ca3af;
+  --color-text-muted: #6b7280;
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}

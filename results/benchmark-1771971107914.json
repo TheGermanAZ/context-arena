@@ -1,0 +1,135 @@
+[
+  {
+    "strategyName": "CorrectionAware",
+    "scenarioName": "Implicit Corrections",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 73,
+        "outputTokens": 162,
+        "latencyMs": 2392.556875,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 281,
+        "outputTokens": 120,
+        "latencyMs": 1376.6960829999998,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 449,
+        "outputTokens": 143,
+        "latencyMs": 1325.3539169999995,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 636,
+        "outputTokens": 240,
+        "latencyMs": 1595.5277080000005,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 577,
+        "outputTokens": 312,
+        "latencyMs": 1832.8569590000006,
+        "memoryOverheadTokens": 1623
+      },
+      {
+        "step": 6,
+        "inputTokens": 918,
+        "outputTokens": 156,
+        "latencyMs": 1370.0899999999983,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 1094,
+        "outputTokens": 310,
+        "latencyMs": 1664.9571250000008,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 1417,
+        "outputTokens": 307,
+        "latencyMs": 1575.161583000001,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 818,
+        "outputTokens": 315,
+        "latencyMs": 2320.115791,
+        "memoryOverheadTokens": 3373
+      },
+      {
+        "step": 10,
+        "inputTokens": 1150,
+        "outputTokens": 308,
+        "latencyMs": 1676.0829159999994,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 1478,
+        "outputTokens": 318,
+        "latencyMs": 1667.5200829999994,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 1815,
+        "outputTokens": 308,
+        "latencyMs": 2382.758999999998,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 706,
+        "outputTokens": 318,
+        "latencyMs": 1627.8710420000025,
+        "memoryOverheadTokens": 4666
+      },
+      {
+        "step": 14,
+        "inputTokens": 1042,
+        "outputTokens": 318,
+        "latencyMs": 1652.7503749999996,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 1377,
+        "outputTokens": 315,
+        "latencyMs": 1576.8769169999978,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 1704,
+        "outputTokens": 317,
+        "latencyMs": 2095.0680409999986,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 17,
+        "inputTokens": 771,
+        "outputTokens": 602,
+        "latencyMs": 3485.4537500000006,
+        "memoryOverheadTokens": 4153
+      }
+    ],
+    "finalAnswer": "# FINAL RECIPE CARDS\n\n---\n\n## BRUSCHETTA (Appetizer)\n**Serves: 6**\n\n**Ingredients:**\n- 12 San Marzano tomatoes\n- 6 cloves garlic\n- Fresh basil\n- 1 baguette\n- Olive oil\n- Balsamic vinegar\n\n**Instructions:**\n1. Slice baguette and toast\n2. Rub with garlic cloves\n3. Dice tomatoes and combine with fresh basil, olive oil, and balsamic vinegar\n4. Top toasted baguette slices with tomato mixture\n5. Serve immediately\n\n---\n\n## PAN-SEARED SALMON (Main Course)\n**Serves: 4**\n\n**Ingredients:**\n- 4 salmon fillets (8 oz each)\n- 3 tablespoons butter\n- Lemon juice\n- Capers\n- Dill\n\n**Instructions:**\n1. Preheat oven to 400°F\n2. Heat butter in pan and sear salmon fillets\n3. Transfer to oven and cook for 14 minutes\n4. Finish with lemon juice, capers, and fresh dill\n5. Serve hot\n\n---\n\n## ROASTED ASPARAGUS (Side)\n**Serves: 4**\n\n**Ingredients:**\n- 1 bunch asparagus\n- Olive oil\n- Salt\n- Pepper\n\n**Instructions:**\n1. Preheat oven to 400°F\n2. Toss asparagus with olive oil, salt, and pepper\n3. Roast for 15 minutes\n4. Serve immediately\n\n---\n\n## TIRAMISU (Dessert)\n**Serves: 4**\n\n**Ingredients:**\n- 5 egg yolks\n- 3/4 cup sugar\n- 1 1/3 cups mascarpone\n- 2.5 cups heavy cream\n- 2 cups espresso\n- 3 tablespoons coffee liqueur\n- 30 ladyfingers\n\n**Instructions:**\n1. Whisk egg yolks and sugar until pale\n2. Fold in mascarpone\n3. Whip heavy cream to stiff peaks and fold into mascarpone mixture\n4. Combine espresso and coffee liqueur\n5. Dip 30 ladyfingers in espresso mixture and layer in dish\n6. Spread half the cream mixture over ladyfingers\n7. Repeat with remaining ladyfingers and cream\n8. Refrigerate at least 4 hours before serving",
+    "correct": true,
+    "totalInputTokens": 16306,
+    "totalOutputTokens": 4869,
+    "totalMemoryOverheadTokens": 13815,
+    "totalLatencyMs": 31617.698164999994,
+    "estimatedCostUsd": 0.0435728,
+    "peakContextTokens": 1815
+  }
+]

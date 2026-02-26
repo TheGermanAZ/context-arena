@@ -179,6 +179,73 @@ For fact extraction from natural language, the LLM already *is* the ideal tool. 
 
 ---
 
+## The Persistent Stores Experiment
+
+CTX-1 through CTX-4 identified RLM's root cause: `this.delegatedKnowledge = [subLLMResult.content]` — wholesale replacement. Every compression cycle, the sub-LLM's output completely replaces whatever was stored before. If the sub-LLM drops a fact in cycle N, it's gone forever, even if it was faithfully carried through cycles 1 through N-1.
+
+The fix seemed obvious: borrow Hybrid's incremental merge. Parse the sub-LLM's output into typed stores (identifiers, entities, quantities, dates, corrections, structural) and merge new extractions into persistent maps. Same sub-LLM call, same cost — just parse-then-merge instead of wholesale replace.
+
+### CTX-5: PersistentRLM vs RLM (Same Model)
+
+We built PersistentRLM with 6 typed stores, a section parser with 25 alias mappings, an overflow bucket for unsectioned content, and multi-line entry handling. Then ran it head-to-head against base RLM on gpt-5-nano.
+
+**The hypothesis:** Incremental persistence eliminates the copy-forward failure. Facts the sub-LLM drops in one cycle survive from previous cycles.
+
+**The actual result:**
+
+| Scenario | RLM(8) | PersistentRLM | Delta |
+|---|---|---|---|
+| Early Fact Recall | PASS | PASS | — |
+| State Change Tracking | **PASS** | FAIL | **-1** |
+| Contradiction Resolution | PASS | PASS | — |
+| Multi-hop Reasoning | PASS | PASS | — |
+| Long Horizon + Noise | PASS | PASS | — |
+| Cascading Corrections | PASS | PASS | — |
+| Implicit Corrections | FAIL | FAIL | — |
+| Rapid-fire Corrections | PASS | PASS | — |
+| **Total** | **7/8 (88%)** | **6/8 (75%)** | **-1** |
+
+PersistentRLM is strictly worse. It lost State Change Tracking (Gadget-X: 0 instead of 200 clearance units) while gaining nothing.
+
+### Probe-Level Retention
+
+| Type | RLM(8) | PersistentRLM | Delta |
+|---|---|---|---|
+| **spatial** | 33% (1/3) | 0% (0/3) | **-33pp** |
+| **decision** | 100% (1/1) | 0% (0/1) | **-100pp** |
+| **quantity** | 24% (4/17) | 18% (3/17) | -6pp |
+| **entity** | 63% (5/8) | 63% (5/8) | 0 |
+| **relationship** | 67% (2/3) | 67% (2/3) | 0 |
+| **correction** | 85% (17/20) | 80% (16/20) | -5pp |
+| **phone/id** | 86% (6/7) | 86% (6/7) | 0 |
+| **date** | 100% (3/3) | 100% (3/3) | 0 |
+| **TOTAL** | **62.9% (39/62)** | **56.5% (35/62)** | **-6.4pp** |
+
+Zero probes where PersistentRLM wins. Four probes where base RLM wins:
+
+1. Gadget-X discontinued/clearance (decision) — status qualifier lost during structured extraction
+2. Floor 3 conference room 50 people (spatial) — spatial facts dropped to 0%
+3. 3 catered meals (quantity) — quantity association lost
+4. 30 ladyfingers corrected from 24 (correction) — correction not carried forward
+
+### Why Persistence Made Things Worse
+
+The hypothesis assumed wholesale replacement was the bottleneck. It wasn't. The bottleneck is the sub-LLM's extraction quality, and the structured format actively degrades it.
+
+**The mechanism:** When the sub-LLM receives base RLM's natural-language blob as "previously extracted knowledge," it processes it with full language understanding — recognizing that "Gadget-X moved to clearance, count unchanged at 200" is a single compound fact. When it receives PersistentRLM's typed stores (`QUANTITIES: - Gadget-X: 200 units` and `STRUCTURAL: - Gadget-X: moved to clearance`), it treats them as independent facts. The structured format *splits associations that the sub-LLM would naturally keep together*.
+
+This is the inverse of the CTX-3 finding. In CTX-3, we learned that prompts beat code because code adds indirection. Here, typed stores beat natural language at *storage* but lose at *re-ingestion* — the sub-LLM processes its own structured output worse than its own natural-language output. The structure that helps humans parse information constrains the LLM's ability to maintain cross-category associations.
+
+**Token cost:** PersistentRLM was cheaper (432K vs 516K total tokens) because serialized stores are more compact. But cheaper doesn't help if accuracy drops.
+
+### Implication: Format Determines Extraction Quality
+
+The sub-LLM's input format is not neutral. It shapes what the sub-LLM attends to and how it organizes its output. Feeding it structured sections causes it to produce structured sections — and in doing so, it fragments facts that naturally span categories. A warehouse item's quantity (200), status (clearance), and history (discontinued) are one fact in natural language but three entries in three stores.
+
+This suggests the right architecture isn't "parse output into stores" but rather "keep the natural-language blob AND maintain a side-channel for facts that the blob historically drops." That's closer to what Hybrid does — dual track, not parse-and-split.
+
+---
+
 ## What This Means
 
 ### The Photocopy Metaphor Is Wrong
@@ -205,6 +272,8 @@ This only works when the structured output is faithful. For noisy scenarios, the
 - Can the sub-LLM prompt be tuned per-type to eliminate the 0% retention categories?
 - Would a larger model (e.g., GPT-4, Claude Sonnet) close the agentic extraction gap? The code quality might improve enough to make the indirection worthwhile.
 - Is there a hybrid approach — prompt-guided code generation — that gets the best of both worlds?
+- Can a dual-track architecture — natural-language blob for re-ingestion plus a side-channel store for historically-dropped fact types — outperform both base RLM and Hybrid?
+- Is the format sensitivity specific to gpt-5-nano, or do larger models also extract worse from structured input than natural-language input?
 
 ---
 
@@ -212,12 +281,13 @@ This only works when the structured output is faithful. For noisy scenarios, the
 
 ### A. Methodology
 
-- **LLM:** Claude Haiku 4.5 (via OpenRouter) for CTX-1; gpt-4.1-mini (via OpenAI) for CTX-2; gpt-5-nano (via OpenCode Zen) for CTX-3/4
+- **LLM:** Claude Haiku 4.5 (via OpenRouter) for CTX-1; gpt-4.1-mini (via OpenAI) for CTX-2; gpt-5-nano (via OpenCode Zen) for CTX-3/4/5
 - **Compression trigger:** Every 8 messages, with a 4-message recent window
 - **Probe matching:** Case-insensitive substring matching; all patterns must be present
-- **Retention measurement:** Probes checked against final delegation log entry after the probe's introduction step
+- **Retention measurement:** Probes checked against final delegation log entry after the probe's introduction step; CTX-5 checked probes against final answers (no re-run required)
 - **RLLM configuration:** rllm v1.2.0, maxIterations=5, V8 isolate code execution
 - **Same-model comparison:** CTX-3 hand-rolled RLM baseline re-run on gpt-5-nano to eliminate model confound
+- **PersistentRLM configuration:** 6 typed stores (identifiers, entities, quantities, dates, corrections, structural) + overflow bucket; 25 section alias mappings; 25-char prefix key matching for merge; same single sub-LLM call per cycle as base RLM
 
 ### B. Full Probe Definitions
 
@@ -236,11 +306,12 @@ This only works when the structured output is faithful. For noisy scenarios, the
 All code, data, and analysis scripts: [github.com/TheGermanAZ/context-arena](https://github.com/TheGermanAZ/context-arena)
 
 Key files:
-- `src/strategies/` — All 8+ strategy implementations (including `rllm-strategy.ts`)
+- `src/strategies/` — All 9+ strategy implementations (including `persistent-rlm.ts`, `rllm-strategy.ts`)
 - `src/tasks/scenarios.ts` — Scenarios with probe definitions
 - `src/analysis/rlm-loss.ts` — CTX-1 retention analysis
 - `src/analysis/rlm-depth.ts` — CTX-2 depth-scaling analysis
 - `src/analysis/rllm-extraction.ts` — CTX-3 agentic extraction analysis
 - `src/analysis/code-analysis.ts` — CTX-4 code strategy classification
 - `src/analysis/rlm-nano-baseline.ts` — CTX-3 same-model baseline
+- `src/analysis/probe-check.ts` — CTX-5 probe analysis against existing results (no API calls)
 - `results/` — Raw benchmark and analysis data

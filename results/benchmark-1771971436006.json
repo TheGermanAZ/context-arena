@@ -1,0 +1,128 @@
+[
+  {
+    "strategyName": "CorrectionAware",
+    "scenarioName": "Contradiction Resolution",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 60,
+        "outputTokens": 317,
+        "latencyMs": 3340.0515,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 402,
+        "outputTokens": 309,
+        "latencyMs": 2673.378333,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 738,
+        "outputTokens": 358,
+        "latencyMs": 3899.031459,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 1131,
+        "outputTokens": 358,
+        "latencyMs": 3105.0645000000004,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 832,
+        "outputTokens": 295,
+        "latencyMs": 3358.5467500000013,
+        "memoryOverheadTokens": 2410
+      },
+      {
+        "step": 6,
+        "inputTokens": 1166,
+        "outputTokens": 287,
+        "latencyMs": 2674.891875000001,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 1481,
+        "outputTokens": 352,
+        "latencyMs": 3491.426209000001,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 1869,
+        "outputTokens": 346,
+        "latencyMs": 3475.358333,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 817,
+        "outputTokens": 196,
+        "latencyMs": 1941.935375000001,
+        "memoryOverheadTokens": 4610
+      },
+      {
+        "step": 10,
+        "inputTokens": 1048,
+        "outputTokens": 326,
+        "latencyMs": 3364.7320839999957,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 1406,
+        "outputTokens": 255,
+        "latencyMs": 3176.508833,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 1686,
+        "outputTokens": 289,
+        "latencyMs": 2425.4117500000066,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 740,
+        "outputTokens": 346,
+        "latencyMs": 2759.7893330000006,
+        "memoryOverheadTokens": 4495
+      },
+      {
+        "step": 14,
+        "inputTokens": 1114,
+        "outputTokens": 322,
+        "latencyMs": 3145.305916000005,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 1479,
+        "outputTokens": 305,
+        "latencyMs": 2825.384207999996,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 1834,
+        "outputTokens": 343,
+        "latencyMs": 2894.333792000005,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "# Complete Trip Summary\n\nI can provide most of this, but I'm missing some critical information:\n\n## Trip Dates & Duration\n- **Start:** June 1\n- **End:** June 18\n- **Total length:** 18 days\n\n## Flights\n- **Airline:** ANA\n- **Total cost:** $1,350 (includes $150 change fee)\n\n## Accommodations\n\n**Tokyo - Aman Tokyo**\n- **Nightly rate:** $500/night (10+ night discount)\n- **Nights:** 17 nights (June 1-6, June 10-18)\n- **Total cost:** $8,500\n\n**Kyoto**\n- **Hotel:** ❌ **NOT YET CONFIRMED**\n- **Dates:** June 7-9 (2 nights)\n- **Cost:** TBD\n\n## Activities & Transport\n- **Shinkansen (round trip):** $280\n- **Kyoto cooking class:** $95\n- **Kyoto tea ceremony:** $60\n\n## Meeting with Kenji\n- **Date:** June 10\n- **Neighborhood:** ❌ **NOT PROVIDED**\n- **Phone number:** ❌ **NOT PROVIDED**\n\n---\n\n**I need you to provide:**\n1. Kyoto hotel name and confirmation\n2. Kenji's neighborhood in Tokyo\n3. Kenji's phone number\n\nI don't have Kenji's personal contact details from our conversation—do you have those?",
+    "correct": false,
+    "totalInputTokens": 17803,
+    "totalOutputTokens": 5004,
+    "totalMemoryOverheadTokens": 11515,
+    "totalLatencyMs": 48551.15025000001,
+    "estimatedCostUsd": 0.0434704,
+    "peakContextTokens": 1869
+  }
+]

@@ -1,0 +1,121 @@
+{
+  "model": "gpt-5-nano",
+  "provider": "OpenCode Zen",
+  "strategy": "RLM(8,4) hand-rolled",
+  "timestamp": "2026-02-26T01:20:45.504Z",
+  "overall": {
+    "retained": 8,
+    "total": 62,
+    "pct": 12.9
+  },
+  "results": [
+    {
+      "name": "Early Fact Recall",
+      "retained": 8,
+      "total": 10,
+      "cycles": 5,
+      "probeResults": [
+        {
+          "fact": "project name Mercury",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "budget $347,250",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "project lead Dr. Sarah Chen",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "deadline March 15, 2027",
+          "type": "date",
+          "retained": false
+        },
+        {
+          "fact": "frontend uses Svelte (corrected from React)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "QA lead Marcus Williams",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "production region us-east-1",
+          "type": "spatial",
+          "retained": true
+        },
+        {
+          "fact": "backend salary $145k-$175k",
+          "type": "quantity",
+          "retained": false
+        },
+        {
+          "fact": "sponsor James Rodriguez VP Engineering",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "API rate limit 1000 req/min standard",
+          "type": "quantity",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "name": "State Change Tracking",
+      "retained": 0,
+      "total": 7,
+      "cycles": 0,
+      "probeResults": []
+    },
+    {
+      "name": "Contradiction Resolution",
+      "retained": 0,
+      "total": 8,
+      "cycles": 0,
+      "probeResults": []
+    },
+    {
+      "name": "Multi-hop Reasoning",
+      "retained": 0,
+      "total": 8,
+      "cycles": 0,
+      "probeResults": []
+    },
+    {
+      "name": "Long Horizon + Noise",
+      "retained": 0,
+      "total": 8,
+      "cycles": 0,
+      "probeResults": []
+    },
+    {
+      "name": "Cascading Corrections",
+      "retained": 0,
+      "total": 7,
+      "cycles": 0,
+      "probeResults": []
+    },
+    {
+      "name": "Implicit Corrections",
+      "retained": 0,
+      "total": 7,
+      "cycles": 0,
+      "probeResults": []
+    },
+    {
+      "name": "Rapid-fire Corrections",
+      "retained": 0,
+      "total": 7,
+      "cycles": 0,
+      "probeResults": []
+    }
+  ],
+  "complete": true
+}

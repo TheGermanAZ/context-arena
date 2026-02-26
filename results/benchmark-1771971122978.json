@@ -1,0 +1,128 @@
+[
+  {
+    "strategyName": "CorrectionAware",
+    "scenarioName": "Contradiction Resolution",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 60,
+        "outputTokens": 330,
+        "latencyMs": 3199.7685,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 415,
+        "outputTokens": 266,
+        "latencyMs": 3031.4211670000004,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 708,
+        "outputTokens": 343,
+        "latencyMs": 3426.8370409999998,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 1086,
+        "outputTokens": 355,
+        "latencyMs": 3126.571582999999,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 923,
+        "outputTokens": 259,
+        "latencyMs": 3159.7738329999993,
+        "memoryOverheadTokens": 2280
+      },
+      {
+        "step": 6,
+        "inputTokens": 1221,
+        "outputTokens": 255,
+        "latencyMs": 2939.3441249999996,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 1504,
+        "outputTokens": 364,
+        "latencyMs": 3422.433083,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 1904,
+        "outputTokens": 323,
+        "latencyMs": 2959.688792000001,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 1021,
+        "outputTokens": 188,
+        "latencyMs": 2148.7803330000024,
+        "memoryOverheadTokens": 4395
+      },
+      {
+        "step": 10,
+        "inputTokens": 1244,
+        "outputTokens": 321,
+        "latencyMs": 2838.514374999999,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 1597,
+        "outputTokens": 381,
+        "latencyMs": 3160.7635840000003,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 2003,
+        "outputTokens": 315,
+        "latencyMs": 2695.8073340000046,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 1025,
+        "outputTokens": 344,
+        "latencyMs": 2520.737709000001,
+        "memoryOverheadTokens": 4512
+      },
+      {
+        "step": 14,
+        "inputTokens": 1397,
+        "outputTokens": 347,
+        "latencyMs": 3723.089709,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 1787,
+        "outputTokens": 350,
+        "latencyMs": 2581.993999999999,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 2187,
+        "outputTokens": 290,
+        "latencyMs": 3323.953834,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "# Complete Trip Summary\n\n**Trip Dates:**\n- Departure: June 1\n- Return: June 18\n- Duration: 17 nights\n\n---\n\n**Budget:**\n- Total budget: $8,500\n- Current spending: $10,285\n- Shortfall: -$1,785\n\n---\n\n**Flights:**\n- Airline: ANA (round trip)\n- Cost: $1,350 (includes $150 change fee)\n\n---\n\n**Hotel - Tokyo:**\n- Hotel name: Aman Tokyo\n- Nightly rate: $500/night\n- Total nights: 17 nights\n- Total hotel cost: $8,500\n\n---\n\n**Kenji Meeting:**\n- Friend name: Kenji\n- Neighborhood: Shibuya\n- Meeting date: June 10\n- **Phone number: Not provided**\n\n---\n\n**Additional Costs Included:**\n- Shinkansen (round trip to Kyoto): $280\n- Cooking class (June 8): $95\n- Tea ceremony (June 8): $60\n\n---\n\n**Note:** I don't have Kenji's phone number on record. You'll need to reach out to him directly to confirm the June 10 dinner plans and get his contact details if needed.",
+    "correct": false,
+    "totalInputTokens": 20082,
+    "totalOutputTokens": 5031,
+    "totalMemoryOverheadTokens": 11187,
+    "totalLatencyMs": 48259.47900200001,
+    "estimatedCostUsd": 0.045139200000000004,
+    "peakContextTokens": 2187
+  }
+]
