@@ -351,6 +351,37 @@ This suggests the highest-value research direction isn't any of the 10 proposals
 
 ---
 
+## CTX-33: Official-Mode Benchmark Runs
+
+To move beyond proxy-only evidence, we integrated the official public datasets/splits for all three industry benchmarks and reran them in parallel:
+
+- **LongMemEval** (`longmemeval-cleaned`, LongMemEval-S schema)
+- **MemoryArena** (`ZexueHe/memoryarena`, `bundled_shopping/test`)
+- **MemoryAgentBench** (`ai-hyz/MemoryAgentBench`, EventQA + FactConsolidation subset from official splits)
+
+### CTX-33 Results
+
+| Benchmark | Strategy | Score | Avg Latency | Cost | Scoring |
+|---|---|---|---:|---:|---|
+| LongMemEval | Full Context | 2/3 (66.7%) | 7.5s | $0.2516 | deterministic fallback |
+| LongMemEval | RLM(8) | 3/3 (100.0%) | 5.8s | $0.2125 | deterministic fallback |
+| MemoryArena | Full Context | 2/4 (50.0%) | 24.2s | $0.0471 | deterministic fallback |
+| MemoryArena | RLM(8) | 3/4 (75.0%) | 28.7s | $0.0616 | deterministic fallback |
+| MemoryAgentBench (EventQA + FactConsolidation) | Full Context | 1/4 (25.0%) | 12.2s | $0.0614 | deterministic fallback |
+| MemoryAgentBench (EventQA + FactConsolidation) | RLM(8) | 1/4 (25.0%) | 13.7s | $0.0625 | deterministic fallback |
+
+### CTX-33 Summary
+
+1. **RLM improved on 2/3 official-mode tracks in this bounded run** (LongMemEval and MemoryArena).
+2. **MemoryAgentBench remained difficult for both strategies** (1/4 each), reinforcing the conflict/retrieval gap.
+3. **Trade-offs remain scenario-dependent:** RLM was faster/cheaper on LongMemEval but slower/more expensive on MemoryArena.
+
+### CTX-33 Caveat
+
+- Official datasets and split names were used, but upstream LLM-judge scoring steps require external judge credentials that were unavailable in this runtime, so deterministic fallback scoring was used and explicitly labeled.
+
+---
+
 ## What This Means
 
 ### The Photocopy Metaphor Is Wrong
@@ -402,6 +433,7 @@ This only works when the structured output is faithful. For noisy scenarios, the
 - **Same-model comparison:** CTX-3 hand-rolled RLM baseline re-run on gpt-5-nano to eliminate model confound
 - **PersistentRLM configuration:** 6 typed stores (identifiers, entities, quantities, dates, corrections, structural) + overflow bucket; 25 section alias mappings; 25-char prefix key matching for merge; same single sub-LLM call per cycle as base RLM
 - **CTX-6 feasibility probes:** Two-phase design — Phase 1 validates core mechanism at zero LLM cost (regex, parsing); Phase 2 runs 2 reps per scenario with kill criteria. Correction Format probe ran 7 formats × 2 reps × 14 steps on Scenario 6. Shadow Graphs probe ran 2 reps each on Scenarios 1 and 8.
+- **CTX-33 run mode:** one-day parallel official-mode adapters using upstream public datasets/splits for LongMemEval, MemoryArena, and MemoryAgentBench; deterministic fallback scoring used when external LLM-judge credentials were unavailable
 
 ### B. Full Probe Definitions
 
@@ -434,4 +466,9 @@ Key files:
 - `src/analysis/probe-stability.ts` — CTX-6 Stability-Plasticity probe
 - `src/analysis/probe-schema-guided.ts` — CTX-6 Schema-Guided Hybrid probe
 - `src/analysis/probe-utils.ts` — Shared utilities for all CTX-6 probes
+- `src/analysis/official-benchmarks.ts` — CTX-33 official-mode parallel orchestrator
+- `src/analysis/official-scoreboard.ts` — CTX-33 unified official-mode scoreboard
+- `src/analysis/official-longmemeval.ts` — CTX-33 LongMemEval adapter (official dataset/splits)
+- `src/analysis/official-memoryarena.ts` — CTX-33 MemoryArena adapter (official dataset/splits)
+- `src/analysis/official-memoryagentbench.ts` — CTX-33 MemoryAgentBench subset adapter (official dataset/splits)
 - `results/` — Raw benchmark and analysis data
