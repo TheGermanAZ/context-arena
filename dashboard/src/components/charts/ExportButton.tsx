@@ -35,8 +35,10 @@ export default function ExportButton({ containerRef, data, title }: Props) {
     const blob = new Blob([csv], { type: 'text/csv' });
     const link = document.createElement('a');
     link.download = `${title.toLowerCase().replace(/\s+/g, '-')}.csv`;
-    link.href = URL.createObjectURL(blob);
+    const url = URL.createObjectURL(blob);
+    link.href = url;
     link.click();
+    URL.revokeObjectURL(url);
     setOpen(false);
   }, [data, title]);
 

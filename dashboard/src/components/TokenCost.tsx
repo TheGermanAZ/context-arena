@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useTokenCost } from '../lib/hooks';
 import { useFilterOptional } from '../lib/FilterContext';
@@ -36,9 +36,12 @@ export default function TokenCost() {
   if (!data) return null;
 
   // Sync initial scenario from server response when no scenario is set
-  if (!scenario && data.scenario) {
-    onScenarioChange(data.scenario);
-  }
+  useEffect(() => {
+    if (!scenario && data?.scenario) {
+      onScenarioChange(data.scenario);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data?.scenario]);
 
   const hasFocus = focused != null;
 

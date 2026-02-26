@@ -35,7 +35,7 @@ export interface DepthComparisonResponse {
 
 export interface RetentionCurveResponse {
   types: string[];
-  cycles: Array<Record<string, number>>;
+  cycles: Array<{ cycle: number } & Record<string, number>>;
 }
 
 export interface RllmScenario {
