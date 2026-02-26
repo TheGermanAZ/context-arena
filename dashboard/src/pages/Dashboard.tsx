@@ -74,7 +74,7 @@ function FilterBar() {
 
 /* ── Expand Modal ─────────────────────────────────────────────── */
 
-function ExpandModal({ panelId, config, onClose }: { panelId: string; config: PanelConfig; onClose: () => void }) {
+function ExpandModal({ config, onClose }: { panelId: string; config: PanelConfig; onClose: () => void }) {
   const Component = config.component;
 
   // Close on Escape

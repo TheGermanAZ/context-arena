@@ -56,7 +56,7 @@ export default function RllmComparison() {
           data={chartData}
           margin={{ top: 5, right: 30 }}
           onClick={(state) => {
-            const fullName = state?.activePayload?.[0]?.payload?.fullName;
+            const fullName = (state as any)?.activePayload?.[0]?.payload?.fullName;
             if (fullName) onFocusClick?.(fullName);
           }}
           style={{ cursor: 'pointer' }}

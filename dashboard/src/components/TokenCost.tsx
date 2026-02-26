@@ -93,7 +93,7 @@ export default function TokenCost() {
             contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
             labelStyle={{ color: '#f3f4f6' }}
             labelFormatter={(v) => `Step ${v}`}
-            formatter={(value: number) => [value.toLocaleString(), '']}
+            formatter={((value: number) => [value.toLocaleString(), '']) as any}
           />
           <Legend
             wrapperStyle={{ color: '#9ca3af', cursor: 'pointer' }}

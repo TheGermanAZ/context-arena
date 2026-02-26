@@ -61,7 +61,7 @@ export default function CodeStrategies() {
                 innerRadius={60}
                 outerRadius={100}
                 paddingAngle={2}
-                label={({ name, pct }) => `${name} (${pct}%)`}
+                label={({ name, ...rest }: any) => `${name} (${(rest as { pct: number }).pct}%)`}
                 labelLine={{ stroke: '#6b7280' }}
                 onClick={(_, idx) => onFocusClick?.(pieData[idx].name)}
                 style={{ cursor: 'pointer' }}
@@ -76,7 +76,7 @@ export default function CodeStrategies() {
               <Tooltip
                 contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
                 labelStyle={{ color: '#f3f4f6' }}
-                formatter={(value: number, name: string) => [`${value} blocks`, name]}
+                formatter={((value: number, name: string) => [`${value} blocks`, name]) as any}
               />
             </PieChart>
           </ResponsiveContainer>
@@ -103,7 +103,7 @@ export default function CodeStrategies() {
               <YAxis type="category" dataKey="name" tick={{ fill: '#9ca3af', fontSize: 12 }} width={100} />
               <Tooltip
                 contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
-                formatter={(value: number, _name: string, props: any) => [`${value} (${props.payload.pct}%)`, 'Count']}
+                formatter={((value: number, _name: string, props: any) => [`${value} (${props.payload.pct}%)`, 'Count']) as any}
               />
               <Bar dataKey="count" radius={[0, 4, 4, 0]}>
                 {featureData.map((entry) => {

@@ -41,7 +41,7 @@ export default function RetentionByType() {
           layout="vertical"
           margin={{ left: 20, right: 80 }}
           onClick={(state) => {
-            if (state?.activeLabel) onFocusClick?.(state.activeLabel);
+            if (state?.activeLabel) onFocusClick?.(String(state.activeLabel));
           }}
           style={{ cursor: 'pointer' }}
         >
@@ -52,7 +52,7 @@ export default function RetentionByType() {
             contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
             labelStyle={{ color: '#f3f4f6' }}
             itemStyle={{ color: '#d1d5db' }}
-            formatter={(value: number, _name: string, props: any) => [`${value}% (${props.payload.retained}/${props.payload.total})`, 'Retention']}
+            formatter={((value: number, _name: string, props: any) => [`${value}% (${props.payload.retained}/${props.payload.total})`, 'Retention']) as any}
           />
           <Bar dataKey="pct" radius={[0, 4, 4, 0]}>
             {chartData.map((entry) => {
