@@ -1,16 +1,10 @@
 import OpenAI from "openai";
 
-if (!process.env.OPENAI_API_KEY) {
-  console.error(
-    "\n  Missing OPENAI_API_KEY. Set it before running:\n" +
-      "  export OPENAI_API_KEY=sk-...\n",
-  );
-  process.exit(1);
-}
-
 const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-  timeout: 120_000,
+  apiKey: process.env.OPENCODE_ZEN_KEY,
+  baseURL: "https://opencode.ai/zen/v1",
+  timeout: 300_000,
+  maxRetries: 3,
 });
 
 export interface LLMMessage {
@@ -39,7 +33,7 @@ export async function chat(
 
   const response = await client.chat.completions.create({
     model,
-    max_tokens: maxTokens,
+    max_completion_tokens: maxTokens,
     messages: [
       ...systemMessages,
       ...messages.map((m) => ({

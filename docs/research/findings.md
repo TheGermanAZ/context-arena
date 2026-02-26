@@ -1,6 +1,6 @@
 # What LLMs Forget
 
-### Benchmarking Long-Context Memory Strategies and the Surprising Case for Deeper Delegation
+### Benchmarking Long-Context Memory Strategies: Why Deeper Delegation Beats Agentic Code
 
 ---
 
@@ -132,6 +132,53 @@ The data reveals that depth 2 has two distinct effects depending on the scenario
 
 ---
 
+## The Agentic Extraction Experiment
+
+CTX-1 and CTX-2 showed that hand-designed prompts work surprisingly well for memory extraction. But what if we gave the LLM *more freedom* — let it write and execute its own extraction code? The [rllm](https://github.com/nicholasoxford/rllm) package enables exactly this: the LLM generates JavaScript that runs in a V8 isolate to extract facts from conversation transcripts.
+
+**The hypothesis:** A code-writing LLM should outperform fixed prompts. It can adapt its extraction strategy to the content — using regex for phone numbers, structured parsing for corrections, categorization for entities. The prompt-based approach is a rigid template; code is flexible.
+
+### CTX-3: RLLM vs Hand-Rolled RLM (Same Model)
+
+We ran both strategies on gpt-5-nano via OpenCode Zen to eliminate the model confound.
+
+| Scenario | Hand-rolled RLM | RLLM Agentic | Delta |
+|---|---|---|---|
+| Early Fact Recall | 8/10 (80%) | 0/10 (0%) | +80pp |
+| State Change Tracking | 5/7 (71%) | 0/7 (0%) | +71pp |
+| Contradiction Resolution | 6/8 (75%) | 0/8 (0%) | +75pp |
+| Multi-hop Reasoning | 7/8 (88%) | 0/8 (0%) | +88pp |
+| Long Horizon + Noise | 5/8 (63%) | 0/8 (0%) | +63pp |
+| Cascading Corrections | 6/7 (86%) | 2/7 (29%) | +57pp |
+| Implicit Corrections | 6/7 (86%) | 0/7 (0%) | +86pp |
+| Rapid-fire Corrections | 6/7 (86%) | 5/7 (71%) | +15pp |
+| **OVERALL** | **49/62 (79.0%)** | **7/62 (11.3%)** | **+67.7pp** |
+
+The hand-rolled approach dominates on every scenario. RLLM agentic retains 11.3% versus 79.0% — a 67.7 percentage-point gap. In 6 of 8 scenarios, RLLM retained exactly 0 facts.
+
+The only scenarios where RLLM showed any retention were Cascading Corrections (2/7) and Rapid-fire Corrections (5/7) — both involve highly structured, repetitive updates that the LLM's generated code could sometimes parse.
+
+### CTX-4: What Code Did the LLM Write?
+
+We captured all 168 code blocks that gpt-5-nano generated across the 8 scenarios. Offline classification revealed three distinct strategy families:
+
+| Strategy | % of Code Blocks | Description |
+|---|---|---|
+| **type_specific** | 29% | Attempts category-based extraction (entities, quantities, etc.) |
+| **flat_extraction** | 13% | Simple line-by-line parsing with minimal structure |
+| **chunking** | ~5% | Splits transcript into chunks for batch processing |
+| **unknown/ineffective** | 53% | Malformed, incomplete, or non-functional code |
+
+The LLM *recognized* it needed type-specific extraction — mirroring the structure of our hand-rolled 5-question prompt. But over half the code it produced was non-functional. The code that did run tended to parse surface patterns (regex for numbers, string matching for names) without understanding conversational context like corrections or state changes.
+
+### Why Code Fails Where Prompts Succeed
+
+The 5-question prompt works because it delegates to the LLM's *language understanding* capabilities — asking it to comprehend the conversation and extract meaning. The code-generation approach forces the LLM through an unnecessary indirection: first understand the extraction task, then express that understanding as JavaScript, then hope the JavaScript correctly implements the understanding.
+
+For fact extraction from natural language, the LLM already *is* the ideal tool. Making it write code to do what it can already do with language is like asking a translator to write a translation program instead of just translating.
+
+---
+
 ## What This Means
 
 ### The Photocopy Metaphor Is Wrong
@@ -148,13 +195,16 @@ This only works when the structured output is faithful. For noisy scenarios, the
 
 3. **Hybrid-RLM fusion.** Hybrid's narrative summary preserves exactly the types that RLM loses (phone/IDs, spatial). An architecture that uses RLM's targeted extraction for corrections and decisions, plus Hybrid's narrative for identifiers and relationships, could get the best of both.
 
+4. **Prompts beat code for NLU tasks.** The agentic extraction experiment (CTX-3) is a cautionary tale for the "let the LLM write code" school of thought. When the underlying task is natural language understanding — identifying what matters in a conversation — prompting the LLM to *do the understanding directly* outperforms asking it to *write a program* that does the understanding. Code adds indirection without adding capability. The 5-question prompt succeeds because it's a compressed representation of human expertise about what types of information matter. The LLM, when generating code, must rediscover this expertise from scratch each time — and mostly fails.
+
+5. **Structure is the secret.** Across all experiments, the winning approaches share one trait: they give the sub-LLM a structured scaffold to fill in (5 questions, category headers, fact types). The agentic approach fails precisely because it asks the LLM to *invent* its own structure. Even when the LLM recognizes it needs category-based extraction (29% of its code attempts), the code it writes to implement that recognition is unreliable. The hand-designed structure is simultaneously a constraint and a guide.
+
 ### Open Questions
 
 - Does the self-correction effect hold at depth 3+? (Our depth-3 run was cut short by API limits.)
 - Can the sub-LLM prompt be tuned per-type to eliminate the 0% retention categories?
-- Is the noise amplification problem solvable with a noise-detection pre-filter?
-
-These are the next experiments (CTX-3 through CTX-5 on our research board).
+- Would a larger model (e.g., GPT-4, Claude Sonnet) close the agentic extraction gap? The code quality might improve enough to make the indirection worthwhile.
+- Is there a hybrid approach — prompt-guided code generation — that gets the best of both worlds?
 
 ---
 
@@ -162,10 +212,12 @@ These are the next experiments (CTX-3 through CTX-5 on our research board).
 
 ### A. Methodology
 
-- **LLM:** Claude Haiku 4.5 (via OpenRouter) for CTX-1; gpt-4.1-mini (via OpenAI) for CTX-2
+- **LLM:** Claude Haiku 4.5 (via OpenRouter) for CTX-1; gpt-4.1-mini (via OpenAI) for CTX-2; gpt-5-nano (via OpenCode Zen) for CTX-3/4
 - **Compression trigger:** Every 8 messages, with a 4-message recent window
 - **Probe matching:** Case-insensitive substring matching; all patterns must be present
 - **Retention measurement:** Probes checked against final delegation log entry after the probe's introduction step
+- **RLLM configuration:** rllm v1.2.0, maxIterations=5, V8 isolate code execution
+- **Same-model comparison:** CTX-3 hand-rolled RLM baseline re-run on gpt-5-nano to eliminate model confound
 
 ### B. Full Probe Definitions
 
@@ -184,8 +236,11 @@ These are the next experiments (CTX-3 through CTX-5 on our research board).
 All code, data, and analysis scripts: [github.com/TheGermanAZ/context-arena](https://github.com/TheGermanAZ/context-arena)
 
 Key files:
-- `src/strategies/` — All 8 strategy implementations
+- `src/strategies/` — All 8+ strategy implementations (including `rllm-strategy.ts`)
 - `src/tasks/scenarios.ts` — Scenarios with probe definitions
 - `src/analysis/rlm-loss.ts` — CTX-1 retention analysis
 - `src/analysis/rlm-depth.ts` — CTX-2 depth-scaling analysis
+- `src/analysis/rllm-extraction.ts` — CTX-3 agentic extraction analysis
+- `src/analysis/code-analysis.ts` — CTX-4 code strategy classification
+- `src/analysis/rlm-nano-baseline.ts` — CTX-3 same-model baseline
 - `results/` — Raw benchmark and analysis data
