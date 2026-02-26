@@ -1,0 +1,18 @@
+{
+  "benchmark": "Internal Cross-Session",
+  "sampledAt": "2026-02-26T22:44:10.703Z",
+  "strategies": [
+    {
+      "strategyName": "Full Context",
+      "correct": true,
+      "matchedChecks": 4,
+      "totalChecks": 4,
+      "finalAnswer": "The current budget is $465,000; vendor is BluePeak Labs; launch month is November 2027; required audit is SOC2 audit.",
+      "totalInputTokens": 378,
+      "totalOutputTokens": 2091,
+      "totalMemoryOverheadTokens": 0,
+      "totalLatencyMs": 20322.409290999996,
+      "estimatedCostUsd": 0.0086664
+    }
+  ]
+}

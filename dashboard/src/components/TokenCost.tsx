@@ -13,6 +13,10 @@ const METRIC_LABELS: Record<Metric, string> = {
   latency: 'Latency (ms)',
 };
 
+interface LegendClickPayload {
+  value?: string | number;
+}
+
 export default function TokenCost() {
   const filter = useFilterOptional();
 
@@ -106,16 +110,20 @@ export default function TokenCost() {
             labelStyle={{ color: '#f3f4f6' }}
             itemStyle={{ color: '#d1d5db' }}
             labelFormatter={(v) => `Step ${v}`}
-            formatter={((value: number) => [value.toLocaleString(), '']) as any}
+            formatter={(value: number | string | undefined) => [`${value ?? 0}`, '']}
           />
           <Legend
             wrapperStyle={{ color: '#9ca3af', cursor: 'pointer' }}
-            onClick={(e: any) => onFocusClick?.(e.value)}
+            onClick={(e: LegendClickPayload) => {
+              const value = e.value;
+              if (typeof value === 'string') onFocusClick?.(value);
+            }}
           />
-          {data.strategies.map((strat) => {
+          {data.strategies.map((strat, idx) => {
             const isFocused = focused === strat.name;
             const isDimmed = hasFocus && !isFocused;
             const gradId = `grad-${strat.name.replace(/[^a-zA-Z0-9]/g, '-')}`;
+            const seriesDelay = idx * 130;
             return [
               <Area
                 key={`area-${strat.name}`}
@@ -126,6 +134,10 @@ export default function TokenCost() {
                 fillOpacity={isDimmed ? 0 : isFocused ? 1 : 0.5}
                 legendType="none"
                 tooltipType="none"
+                isAnimationActive
+                animationBegin={seriesDelay}
+                animationDuration={650}
+                animationEasing="ease-out"
               />,
               <Line
                 key={strat.name}
@@ -136,6 +148,10 @@ export default function TokenCost() {
                 strokeOpacity={isDimmed ? 0.15 : 1}
                 dot={isDimmed ? false : { r: isFocused ? 4 : 3 }}
                 activeDot={isDimmed ? false : { r: isFocused ? 6 : 5, onClick: () => onFocusClick?.(strat.name) }}
+                isAnimationActive
+                animationBegin={seriesDelay + 120}
+                animationDuration={700}
+                animationEasing="ease-out"
               />,
             ];
           })}

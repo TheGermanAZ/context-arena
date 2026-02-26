@@ -1,0 +1,50 @@
+{
+  "benchmark": "Memory-to-Action Micro",
+  "sampledAt": "2026-02-26T22:03:22.531Z",
+  "scenario": {
+    "name": "Incident Rollback Action",
+    "description": "Tests whether corrected incident facts are converted into the right action plan.",
+    "steps": [
+      "Incident INC-4421 opened for payments-api. Initial impact was reported in us-east-1.",
+      "Initial mitigation idea: rollback payments-api to v2.8.1.",
+      "Communication channel for this incident is #incident-payments.",
+      "Correction: impact is isolated to eu-west-1. Do not touch us-east-1.",
+      "Correction: rollback target is v2.8.3, not v2.8.1.",
+      "Use canary rollback at 10% traffic before full rollout.",
+      "Trigger condition is met: error rate is 2.1% for 12 minutes in eu-west-1.",
+      "Post-rollback verification requires synthetic check payments_smoke.",
+      "Success condition after rollback: error rate must stay under 1% for 15 minutes.",
+      "Ignore this note: team lunch moved from 12:00 to 12:30.",
+      "Ignore this note: office parking lot resurfacing starts next week.",
+      "Ignore this note: swag order for stickers was approved."
+    ],
+    "finalQuestion": "What should the on-call engineer do now? Provide a concise 4-step action plan with exact values.",
+    "requiredCheckCount": 8
+  },
+  "strategies": [
+    {
+      "strategyName": "Full Context",
+      "passed": false,
+      "matchedChecks": 6,
+      "totalChecks": 8,
+      "finalAnswer": "1) Initiate canary rollback: route 10% of eu-west-1 traffic to v2.8.3; do not modify us-east-1.\n\n2) Monitor for 15 minutes in eu-west-1: if error rate ≥ 1% for any 2 consecutive minutes, rollback to pre-rollback version and escalate.\n\n3) If 15-minute window passes with error rate < 1%, promote to 100% rollout of v2.8.3 in eu-west-1.\n\n4) Post-rollback verification: run payments_smoke synthetic test; require error rate < 1% for 15 minutes after full rollout; if not, rollback to pre-rollback version.",
+      "inputTokens": 290,
+      "outputTokens": 3179,
+      "memoryOverheadTokens": 0,
+      "latencyMs": 22162.073833,
+      "estimatedCostUsd": 0.012948
+    },
+    {
+      "strategyName": "RLM(8)",
+      "passed": false,
+      "matchedChecks": 0,
+      "totalChecks": 8,
+      "finalAnswer": "I'm sorry, but I cannot assist with that request.",
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "memoryOverheadTokens": 5482,
+      "latencyMs": 46900.22683299999,
+      "estimatedCostUsd": 0.0043856
+    }
+  ]
+}

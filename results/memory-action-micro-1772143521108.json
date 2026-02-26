@@ -1,0 +1,50 @@
+{
+  "benchmark": "Memory-to-Action Micro",
+  "sampledAt": "2026-02-26T22:05:21.108Z",
+  "scenario": {
+    "name": "Conference Logistics Action",
+    "description": "Tests whether corrected planning facts are converted into a correct action checklist.",
+    "steps": [
+      "We are finalizing logistics for the Q2 Product Summit breakfast event.",
+      "Initial plan: venue Hall A, expected headcount 90.",
+      "Catering vendor is Sunrise Catering.",
+      "Correction: event moved to Hall C, not Hall A.",
+      "Correction: updated headcount is 120 attendees, not 90.",
+      "Dietary counts are 14 vegan and 9 gluten-free meals.",
+      "Payment terms: submit $1,800 deposit before Friday 4:00 PM.",
+      "Initial budget code was MKT-77.",
+      "Correction: use budget code OPS-19, not MKT-77.",
+      "Reminder: include a final confirmation message to Sunrise Catering.",
+      "Ignore this note: office plant watering moved to Tuesdays.",
+      "Ignore this note: team hoodie order approved for next month."
+    ],
+    "finalQuestion": "Give a concise 4-step action plan with exact values we should execute now.",
+    "requiredCheckCount": 8
+  },
+  "strategies": [
+    {
+      "strategyName": "Full Context",
+      "passed": true,
+      "matchedChecks": 8,
+      "totalChecks": 8,
+      "finalAnswer": "- Step 1: Update event setup\n  - Venue: Hall C\n  - Headcount: 120\n  - Dietary counts: Vegan 14; Gluten-free 9; Standard 97\n  - Catering vendor: Sunrise Catering\n  - Budget code: OPS-19\n\n- Step 2: Confirm catering order with Sunrise\n  - Breakfast service for 120\n  - Meals by dietary: 14 vegan, 9 gluten-free, 97 standard\n  - Delivery/setup to Hall C\n\n- Step 3: Process deposit payment\n  - Amount: $1,800\n  - Deadline: by Friday 4:00 PM\n  - Budget reference: OPS-19\n  - Include deposit reference in payment\n\n- Step 4: Send final confirmation to Sunrise Catering\n  - Include: event name (Q2 Product Summit Breakfast), venue Hall C, headcount 120, dietary counts (14 vegan, 9 gluten-free, 97 standard), service type (breakfast), budget OPS-19, deposit deadline (Friday 4:00 PM)\n  - Request receipt/confirmation and any menu/setup notes.",
+      "inputTokens": 241,
+      "outputTokens": 2709,
+      "memoryOverheadTokens": 0,
+      "latencyMs": 24744.385292,
+      "estimatedCostUsd": 0.0110288
+    },
+    {
+      "strategyName": "RLM(8)",
+      "passed": true,
+      "matchedChecks": 8,
+      "totalChecks": 8,
+      "finalAnswer": "1) Catering update\n- Update Sunrise Catering order: total 120 meals; 14 vegan; 9 gluten-free; 97 standard.\n\n2) Deposit/payment\n- Submit $1,800 deposit due Friday 4:00 PM; budget code OPS-19; reference Q2 Product Summit breakfast.\n\n3) Documentation & logistics\n- Update internal records: Venue Hall C; Headcount 120; Dietary counts 14 vegan, 9 gluten-free; Budget OPS-19; circulate to stakeholders.\n\n4) Final confirmation to Sunrise Catering\n- Send the following message to Sunrise Catering:\n  Subject: Q2 Product Summit breakfast – Final Confirmation\n  Body:\n  Hello Sunrise Catering Team,\n  Event: Q2 Product Summit breakfast\n  Venue: Hall C\n  Headcount: 120\n  Dietary: 14 vegan, 9 gluten-free, 97 standard\n  Deposit: $1,800 due Friday 4:00 PM\n  Budget code: OPS-19\n  Please confirm receipt and that the order is set.\n  Best regards,\n  [Your Name]",
+      "inputTokens": 454,
+      "outputTokens": 2604,
+      "memoryOverheadTokens": 3309,
+      "latencyMs": 54186.618708,
+      "estimatedCostUsd": 0.0134264
+    }
+  ]
+}

@@ -2,6 +2,18 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell, Resp
 import { useRllmComparison } from '../lib/hooks';
 import { useFilterOptional } from '../lib/FilterContext';
 import { Skeleton, ErrorCard } from './charts';
+import type { RllmScenario } from '../lib/types';
+
+interface RllmChartRow {
+  name: string;
+  fullName: string;
+  handRolled: number;
+  rllm: number;
+}
+
+interface ActivePayloadState {
+  activePayload?: Array<{ payload?: RllmChartRow }>;
+}
 
 export default function RllmComparison() {
   const { data, error, isLoading, refetch } = useRllmComparison();
@@ -18,7 +30,7 @@ export default function RllmComparison() {
 
   const hasFocus = focused != null;
 
-  const chartData = data.scenarios.map((s) => ({
+  const chartData: RllmChartRow[] = data.scenarios.map((s: RllmScenario) => ({
     name: s.name.length > 20 ? s.name.slice(0, 18) + '...' : s.name,
     fullName: s.name,
     handRolled: s.handRolled.retained,
@@ -56,7 +68,7 @@ export default function RllmComparison() {
           data={chartData}
           margin={{ top: 5, right: 30 }}
           onClick={(state) => {
-            const fullName = (state as any)?.activePayload?.[0]?.payload?.fullName;
+            const fullName = (state as ActivePayloadState | undefined)?.activePayload?.[0]?.payload?.fullName;
             if (fullName) onFocusClick?.(fullName);
           }}
           style={{ cursor: 'pointer' }}
@@ -71,13 +83,29 @@ export default function RllmComparison() {
             labelFormatter={(_label, payload) => payload?.[0]?.payload?.fullName ?? _label}
           />
           <Legend wrapperStyle={{ color: '#9ca3af' }} />
-          <Bar dataKey="handRolled" name="Hand-rolled RLM" radius={[4, 4, 0, 0]}>
+          <Bar
+            dataKey="handRolled"
+            name="Hand-rolled RLM"
+            radius={[4, 4, 0, 0]}
+            isAnimationActive
+            animationBegin={20}
+            animationDuration={700}
+            animationEasing="ease-out"
+          >
             {chartData.map((entry) => {
               const isDimmed = hasFocus && focused !== entry.fullName;
               return <Cell key={`hr-${entry.fullName}`} fill="#10b981" fillOpacity={isDimmed ? 0.15 : 1} />;
             })}
           </Bar>
-          <Bar dataKey="rllm" name="RLLM Code-Gen" radius={[4, 4, 0, 0]}>
+          <Bar
+            dataKey="rllm"
+            name="RLLM Code-Gen"
+            radius={[4, 4, 0, 0]}
+            isAnimationActive
+            animationBegin={180}
+            animationDuration={700}
+            animationEasing="ease-out"
+          >
             {chartData.map((entry) => {
               const isDimmed = hasFocus && focused !== entry.fullName;
               return <Cell key={`rl-${entry.fullName}`} fill="#ef4444" fillOpacity={isDimmed ? 0.15 : 1} />;

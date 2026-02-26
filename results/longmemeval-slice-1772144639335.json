@@ -1,0 +1,210 @@
+{
+  "benchmark": "LongMemEval-S Slice (Proxy)",
+  "mode": "session-compacted, streamed first N records, ingest-batch=6",
+  "source": "https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned/resolve/main/longmemeval_s_cleaned.json",
+  "sampledAt": "2026-02-26T22:23:59.335Z",
+  "sampleSize": 6,
+  "strategies": [
+    {
+      "strategyName": "Full Context",
+      "sampleSize": 6,
+      "correct": 4,
+      "accuracy": 0.6666666666666666,
+      "avgInputTokens": 103369.16666666667,
+      "avgOutputTokens": 396,
+      "avgMemoryOverheadTokens": 0,
+      "avgLatencyMs": 6667.697819666668,
+      "totalEstimatedCostUsd": 0.505676
+    },
+    {
+      "strategyName": "RLM(8)",
+      "sampleSize": 6,
+      "correct": 3,
+      "accuracy": 0.5,
+      "avgInputTokens": 56200.166666666664,
+      "avgOutputTokens": 345.8333333333333,
+      "avgMemoryOverheadTokens": 62941.666666666664,
+      "avgLatencyMs": 95487.53374283334,
+      "totalEstimatedCostUsd": 0.5801808
+    }
+  ],
+  "byStrategy": {
+    "Full Context": [
+      {
+        "questionId": "e47becba",
+        "questionType": "single-session-user",
+        "question": "What degree did I graduate with?",
+        "goldAnswer": "Business Administration",
+        "predictedAnswer": "Business Administration",
+        "correct": true,
+        "tokenF1": 1,
+        "inputTokens": 102686,
+        "outputTokens": 244,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 6344.695583000001,
+        "estimatedCostUsd": 0.08312480000000001
+      },
+      {
+        "questionId": "118b2229",
+        "questionType": "single-session-user",
+        "question": "How long is my daily commute to work?",
+        "goldAnswer": "45 minutes each way",
+        "predictedAnswer": "90 minutes",
+        "correct": false,
+        "tokenF1": 0.3333333333333333,
+        "inputTokens": 101981,
+        "outputTokens": 493,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 8452.058667000001,
+        "estimatedCostUsd": 0.08355680000000001
+      },
+      {
+        "questionId": "51a45a95",
+        "questionType": "single-session-user",
+        "question": "Where did I redeem a $5 coupon on coffee creamer?",
+        "goldAnswer": "Target",
+        "predictedAnswer": "in my email inbox",
+        "correct": false,
+        "tokenF1": 0,
+        "inputTokens": 103795,
+        "outputTokens": 456,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 7828.5077089999995,
+        "estimatedCostUsd": 0.08486
+      },
+      {
+        "questionId": "58bf7951",
+        "questionType": "single-session-user",
+        "question": "What play did I attend at the local community theater?",
+        "goldAnswer": "The Glass Menagerie",
+        "predictedAnswer": "The Glass Menagerie.",
+        "correct": true,
+        "tokenF1": 0.6666666666666666,
+        "inputTokens": 103783,
+        "outputTokens": 775,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 9096.653042000002,
+        "estimatedCostUsd": 0.0861264
+      },
+      {
+        "questionId": "1e043500",
+        "questionType": "single-session-user",
+        "question": "What is the name of the playlist I created on Spotify?",
+        "goldAnswer": "Summer Vibes",
+        "predictedAnswer": "Summer Vibes",
+        "correct": true,
+        "tokenF1": 1,
+        "inputTokens": 103812,
+        "outputTokens": 198,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 3704.1061670000017,
+        "estimatedCostUsd": 0.0838416
+      },
+      {
+        "questionId": "c5e8278d",
+        "questionType": "single-session-user",
+        "question": "What was my last name before I changed it?",
+        "goldAnswer": "Johnson",
+        "predictedAnswer": "Johnson",
+        "correct": true,
+        "tokenF1": 1,
+        "inputTokens": 104158,
+        "outputTokens": 210,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 4580.16575,
+        "estimatedCostUsd": 0.0841664
+      }
+    ],
+    "RLM(8)": [
+      {
+        "questionId": "e47becba",
+        "questionType": "single-session-user",
+        "question": "What degree did I graduate with?",
+        "goldAnswer": "Business Administration",
+        "predictedAnswer": "Business Administration",
+        "correct": true,
+        "tokenF1": 1,
+        "inputTokens": 61694,
+        "outputTokens": 319,
+        "memoryOverheadTokens": 54560,
+        "latencyMs": 82010.159166,
+        "estimatedCostUsd": 0.09427920000000001
+      },
+      {
+        "questionId": "118b2229",
+        "questionType": "single-session-user",
+        "question": "How long is my daily commute to work?",
+        "goldAnswer": "45 minutes each way",
+        "predictedAnswer": "I don't know.",
+        "correct": false,
+        "tokenF1": 0,
+        "inputTokens": 49673,
+        "outputTokens": 413,
+        "memoryOverheadTokens": 67011,
+        "latencyMs": 94861.237291,
+        "estimatedCostUsd": 0.0949992
+      },
+      {
+        "questionId": "51a45a95",
+        "questionType": "single-session-user",
+        "question": "Where did I redeem a $5 coupon on coffee creamer?",
+        "goldAnswer": "Target",
+        "predictedAnswer": "in my email inbox",
+        "correct": false,
+        "tokenF1": 0,
+        "inputTokens": 57340,
+        "outputTokens": 407,
+        "memoryOverheadTokens": 64524,
+        "latencyMs": 103947.97958300001,
+        "estimatedCostUsd": 0.0991192
+      },
+      {
+        "questionId": "58bf7951",
+        "questionType": "single-session-user",
+        "question": "What play did I attend at the local community theater?",
+        "goldAnswer": "The Glass Menagerie",
+        "predictedAnswer": "The Glass Menagerie",
+        "correct": true,
+        "tokenF1": 1,
+        "inputTokens": 57793,
+        "outputTokens": 311,
+        "memoryOverheadTokens": 60538,
+        "latencyMs": 79357.875084,
+        "estimatedCostUsd": 0.0959088
+      },
+      {
+        "questionId": "1e043500",
+        "questionType": "single-session-user",
+        "question": "What is the name of the playlist I created on Spotify?",
+        "goldAnswer": "Summer Vibes",
+        "predictedAnswer": "I don't know.",
+        "correct": false,
+        "tokenF1": 0,
+        "inputTokens": 56438,
+        "outputTokens": 384,
+        "memoryOverheadTokens": 63863,
+        "latencyMs": 98186.49650000001,
+        "estimatedCostUsd": 0.09777680000000001
+      },
+      {
+        "questionId": "c5e8278d",
+        "questionType": "single-session-user",
+        "question": "What was my last name before I changed it?",
+        "goldAnswer": "Johnson",
+        "predictedAnswer": "Johnson",
+        "correct": true,
+        "tokenF1": 1,
+        "inputTokens": 54263,
+        "outputTokens": 241,
+        "memoryOverheadTokens": 67154,
+        "latencyMs": 114561.45483299997,
+        "estimatedCostUsd": 0.09809760000000001
+      }
+    ]
+  },
+  "notes": [
+    "Fast one-day proxy, not official LongMemEval pipeline.",
+    "Each haystack session is compacted into one synthetic message for bounded runtime.",
+    "Scoring uses normalized exact/substring match plus token F1 for visibility."
+  ]
+}

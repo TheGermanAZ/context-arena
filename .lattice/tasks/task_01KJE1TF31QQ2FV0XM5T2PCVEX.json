@@ -1,0 +1,32 @@
+{
+  "assigned_to": null,
+  "branch_links": [],
+  "comment_count": 1,
+  "complexity": null,
+  "created_at": "2026-02-26T22:41:27Z",
+  "created_by": "agent:gpt5-orchestrator",
+  "custom_fields": {},
+  "description": null,
+  "done_at": "2026-02-26T22:45:09Z",
+  "evidence_refs": [
+    {
+      "id": "ev_01KJE2154RCB6N9RY75AES4W9M",
+      "role": "review",
+      "source_type": "comment"
+    }
+  ],
+  "id": "task_01KJE1TF31QQ2FV0XM5T2PCVEX",
+  "last_event_id": "ev_01KJE217909BRH2TRZ2359P9F5",
+  "last_status_changed_at": "2026-02-26T22:45:09Z",
+  "priority": "medium",
+  "relationships_out": [],
+  "reopened_count": 0,
+  "schema_version": 1,
+  "short_id": "CTX-27",
+  "status": "done",
+  "tags": null,
+  "title": "Fix review findings: manifest resilience, test script robustness, API negative-path tests",
+  "type": "task",
+  "updated_at": "2026-02-26T22:45:09Z",
+  "urgency": null
+}

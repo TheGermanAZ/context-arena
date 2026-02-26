@@ -1,0 +1,126 @@
+{
+  "benchmark": "LongMemEval-S Slice (Proxy)",
+  "mode": "session-compacted, streamed first N records, ingest-batch=8",
+  "source": "https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned/resolve/main/longmemeval_s_cleaned.json",
+  "sampledAt": "2026-02-26T22:47:44.700Z",
+  "sampleSize": 3,
+  "strategies": [
+    {
+      "strategyName": "Full Context",
+      "sampleSize": 3,
+      "correct": 1,
+      "accuracy": 0.3333333333333333,
+      "avgInputTokens": 102813,
+      "avgOutputTokens": 681.3333333333334,
+      "avgMemoryOverheadTokens": 0,
+      "avgLatencyMs": 11989.708222666668,
+      "totalEstimatedCostUsd": 0.2549272
+    },
+    {
+      "strategyName": "RLM(8)",
+      "sampleSize": 3,
+      "correct": 2,
+      "accuracy": 0.6666666666666666,
+      "avgInputTokens": 62280.333333333336,
+      "avgOutputTokens": 450,
+      "avgMemoryOverheadTokens": 51877.333333333336,
+      "avgLatencyMs": 76757.392347,
+      "totalEstimatedCostUsd": 0.2793784
+    }
+  ],
+  "byStrategy": {
+    "Full Context": [
+      {
+        "questionId": "e47becba",
+        "questionType": "single-session-user",
+        "question": "What degree did I graduate with?",
+        "goldAnswer": "Business Administration",
+        "predictedAnswer": "Business Administration",
+        "correct": true,
+        "tokenF1": 1,
+        "inputTokens": 102678,
+        "outputTokens": 547,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 8227.65975,
+        "estimatedCostUsd": 0.0843304
+      },
+      {
+        "questionId": "118b2229",
+        "questionType": "single-session-user",
+        "question": "How long is my daily commute to work?",
+        "goldAnswer": "45 minutes each way",
+        "predictedAnswer": "Unknown",
+        "correct": false,
+        "tokenF1": 0,
+        "inputTokens": 101974,
+        "outputTokens": 1157,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 15019.243584,
+        "estimatedCostUsd": 0.08620720000000001
+      },
+      {
+        "questionId": "51a45a95",
+        "questionType": "single-session-user",
+        "question": "Where did I redeem a $5 coupon on coffee creamer?",
+        "goldAnswer": "Target",
+        "predictedAnswer": "in my email inbox",
+        "correct": false,
+        "tokenF1": 0,
+        "inputTokens": 103787,
+        "outputTokens": 340,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 12722.221334000002,
+        "estimatedCostUsd": 0.08438960000000001
+      }
+    ],
+    "RLM(8)": [
+      {
+        "questionId": "e47becba",
+        "questionType": "single-session-user",
+        "question": "What degree did I graduate with?",
+        "goldAnswer": "Business Administration",
+        "predictedAnswer": "Business Administration",
+        "correct": true,
+        "tokenF1": 1,
+        "inputTokens": 44626,
+        "outputTokens": 235,
+        "memoryOverheadTokens": 76223,
+        "latencyMs": 124355.798416,
+        "estimatedCostUsd": 0.0976192
+      },
+      {
+        "questionId": "118b2229",
+        "questionType": "single-session-user",
+        "question": "How long is my daily commute to work?",
+        "goldAnswer": "45 minutes each way",
+        "predictedAnswer": "45 minutes each way.",
+        "correct": true,
+        "tokenF1": 0.75,
+        "inputTokens": 101974,
+        "outputTokens": 646,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 8202.465792000003,
+        "estimatedCostUsd": 0.08416320000000001
+      },
+      {
+        "questionId": "51a45a95",
+        "questionType": "single-session-user",
+        "question": "Where did I redeem a $5 coupon on coffee creamer?",
+        "goldAnswer": "Target",
+        "predictedAnswer": "in my email inbox.",
+        "correct": false,
+        "tokenF1": 0,
+        "inputTokens": 40241,
+        "outputTokens": 469,
+        "memoryOverheadTokens": 79409,
+        "latencyMs": 97713.91283299998,
+        "estimatedCostUsd": 0.09759600000000002
+      }
+    ]
+  },
+  "notes": [
+    "Fast one-day proxy, not official LongMemEval pipeline.",
+    "Each haystack session is compacted into one synthetic message for bounded runtime.",
+    "Scoring uses normalized exact/substring match plus token F1 for visibility."
+  ]
+}

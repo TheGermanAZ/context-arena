@@ -1,0 +1,32 @@
+{
+  "assigned_to": null,
+  "branch_links": [],
+  "comment_count": 3,
+  "complexity": null,
+  "created_at": "2026-02-26T22:21:41Z",
+  "created_by": "agent:codex",
+  "custom_fields": {},
+  "description": null,
+  "done_at": "2026-02-26T22:27:20Z",
+  "evidence_refs": [
+    {
+      "id": "ev_01KJE103G1QB6H4MKSP1AH783T",
+      "role": "review",
+      "source_type": "comment"
+    }
+  ],
+  "id": "task_01KJE0P8SA2QRWGS9TCJK609FX",
+  "last_event_id": "ev_01KJE10M289J23ZNTVVW7TAGQ7",
+  "last_status_changed_at": "2026-02-26T22:27:20Z",
+  "priority": "medium",
+  "relationships_out": [],
+  "reopened_count": 0,
+  "schema_version": 1,
+  "short_id": "CTX-24",
+  "status": "done",
+  "tags": null,
+  "title": "Add execution animations for remaining memory strategies",
+  "type": "task",
+  "updated_at": "2026-02-26T22:27:20Z",
+  "urgency": null
+}

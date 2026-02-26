@@ -8,6 +8,17 @@ const CATEGORY_COLORS = [
   '#ec4899', '#06b6d4', '#84cc16', '#f97316', '#6366f1',
 ];
 
+interface FeatureData {
+  name: string;
+  rawName: string;
+  count: number;
+  pct: number;
+}
+
+interface ActiveLabelState {
+  activeLabel?: string | number;
+}
+
 export default function CodeStrategies() {
   const { data, error, isLoading, refetch } = useCodeAnalysis();
   const filter = useFilterOptional();
@@ -28,7 +39,7 @@ export default function CodeStrategies() {
     fill: CATEGORY_COLORS[i % CATEGORY_COLORS.length],
   }));
 
-  const featureData = data.features.map((f) => ({
+  const featureData: FeatureData[] = data.features.map((f) => ({
     name: f.name.replace('has', '').replace(/([A-Z])/g, ' $1').trim(),
     rawName: f.name,
     count: f.count,
@@ -36,7 +47,7 @@ export default function CodeStrategies() {
   }));
 
   return (
-    <div className="bg-gray-900 rounded-lg border border-gray-700 p-6 shadow-lg shadow-black/20">
+    <div className="strategy-reveal bg-gray-900 rounded-lg border border-gray-700 p-6 shadow-lg shadow-black/20" style={{ animationDelay: '120ms' }}>
       <div className="flex items-center justify-between mb-1">
         <div className="flex items-center gap-2">
           <h2 className="text-lg font-semibold text-gray-100">Code Strategy Analysis</h2>
@@ -61,8 +72,15 @@ export default function CodeStrategies() {
                 innerRadius={55}
                 outerRadius={95}
                 paddingAngle={2}
-                onClick={(_, idx) => onFocusClick?.(pieData[idx].name)}
+                onClick={(_, idx) => {
+                  const hit = pieData[idx];
+                  if (hit) onFocusClick?.(hit.name);
+                }}
                 style={{ cursor: 'pointer' }}
+                isAnimationActive
+                animationBegin={100}
+                animationDuration={700}
+                animationEasing="ease-out"
               >
                 {pieData.map((entry) => {
                   const isDimmed = hasFocus && focused !== entry.name;
@@ -75,7 +93,10 @@ export default function CodeStrategies() {
                 contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
                 labelStyle={{ color: '#f3f4f6' }}
                 itemStyle={{ color: '#d1d5db' }}
-                formatter={((value: number, name: string) => [`${value} blocks`, name]) as any}
+                formatter={(value: number | string | undefined, name: string | number | undefined) => [
+                  `${value ?? 0} blocks`,
+                  String(name ?? ''),
+                ]}
               />
               <Legend
                 verticalAlign="bottom"
@@ -100,8 +121,9 @@ export default function CodeStrategies() {
               layout="vertical"
               margin={{ left: 20, right: 40 }}
               onClick={(state) => {
-                if (state?.activeLabel) {
-                  const match = featureData.find((f) => f.name === state.activeLabel);
+                const label = (state as ActiveLabelState | undefined)?.activeLabel;
+                if (typeof label === 'string') {
+                  const match = featureData.find((f) => f.name === label);
                   if (match) onFocusClick?.(match.rawName);
                 }
               }}
@@ -114,9 +136,19 @@ export default function CodeStrategies() {
                 contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
                 labelStyle={{ color: '#f3f4f6' }}
                 itemStyle={{ color: '#d1d5db' }}
-                formatter={((value: number, _name: string, props: any) => [`${value} (${props.payload.pct}%)`, 'Count']) as any}
+                formatter={(value: number | string | undefined, _name: string | number | undefined, item: { payload?: FeatureData }) => [
+                  `${value ?? 0} (${item.payload?.pct ?? 0}%)`,
+                  'Count',
+                ]}
               />
-              <Bar dataKey="count" radius={[0, 4, 4, 0]}>
+              <Bar
+                dataKey="count"
+                radius={[0, 4, 4, 0]}
+                isAnimationActive
+                animationBegin={260}
+                animationDuration={750}
+                animationEasing="ease-out"
+              >
                 {featureData.map((entry) => {
                   const isDimmed = hasFocus && focused !== entry.rawName;
                   return <Cell key={entry.rawName} fill="#6366f1" fillOpacity={isDimmed ? 0.15 : 1} />;

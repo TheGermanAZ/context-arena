@@ -1,0 +1,1 @@
+Completed findings documentation update. Added CTX-26 parallel benchmark findings and summary to docs/research/findings.md, including unified results table, key takeaways, caveats, and appendix references.

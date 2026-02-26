@@ -8,26 +8,32 @@
       "repo": null
     }
   ],
-  "comment_count": 2,
+  "comment_count": 4,
   "complexity": null,
   "created_at": "2026-02-26T20:43:13Z",
   "created_by": "agent:codex",
   "custom_fields": {},
   "description": null,
-  "done_at": null,
-  "evidence_refs": [],
+  "done_at": "2026-02-26T20:45:16Z",
+  "evidence_refs": [
+    {
+      "id": "ev_01KJDV5PRTW3Z3EPSVCD8MQJQH",
+      "role": "review",
+      "source_type": "comment"
+    }
+  ],
   "id": "task_01KJDV1YXCMZ281ZT89WTP1RY1",
-  "last_event_id": "ev_01KJDV35Q5F6XJYX2B0F7R28Z4",
-  "last_status_changed_at": "2026-02-26T20:43:52Z",
+  "last_event_id": "ev_01KJDV5PWA929SGNRVPQ4EDMXP",
+  "last_status_changed_at": "2026-02-26T20:45:16Z",
   "priority": "medium",
   "relationships_out": [],
   "reopened_count": 0,
   "schema_version": 1,
   "short_id": "CTX-9",
-  "status": "in_progress",
+  "status": "done",
   "tags": null,
   "title": "Prepare PR and merge current branch changes",
   "type": "task",
-  "updated_at": "2026-02-26T20:43:52Z",
+  "updated_at": "2026-02-26T20:45:16Z",
   "urgency": null
 }
