@@ -1,0 +1,19 @@
+{
+  "proposal": "schema-guided",
+  "phase1": {
+    "passed": false,
+    "details": {
+      "scenario1Coverage": 0.8,
+      "scenario6Coverage": 0.5,
+      "avgCoverage": 0.65,
+      "killThreshold": 0.7
+    }
+  },
+  "phase2": {
+    "runs": [],
+    "retentionByType": {},
+    "comparisonToBaseline": {}
+  },
+  "killCriteriaMet": true,
+  "recommendation": "abandon"
+}

@@ -1,0 +1,122 @@
+{
+  "proposal": "da-rlm",
+  "phase1": {
+    "passed": false,
+    "details": {
+      "assessments": [
+        {
+          "scenario": "Early Fact Recall",
+          "signals": {
+            "informationDensity": 7.309941520467836,
+            "correctionFrequency": 1,
+            "identifierDensity": 1,
+            "noiseRatio": 0,
+            "knowledgeSize": 342
+          },
+          "routedDepth": 1,
+          "expectedDepth": 2,
+          "match": false
+        },
+        {
+          "scenario": "State Change Tracking",
+          "signals": {
+            "informationDensity": 9.803921568627452,
+            "correctionFrequency": 1,
+            "identifierDensity": 0,
+            "noiseRatio": 0,
+            "knowledgeSize": 204
+          },
+          "routedDepth": 1,
+          "expectedDepth": null,
+          "match": null
+        },
+        {
+          "scenario": "Contradiction Resolution",
+          "signals": {
+            "informationDensity": 10.309278350515463,
+            "correctionFrequency": 8,
+            "identifierDensity": 2,
+            "noiseRatio": 0,
+            "knowledgeSize": 291
+          },
+          "routedDepth": 2,
+          "expectedDepth": null,
+          "match": null
+        },
+        {
+          "scenario": "Multi-hop Reasoning",
+          "signals": {
+            "informationDensity": 8.536585365853659,
+            "correctionFrequency": 0,
+            "identifierDensity": 0,
+            "noiseRatio": 0.2,
+            "knowledgeSize": 246
+          },
+          "routedDepth": 1,
+          "expectedDepth": null,
+          "match": null
+        },
+        {
+          "scenario": "Long Horizon + Noise",
+          "signals": {
+            "informationDensity": 8.045977011494253,
+            "correctionFrequency": 3,
+            "identifierDensity": 7,
+            "noiseRatio": 0.4,
+            "knowledgeSize": 348
+          },
+          "routedDepth": 1,
+          "expectedDepth": 1,
+          "match": true
+        },
+        {
+          "scenario": "Cascading Corrections",
+          "signals": {
+            "informationDensity": 14.682539682539684,
+            "correctionFrequency": 1,
+            "identifierDensity": 0,
+            "noiseRatio": 0,
+            "knowledgeSize": 252
+          },
+          "routedDepth": 2,
+          "expectedDepth": null,
+          "match": null
+        },
+        {
+          "scenario": "Implicit Corrections",
+          "signals": {
+            "informationDensity": 5.347593582887701,
+            "correctionFrequency": 0,
+            "identifierDensity": 0,
+            "noiseRatio": 0.375,
+            "knowledgeSize": 187
+          },
+          "routedDepth": 1,
+          "expectedDepth": null,
+          "match": null
+        },
+        {
+          "scenario": "Rapid-fire Corrections",
+          "signals": {
+            "informationDensity": 2.0161290322580645,
+            "correctionFrequency": 2,
+            "identifierDensity": 0,
+            "noiseRatio": 0,
+            "knowledgeSize": 248
+          },
+          "routedDepth": 1,
+          "expectedDepth": null,
+          "match": null
+        }
+      ],
+      "matchRate": 0.5
+    }
+  },
+  "phase2": {
+    "runs": [],
+    "retentionByType": {},
+    "comparisonToBaseline": {}
+  },
+  "killCriteriaMet": true,
+  "recommendation": "refine"
+}
