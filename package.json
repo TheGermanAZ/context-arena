@@ -4,6 +4,11 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "test": "cd src && bun test --timeout 120000",
+    "dashboard:test": "cd dashboard && bun run test",
+    "dashboard:lint": "cd dashboard && bun run lint",
+    "dashboard:build": "cd dashboard && bun run build",
+    "check": "bun run test && bun run dashboard:test && bun run dashboard:lint && bun run dashboard:build",
     "dashboard": "cd dashboard && bun run dev",
     "dashboard:api": "bun run dashboard/server.ts"
   },

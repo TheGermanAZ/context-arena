@@ -1,11 +1,26 @@
 import OpenAI from "openai";
 
-const client = new OpenAI({
-  apiKey: process.env.OPENCODE_ZEN_KEY,
-  baseURL: "https://opencode.ai/zen/v1",
-  timeout: 300_000,
-  maxRetries: 3,
-});
+let cachedClient: OpenAI | null = null;
+
+function getClient(): OpenAI {
+  if (cachedClient) return cachedClient;
+
+  const apiKey = process.env.OPENCODE_ZEN_KEY ?? process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    throw new Error(
+      "Missing credentials. Set OPENCODE_ZEN_KEY (or OPENAI_API_KEY) before calling LLM helpers.",
+    );
+  }
+
+  cachedClient = new OpenAI({
+    apiKey,
+    baseURL: "https://opencode.ai/zen/v1",
+    timeout: 300_000,
+    maxRetries: 3,
+  });
+
+  return cachedClient;
+}
 
 export interface LLMMessage {
   role: "user" | "assistant";
@@ -26,6 +41,7 @@ export async function chat(
   maxTokens = 1024,
 ): Promise<LLMResponse> {
   const start = performance.now();
+  const client = getClient();
 
   const systemMessages: OpenAI.ChatCompletionMessageParam[] = system
     ? [{ role: "system", content: system }]

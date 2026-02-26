@@ -525,4 +525,9 @@ async function main() {
   console.log("=".repeat(60));
 }
 
-main().catch(console.error);
+// Run when executed directly (not when imported by tests)
+const isMainModule =
+  typeof Bun !== "undefined" && Bun.main === import.meta.path;
+if (isMainModule) {
+  main().catch(console.error);
+}
