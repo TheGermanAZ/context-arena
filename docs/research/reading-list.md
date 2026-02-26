@@ -1,8 +1,10 @@
 # Reading List: Long-Context Agent Memory
 
-20 papers/posts ordered by reading priority. Estimated ~16-20 hours total.
+34 papers/posts ordered by reading priority. Estimated ~30-35 hours total.
 
-Papers 1-10 are the original core list. Papers 11-20 were added 2026-02-25 after a second literature sweep.
+- Papers 1-10: Original core list.
+- Papers 11-20: Second literature sweep (2026-02-25) — compression faithfulness, RL memory convergence, knowledge conflicts, architecture evolution.
+- Papers 21-34: Comprehensive domain sweep (2026-02-26) — positional bias, context-as-tool, belief updating, production systems, agent failures, graph memory, theory.
 
 ---
 
@@ -175,6 +177,142 @@ These papers directly relate to our correction scenarios (3, 6, 7, 8).
 
 ---
 
+## Phase 9: Positional Bias — Why Early Facts Get Lost
+
+These papers explain the fundamental attention mechanism that causes your Scenario 1 (Early Fact Recall) failures.
+
+### 21. Lost in the Middle: How Language Models Use Long Contexts (Jul 2023)
+- **Link:** https://arxiv.org/abs/2307.03172
+- **Type:** Foundational paper
+- **Time:** ~45 min
+- **Why:** The paper that launched the field. Demonstrates that LLM performance degrades significantly when relevant information is in the middle of long contexts — a U-shaped curve with best performance at the beginning (primacy) and end (recency). This is the mechanism behind our Scenario 1 failures: early facts get buried in the middle as conversation grows.
+- **Effect on our work:** Explains *why* RLM depth-1 gets 1/10 on Early Fact Recall — early project details are in the worst position for attention. Depth-2's improvement to 8/10 may work by restructuring information into a format where position bias is neutralized.
+
+### 22. Positional Biases Shift as Inputs Approach Context Window Limits (Aug 2025)
+- **Link:** https://arxiv.org/abs/2508.07479
+- **Type:** Full paper
+- **Time:** ~30 min
+- **Why:** Extends Lost in the Middle with a critical finding: the primacy bias weakens beyond 50% context fill, while recency bias stays stable. This means the positional bias pattern *changes* depending on how full the context window is — and our compression triggers at different fill levels across scenarios.
+- **Effect on our work:** Our compression triggers every 8 messages. At the start (low fill), primacy bias helps retain early facts. After several cycles (high fill), the bias profile shifts. This could explain the non-monotonic retention curve in our CTX-1 data — probes are LOST at cycle 1, RETAINED at cycles 2-3, then LOST again as the context dynamics change.
+
+---
+
+## Phase 10: Context Management as a Decision
+
+These papers treat context management not as a background process but as an active agent decision — exactly what our RLLM strategy does.
+
+### 23. CAT — Context as a Tool for SWE-Agents (Dec 2025)
+- **Link:** https://arxiv.org/abs/2512.22087
+- **Type:** Full paper
+- **Time:** ~45 min
+- **Why:** Elevates context maintenance from a passive heuristic to a callable tool integrated into the agent's decision-making. Uses a structured workspace: stable task semantics + condensed long-term memory + high-fidelity short-term interactions. Trains a SWE-Compressor model via trajectory-level supervision. 57.6% on SWE-Bench-Verified.
+- **Effect on our work:** CAT's three-tier workspace (stable semantics / condensed LTM / fresh STM) maps directly to what our Hybrid strategy does (fact extraction / narrative summary / recent messages). Their key insight — teaching the agent *when* to compress, not just *how* — is what makes RLLM's agentic approach more powerful than fixed-trigger compression. Their SWE-Compressor training pipeline could be adapted to train a compression model on our 8 scenarios.
+
+### 24. Agentic Context Engineering (ACE) — Evolving Playbooks (Oct 2025)
+- **Link:** https://arxiv.org/abs/2510.04618
+- **Type:** Full paper
+- **Time:** ~45 min
+- **Why:** Treats contexts as "evolving playbooks that accumulate, refine, and organize strategies." Identifies two failure modes of iterative context management: **brevity bias** (dropping domain insights for conciseness) and **context collapse** (iterative rewriting erodes details over time). Prevents collapse via structured incremental updates. +10.6% on agent benchmarks.
+- **Effect on our work:** "Context collapse" is *exactly* what our compression cycles cause — each cycle erodes detail. ACE's structured incremental updates are the antidote. Their finding that ACE works without labeled supervision (using natural execution feedback) suggests our probe framework could serve as the feedback signal for a self-improving compression strategy.
+
+---
+
+## Phase 11: Belief Updating and Self-Correction
+
+These extend Phase 7 (Knowledge Conflicts) with mechanistic explanations of how LLMs process contradicting information.
+
+### 25. Belief Entrenchment in LLMs (Dec 2025)
+- **Link:** https://arxiv.org/abs/2512.02914
+- **Type:** Full paper
+- **Time:** ~30 min
+- **Why:** Introduces the "Martingale Score" — a metric for measuring whether LLMs update beliefs properly. Key finding: **belief entrenchment is pervasive** across GPT-4o, Llama 4, and others. Future belief updates are predictable from prior beliefs, violating the Martingale property (which requires that new evidence can surprise). This means LLMs systematically fail to integrate contradicting evidence.
+- **Effect on our work:** Directly complements #17 (Anti-Bayesian Drift). Together they show: (1) LLMs get *more* confident when contradicted (#17), and (2) this is because their prior beliefs entrench and resist updating (#25). For our correction scenarios, this means the sub-LLM isn't "forgetting" corrections — it's actively *resisting* them. Potential mitigation: present corrections in a format that bypasses the entrenchment mechanism.
+
+### 26. CorrectBench: Can LLMs Self-Correct? (Oct 2025)
+- **Link:** https://arxiv.org/abs/2510.16062
+- **Type:** Benchmark paper
+- **Time:** ~30 min
+- **Why:** Systematic evaluation of self-correction strategies (intrinsic, external, fine-tuned) across reasoning tasks. Key findings: (1) self-correction helps on complex reasoning, (2) mixing strategies helps more but reduces efficiency, (3) advanced reasoning models (DeepSeek-R1) show diminishing returns from self-correction, (4) simple chain-of-thought is competitively effective.
+- **Effect on our work:** Our depth-2 self-correction finding aligns with their result (1): the second pass corrects the first pass's complex extraction errors. Their finding (3) — advanced models benefit less — suggests our depth-2 advantage might shrink with stronger sub-LLMs. Their finding (4) — CoT is competitive — is worth testing: would a simple "think step by step about what facts to extract" prompt match our depth-2 results at half the cost?
+
+---
+
+## Phase 12: Production Memory Systems
+
+These are deployed systems our work should compare against as practical baselines.
+
+### 27. MemGPT / Letta — LLMs as Operating Systems (Oct 2023)
+- **Link:** https://arxiv.org/abs/2310.08560
+- **Type:** Full paper (foundational)
+- **Time:** ~45 min
+- **Why:** The paper that framed memory management as an OS problem. Virtual context management draws from hierarchical memory in traditional operating systems — main context (RAM), archival storage (disk), with the LLM managing its own page-in/page-out. Enabled document analysis beyond context windows and conversational agents with long-term memory.
+- **Effect on our work:** MemGPT is the conceptual ancestor of our RLLM strategy. Our approach extends theirs by asking: when the LLM manages its own context, *what does it choose to keep and lose?* Their OS metaphor also frames our depth experiment: depth-2 is like a two-level cache hierarchy.
+
+### 28. Mem0 — Production-Ready Agent Memory (Apr 2025)
+- **Link:** https://arxiv.org/abs/2504.19413
+- **Type:** Full paper (industry)
+- **Time:** ~30 min
+- **Why:** The production baseline. Dynamically extracts, consolidates, and retrieves salient information. Results: 26% accuracy improvement on LOCOMO, 91% lower p95 latency vs. full-context, 90%+ token cost savings. Graph-enhanced variant adds ~2% more. This is what "good enough for production" looks like.
+- **Effect on our work:** Mem0's cost-performance tradeoff is the bar our strategies must clear to be practically relevant. If our Hybrid or RLM strategies can't match Mem0's cost savings while improving accuracy, they're academic exercises. Their 26% improvement on LOCOMO should be compared against our 100% (Hybrid) on our benchmark — different tasks, but the efficiency question remains.
+
+### 29. EverMemOS — Self-Organizing Memory Operating System (Jan 2026)
+- **Link:** https://arxiv.org/abs/2601.02163
+- **Type:** Full paper
+- **Time:** ~45 min
+- **Why:** Neuroscience-inspired memory with three stages: (1) Episodic Trace Formation converts dialogue into MemCells with atomic facts and "Foresight" signals, (2) Semantic Consolidation organizes MemCells into thematic MemScenes, (3) Reconstructive Recollection composes the right context for downstream reasoning. SOTA on LoCoMo and LongMemEval.
+- **Effect on our work:** Already referenced in our findings.md as prior art. Their MemCell → MemScene pipeline is a more structured version of what our Summarizer strategy does (compress into narrative). The key difference: EverMemOS's "Foresight" signals predict what will be needed later — our strategies are purely retrospective. Adding foresight to our RLM's extraction questions could improve retention on facts that matter for the final question.
+
+---
+
+## Phase 13: Agent Failure Patterns
+
+### 30. AgentDebug — Where LLM Agents Fail and How They Learn (Sep 2025)
+- **Link:** https://arxiv.org/abs/2509.25370
+- **Type:** Full paper
+- **Time:** ~45 min
+- **Why:** Introduces AgentErrorTaxonomy — a modular classification of failure modes spanning memory, reflection, planning, action, and system-level operations. Key insight: agent architectures amplify vulnerability to **cascading failures** where a single root-cause error propagates through subsequent decisions. Their AgentDebug framework achieves 24% higher accuracy by isolating root causes and providing corrective feedback.
+- **Effect on our work:** Their "cascading failure" concept directly maps to our Scenario 6 (Cascading Corrections) — one missed correction propagates through downstream calculations. Their error taxonomy could be adapted to classify our probe failures: is a lost phone number a memory failure, a planning failure, or a system-level deprioritization?
+
+### 31. SELF-ROUTE — RAG vs. Long-Context Hybrid (EMNLP 2024)
+- **Link:** https://arxiv.org/abs/2407.16833
+- **Type:** Full paper (EMNLP)
+- **Time:** ~30 min
+- **Why:** Comprehensive comparison of RAG vs. long-context LLMs. Key finding: LC consistently outperforms RAG when resources are sufficient, but RAG wins on cost. SELF-ROUTE routes each query to RAG or LC based on model self-reflection — best of both worlds.
+- **Effect on our work:** The routing concept is relevant to our adaptive depth hypothesis: route information-dense conversations to depth-2 RLM and noisy conversations to depth-1. SELF-ROUTE's self-reflection mechanism could be the heuristic: let the agent decide its own compression depth per cycle based on content assessment.
+
+---
+
+## Phase 14: Graph and Multi-Graph Memory
+
+Alternative memory architectures that preserve structure better than flat text.
+
+### 32. MAGMA — Multi-Graph Agentic Memory Architecture (Jan 2026)
+- **Link:** https://arxiv.org/abs/2601.03236
+- **Type:** Full paper
+- **Time:** ~45 min
+- **Why:** Represents each memory item across four orthogonal graphs: semantic, temporal, causal, and entity. Formulates retrieval as policy-guided traversal over these relational views. Outperforms SOTA on LoCoMo and LongMemEval.
+- **Effect on our work:** MAGMA's four-graph decomposition addresses our 0% spatial and relationship retention directly. Spatial facts live in the entity graph, causal relationships in the causal graph, temporal ordering in the temporal graph. Instead of flattening everything into text (where the sub-LLM deprioritizes spatial info), graph structure preserves it by design. A graph-augmented RLM strategy could be a strong next experiment.
+
+### 33. Graph-based Agent Memory: Taxonomy and Survey (Feb 2026)
+- **Link:** https://arxiv.org/abs/2602.05665
+- **Type:** Survey
+- **Time:** ~45 min (skim)
+- **Why:** Comprehensive survey of graph-based memory approaches: knowledge graphs, temporal graphs, hypergraphs, hierarchical trees, and hybrid graphs. Covers the full memory lifecycle: extraction, storage, retrieval, evolution. Includes a GitHub resource list (Awesome-GraphMemory).
+- **Effect on our work:** Provides the design space for graph-augmented strategies. If we pursue the MAGMA direction or graph-enhanced RLM, this survey maps the options. Their lifecycle framework (extraction → storage → retrieval → evolution) is a more principled decomposition than our current strategy-level thinking.
+
+---
+
+## Phase 15: Theoretical Foundations
+
+### 34. Episodic Memory Is the Missing Piece for Long-Term LLM Agents (Feb 2025)
+- **Link:** https://arxiv.org/abs/2502.06975
+- **Type:** Position paper
+- **Time:** ~30 min
+- **Why:** Argues that episodic memory — the biological mechanism for single-shot learning of instance-specific contexts — should be explicitly integrated into LLM agent design. Identifies five key properties of episodic memory needed for long-term agents and maps existing work to these properties, showing gaps.
+- **Effect on our work:** Gives our work a cognitive science grounding. Our probe framework tests exactly the kind of instance-specific context retention that episodic memory provides. Their five-property framework could structure our evaluation: which of the five properties does each strategy satisfy?
+
+---
+
 ## Bonus: TTT (if you want to go deeper)
 
 ### Test-Time Training (NVIDIA, 2025)
@@ -185,17 +323,35 @@ These papers directly relate to our correction scenarios (3, 6, 7, 8).
 
 ---
 
-## Cross-Reference: How New Papers Map to Our Findings
+## Cross-Reference: How Papers Map to Our Findings
 
 | Our Finding | Explained/Extended By |
 |---|---|
-| 0% retention on phone/IDs and spatial facts | #11 Scaling Paradox (knowledge overwriting), #12 Info Preservation (entity bottleneck) |
-| Depth-2 self-correction effect | #14 MemSearcher (smaller > bigger with better strategy), #11 Scaling Paradox (drift compounds) |
-| Depth-2 noise amplification | #17 Anti-Bayesian Drift (confidence escalation on contradictions) |
-| Implicit corrections harder than explicit | #16 Knowledge Conflicts (context-memory > inter-context difficulty) |
-| Different retention profiles per scenario | #19 MemEvolve (architecture should adapt per-task), #5 ACON (compression per-task) |
-| Hybrid-RLM fusion opportunity | #18 A-MEM (linked networks preserve relationships), #20 Hindsight (four-network decomposition) |
-| Correction-aware strategy potential | #13 Memory-R1 (UPDATE/DELETE via RL), #15 MemRL (stability-plasticity tradeoff) |
+| 0% retention on phone/IDs and spatial facts | #11 Scaling Paradox (knowledge overwriting), #12 Info Preservation (entity bottleneck), #32 MAGMA (graph structure preserves by design) |
+| Early Fact Recall failure (Scenario 1) | #21 Lost in the Middle (positional bias), #22 Positional Bias Shift (bias changes with fill level) |
+| Depth-2 self-correction effect | #14 MemSearcher (smaller > bigger with strategy), #26 CorrectBench (self-correction on complex tasks), #11 Scaling Paradox (drift compounds) |
+| Depth-2 noise amplification | #17 Anti-Bayesian Drift (confidence escalation), #25 Belief Entrenchment (prior beliefs resist updating) |
+| Non-monotonic retention curve | #22 Positional Bias Shift (bias profile changes with context fill), #24 ACE (context collapse from iterative rewriting) |
+| Implicit corrections harder than explicit | #16 Knowledge Conflicts (context-memory > inter-context), #25 Belief Entrenchment (prior beliefs resist updating) |
+| Cascading correction failures | #30 AgentDebug (single error propagates through subsequent decisions), #17 Anti-Bayesian Drift |
+| Different retention profiles per scenario | #19 MemEvolve (architecture should adapt per-task), #5 ACON (per-task compression), #31 SELF-ROUTE (adaptive routing) |
+| Hybrid-RLM fusion opportunity | #18 A-MEM (linked networks), #20 Hindsight (four-network decomposition), #32 MAGMA (multi-graph) |
+| Correction-aware strategy potential | #13 Memory-R1 (UPDATE/DELETE via RL), #15 MemRL (stability-plasticity), #29 EverMemOS (Foresight signals) |
+| RLLM agentic extraction (CTX-3) | #23 CAT (context-as-tool), #24 ACE (evolving playbooks), #27 MemGPT (LLM-as-OS) |
+| Production viability | #28 Mem0 (90% cost savings baseline), #3 JetBrains (50% cost baseline) |
 
-*Last updated: 2026-02-25*
+---
+
+## Papers by Layer (Quick Reference)
+
+```
+Layer 5 (Application):  #4 #6 #13 #14 #15 #18 #19 #20 #23 #24 #27 #28 #29 #32 #34
+Layer 4 (Prompt):        #5 #11 #12 #26
+Layer 3 (Orchestration): #7 #10 #19 #30 #31
+Layer 2 (Retrieval):     #14 #31 #33
+Layer 1 (Architecture):  TTT, #21 #22
+Surveys/Meta:            #1 #2 #8 #9 #16 #33
+```
+
+*Last updated: 2026-02-26*
 *Built for: German's Week 4 Ambition Project*
