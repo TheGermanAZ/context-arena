@@ -9,9 +9,10 @@
 
 | Document | Purpose |
 |----------|---------|
-| **This file** (tracer-bullet.md) | The problem, the landscape, the benchmarks, the gaps, the terminology |
+| **This file** (tracer-bullet.md) | The problem, the landscape, the gaps, the terminology |
 | [reading-list.md](./reading-list.md) | 34 papers — what to read, in what order, and how each connects to our work |
 | [findings.md](./findings.md) | Our benchmark results, the depth experiment, and what we learned |
+| [benchmarks.md](./benchmarks.md) | Every relevant benchmark — repos, leaderboards, datasets, how to run them |
 
 ---
 
@@ -57,40 +58,18 @@ Layer 1: Architecture   │ TTT (context → weights), PaTH Attention, positiona
 
 ## The Benchmarks
 
-### Long-Context LLM Benchmarks
+The benchmark landscape spans three dimensions: long-context LLM evaluation (17 benchmarks), agent memory (17 benchmarks), and compression faithfulness (35+ tools/metrics). Full details, repos, leaderboards, and setup instructions are in [benchmarks.md](./benchmarks.md).
 
-| Benchmark | Focus | Max Context | Key Finding |
-|-----------|-------|-------------|-------------|
-| **RULER** (NVIDIA) | Effective context size | 128K | Models' real effective context << claimed |
-| **LongBench v2** (Tsinghua) | Real-world comprehension | 2M words | Even reasoning models only hit 57.7% |
-| **InfiniteBench** (OpenBMB) | 100K+ understanding | 100K+ | Mix of real + synthetic tasks |
-| **HELMET** (Princeton) | Holistic eval, 7 categories | 128K | Different task types DON'T correlate |
-| **BABILong** (NeurIPS 2024) | Reasoning-in-a-haystack | 11M | Models use only 10-20% of context |
-| **LOFT** (DeepMind) | Can LC replace RAG/SQL? | 1M | Yes, for many tasks |
+**Key highlights:**
 
-### Agent Memory Benchmarks
+| Category | Top Benchmarks | Current Leader | Critical Finding |
+|----------|---------------|----------------|-----------------|
+| **Long-Context LLM** | RULER v2, LongBench v2, HELMET, BABILong, MRCR v2 | Gemini 3 Pro (10M ctx) | NIAH is solved; no single benchmark tells the full story; claimed context >> effective context |
+| **Agent Memory** | LongMemEval, MemoryArena, MemoryAgentBench, BEAM | Mastra 94.87% (LongMemEval) | 90%+ recall scores → 0-12% success on agentic tasks (MemoryArena) |
+| **Compression** | FActScore, Scaling Paradox, Factory.ai Probes | N/A (tooling, not leaderboard) | ROUGE/BLEU stay high while actual faithfulness degrades |
+| **Our Benchmark** | **Context Arena** | Hybrid (100%) | 62 probes, 8 fact types; phone/IDs and spatial facts get 0% retention under RLM delegation |
 
-| Benchmark | Focus | Key Finding |
-|-----------|-------|-------------|
-| **LongMemEval** (ICLR 2025) | 5 memory abilities in chat | 30-60% accuracy drops across sessions |
-| **MemBench** (ACL 2025) | Memory capability dimensions | Effectiveness + efficiency + capacity |
-| **MemoryAgentBench** (ICLR 2026) | 4 core memory competencies | No method masters all four |
-| **MemoryArena** (Feb 2026) | Memory → agent decisions | Models that ace recall benchmarks fail in agentic settings |
-| **StructMemEval** (Feb 2026) | Memory organization structures | LLMs struggle to self-select appropriate memory schemas |
-
-### Agent Task Benchmarks
-
-| Benchmark | Focus | Key Finding |
-|-----------|-------|-------------|
-| **SWE-bench Pro** (Scale AI) | Long-horizon SWE tasks | Frontier agents: only 17-23% (vs 70%+ on SWE-bench Verified) |
-
-### Our Benchmark (Context Arena)
-
-| Benchmark | Focus | Key Finding |
-|-----------|-------|-------------|
-| **Context Arena** (this project) | Type-specific retention under compression | 62 probes, 8 fact types; phone/IDs and spatial facts get 0% retention under RLM delegation |
-
-See [findings.md](./findings.md) for full results.
+See [findings.md](./findings.md) for our results. See [benchmarks.md](./benchmarks.md) for the full catalog.
 
 ---
 
