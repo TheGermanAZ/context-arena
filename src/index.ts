@@ -30,6 +30,31 @@ const ALL_STRATEGIES: StrategyFactory[] = [
   { name: "CorrectionAware", create: () => new CorrectionAwareStrategy(8, 4) },
 ];
 
+function createSeededRandom(seed: number): () => number {
+  let state = seed >>> 0;
+  return () => {
+    state = (state * 1664525 + 1013904223) >>> 0;
+    return state / 0x100000000;
+  };
+}
+
+function getGitSha(): string | null {
+  try {
+    const result = Bun.spawnSync({
+      cmd: ["git", "rev-parse", "HEAD"],
+      stdout: "pipe",
+      stderr: "pipe",
+    });
+    if (result.exitCode === 0) {
+      const sha = new TextDecoder().decode(result.stdout).trim();
+      return sha || null;
+    }
+  } catch {
+    // ignore and return null
+  }
+  return null;
+}
+
 /* ── Concurrency Limiter ──────────────────────────────────────────────── */
 
 function pLimit(concurrency: number) {
@@ -73,6 +98,16 @@ function hasResult(results: BenchmarkResult[], strategy: string, scenario: strin
   );
 }
 
+async function writeManifestSafely(path: string, manifest: unknown): Promise<boolean> {
+  try {
+    await Bun.write(path, JSON.stringify(manifest, null, 2));
+    return true;
+  } catch (error) {
+    console.error(`WARNING: Failed to write manifest to ${path}: ${error}`);
+    return false;
+  }
+}
+
 /* ── Main ─────────────────────────────────────────────────────────────── */
 
 async function main() {
@@ -87,6 +122,8 @@ async function main() {
   const quick = args.includes("--quick");
   const sampleArg = args.find((a) => a.startsWith("--sample="))?.split("=")[1];
   const sample = sampleArg ? parseInt(sampleArg, 10) : undefined;
+  const seedArg = args.find((a) => a.startsWith("--seed="))?.split("=")[1];
+  const seed = seedArg ? parseInt(seedArg, 10) : undefined;
   const concurrencyArg = args.find((a) => a.startsWith("--concurrency="))?.split("=")[1];
   const concurrency = concurrencyArg ? parseInt(concurrencyArg, 10) : 8;
   const resumePath = args.find((a) => a.startsWith("--resume="))?.split("=")[1];
@@ -94,6 +131,10 @@ async function main() {
 
   if (sample !== undefined && (isNaN(sample) || sample <= 0)) {
     console.error("Error: --sample must be a positive integer");
+    process.exit(1);
+  }
+  if (seedArg !== undefined && (seed === undefined || isNaN(seed) || seed <= 0)) {
+    console.error("Error: --seed must be a positive integer");
     process.exit(1);
   }
   if (isNaN(concurrency) || concurrency <= 0) {
@@ -112,11 +153,14 @@ async function main() {
   );
   if (quick) scenarios = scenarios.slice(0, 2);
   if (sample && sample < scenarios.length) {
+    const random = seed !== undefined ? createSeededRandom(seed) : Math.random;
     // Fisher-Yates shuffle, take first N
     const shuffled = [...scenarios];
     for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      const j = Math.floor(random() * (i + 1));
+      const temp = shuffled[i]!;
+      shuffled[i] = shuffled[j]!;
+      shuffled[j] = temp;
     }
     scenarios = shuffled.slice(0, sample);
   }
@@ -136,23 +180,60 @@ async function main() {
 
   const totalPairs = strategies.length * scenarios.length;
   const skipped = totalPairs - pairs.length;
+  const runStartedAt = new Date().toISOString();
+  const outputPath = resumePath ?? `results/benchmark-${Date.now()}.json`;
+  const manifestPath = outputPath.endsWith(".json")
+    ? outputPath.replace(/\.json$/, ".manifest.json")
+    : `${outputPath}.manifest.json`;
+  const gitSha = getGitSha();
 
   console.log(`Scenarios: ${scenarios.map((s) => s.name).join(", ")}`);
   console.log(`Strategies: ${strategies.map((s) => s.name).join(", ")}`);
   console.log(`Total: ${totalPairs} runs (${skipped} cached, ${pairs.length} to run)`);
   console.log(`Concurrency: ${sequential ? "sequential" : concurrency}`);
-  console.log(`Started: ${new Date().toISOString()}\n`);
+  if (seed !== undefined) console.log(`Seed: ${seed}`);
+  console.log(`Started: ${runStartedAt}\n`);
 
   if (pairs.length === 0) {
     console.log("All runs already completed. Nothing to do.");
+    const finishedAt = new Date().toISOString();
+    const savedManifest = await writeManifestSafely(manifestPath, {
+      version: 1,
+      benchmarkOutputPath: outputPath,
+      startedAt: runStartedAt,
+      finishedAt,
+      gitSha,
+      filters: {
+        onlyStrategy: onlyStrategy ?? null,
+        onlyScenario: onlyScenario ?? null,
+        quick,
+        sample: sample ?? null,
+        seed: seed ?? null,
+        concurrency,
+        sequential,
+        resumePath: resumePath ?? null,
+      },
+      selected: {
+        strategies: strategies.map((s) => s.name),
+        scenarios: scenarios.map((s) => s.name),
+      },
+      totals: {
+        plannedRuns: totalPairs,
+        cachedRuns: skipped,
+        executedRuns: 0,
+        failedRuns: 0,
+        resultCount: previousResults.length,
+      },
+    });
+    if (savedManifest) {
+      console.log(`Manifest saved to: ${manifestPath}`);
+    }
     printComparisonTable(previousResults);
     return;
   }
-
-  // Output file — reuse resume path or create new
-  const outputPath = resumePath ?? `results/benchmark-${Date.now()}.json`;
   const results: BenchmarkResult[] = [...previousResults];
   let completed = 0;
+  let failed = 0;
 
   // Incremental save (mutex to prevent concurrent writes)
   let writing = Promise.resolve();
@@ -177,6 +258,7 @@ async function main() {
         await saveResults();
       } catch (error) {
         console.error(`  ERROR: ${factory.name} × ${scenario.name}: ${error}`);
+        failed++;
       }
     }
   } else {
@@ -195,6 +277,7 @@ async function main() {
           return result;
         } catch (error) {
           console.error(`  ERROR: ${factory.name} × ${scenario.name}: ${error}`);
+          failed++;
           return null;
         }
       })
@@ -208,9 +291,41 @@ async function main() {
 
   // Print final comparison
   printComparisonTable(results);
+  const finishedAt = new Date().toISOString();
+  const savedManifest = await writeManifestSafely(manifestPath, {
+    version: 1,
+    benchmarkOutputPath: outputPath,
+    startedAt: runStartedAt,
+    finishedAt,
+    gitSha,
+    filters: {
+      onlyStrategy: onlyStrategy ?? null,
+      onlyScenario: onlyScenario ?? null,
+      quick,
+      sample: sample ?? null,
+      seed: seed ?? null,
+      concurrency,
+      sequential,
+      resumePath: resumePath ?? null,
+    },
+    selected: {
+      strategies: strategies.map((s) => s.name),
+      scenarios: scenarios.map((s) => s.name),
+    },
+    totals: {
+      plannedRuns: totalPairs,
+      cachedRuns: skipped,
+      executedRuns: completed,
+      failedRuns: failed,
+      resultCount: results.length,
+    },
+  });
 
   console.log(`\nResults saved to: ${outputPath}`);
-  console.log(`Finished: ${new Date().toISOString()}`);
+  if (savedManifest) {
+    console.log(`Manifest saved to: ${manifestPath}`);
+  }
+  console.log(`Finished: ${finishedAt}`);
 }
 
 main().catch(console.error);

@@ -123,7 +123,7 @@ const stateChangeTracking: Scenario = {
     const hasGizmoZ =
       lower.includes("gizmo") && (answer.includes(" 0") || lower.includes("zero") || lower.includes("none"));
 
-    return hasWidgetA && hasWidgetB && hasGadgetX && hasMegaPartQ;
+    return hasWidgetA && hasWidgetB && hasGadgetX && hasMegaPartQ && hasGizmoZ;
   },
 };
 

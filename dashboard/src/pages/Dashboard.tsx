@@ -1,39 +1,40 @@
-import { useState, useEffect, type ComponentType } from 'react';
+import { Suspense, lazy, useState, useEffect, type ReactElement } from 'react';
 import { FilterProvider, useFilter } from '../lib/FilterContext';
 import NavBar from '../components/NavBar';
 import { useSyncURL } from '../lib/useSyncURL';
 import Sidebar from '../components/Sidebar';
-import { Panel } from '../components/charts';
-import Leaderboard from '../components/Leaderboard';
-import TokenCost from '../components/TokenCost';
-import RetentionByType from '../components/RetentionByType';
-import RetentionCurve from '../components/RetentionCurve';
-import DepthComparison from '../components/DepthComparison';
-import RllmComparison from '../components/RllmComparison';
-import CodeStrategies from '../components/CodeStrategies';
-import ScenarioHeatmap from '../components/ScenarioHeatmap';
-import CostAccuracy from '../components/CostAccuracy';
-import ScenarioDifficulty from '../components/ScenarioDifficulty';
+import { Panel, Skeleton } from '../components/charts';
+
+const Leaderboard = lazy(() => import('../components/Leaderboard'));
+const TokenCost = lazy(() => import('../components/TokenCost'));
+const RetentionByType = lazy(() => import('../components/RetentionByType'));
+const RetentionCurve = lazy(() => import('../components/RetentionCurve'));
+const DepthComparison = lazy(() => import('../components/DepthComparison'));
+const RllmComparison = lazy(() => import('../components/RllmComparison'));
+const CodeStrategies = lazy(() => import('../components/CodeStrategies'));
+const ScenarioHeatmap = lazy(() => import('../components/ScenarioHeatmap'));
+const CostAccuracy = lazy(() => import('../components/CostAccuracy'));
+const ScenarioDifficulty = lazy(() => import('../components/ScenarioDifficulty'));
 
 /* ── Panel Registry ───────────────────────────────────────────── */
 
 interface PanelConfig {
-  component: ComponentType;
+  render: () => ReactElement;
   title: string;
   badge?: { text: string; color: 'emerald' | 'red' };
 }
 
 const PANEL_MAP: Record<string, PanelConfig> = {
-  'leaderboard': { component: Leaderboard, title: 'Strategy Leaderboard' },
-  'token-cost': { component: TokenCost, title: 'Token Cost per Step' },
-  'scenario-heatmap': { component: ScenarioHeatmap, title: 'Scenario Heatmap' },
-  'cost-accuracy': { component: CostAccuracy, title: 'Cost vs Accuracy' },
-  'scenario-difficulty': { component: ScenarioDifficulty, title: 'Scenario Difficulty' },
-  'retention-by-type': { component: RetentionByType, title: 'Retention by Type', badge: { text: 'RLM', color: 'emerald' } },
-  'retention-curve': { component: RetentionCurve, title: 'Retention Curve', badge: { text: 'RLM', color: 'emerald' } },
-  'depth-comparison': { component: DepthComparison, title: 'Depth 1 vs 2', badge: { text: 'RLM', color: 'emerald' } },
-  'rllm-comparison': { component: RllmComparison, title: 'RLLM vs Hand-rolled', badge: { text: 'RLLM', color: 'red' } },
-  'code-strategies': { component: CodeStrategies, title: 'Code Strategies', badge: { text: 'RLLM', color: 'red' } },
+  'leaderboard': { render: () => <Leaderboard />, title: 'Strategy Leaderboard' },
+  'token-cost': { render: () => <TokenCost />, title: 'Token Cost per Step' },
+  'scenario-heatmap': { render: () => <ScenarioHeatmap />, title: 'Scenario Heatmap' },
+  'cost-accuracy': { render: () => <CostAccuracy />, title: 'Cost vs Accuracy' },
+  'scenario-difficulty': { render: () => <ScenarioDifficulty />, title: 'Scenario Difficulty' },
+  'retention-by-type': { render: () => <RetentionByType />, title: 'Retention by Type', badge: { text: 'RLM', color: 'emerald' } },
+  'retention-curve': { render: () => <RetentionCurve />, title: 'Retention Curve', badge: { text: 'RLM', color: 'emerald' } },
+  'depth-comparison': { render: () => <DepthComparison />, title: 'Depth 1 vs 2', badge: { text: 'RLM', color: 'emerald' } },
+  'rllm-comparison': { render: () => <RllmComparison />, title: 'RLLM vs Hand-rolled', badge: { text: 'RLLM', color: 'red' } },
+  'code-strategies': { render: () => <CodeStrategies />, title: 'Code Strategies', badge: { text: 'RLLM', color: 'red' } },
 };
 
 /* ── Filter Bar ───────────────────────────────────────────────── */
@@ -82,7 +83,7 @@ function FilterBar() {
 /* ── Expand Modal ─────────────────────────────────────────────── */
 
 function ExpandModal({ config, onClose }: { panelId: string; config: PanelConfig; onClose: () => void }) {
-  const Component = config.component;
+  const content = config.render();
 
   // Close on Escape
   useEffect(() => {
@@ -107,7 +108,9 @@ function ExpandModal({ config, onClose }: { panelId: string; config: PanelConfig
         <button onClick={onClose} className="text-gray-400 hover:text-gray-200 text-2xl leading-none">×</button>
       </div>
       <div className="flex-1 min-h-0" onClick={(e) => e.stopPropagation()}>
-        <Component />
+        <Suspense fallback={<Skeleton className="h-full" />}>
+          {content}
+        </Suspense>
       </div>
     </div>
   );
@@ -135,7 +138,6 @@ function PanelGrid() {
         {filter.panels.map((id, idx) => {
           const config = PANEL_MAP[id];
           if (!config) return null;
-          const Component = config.component;
 
           // For 3 panels, make the last one span full width
           const spanFull = filter.panels.length === 3 && idx === 2;
@@ -147,7 +149,9 @@ function PanelGrid() {
                 badge={config.badge}
                 onExpand={() => setExpandedPanel(id)}
               >
-                <Component />
+                <Suspense fallback={<Skeleton />}>
+                  {config.render()}
+                </Suspense>
               </Panel>
             </div>
           );

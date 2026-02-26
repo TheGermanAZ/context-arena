@@ -1,11 +1,28 @@
+import { Suspense, lazy } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-import Landing from './pages/Landing';
-import Demo from './pages/Demo';
-import DashboardPage from './pages/Dashboard';
+
+const Landing = lazy(() => import('./pages/Landing'));
+const Demo = lazy(() => import('./pages/Demo'));
+const DashboardPage = lazy(() => import('./pages/Dashboard'));
+
+const RouteFallback = (
+  <div className="min-h-screen bg-gray-950 text-gray-400 flex items-center justify-center">
+    Loading...
+  </div>
+);
 
 export const router = createBrowserRouter([
-  { path: '/', element: <Landing /> },
-  { path: '/demo', element: <Demo /> },
-  { path: '/dashboard', element: <DashboardPage /> },
+  {
+    path: '/',
+    element: <Suspense fallback={RouteFallback}><Landing /></Suspense>,
+  },
+  {
+    path: '/demo',
+    element: <Suspense fallback={RouteFallback}><Demo /></Suspense>,
+  },
+  {
+    path: '/dashboard',
+    element: <Suspense fallback={RouteFallback}><DashboardPage /></Suspense>,
+  },
   { path: '*', element: <Navigate to="/" replace /> },
 ]);
