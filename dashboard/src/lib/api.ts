@@ -6,6 +6,9 @@ import type {
   RllmComparisonResponse,
   TokenCostResponse,
   CodeAnalysisResponse,
+  ScenarioHeatmapResponse,
+  CostAccuracyResponse,
+  ScenarioDifficultyResponse,
 } from './types';
 
 async function fetchJson<T>(url: string): Promise<T> {
@@ -23,4 +26,7 @@ export const api = {
   tokenCost: (scenario?: string) =>
     fetchJson<TokenCostResponse>(`/api/token-cost${scenario ? `?scenario=${encodeURIComponent(scenario)}` : ''}`),
   codeAnalysis: () => fetchJson<CodeAnalysisResponse>('/api/code-analysis'),
+  scenarioHeatmap: () => fetchJson<ScenarioHeatmapResponse>('/api/scenario-heatmap'),
+  costAccuracy: () => fetchJson<CostAccuracyResponse>('/api/cost-accuracy'),
+  scenarioDifficulty: () => fetchJson<ScenarioDifficultyResponse>('/api/scenario-difficulty'),
 };

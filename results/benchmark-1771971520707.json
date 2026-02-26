@@ -1,0 +1,128 @@
+[
+  {
+    "strategyName": "CorrectionAware",
+    "scenarioName": "Contradiction Resolution",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 60,
+        "outputTokens": 359,
+        "latencyMs": 3494.827542,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 444,
+        "outputTokens": 305,
+        "latencyMs": 3592.1490419999996,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 776,
+        "outputTokens": 353,
+        "latencyMs": 3689.582708,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 1164,
+        "outputTokens": 415,
+        "latencyMs": 3553.2938329999997,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 841,
+        "outputTokens": 293,
+        "latencyMs": 3440.7875829999975,
+        "memoryOverheadTokens": 2460
+      },
+      {
+        "step": 6,
+        "inputTokens": 1173,
+        "outputTokens": 355,
+        "latencyMs": 2977.042874999999,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 1556,
+        "outputTokens": 364,
+        "latencyMs": 3825.5802089999997,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 1956,
+        "outputTokens": 340,
+        "latencyMs": 3091.686167,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 926,
+        "outputTokens": 291,
+        "latencyMs": 2390.7549169999984,
+        "memoryOverheadTokens": 4867
+      },
+      {
+        "step": 10,
+        "inputTokens": 1252,
+        "outputTokens": 371,
+        "latencyMs": 3290.8677499999976,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 1655,
+        "outputTokens": 448,
+        "latencyMs": 4101.679292000001,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 2128,
+        "outputTokens": 361,
+        "latencyMs": 2855.7955,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 838,
+        "outputTokens": 435,
+        "latencyMs": 2846.324415999996,
+        "memoryOverheadTokens": 5023
+      },
+      {
+        "step": 14,
+        "inputTokens": 1301,
+        "outputTokens": 454,
+        "latencyMs": 3288.712041999999,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 1798,
+        "outputTokens": 358,
+        "latencyMs": 3418.882458,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 2206,
+        "outputTokens": 384,
+        "latencyMs": 3371.4601660000044,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "# Complete Trip Summary 📋\n\nHere's your full trip overview:\n\n---\n\n## Trip Dates & Budget\n- **Trip Duration:** June 1-18, 2024 (17 nights)\n- **Total Budget:** $8,500\n\n---\n\n## Flights ✈️\n- **Airline:** ANA (All Nippon Airways)\n- **Cost:** $1,350 (including $150 change fee)\n\n---\n\n## Hotel 🏨\n- **Hotel Name:** *Pending your decision*\n- **Nightly Rate:** *Awaiting selection*\n- **Total Hotel Cost (17 nights):** *Awaiting selection*\n\n**Options:**\n- Mandarin Oriental: $200/night = $3,400 total\n- Aman Tokyo: $500/night = $8,500 total (over budget)\n\n---\n\n## Kenji Meeting 👤\n- **Neighborhood:** Shinjuku\n- **Date:** June 10\n- **Time:** *To be confirmed*\n- **Phone Number:** *Not provided yet*\n\n---\n\n## Activities\n- June 3: Toyosu Market\n- June 8: Cooking class ($95) + Tea ceremony ($60)\n- June 7-9: Kyoto trip via Shinkansen ($280)\n\n---\n\n## Next Steps:\n\n1. **Confirm hotel choice** (Mandarin Oriental or reconsider budget for Aman?)\n2. **Provide Kenji's phone number** and preferred meeting time\n3. **Plan activities for June 4, 5, and June 11-18**\n\nWhich hotel would you like to book? 🏨",
+    "correct": false,
+    "totalInputTokens": 20074,
+    "totalOutputTokens": 5886,
+    "totalMemoryOverheadTokens": 12350,
+    "totalLatencyMs": 53229.426499999994,
+    "estimatedCostUsd": 0.049483200000000005,
+    "peakContextTokens": 2206
+  }
+]

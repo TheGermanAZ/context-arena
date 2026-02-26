@@ -1,11 +1,11 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell, ResponsiveContainer, LabelList } from 'recharts';
 import { useRetentionByType } from '../lib/hooks';
 import { useFilterOptional } from '../lib/FilterContext';
-import { Skeleton } from './charts';
+import { Skeleton, ErrorCard } from './charts';
 import { getProbeTypeColor } from '../lib/colors';
 
 export default function RetentionByType() {
-  const { data, error, isLoading } = useRetentionByType();
+  const { data, error, isLoading, refetch } = useRetentionByType();
   const filter = useFilterOptional();
 
   const focused = filter?.focusedType ?? null;
@@ -13,7 +13,7 @@ export default function RetentionByType() {
     ? (name: string) => { filter.guardClick(); filter.toggleFocus('type', name); }
     : undefined;
 
-  if (error) return <div className="text-red-400 p-4">Error: {error.message}</div>;
+  if (error) return <ErrorCard message={error.message} onRetry={() => refetch()} />;
   if (isLoading) return <Skeleton variant="chart" />;
   if (!data) return null;
 
@@ -25,7 +25,7 @@ export default function RetentionByType() {
   }));
 
   return (
-    <div className="bg-gray-900 rounded-lg border border-gray-700 p-6">
+    <div className="bg-gray-900 rounded-lg border border-gray-700 p-6 shadow-lg shadow-black/20">
       <div className="flex items-center justify-between mb-1">
         <div className="flex items-center gap-2">
           <h2 className="text-lg font-semibold text-gray-100">Retention by Fact Type</h2>

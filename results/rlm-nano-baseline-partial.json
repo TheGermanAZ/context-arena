@@ -1,0 +1,379 @@
+{
+  "results": [
+    {
+      "name": "Early Fact Recall",
+      "retained": 8,
+      "total": 10,
+      "cycles": 5,
+      "probeResults": [
+        {
+          "fact": "project name Mercury",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "budget $347,250",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "project lead Dr. Sarah Chen",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "deadline March 15, 2027",
+          "type": "date",
+          "retained": false
+        },
+        {
+          "fact": "frontend uses Svelte (corrected from React)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "QA lead Marcus Williams",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "production region us-east-1",
+          "type": "spatial",
+          "retained": true
+        },
+        {
+          "fact": "backend salary $145k-$175k",
+          "type": "quantity",
+          "retained": false
+        },
+        {
+          "fact": "sponsor James Rodriguez VP Engineering",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "API rate limit 1000 req/min standard",
+          "type": "quantity",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "name": "State Change Tracking",
+      "retained": 5,
+      "total": 7,
+      "cycles": 3,
+      "probeResults": [
+        {
+          "fact": "state change 1",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "state change 2",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "state change 3",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "state change 4",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "state change 5",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "state change 6",
+          "type": "correction",
+          "retained": false
+        },
+        {
+          "fact": "state change 7",
+          "type": "correction",
+          "retained": false
+        }
+      ]
+    },
+    {
+      "name": "Contradiction Resolution",
+      "retained": 6,
+      "total": 8,
+      "cycles": 3,
+      "probeResults": [
+        {
+          "fact": "contradiction 1",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "contradiction 2",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "contradiction 3",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "contradiction 4",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "contradiction 5",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "contradiction 6",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "contradiction 7",
+          "type": "correction",
+          "retained": false
+        },
+        {
+          "fact": "contradiction 8",
+          "type": "correction",
+          "retained": false
+        }
+      ]
+    },
+    {
+      "name": "Multi-hop Reasoning",
+      "retained": 7,
+      "total": 8,
+      "cycles": 3,
+      "probeResults": [
+        {
+          "fact": "engineering team 24 people",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "floor 3 conference room 50 people",
+          "type": "spatial",
+          "retained": true
+        },
+        {
+          "fact": "floor 2 conference room 30 people",
+          "type": "spatial",
+          "retained": true
+        },
+        {
+          "fact": "catering $35 per person per meal",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "3 catered meals",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "2 charter buses 30 each",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "keynote in largest conference room",
+          "type": "relationship",
+          "retained": true
+        },
+        {
+          "fact": "engineering budget $15k",
+          "type": "quantity",
+          "retained": false
+        }
+      ]
+    },
+    {
+      "name": "Long Horizon + Noise",
+      "retained": 5,
+      "total": 8,
+      "cycles": 5,
+      "probeResults": [
+        {
+          "fact": "Dr. Martinez appointment 2:30pm Thursday",
+          "type": "date",
+          "retained": false
+        },
+        {
+          "fact": "patient ID RMC-2847",
+          "type": "phone/id",
+          "retained": false
+        },
+        {
+          "fact": "mechanic phone 555-0147",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "son's school play Friday March 14 6pm",
+          "type": "date",
+          "retained": true
+        },
+        {
+          "fact": "insurance policy HLT-99284-B",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "house alarm code 8472",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "passport number P-847291",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "flight UA447 gate B12 code XKRM47",
+          "type": "phone/id",
+          "retained": false
+        }
+      ]
+    },
+    {
+      "name": "Cascading Corrections",
+      "retained": 6,
+      "total": 7,
+      "cycles": 3,
+      "probeResults": [
+        {
+          "fact": "pre-money valuation $12M (corrected from $10M)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "round size $3M (corrected from $2M)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Sequoia investment $1.5M",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "legal fees $75K (corrected from $50K)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "monthly burn $175K (corrected from $150K)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "net proceeds $2.925M",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "share price $1.20",
+          "type": "quantity",
+          "retained": false
+        }
+      ]
+    },
+    {
+      "name": "Implicit Corrections",
+      "retained": 6,
+      "total": 7,
+      "cycles": 4,
+      "probeResults": [
+        {
+          "fact": "8 San Marzano tomatoes (corrected from 6 Roma)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "salmon 8oz fillets (corrected from 6oz)",
+          "type": "correction",
+          "retained": false
+        },
+        {
+          "fact": "asparagus 400F (corrected from 425F)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "5 egg yolks (corrected from 6)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "serves 6 (corrected from 4)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "6 garlic cloves (corrected from 4)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "30 ladyfingers (corrected from 24)",
+          "type": "correction",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "name": "Rapid-fire Corrections",
+      "retained": 6,
+      "total": 7,
+      "cycles": 4,
+      "probeResults": [
+        {
+          "fact": "Grace moved to Table 1",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Jack and Iris conflict",
+          "type": "relationship",
+          "retained": false
+        },
+        {
+          "fact": "Paul and Quinn couple at Table 3",
+          "type": "relationship",
+          "retained": true
+        },
+        {
+          "fact": "Uma removed (can't make it)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Xavier added to Table 4",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "Frank moved to Table 3 (not immediate family)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Yuki and Zara added to Table 5",
+          "type": "entity",
+          "retained": true
+        }
+      ]
+    }
+  ],
+  "complete": false
+}

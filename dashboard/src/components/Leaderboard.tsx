@@ -1,10 +1,10 @@
 import { useLeaderboard } from '../lib/hooks';
 import { useFilterOptional } from '../lib/FilterContext';
-import { Skeleton } from './charts';
+import { Skeleton, ErrorCard } from './charts';
 import { getStrategyColor } from '../lib/colors';
 
 export default function Leaderboard() {
-  const { data, error, isLoading } = useLeaderboard();
+  const { data, error, isLoading, refetch } = useLeaderboard();
   const filter = useFilterOptional();
 
   const focused = filter?.focusedStrategy ?? null;
@@ -12,7 +12,7 @@ export default function Leaderboard() {
     ? (name: string) => { filter.guardClick(); filter.toggleFocus('strategy', name); }
     : undefined;
 
-  if (error) return <div className="text-red-400 p-4">Error: {error.message}</div>;
+  if (error) return <ErrorCard message={error.message} onRetry={() => refetch()} />;
   if (isLoading) return <Skeleton variant="table" />;
   if (!data) return null;
 
@@ -20,7 +20,7 @@ export default function Leaderboard() {
   const hasFocus = focused != null;
 
   return (
-    <div className="bg-gray-900 rounded-lg border border-gray-700 overflow-hidden">
+    <div className="bg-gray-900 rounded-lg border border-gray-700 overflow-hidden shadow-lg shadow-black/20">
       <div className="px-6 py-4 border-b border-gray-700 flex items-center justify-between">
         <div>
           <h2 className="text-lg font-semibold text-gray-100">Strategy Leaderboard</h2>

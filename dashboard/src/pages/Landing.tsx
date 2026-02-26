@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useLeaderboard } from '../lib/hooks';
 import { KPICard, Skeleton } from '../components/charts';
+import NavBar from '../components/NavBar';
 
 export default function Landing() {
   const { data, isLoading } = useLeaderboard();
@@ -17,10 +18,13 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
-      <div className="max-w-4xl mx-auto px-6 py-16 space-y-20">
+      <div className="max-w-4xl mx-auto px-6 pt-6 pb-16 space-y-20">
+        <div className="flex justify-end">
+          <NavBar />
+        </div>
 
         {/* ── Hero ──────────────────────────────────────────── */}
-        <section className="text-center pt-12">
+        <section className="text-center">
           <h1 className="text-5xl font-bold tracking-tight mb-4">Context Arena</h1>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto mb-10">
             Benchmarking memory strategies for LLM conversations
@@ -48,7 +52,7 @@ export default function Landing() {
             {strategies.map((s) => (
               <div
                 key={s.title}
-                className="bg-gray-900 rounded-lg border border-gray-700 p-5 flex gap-4"
+                className="bg-gray-900 rounded-lg border border-gray-700 p-5 flex gap-4 shadow-lg shadow-black/20"
                 style={{ borderLeftWidth: 4, borderLeftColor: s.color }}
               >
                 <div
@@ -81,7 +85,7 @@ export default function Landing() {
                   value={bestAccuracy.accuracy * 100}
                   format={(n) => `${n.toFixed(0)}%`}
                   subtitle={bestAccuracy.strategy}
-                  accentColor="#10b981"
+                  accentColor="var(--color-strategy-rlm)"
                 />
               )}
               {lowestCost && (
@@ -90,7 +94,7 @@ export default function Landing() {
                   value={lowestCost.totalCost}
                   format={(n) => `$${n.toFixed(4)}`}
                   subtitle={lowestCost.strategy}
-                  accentColor="#6366f1"
+                  accentColor="var(--color-strategy-correction-aware)"
                 />
               )}
               {mostEfficient && (
@@ -99,7 +103,7 @@ export default function Landing() {
                   value={mostEfficient.avgInputTokens}
                   format={(n) => `${Math.round(n).toLocaleString()} tokens`}
                   subtitle={mostEfficient.strategy}
-                  accentColor="#f59e0b"
+                  accentColor="var(--color-strategy-window-6)"
                 />
               )}
             </div>
@@ -135,16 +139,16 @@ const strategies = [
   {
     title: 'Full Context',
     description: 'Send the entire conversation every time. Perfect recall, exponential token cost.',
-    color: '#10b981',
+    color: 'var(--color-strategy-full-context)',
   },
   {
     title: 'Windowed',
     description: 'Keep only the last N messages. Fixed cost, but forgets early facts.',
-    color: '#6366f1',
+    color: 'var(--color-strategy-window-6)',
   },
   {
     title: 'Recursive Summarization (RLM)',
     description: 'Compress old context into structured summaries. Balanced cost and recall.',
-    color: '#f59e0b',
+    color: 'var(--color-strategy-rlm)',
   },
 ];

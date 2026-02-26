@@ -1,0 +1,128 @@
+[
+  {
+    "strategyName": "CorrectionAware",
+    "scenarioName": "Contradiction Resolution",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 60,
+        "outputTokens": 318,
+        "latencyMs": 3950.126125,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 403,
+        "outputTokens": 334,
+        "latencyMs": 3189.658292,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 764,
+        "outputTokens": 321,
+        "latencyMs": 3198.772916000001,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 1120,
+        "outputTokens": 342,
+        "latencyMs": 2954.2241250000006,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 913,
+        "outputTokens": 313,
+        "latencyMs": 3354.1757499999985,
+        "memoryOverheadTokens": 2317
+      },
+      {
+        "step": 6,
+        "inputTokens": 1265,
+        "outputTokens": 319,
+        "latencyMs": 2796.657916,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 1612,
+        "outputTokens": 350,
+        "latencyMs": 5227.763165999997,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 1998,
+        "outputTokens": 365,
+        "latencyMs": 3482.576917000002,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 948,
+        "outputTokens": 251,
+        "latencyMs": 2173.8608750000058,
+        "memoryOverheadTokens": 4483
+      },
+      {
+        "step": 10,
+        "inputTokens": 1234,
+        "outputTokens": 408,
+        "latencyMs": 3005.3647920000003,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 1674,
+        "outputTokens": 407,
+        "latencyMs": 3063.800792000002,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 2106,
+        "outputTokens": 413,
+        "latencyMs": 2576.7147079999995,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 1119,
+        "outputTokens": 459,
+        "latencyMs": 2917.9947079999984,
+        "memoryOverheadTokens": 4765
+      },
+      {
+        "step": 14,
+        "inputTokens": 1606,
+        "outputTokens": 419,
+        "latencyMs": 3821.9407090000022,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 2068,
+        "outputTokens": 483,
+        "latencyMs": 2882.909832999998,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 2601,
+        "outputTokens": 268,
+        "latencyMs": 3379.0319579999996,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "# Complete Trip Summary\n\n## Trip Dates\n**June 1-18, 2024** (18 days)\n\n## Budget\n**Total Budget Limit:** $8,500\n\n## Flights\n**Airline:** ANA Airlines\n**Cost:** $1,350 (includes $150 change fee)\n**Status:** ✓ BOOKED\n\n## Hotel - Tokyo\n**Hotel Name:** Aman Tokyo\n**Nightly Rate:** $500/night (bulk rate for 10+ nights)\n**Number of Nights:** 17 nights\n**Total Hotel Cost:** $8,500\n\n## Hotel - Kyoto\n**Status:** TBD (2 nights: June 7-8 - still need to book)\n\n## Kenji Meeting\n**Date:** June 10\n**Location:** Shinjuku (neighborhood)\n**Phone Number:** *Not on file*\n\n---\n\n⚠️ **Note:** I don't have Kenji's phone number in my records. You may want to confirm that directly or add it to your notes. Also, remember you still need to book Kyoto accommodation for June 7-8 to complete your itinerary.",
+    "correct": false,
+    "totalInputTokens": 21491,
+    "totalOutputTokens": 5770,
+    "totalMemoryOverheadTokens": 11565,
+    "totalLatencyMs": 51975.573582000005,
+    "estimatedCostUsd": 0.04952480000000001,
+    "peakContextTokens": 2601
+  }
+]

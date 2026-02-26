@@ -9,6 +9,14 @@ const PANEL_GROUPS = [
     ],
   },
   {
+    label: 'Cross-Strategy Analysis',
+    panels: [
+      { id: 'scenario-heatmap', label: 'Scenario Heatmap' },
+      { id: 'cost-accuracy', label: 'Cost vs Accuracy' },
+      { id: 'scenario-difficulty', label: 'Scenario Difficulty' },
+    ],
+  },
+  {
     label: 'RLM Deep Dive',
     badge: { text: 'RLM', color: 'emerald' as const },
     panels: [
@@ -29,6 +37,7 @@ const PANEL_GROUPS = [
 
 const PRESETS: Record<string, string[]> = {
   'Overview': ['leaderboard', 'token-cost', 'retention-by-type'],
+  'Strategy Analysis': ['scenario-heatmap', 'cost-accuracy', 'scenario-difficulty'],
   'RLM Deep Dive': ['retention-by-type', 'retention-curve', 'depth-comparison'],
   'Code Generation': ['rllm-comparison', 'code-strategies'],
 };

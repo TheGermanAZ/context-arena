@@ -85,3 +85,59 @@ export interface CodeAnalysisResponse {
   categories: CodeCategory[];
   features: CodeFeature[];
 }
+
+// --- Scenario Heatmap ---
+
+export interface HeatmapCell {
+  strategy: string;
+  scenario: string;
+  correct: boolean;
+  cost: number;
+  inputTokens: number;
+  latencyMs: number;
+}
+
+export interface HeatmapSummary {
+  strategy?: string;
+  scenario?: string;
+  correct: number;
+  total: number;
+  accuracy: number;
+}
+
+export interface ScenarioHeatmapResponse {
+  strategies: string[];
+  scenarios: string[];
+  cells: HeatmapCell[];
+  strategySummaries: HeatmapSummary[];
+  scenarioSummaries: HeatmapSummary[];
+}
+
+// --- Cost vs Accuracy ---
+
+export interface CostAccuracyPoint {
+  strategy: string;
+  accuracy: number;
+  totalCost: number;
+  avgInputTokens: number;
+  avgLatency: number;
+}
+
+export interface CostAccuracyResponse {
+  points: CostAccuracyPoint[];
+  paretoFrontier: CostAccuracyPoint[];
+}
+
+// --- Scenario Difficulty ---
+
+export interface ScenarioDifficultyEntry {
+  name: string;
+  correct: number;
+  total: number;
+  accuracy: number;
+  hardestStrategies: string[];
+}
+
+export interface ScenarioDifficultyResponse {
+  scenarios: ScenarioDifficultyEntry[];
+}

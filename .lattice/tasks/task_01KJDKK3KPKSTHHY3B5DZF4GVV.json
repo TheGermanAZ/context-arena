@@ -1,0 +1,32 @@
+{
+  "assigned_to": null,
+  "branch_links": [],
+  "comment_count": 1,
+  "complexity": null,
+  "created_at": "2026-02-26T18:32:46Z",
+  "created_by": "agent:claude-opus-4-impl",
+  "custom_fields": {},
+  "description": null,
+  "done_at": "2026-02-26T18:34:03Z",
+  "evidence_refs": [
+    {
+      "id": "ev_01KJDKNBG47AZDZKT05A54E6XD",
+      "role": "review",
+      "source_type": "comment"
+    }
+  ],
+  "id": "task_01KJDKK3KPKSTHHY3B5DZF4GVV",
+  "last_event_id": "ev_01KJDKNEQNTRSR6F09WK0TPE4B",
+  "last_status_changed_at": "2026-02-26T18:34:03Z",
+  "priority": "medium",
+  "relationships_out": [],
+  "reopened_count": 0,
+  "schema_version": 1,
+  "short_id": "CTX-7",
+  "status": "done",
+  "tags": null,
+  "title": "Shared Chart Primitives",
+  "type": "task",
+  "updated_at": "2026-02-26T18:34:03Z",
+  "urgency": null
+}

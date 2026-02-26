@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useTokenCost } from '../lib/hooks';
 import { useFilterOptional } from '../lib/FilterContext';
-import { Skeleton } from './charts';
+import { Skeleton, ErrorCard } from './charts';
 import { getStrategyColor } from '../lib/colors';
 
 type Metric = 'inputTokens' | 'overhead' | 'latency';
@@ -23,7 +23,7 @@ export default function TokenCost() {
     ? (s: string) => filter.setScenario(s)
     : (s: string) => setLocalScenario(s);
 
-  const { data, error, isLoading } = useTokenCost(scenario || undefined);
+  const { data, error, isLoading, refetch } = useTokenCost(scenario || undefined);
   const [metric, setMetric] = useState<Metric>('inputTokens');
 
   const focused = filter?.focusedStrategy ?? null;
@@ -31,17 +31,18 @@ export default function TokenCost() {
     ? (name: string) => { filter.guardClick(); filter.toggleFocus('strategy', name); }
     : undefined;
 
-  if (error) return <div className="text-red-400 p-4">Error: {error.message}</div>;
-  if (isLoading) return <Skeleton variant="chart" />;
-  if (!data) return null;
-
   // Sync initial scenario from server response when no scenario is set
+  // Must be before conditional returns to satisfy Rules of Hooks
   useEffect(() => {
     if (!scenario && data?.scenario) {
       onScenarioChange(data.scenario);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.scenario]);
+
+  if (error) return <ErrorCard message={error.message} onRetry={() => refetch()} />;
+  if (isLoading) return <Skeleton variant="chart" />;
+  if (!data) return null;
 
   const hasFocus = focused != null;
 
@@ -56,7 +57,7 @@ export default function TokenCost() {
   });
 
   return (
-    <div className="bg-gray-900 rounded-lg border border-gray-700 p-6">
+    <div className="bg-gray-900 rounded-lg border border-gray-700 p-6 shadow-lg shadow-black/20">
       <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
         <div>
           <h2 className="text-lg font-semibold text-gray-100 mb-1">Token Cost per Step</h2>
@@ -89,12 +90,21 @@ export default function TokenCost() {
       </div>
       <ResponsiveContainer width="100%" height={400}>
         <LineChart data={chartData} margin={{ top: 5, right: 30 }}>
+          <defs>
+            {data.strategies.map((strat) => (
+              <linearGradient key={`grad-${strat.name}`} id={`grad-${strat.name.replace(/[^a-zA-Z0-9]/g, '-')}`} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor={getStrategyColor(strat.name)} stopOpacity={0.3} />
+                <stop offset="100%" stopColor={getStrategyColor(strat.name)} stopOpacity={0} />
+              </linearGradient>
+            ))}
+          </defs>
           <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
           <XAxis dataKey="step" tick={{ fill: '#9ca3af', fontSize: 12 }} label={{ value: 'Step', fill: '#9ca3af', position: 'insideBottom', offset: -5 }} />
           <YAxis tick={{ fill: '#9ca3af', fontSize: 12 }} tickFormatter={(v) => v.toLocaleString()} />
           <Tooltip
             contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
             labelStyle={{ color: '#f3f4f6' }}
+            itemStyle={{ color: '#d1d5db' }}
             labelFormatter={(v) => `Step ${v}`}
             formatter={((value: number) => [value.toLocaleString(), '']) as any}
           />
@@ -105,7 +115,18 @@ export default function TokenCost() {
           {data.strategies.map((strat) => {
             const isFocused = focused === strat.name;
             const isDimmed = hasFocus && !isFocused;
-            return (
+            const gradId = `grad-${strat.name.replace(/[^a-zA-Z0-9]/g, '-')}`;
+            return [
+              <Area
+                key={`area-${strat.name}`}
+                type="monotone"
+                dataKey={strat.name}
+                fill={`url(#${gradId})`}
+                stroke="none"
+                fillOpacity={isDimmed ? 0 : isFocused ? 1 : 0.5}
+                legendType="none"
+                tooltipType="none"
+              />,
               <Line
                 key={strat.name}
                 type="monotone"
@@ -115,8 +136,8 @@ export default function TokenCost() {
                 strokeOpacity={isDimmed ? 0.15 : 1}
                 dot={isDimmed ? false : { r: isFocused ? 4 : 3 }}
                 activeDot={isDimmed ? false : { r: isFocused ? 6 : 5, onClick: () => onFocusClick?.(strat.name) }}
-              />
-            );
+              />,
+            ];
           })}
         </LineChart>
       </ResponsiveContainer>

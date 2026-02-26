@@ -1,0 +1,2172 @@
+[
+  {
+    "strategyName": "RLM(8)",
+    "scenarioName": "Early Fact Recall",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 75,
+        "outputTokens": 994,
+        "latencyMs": 11214.771541,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 207,
+        "outputTokens": 2995,
+        "latencyMs": 27507.335042,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 1121,
+        "outputTokens": 2381,
+        "latencyMs": 19783.219083999997,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 1916,
+        "outputTokens": 1440,
+        "latencyMs": 12637.755542000006,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 2025,
+        "outputTokens": 1513,
+        "latencyMs": 9703.997333000007,
+        "memoryOverheadTokens": 6536
+      },
+      {
+        "step": 6,
+        "inputTokens": 2500,
+        "outputTokens": 1735,
+        "latencyMs": 14032.374416999999,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 2957,
+        "outputTokens": 1902,
+        "latencyMs": 13612.292792000007,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 3512,
+        "outputTokens": 1417,
+        "latencyMs": 9385.313041999994,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "latencyMs": 15644.18179099998,
+        "memoryOverheadTokens": 11540
+      },
+      {
+        "step": 10,
+        "inputTokens": 3280,
+        "outputTokens": 2412,
+        "latencyMs": 16192.288,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 3927,
+        "outputTokens": 2713,
+        "latencyMs": 16641.83120799999,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 4834,
+        "outputTokens": 1563,
+        "latencyMs": 14069.817875000008,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 2815,
+        "outputTokens": 1884,
+        "latencyMs": 20017.870291,
+        "memoryOverheadTokens": 11661
+      },
+      {
+        "step": 14,
+        "inputTokens": 3161,
+        "outputTokens": 1176,
+        "latencyMs": 10887.472500000033,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 3384,
+        "outputTokens": 764,
+        "latencyMs": 7648.024167000025,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 3482,
+        "outputTokens": 3092,
+        "latencyMs": 25342.91525000002,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 17,
+        "inputTokens": 3890,
+        "outputTokens": 1341,
+        "latencyMs": 14297.165875000006,
+        "memoryOverheadTokens": 18758
+      },
+      {
+        "step": 18,
+        "inputTokens": 4189,
+        "outputTokens": 2072,
+        "latencyMs": 20429.631334000034,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 19,
+        "inputTokens": 4734,
+        "outputTokens": 1781,
+        "latencyMs": 13174.619916999945,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 20,
+        "inputTokens": 5071,
+        "outputTokens": 1523,
+        "latencyMs": 10999.586916,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 21,
+        "inputTokens": 5216,
+        "outputTokens": 387,
+        "latencyMs": 4054.8927910000784,
+        "memoryOverheadTokens": 16096
+      }
+    ],
+    "finalAnswer": "- Budget: 347,250 USD\n- Project lead: Dr. Sarah Chen\n- Deadline: March 15, 2027\n- Frontend framework: Svelte/TypeScript",
+    "correct": true,
+    "totalInputTokens": 62296,
+    "totalOutputTokens": 35085,
+    "totalMemoryOverheadTokens": 64591,
+    "totalLatencyMs": 307277.3567080001,
+    "estimatedCostUsd": 0.2418496,
+    "peakContextTokens": 5216
+  },
+  {
+    "strategyName": "PersistentRLM",
+    "scenarioName": "Early Fact Recall",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 75,
+        "outputTokens": 700,
+        "latencyMs": 8027.076165999984,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 217,
+        "outputTokens": 2932,
+        "latencyMs": 21853.454874999938,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 1098,
+        "outputTokens": 2774,
+        "latencyMs": 24156.747500000056,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 1681,
+        "outputTokens": 1394,
+        "latencyMs": 14009.751917000045,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 598,
+        "outputTokens": 1984,
+        "latencyMs": 14858.402541999938,
+        "memoryOverheadTokens": 6946
+      },
+      {
+        "step": 6,
+        "inputTokens": 1090,
+        "outputTokens": 2209,
+        "latencyMs": 20998.59175000002,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 1563,
+        "outputTokens": 1588,
+        "latencyMs": 14582.93429200002,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 1965,
+        "outputTokens": 1427,
+        "latencyMs": 16587.621458000038,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 1008,
+        "outputTokens": 2215,
+        "latencyMs": 22966.830833000015,
+        "memoryOverheadTokens": 9427
+      },
+      {
+        "step": 10,
+        "inputTokens": 1556,
+        "outputTokens": 1938,
+        "latencyMs": 14418.730875000008,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 2416,
+        "outputTokens": 2617,
+        "latencyMs": 24947.797583000036,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 3125,
+        "outputTokens": 1346,
+        "latencyMs": 12430.886500000022,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 1147,
+        "outputTokens": 1768,
+        "latencyMs": 21517.76437499991,
+        "memoryOverheadTokens": 8017
+      },
+      {
+        "step": 14,
+        "inputTokens": 1413,
+        "outputTokens": 1065,
+        "latencyMs": 11276.928208000027,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 1599,
+        "outputTokens": 631,
+        "latencyMs": 9255.666124999989,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 1724,
+        "outputTokens": 1889,
+        "latencyMs": 22096.519166999962,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 17,
+        "inputTokens": 1033,
+        "outputTokens": 1780,
+        "latencyMs": 22817.22279199981,
+        "memoryOverheadTokens": 12768
+      },
+      {
+        "step": 18,
+        "inputTokens": 1336,
+        "outputTokens": 1545,
+        "latencyMs": 14446.156292000087,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 19,
+        "inputTokens": 1701,
+        "outputTokens": 1678,
+        "latencyMs": 20541.67712499993,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 20,
+        "inputTokens": 2046,
+        "outputTokens": 1424,
+        "latencyMs": 12972.266792000039,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 21,
+        "inputTokens": 1229,
+        "outputTokens": 334,
+        "latencyMs": 5169.892207999947,
+        "memoryOverheadTokens": 11907
+      }
+    ],
+    "finalAnswer": "- Budget: USD 347,250\n- Project lead: Dr. Sarah Chen\n- Deadline: March 15, 2027\n- Frontend framework: Svelte/TypeScript",
+    "correct": true,
+    "totalInputTokens": 29620,
+    "totalOutputTokens": 35238,
+    "totalMemoryOverheadTokens": 49065,
+    "totalLatencyMs": 349932.9193749998,
+    "estimatedCostUsd": 0.2039,
+    "peakContextTokens": 3125
+  },
+  {
+    "strategyName": "RLM(8)",
+    "scenarioName": "State Change Tracking",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 70,
+        "outputTokens": 367,
+        "latencyMs": 6213.9503339999355,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 121,
+        "outputTokens": 228,
+        "latencyMs": 6200.258542000083,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 173,
+        "outputTokens": 279,
+        "latencyMs": 5950.873041999992,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 233,
+        "outputTokens": 327,
+        "latencyMs": 4521.97991600004,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 693,
+        "outputTokens": 574,
+        "latencyMs": 7803.657624999993,
+        "memoryOverheadTokens": 4109
+      },
+      {
+        "step": 6,
+        "inputTokens": 764,
+        "outputTokens": 487,
+        "latencyMs": 4260.87820799998,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 827,
+        "outputTokens": 327,
+        "latencyMs": 3460.4023750000633,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 893,
+        "outputTokens": 382,
+        "latencyMs": 3394.445624999935,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 1087,
+        "outputTokens": 437,
+        "latencyMs": 7161.8872499999125,
+        "memoryOverheadTokens": 8710
+      },
+      {
+        "step": 10,
+        "inputTokens": 1159,
+        "outputTokens": 394,
+        "latencyMs": 5653.474916999927,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 1233,
+        "outputTokens": 642,
+        "latencyMs": 5139.1840829998255,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 1301,
+        "outputTokens": 399,
+        "latencyMs": 7253.634625000181,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 1092,
+        "outputTokens": 461,
+        "latencyMs": 7479.3887920000125,
+        "memoryOverheadTokens": 12693
+      },
+      {
+        "step": 14,
+        "inputTokens": 1174,
+        "outputTokens": 455,
+        "latencyMs": 5717.5271669998765,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 1252,
+        "outputTokens": 1011,
+        "latencyMs": 7500.07754100021,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 1350,
+        "outputTokens": 909,
+        "latencyMs": 6907.5786659999285,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "Current inventory at our location:\n- Widget-A: 370 units\n- Widget-B: 1,005 units\n- Gizmo-Z: 0 units\n- Gadget-X (clearance): 200 units\n- MegaPart-Q: 400 units\n\nNote: East warehouse has Widget-B: 150 units.",
+    "correct": true,
+    "totalInputTokens": 13422,
+    "totalOutputTokens": 7679,
+    "totalMemoryOverheadTokens": 25512,
+    "totalLatencyMs": 94619.1987079999,
+    "estimatedCostUsd": 0.06186320000000001,
+    "peakContextTokens": 1350
+  },
+  {
+    "strategyName": "PersistentRLM",
+    "scenarioName": "State Change Tracking",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 70,
+        "outputTokens": 339,
+        "latencyMs": 3763.3520410000347,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 121,
+        "outputTokens": 321,
+        "latencyMs": 2668.6524169999175,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 181,
+        "outputTokens": 257,
+        "latencyMs": 2911.887958999956,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 247,
+        "outputTokens": 343,
+        "latencyMs": 4979.016708000097,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 380,
+        "outputTokens": 431,
+        "latencyMs": 4545.506333000027,
+        "memoryOverheadTokens": 5616
+      },
+      {
+        "step": 6,
+        "inputTokens": 458,
+        "outputTokens": 1058,
+        "latencyMs": 8326.23987499997,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 524,
+        "outputTokens": 329,
+        "latencyMs": 3114.562042000005,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 597,
+        "outputTokens": 767,
+        "latencyMs": 9333.062832999974,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 508,
+        "outputTokens": 947,
+        "latencyMs": 9842.625750000123,
+        "memoryOverheadTokens": 10252
+      },
+      {
+        "step": 10,
+        "inputTokens": 588,
+        "outputTokens": 1340,
+        "latencyMs": 8222.533999999985,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 689,
+        "outputTokens": 735,
+        "latencyMs": 5601.259125000099,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 776,
+        "outputTokens": 1963,
+        "latencyMs": 14906.228583000135,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 524,
+        "outputTokens": 1455,
+        "latencyMs": 18018.71745799994,
+        "memoryOverheadTokens": 9825
+      },
+      {
+        "step": 14,
+        "inputTokens": 631,
+        "outputTokens": 765,
+        "latencyMs": 8733.314166000113,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 746,
+        "outputTokens": 1165,
+        "latencyMs": 15914.717249999987,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 879,
+        "outputTokens": 2774,
+        "latencyMs": 27490.416708000004,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "Current inventory at main warehouse:\n- Widget-A (main warehouse): 370\n- Widget-B (main warehouse): 1,005\n- Gizmo-Z (main warehouse): 0\n- Gadget-X (main warehouse): 0\n- MegaPart-Q (main warehouse): 400",
+    "correct": false,
+    "totalInputTokens": 7919,
+    "totalOutputTokens": 14989,
+    "totalMemoryOverheadTokens": 25693,
+    "totalLatencyMs": 148372.09324800037,
+    "estimatedCostUsd": 0.08684560000000001,
+    "peakContextTokens": 879
+  },
+  {
+    "strategyName": "RLM(8)",
+    "scenarioName": "Contradiction Resolution",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 61,
+        "outputTokens": 2792,
+        "latencyMs": 31592.796166999964,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 870,
+        "outputTokens": 2595,
+        "latencyMs": 22595.57424999983,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 1117,
+        "outputTokens": 3035,
+        "latencyMs": 25759.002584000118,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 1429,
+        "outputTokens": 4326,
+        "latencyMs": 40529.18337500002,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 1151,
+        "outputTokens": 2889,
+        "latencyMs": 22924.22437499999,
+        "memoryOverheadTokens": 5683
+      },
+      {
+        "step": 6,
+        "inputTokens": 1317,
+        "outputTokens": 3160,
+        "latencyMs": 36529.567166999914,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 1660,
+        "outputTokens": 3414,
+        "latencyMs": 31894.831624999875,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 2143,
+        "outputTokens": 2689,
+        "latencyMs": 24476.876416000072,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 2582,
+        "outputTokens": 1514,
+        "latencyMs": 19867.43479199987,
+        "memoryOverheadTokens": 10273
+      },
+      {
+        "step": 10,
+        "inputTokens": 2851,
+        "outputTokens": 2250,
+        "latencyMs": 26732.060374999885,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 3073,
+        "outputTokens": 5447,
+        "latencyMs": 63797.548082999885,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 3702,
+        "outputTokens": 3110,
+        "latencyMs": 31445.30633299984,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 3812,
+        "outputTokens": 2302,
+        "latencyMs": 17053.37925000023,
+        "memoryOverheadTokens": 15182
+      },
+      {
+        "step": 14,
+        "inputTokens": 4294,
+        "outputTokens": 1389,
+        "latencyMs": 14347.048958000261,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 4442,
+        "outputTokens": 2786,
+        "latencyMs": 19781.763582999818,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 4846,
+        "outputTokens": 2782,
+        "latencyMs": 23242.94387499988,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "Here’s your complete trip summary:\n\n- Dates: June 1–June 18, 2026 (17 nights, 18 days)\n- Total budget: $8,500\n- Flight cost: $1,350 (ANA round trip)\n- Hotels:\n  - Aman Tokyo: $500 per night for 10 nights\n  - Mid-range hotels: about $170 per night for 7 nights\n- Total hotel cost: $6,190\n  - 10 nights × $500 = $5,000\n  - 7 nights × $170 = $1,190\n- Kenji:\n  - Neighborhood: Shinjuku\n  - Phone: 090-8765-4321\n- Meeting with Kenji:\n  - Date/time: June 10, 2026, around 6:30–8:00 PM (Shinjuku)\n\nIf you want, I can book Plan D details (Aman Tokyo + 7 nights mid-range) and coordinate Kyoto and Kenji reservations.",
+    "correct": true,
+    "totalInputTokens": 39350,
+    "totalOutputTokens": 46480,
+    "totalMemoryOverheadTokens": 31138,
+    "totalLatencyMs": 452569.54120799946,
+    "estimatedCostUsd": 0.2423104,
+    "peakContextTokens": 4846
+  },
+  {
+    "strategyName": "PersistentRLM",
+    "scenarioName": "Contradiction Resolution",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 61,
+        "outputTokens": 4489,
+        "latencyMs": 32512.3969589998,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 1066,
+        "outputTokens": 1856,
+        "latencyMs": 22407.874540999997,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 1277,
+        "outputTokens": 2625,
+        "latencyMs": 23869.395291999914,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 1660,
+        "outputTokens": 3847,
+        "latencyMs": 31989.302666999865,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 701,
+        "outputTokens": 3155,
+        "latencyMs": 33377.045291000046,
+        "memoryOverheadTokens": 6687
+      },
+      {
+        "step": 6,
+        "inputTokens": 958,
+        "outputTokens": 2481,
+        "latencyMs": 29515.3265829999,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 1203,
+        "outputTokens": 4891,
+        "latencyMs": 51693.89045800036,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 1628,
+        "outputTokens": 1298,
+        "latencyMs": 11497.92004199978,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 595,
+        "outputTokens": 1187,
+        "latencyMs": 11305.934750000015,
+        "memoryOverheadTokens": 8970
+      },
+      {
+        "step": 10,
+        "inputTokens": 692,
+        "outputTokens": 5865,
+        "latencyMs": 37315.497874999885,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 951,
+        "outputTokens": 6583,
+        "latencyMs": 56230.241332999896,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 1404,
+        "outputTokens": 2652,
+        "latencyMs": 21664.595000000205,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 1147,
+        "outputTokens": 1936,
+        "latencyMs": 15882.247458999977,
+        "memoryOverheadTokens": 13715
+      },
+      {
+        "step": 14,
+        "inputTokens": 1383,
+        "outputTokens": 2538,
+        "latencyMs": 23709.39620800037,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 1536,
+        "outputTokens": 3904,
+        "latencyMs": 29923.37633300014,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 1771,
+        "outputTokens": 2893,
+        "latencyMs": 27299.650249999948,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "Here’s your complete trip summary:\n\n- Dates: June 1–June 18 (18 days)\n- Meeting Kenji: June 10 (options 11:00–12:30 or 18:00–20:00; please confirm)\n- Destination plan: Tokyo with Kyoto detour June 7–9\n- Flight: ANA round trip, $1,350 (after change fee)\n- Hotel: Aman Tokyo, $500 per night (deal for 10+ nights)\n- Total hotel cost: $8,500 (17 nights)\n- Shinkansen Tokyo–Kyoto: $280\n- Other costs: $2,000\n- Subtotal: $12,130\n- Lodging taxes: $850\n- Estimated total: $12,980\n- Kenji: Neighborhood/Shinjuku; Phone: 090-8765-4321\n\nWould you like me to lock in Plan D (Aman for all 17 nights) or adjust to a mixed plan? And please confirm a preferred time for June 10 with Kenji.",
+    "correct": true,
+    "totalInputTokens": 18033,
+    "totalOutputTokens": 52200,
+    "totalMemoryOverheadTokens": 29372,
+    "totalLatencyMs": 460194.0910410001,
+    "estimatedCostUsd": 0.24672400000000003,
+    "peakContextTokens": 1771
+  },
+  {
+    "strategyName": "RLM(8)",
+    "scenarioName": "Multi-hop Reasoning",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 50,
+        "outputTokens": 1390,
+        "latencyMs": 14081.562958000228,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 548,
+        "outputTokens": 2662,
+        "latencyMs": 21525.576166999992,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 845,
+        "outputTokens": 2565,
+        "latencyMs": 25021.58599999966,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 1013,
+        "outputTokens": 2462,
+        "latencyMs": 21674.995583000127,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 1901,
+        "outputTokens": 3411,
+        "latencyMs": 24136.147625000216,
+        "memoryOverheadTokens": 9190
+      },
+      {
+        "step": 6,
+        "inputTokens": 2075,
+        "outputTokens": 5904,
+        "latencyMs": 42143.67845800007,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 2394,
+        "outputTokens": 1669,
+        "latencyMs": 16937.964416999836,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 2505,
+        "outputTokens": 1836,
+        "latencyMs": 12935.082207999658,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 2290,
+        "outputTokens": 5009,
+        "latencyMs": 36277.413875000086,
+        "memoryOverheadTokens": 14778
+      },
+      {
+        "step": 10,
+        "inputTokens": 2664,
+        "outputTokens": 2542,
+        "latencyMs": 19610.446415999904,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 3048,
+        "outputTokens": 2281,
+        "latencyMs": 16329.587499999907,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 3257,
+        "outputTokens": 1207,
+        "latencyMs": 10627.011957999784,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 2848,
+        "outputTokens": 2669,
+        "latencyMs": 20560.513292000163,
+        "memoryOverheadTokens": 14326
+      },
+      {
+        "step": 14,
+        "inputTokens": 3075,
+        "outputTokens": 1790,
+        "latencyMs": 14193.927833999973,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 3318,
+        "outputTokens": 1488,
+        "latencyMs": 11156.764500000048,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 3556,
+        "outputTokens": 708,
+        "latencyMs": 5403.461250000168,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "1) 60 attendees\n\n2) $6,300 total catering cost (60 attendees × 3 meals × $35)\n\n3) Floor 3 conference room (50-seat capacity) — chosen because it’s the largest single room allocated; main plenary is 60 seats but not used for the keynote\n\n4) $38,000 total department budget contributions\n\n5) Yes. Two buses × 30 seats each = 60-capacity, which matches the 60 attendees.",
+    "correct": true,
+    "totalInputTokens": 35387,
+    "totalOutputTokens": 39593,
+    "totalMemoryOverheadTokens": 38294,
+    "totalLatencyMs": 312615.7200409998,
+    "estimatedCostUsd": 0.2173168,
+    "peakContextTokens": 3556
+  },
+  {
+    "strategyName": "PersistentRLM",
+    "scenarioName": "Multi-hop Reasoning",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 50,
+        "outputTokens": 1323,
+        "latencyMs": 9721.152584000025,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 251,
+        "outputTokens": 714,
+        "latencyMs": 6752.931125000119,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 371,
+        "outputTokens": 824,
+        "latencyMs": 7062.462457999587,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 503,
+        "outputTokens": 3181,
+        "latencyMs": 25673.23629199993,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 323,
+        "outputTokens": 2509,
+        "latencyMs": 26587.41295899963,
+        "memoryOverheadTokens": 4518
+      },
+      {
+        "step": 6,
+        "inputTokens": 473,
+        "outputTokens": 5571,
+        "latencyMs": 41253.845832999796,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 797,
+        "outputTokens": 1378,
+        "latencyMs": 10292.2638340001,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 1101,
+        "outputTokens": 2128,
+        "latencyMs": 17067.69299999997,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 298,
+        "outputTokens": 2970,
+        "latencyMs": 26519.162957999855,
+        "memoryOverheadTokens": 11753
+      },
+      {
+        "step": 10,
+        "inputTokens": 570,
+        "outputTokens": 1767,
+        "latencyMs": 22138.88975000009,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 773,
+        "outputTokens": 3041,
+        "latencyMs": 27500.556917000096,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 980,
+        "outputTokens": 1100,
+        "latencyMs": 11706.157374999952,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 1515,
+        "outputTokens": 2559,
+        "latencyMs": 20244.423040999565,
+        "memoryOverheadTokens": 12975
+      },
+      {
+        "step": 14,
+        "inputTokens": 1736,
+        "outputTokens": 2225,
+        "latencyMs": 15725.393625000492,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 1903,
+        "outputTokens": 1595,
+        "latencyMs": 11111.516333000734,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 2153,
+        "outputTokens": 1310,
+        "latencyMs": 9295.435124999844,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "1) 60 attendees\n2) $6,300\n3) Floor 3 main conference room — designated as the keynote venue and the largest available space\n4) $38,000\n5) Yes—2 buses × 30 seats = 60 seats, which matches the 60 attendees.",
+    "correct": true,
+    "totalInputTokens": 13797,
+    "totalOutputTokens": 34195,
+    "totalMemoryOverheadTokens": 29246,
+    "totalLatencyMs": 288652.5332089998,
+    "estimatedCostUsd": 0.17121440000000002,
+    "peakContextTokens": 2153
+  },
+  {
+    "strategyName": "RLM(8)",
+    "scenarioName": "Long Horizon + Noise",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 67,
+        "outputTokens": 1462,
+        "latencyMs": 12215.57687499933,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 186,
+        "outputTokens": 988,
+        "latencyMs": 8013.8977920003235,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "latencyMs": 14723.713624999858,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 714,
+        "outputTokens": 638,
+        "latencyMs": 9330.210332999937,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 625,
+        "outputTokens": 1676,
+        "latencyMs": 14094.804250000045,
+        "memoryOverheadTokens": 6447
+      },
+      {
+        "step": 6,
+        "inputTokens": 924,
+        "outputTokens": 1681,
+        "latencyMs": 16369.92920799926,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 1469,
+        "outputTokens": 1662,
+        "latencyMs": 12030.994874999858,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 1617,
+        "outputTokens": 1280,
+        "latencyMs": 12019.034207999706,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 1715,
+        "outputTokens": 1032,
+        "latencyMs": 8213.133375000209,
+        "memoryOverheadTokens": 12552
+      },
+      {
+        "step": 10,
+        "inputTokens": 1951,
+        "outputTokens": 1835,
+        "latencyMs": 12842.95070900023,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 2109,
+        "outputTokens": 925,
+        "latencyMs": 6759.032083000056,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 2171,
+        "outputTokens": 1441,
+        "latencyMs": 9985.116416000761,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 2017,
+        "outputTokens": 1695,
+        "latencyMs": 15109.990207999945,
+        "memoryOverheadTokens": 13446
+      },
+      {
+        "step": 14,
+        "inputTokens": 2320,
+        "outputTokens": 1808,
+        "latencyMs": 19237.421249999665,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 2529,
+        "outputTokens": 544,
+        "latencyMs": 10967.658375000581,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 2613,
+        "outputTokens": 1123,
+        "latencyMs": 12306.407457999885,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 17,
+        "inputTokens": 2118,
+        "outputTokens": 933,
+        "latencyMs": 9749.411416999996,
+        "memoryOverheadTokens": 14511
+      },
+      {
+        "step": 18,
+        "inputTokens": 2388,
+        "outputTokens": 1627,
+        "latencyMs": 13803.154666999355,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 19,
+        "inputTokens": 2497,
+        "outputTokens": 1488,
+        "latencyMs": 14765.778874999844,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 20,
+        "inputTokens": 2842,
+        "outputTokens": 1764,
+        "latencyMs": 14414.627582999878,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 21,
+        "inputTokens": 2743,
+        "outputTokens": 2116,
+        "latencyMs": 14364.507999999449,
+        "memoryOverheadTokens": 12986
+      }
+    ],
+    "finalAnswer": "1) Doctor appointment (Dr. Martinez)\n- When: Thursday at 2:30 pm\n- Where: Riverside Medical Center\n- Patient ID: RMC-2847\n\n2) Prescription\n- Medication: Lisinopril\n- Dose: 10 mg\n- Frequency: once daily\n- Time: in the morning\n\n3) Car mechanic\n- Mechanic phone: 555-0147\n- Mileage: current 38,500 miles; threshold 40,000 miles\n- Vehicle: Car (unnamed)\n\n4) Son’s school play\n- Date/time: Friday March 14 at 6:00 PM\n- Location: Jefferson Elementary\n- Role: Lead Peter Pan\n\n5) Insurance\n- Policy number: HLT-99284-B\n- Claim reference: CLM-2024-0892\n\n6) House alarm\n- Current code: 8472\n- Old code: 1234\n- Security company: SafeGuard\n\n7) Flight to Denver\n- Airline/Flight: United UA447\n- Destination: Denver\n- Date: March 20\n- Departure time: 7:15 AM\n- Gate: B12\n- Confirmation: XKRM47\n- Year: 2026 (assumed)",
+    "correct": true,
+    "totalInputTokens": 35615,
+    "totalOutputTokens": 27718,
+    "totalMemoryOverheadTokens": 59942,
+    "totalLatencyMs": 261317.35158199817,
+    "estimatedCostUsd": 0.1873176,
+    "peakContextTokens": 2842
+  },
+  {
+    "strategyName": "PersistentRLM",
+    "scenarioName": "Long Horizon + Noise",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 67,
+        "outputTokens": 920,
+        "latencyMs": 6769.284874999896,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 203,
+        "outputTokens": 710,
+        "latencyMs": 8850.142958999611,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 268,
+        "outputTokens": 2462,
+        "latencyMs": 22027.5585419992,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 824,
+        "outputTokens": 1003,
+        "latencyMs": 11177.643250000663,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 380,
+        "outputTokens": 2226,
+        "latencyMs": 15868.919541000389,
+        "memoryOverheadTokens": 5634
+      },
+      {
+        "step": 6,
+        "inputTokens": 790,
+        "outputTokens": 1733,
+        "latencyMs": 15359.059208000079,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 1363,
+        "outputTokens": 1334,
+        "latencyMs": 12258.351874999702,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 1478,
+        "outputTokens": 1153,
+        "latencyMs": 8603.163083000109,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 458,
+        "outputTokens": 1228,
+        "latencyMs": 8633.244665999897,
+        "memoryOverheadTokens": 5889
+      },
+      {
+        "step": 10,
+        "inputTokens": 753,
+        "outputTokens": 2343,
+        "latencyMs": 18274.493792000227,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 895,
+        "outputTokens": 1172,
+        "latencyMs": 12273.630958000198,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 951,
+        "outputTokens": 1639,
+        "latencyMs": 10802.99720899947,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 882,
+        "outputTokens": 1691,
+        "latencyMs": 15808.226790999994,
+        "memoryOverheadTokens": 14702
+      },
+      {
+        "step": 14,
+        "inputTokens": 1169,
+        "outputTokens": 1621,
+        "latencyMs": 16020.681250000373,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 1347,
+        "outputTokens": 510,
+        "latencyMs": 6064.691957999952,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 1434,
+        "outputTokens": 1709,
+        "latencyMs": 15302.327666000463,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 17,
+        "inputTokens": 740,
+        "outputTokens": 1216,
+        "latencyMs": 11365.431166999973,
+        "memoryOverheadTokens": 8329
+      },
+      {
+        "step": 18,
+        "inputTokens": 1045,
+        "outputTokens": 1030,
+        "latencyMs": 8267.990082999691,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 19,
+        "inputTokens": 1143,
+        "outputTokens": 1182,
+        "latencyMs": 10551.08449999988,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 20,
+        "inputTokens": 1492,
+        "outputTokens": 704,
+        "latencyMs": 5994.81308399979,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 21,
+        "inputTokens": 916,
+        "outputTokens": 1838,
+        "latencyMs": 15359.939833999611,
+        "memoryOverheadTokens": 8271
+      }
+    ],
+    "finalAnswer": "1) Doctor appointment details\n- Patient ID: RMC-2847\n- Doctor: Dr. Martinez\n- Location: Riverside Medical Center\n- Day: Thursday\n- Time: 2:30pm\n\n2) Prescription\n- Prescription: not on file\n\n3) Car mechanic's number and mileage\n- Mechanic: 555-0147\n- Current mileage: 38,500 miles\n- Oil change due mileage: 40,000 miles\n\n4) Son's school play details\n- Date: Friday March 14\n- Time: 6pm\n- Location: Jefferson Elementary\n- Lead role: Peter Pan\n- Performer: son\n\n5) Insurance policy and claim numbers\n- Policy number: HLT-99284-B\n- Claim reference: CLM-2024-0892\n\n6) House alarm code\n- Alarm code: 8472\n- Old code: 1234\n- Security company: SafeGuard\n\n7) Flight details and confirmation code\n- Airline: United\n- Flight: UA447\n- Date: March 20\n- Departure time: 7:15am\n- Gate: B12\n- Confirmation code: XKRM47",
+    "correct": true,
+    "totalInputTokens": 18598,
+    "totalOutputTokens": 29424,
+    "totalMemoryOverheadTokens": 42825,
+    "totalLatencyMs": 255633.67629099917,
+    "estimatedCostUsd": 0.1668344,
+    "peakContextTokens": 1492
+  },
+  {
+    "strategyName": "RLM(8)",
+    "scenarioName": "Cascading Corrections",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 82,
+        "outputTokens": 1544,
+        "latencyMs": 12940.054250000045,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 250,
+        "outputTokens": 1954,
+        "latencyMs": 12755.262583999895,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 437,
+        "outputTokens": 1631,
+        "latencyMs": 12201.83854200039,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 626,
+        "outputTokens": 4799,
+        "latencyMs": 27047.685417000204,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 1296,
+        "outputTokens": 2141,
+        "latencyMs": 14547.25945900008,
+        "memoryOverheadTokens": 7246
+      },
+      {
+        "step": 6,
+        "inputTokens": 1622,
+        "outputTokens": 563,
+        "latencyMs": 4994.158040999435,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 1714,
+        "outputTokens": 1936,
+        "latencyMs": 14033.602541999891,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 1881,
+        "outputTokens": 3564,
+        "latencyMs": 27117.21816699952,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 2191,
+        "outputTokens": 1665,
+        "latencyMs": 20692.004124999978,
+        "memoryOverheadTokens": 10362
+      },
+      {
+        "step": 10,
+        "inputTokens": 2553,
+        "outputTokens": 1676,
+        "latencyMs": 13377.239125000313,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 2906,
+        "outputTokens": 1271,
+        "latencyMs": 9754.176417000592,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 3217,
+        "outputTokens": 1832,
+        "latencyMs": 13979.665957999416,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 2922,
+        "outputTokens": 1204,
+        "latencyMs": 9189.46258400008,
+        "memoryOverheadTokens": 13495
+      },
+      {
+        "step": 14,
+        "inputTokens": 3271,
+        "outputTokens": 3669,
+        "latencyMs": 26138.006208000705,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 3697,
+        "outputTokens": 889,
+        "latencyMs": 10177.99758299999,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "Final deal summary:\n1) Pre-money valuation: $12,000,000\n2) Round size: $3,000,000\n3) Post-money valuation: $15,000,000\n4) Total dilution percentage: 20.0%\n5) Sequoia's ownership percentage: 10.0%\n6) Net proceeds after legal fees: $2,925,000\n7) Monthly burn rate: $175,000\n8) Runway: 16.71 months (approximately 16.7)",
+    "correct": true,
+    "totalInputTokens": 28665,
+    "totalOutputTokens": 30338,
+    "totalMemoryOverheadTokens": 31103,
+    "totalLatencyMs": 228945.63100200053,
+    "estimatedCostUsd": 0.1691664,
+    "peakContextTokens": 3697
+  },
+  {
+    "strategyName": "PersistentRLM",
+    "scenarioName": "Cascading Corrections",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 82,
+        "outputTokens": 1458,
+        "latencyMs": 9966.869582999498,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 273,
+        "outputTokens": 1984,
+        "latencyMs": 14264.473749999888,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 505,
+        "outputTokens": 1192,
+        "latencyMs": 11348.600000000559,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 720,
+        "outputTokens": 9371,
+        "latencyMs": 53036.00616700016,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 914,
+        "outputTokens": 4871,
+        "latencyMs": 42639.64412499964,
+        "memoryOverheadTokens": 12449
+      },
+      {
+        "step": 6,
+        "inputTokens": 1306,
+        "outputTokens": 843,
+        "latencyMs": 7690.443540999666,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 1416,
+        "outputTokens": 1856,
+        "latencyMs": 15195.206749999896,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 1710,
+        "outputTokens": 8223,
+        "latencyMs": 62171.29658300057,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 1515,
+        "outputTokens": 7655,
+        "latencyMs": 56211.177624999546,
+        "memoryOverheadTokens": 10164
+      },
+      {
+        "step": 10,
+        "inputTokens": 1862,
+        "outputTokens": 9672,
+        "latencyMs": 63359.971707999706,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 2290,
+        "outputTokens": 4739,
+        "latencyMs": 33156.30250000022,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 2683,
+        "outputTokens": 10068,
+        "latencyMs": 71313.97774999961,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 2043,
+        "outputTokens": 8226,
+        "latencyMs": 56529.03783300053,
+        "memoryOverheadTokens": 16652
+      },
+      {
+        "step": 14,
+        "inputTokens": 2553,
+        "outputTokens": 3366,
+        "latencyMs": 23882.216000000015,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 3092,
+        "outputTokens": 1486,
+        "latencyMs": 10609.328042000532,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "Final deal summary:\n1) Pre-money valuation: $12,000,000\n2) Round size: $3,000,000\n3) Post-money valuation: $15,000,000\n4) Total dilution: 20.00%\n5) Sequoia's ownership: 10.00%\n6) Net proceeds after legal fees: $2,925,000\n7) Monthly burn rate: $175,000\n8) Runway: ≈16.7 months",
+    "correct": true,
+    "totalInputTokens": 22964,
+    "totalOutputTokens": 75010,
+    "totalMemoryOverheadTokens": 39265,
+    "totalLatencyMs": 531374.551957,
+    "estimatedCostUsd": 0.3498232,
+    "peakContextTokens": 3092
+  },
+  {
+    "strategyName": "RLM(8)",
+    "scenarioName": "Implicit Corrections",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 71,
+        "outputTokens": 2707,
+        "latencyMs": 19140.705000000075,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 726,
+        "outputTokens": 2746,
+        "latencyMs": 24751.224708000198,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 921,
+        "outputTokens": 2391,
+        "latencyMs": 21927.992041000165,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 1062,
+        "outputTokens": 905,
+        "latencyMs": 7907.499292000197,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 2638,
+        "outputTokens": 1998,
+        "latencyMs": 19860.879875000566,
+        "memoryOverheadTokens": 12635
+      },
+      {
+        "step": 6,
+        "inputTokens": 2881,
+        "outputTokens": 1180,
+        "latencyMs": 11858.681749999523,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 2976,
+        "outputTokens": 969,
+        "latencyMs": 9090.636792000383,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 3092,
+        "outputTokens": 736,
+        "latencyMs": 9494.5499590002,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 170,
+        "outputTokens": 1522,
+        "latencyMs": 12846.084459000267,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 10,
+        "inputTokens": 216,
+        "outputTokens": 619,
+        "latencyMs": 4684.7065420001745,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 254,
+        "outputTokens": 1865,
+        "latencyMs": 14032.344374999404,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 389,
+        "outputTokens": 847,
+        "latencyMs": 6892.639708999544,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 1360,
+        "outputTokens": 533,
+        "latencyMs": 6281.589166000485,
+        "memoryOverheadTokens": 7951
+      },
+      {
+        "step": 14,
+        "inputTokens": 1446,
+        "outputTokens": 660,
+        "latencyMs": 5610.410334000364,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 1489,
+        "outputTokens": 367,
+        "latencyMs": 4441.549999999814,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 1537,
+        "outputTokens": 451,
+        "latencyMs": 4987.435041000135,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 17,
+        "inputTokens": 1908,
+        "outputTokens": 6429,
+        "latencyMs": 43236.920582999475,
+        "memoryOverheadTokens": 12158
+      }
+    ],
+    "finalAnswer": "Here are the final recipe cards with the latest quantities and instructions.\n\n1) Bruschetta\n- Serves: 6\n- Crostini: 12 slices (1 baguette, sliced into 12 crostini)\n- Ingredients\n  - 4 ripe tomatoes, diced\n  - 6 garlic cloves, minced\n  - 1/4 cup fresh basil, chopped\n  - 3 tbsp extra-virgin olive oil\n  - Salt and pepper to taste\n- Instructions\n  - In a bowl, mix tomatoes, garlic, basil, and olive oil. Season with salt and pepper to taste.\n  - Spoon onto crostini and serve.\n\n2) Salmon\n- Servings: 6\n- Weight per fillet: 8 oz\n- Ingredients\n  - Salmon fillets: 4 fillets (8 oz each)\n  - Butter: 3 tbsp\n  - Lemon juice: present (no quantity)\n  - Capers: present (no quantity)\n  - Dill: present (no quantity)\n- Cooking: 400°F for 14 minutes\n- Instructions\n  - Preheat oven to 400°F.\n  - Place salmon fillets on a lined baking sheet. Distribute 3 tbsp butter on top of the fillets.\n  - Bake for 14 minutes, until cooked through.\n  - Serve with capers and dill; lemon juice can be added to taste if desired.\n\n3) Asparagus\n- Temperature: 400°F\n- Time: 15 minutes\n- Instructions\n  - Roast asparagus in the oven (alongside the salmon) for 15 minutes until tender-crisp.\n\n4) Tiramisu\n- Egg yolks: 5\n- Heavy cream: 2.5 cups\n- Ladyfingers: 30\n- Instructions\n  - Layer or mix the egg yolks with the heavy cream to create a filling, then layer with 30 ladyfingers.\n  - Refrigerate until set before serving.",
+    "correct": false,
+    "totalInputTokens": 23136,
+    "totalOutputTokens": 26925,
+    "totalMemoryOverheadTokens": 32744,
+    "totalLatencyMs": 227045.84962600097,
+    "estimatedCostUsd": 0.152404,
+    "peakContextTokens": 3092
+  },
+  {
+    "strategyName": "PersistentRLM",
+    "scenarioName": "Implicit Corrections",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 71,
+        "outputTokens": 3897,
+        "latencyMs": 30168.972458000295,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 643,
+        "outputTokens": 1528,
+        "latencyMs": 9300.571584000252,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 826,
+        "outputTokens": 1883,
+        "latencyMs": 16324.240042000078,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 962,
+        "outputTokens": 1006,
+        "latencyMs": 9132.818749999627,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 706,
+        "outputTokens": 1858,
+        "latencyMs": 15198.262583000585,
+        "memoryOverheadTokens": 9903
+      },
+      {
+        "step": 6,
+        "inputTokens": 973,
+        "outputTokens": 1042,
+        "latencyMs": 8390.339041999541,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 1025,
+        "outputTokens": 891,
+        "latencyMs": 7374.103000000119,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 1056,
+        "outputTokens": 1172,
+        "latencyMs": 12807.27450000029,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 625,
+        "outputTokens": 2549,
+        "latencyMs": 22161.66454199981,
+        "memoryOverheadTokens": 9849
+      },
+      {
+        "step": 10,
+        "inputTokens": 714,
+        "outputTokens": 973,
+        "latencyMs": 8920.713167000562,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 752,
+        "outputTokens": 1326,
+        "latencyMs": 13319.888957999647,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 823,
+        "outputTokens": 1210,
+        "latencyMs": 11381.712917000055,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 592,
+        "outputTokens": 1154,
+        "latencyMs": 10778.496166999452,
+        "memoryOverheadTokens": 9890
+      },
+      {
+        "step": 14,
+        "inputTokens": 673,
+        "outputTokens": 603,
+        "latencyMs": 6678.617083000019,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 722,
+        "outputTokens": 570,
+        "latencyMs": 6599.776833000593,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 775,
+        "outputTokens": 671,
+        "latencyMs": 7522.096999999136,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 17,
+        "inputTokens": 669,
+        "outputTokens": 6646,
+        "latencyMs": 60488.59366600029,
+        "memoryOverheadTokens": 9894
+      }
+    ],
+    "finalAnswer": "Here are the final recipe cards.\n\n1) Bruschetta\n- Servings: 4\n- Ingredients:\n  - Baguette: 1 loaf, about 12 slices (1/2-inch thick)\n  - Tomatoes, diced: 2 cups\n  - Garlic, minced: 2 cloves\n  - Fresh basil, chopped: 1/4 cup\n  - Extra-virgin olive oil: 2 Tbsp\n  - Balsamic vinegar (optional): 1 Tbsp\n  - Salt: 1/2 tsp\n  - Pepper: 1/4 tsp\n- Instructions:\n  - Mix tomatoes, garlic, basil, olive oil, balsamic (if using), salt, and pepper. Marinate 15 minutes.\n  - Toast baguette slices in a 400°F oven for 6 minutes until golden.\n  - Top each slice with tomato mixture and serve.\n\n2) Salmon\n- Fillets: 4 fillets, 6 oz each\n- Butter: 3 Tbsp\n- Lemon juice: to taste\n- Capers: to taste\n- Dill: to taste\n- Oven temperature: 400°F\n- Cooking time: 14 minutes\n- Skin: unspecified\n- Serves: unspecified\n- Instructions:\n  - Preheat oven to 400°F. Place fillets on a lined baking sheet.\n  - Brush with melted butter; drizzle lemon juice; scatter capers and dill as desired.\n  - Bake 14 minutes, until opaque and cooked through.\n\n3) Asparagus\n- Servings/amount: 1 lb (450 g) asparagus\n- Oven temperature: 400°F\n- Time: 10 minutes\n- Olive oil: 1–2 Tbsp\n- Salt: to taste\n- Pepper: to taste\n- Instructions:\n  - Toss asparagus with oil, salt, and pepper.\n  - Roast on a sheet pan at 400°F for 10 minutes, until tender-crisp.\n\n4) Tiramisu\n- Egg yolks: 6\n- Heavy cream: 2 cups\n- Ladyfingers: 24 count\n- Mascarpone: 16 oz\n- Sugar: 1/2 cup\n- Espresso or strong coffee: 1 cup, cooled\n- Coffee liqueur: 2 Tbsp (optional)\n- Cocoa powder: for dusting\n- Instructions:\n  - Whisk egg yolks with 1/4 cup sugar until pale and thick.\n  - Whip heavy cream to soft peaks; set aside.\n  - Beat mascarpone with remaining sugar until smooth; fold in whipped cream.\n  - Combine espresso and liqueur.\n  - Briefly dip ladyfingers in coffee mixture; arrange a layer in a dish.\n  - Spread half the mascarpone, repeat with remaining ingredients.\n  - Dust with cocoa; refrigerate 4 hours or overnight before serving.",
+    "correct": false,
+    "totalInputTokens": 12607,
+    "totalOutputTokens": 28979,
+    "totalMemoryOverheadTokens": 39536,
+    "totalLatencyMs": 256548.14229200035,
+    "estimatedCostUsd": 0.1576304,
+    "peakContextTokens": 1056
+  },
+  {
+    "strategyName": "RLM(8)",
+    "scenarioName": "Rapid-fire Corrections",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 77,
+        "outputTokens": 1502,
+        "latencyMs": 10832.736459000036,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 371,
+        "outputTokens": 1201,
+        "latencyMs": 9854.773416000418,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 562,
+        "outputTokens": 976,
+        "latencyMs": 7183.094707999378,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 738,
+        "outputTokens": 1110,
+        "latencyMs": 8703.472542000003,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 2059,
+        "outputTokens": 662,
+        "latencyMs": 5172.0447090007365,
+        "memoryOverheadTokens": 8127
+      },
+      {
+        "step": 6,
+        "inputTokens": 2250,
+        "outputTokens": 2301,
+        "latencyMs": 21064.745416999795,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 2505,
+        "outputTokens": 2733,
+        "latencyMs": 19045.136250000447,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 2753,
+        "outputTokens": 1130,
+        "latencyMs": 10039.77874999959,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 1953,
+        "outputTokens": 1022,
+        "latencyMs": 8677.641832999885,
+        "memoryOverheadTokens": 13311
+      },
+      {
+        "step": 10,
+        "inputTokens": 2190,
+        "outputTokens": 695,
+        "latencyMs": 5132.726958000101,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 2428,
+        "outputTokens": 1351,
+        "latencyMs": 11731.137208000757,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 2664,
+        "outputTokens": 1580,
+        "latencyMs": 13653.925458000042,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 2279,
+        "outputTokens": 1709,
+        "latencyMs": 14222.163540999405,
+        "memoryOverheadTokens": 11341
+      },
+      {
+        "step": 14,
+        "inputTokens": 2533,
+        "outputTokens": 2871,
+        "latencyMs": 25147.716957999393,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 2791,
+        "outputTokens": 3636,
+        "latencyMs": 30154.79879199993,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 3034,
+        "outputTokens": 3695,
+        "latencyMs": 26063.304624999873,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 17,
+        "inputTokens": 2846,
+        "outputTokens": 2143,
+        "latencyMs": 16070.291833000258,
+        "memoryOverheadTokens": 14903
+      }
+    ],
+    "finalAnswer": "Final seating chart:\n\n- Table 1 (Head) — 6 guests: Alice, Bob, Carol, David, Emma, Grace\n  - Occupied seats: 1, 2, 3, 4, 5, 7\n  - Empty seats: 6, 8\n\n- Table 2 — 4 guests: Henry, Iris, Mia, Wendy\n  - Occupied seats: 1, 2, 3, 4\n  - Empty seats: 5, 6, 7, 8\n\n- Table 3 — 6 guests: Karen, Leo, Sam, Frank, Paul, Quinn\n  - Occupied seats: 1, 2, 3, 4, 5, 6\n  - Empty seats: 7, 8\n\n- Table 4 — 4 guests: Olivia, Noah, Xavier, Tina\n  - Occupied seats: 1, 2, 3, 4\n  - Empty seats: 5, 6, 7, 8\n\n- Table 5 — 5 guests: Yuki, Zara, Victor, Jack, Rose\n  - Occupied seats: 1, 2, 4, 5, 6\n  - Empty seats: 3, 7, 8\n\nTotals: 25 seated, 15 empty.",
+    "correct": true,
+    "totalInputTokens": 34033,
+    "totalOutputTokens": 30317,
+    "totalMemoryOverheadTokens": 47682,
+    "totalLatencyMs": 242749.48945700005,
+    "estimatedCostUsd": 0.18664,
+    "peakContextTokens": 3034
+  },
+  {
+    "strategyName": "PersistentRLM",
+    "scenarioName": "Rapid-fire Corrections",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 77,
+        "outputTokens": 1594,
+        "latencyMs": 12134.938207999803,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 309,
+        "outputTokens": 879,
+        "latencyMs": 6220.96170799993,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 484,
+        "outputTokens": 867,
+        "latencyMs": 7763.047333000228,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 646,
+        "outputTokens": 840,
+        "latencyMs": 8085.357667000033,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 1049,
+        "outputTokens": 1089,
+        "latencyMs": 8568.30016599968,
+        "memoryOverheadTokens": 10458
+      },
+      {
+        "step": 6,
+        "inputTokens": 1229,
+        "outputTokens": 1118,
+        "latencyMs": 11072.905749999918,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 1416,
+        "outputTokens": 1288,
+        "latencyMs": 11959.004834000021,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 1608,
+        "outputTokens": 1017,
+        "latencyMs": 8134.673208000138,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 1050,
+        "outputTokens": 1354,
+        "latencyMs": 12761.788166000508,
+        "memoryOverheadTokens": 16653
+      },
+      {
+        "step": 10,
+        "inputTokens": 1226,
+        "outputTokens": 815,
+        "latencyMs": 6956.960707999766,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 1405,
+        "outputTokens": 1055,
+        "latencyMs": 8400.510166999884,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 1586,
+        "outputTokens": 1608,
+        "latencyMs": 13946.007375000045,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 1064,
+        "outputTokens": 1674,
+        "latencyMs": 13313.758332999423,
+        "memoryOverheadTokens": 16513
+      },
+      {
+        "step": 14,
+        "inputTokens": 1255,
+        "outputTokens": 1183,
+        "latencyMs": 10324.798542000353,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 1447,
+        "outputTokens": 986,
+        "latencyMs": 8332.642083000392,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 1638,
+        "outputTokens": 1093,
+        "latencyMs": 7315.8042089995,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 17,
+        "inputTokens": 1072,
+        "outputTokens": 2113,
+        "latencyMs": 16104.013041000813,
+        "memoryOverheadTokens": 17274
+      }
+    ],
+    "finalAnswer": "Final seating chart:\n\n- Table 1 (Head table) – 6 guests: Alice, Bob, Carol, David, Emma, Grace\n- Table 2 – 4 guests: Henry, Iris, Mia, Wendy\n- Table 3 – 6 guests: Karen, Leo, Paul, Quinn, Sam, Frank\n- Table 4 – 4 guests: Olivia, Noah, Xavier, Tina\n- Table 5 – 5 guests: Victor, Jack, Rose, Yuki, Zara\n\nTotal guests: 25",
+    "correct": true,
+    "totalInputTokens": 18561,
+    "totalOutputTokens": 20573,
+    "totalMemoryOverheadTokens": 60898,
+    "totalLatencyMs": 171395.47149800044,
+    "estimatedCostUsd": 0.14585920000000002,
+    "peakContextTokens": 1638
+  }
+]

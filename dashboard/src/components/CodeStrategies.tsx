@@ -1,7 +1,7 @@
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
+import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { useCodeAnalysis } from '../lib/hooks';
 import { useFilterOptional } from '../lib/FilterContext';
-import { Skeleton } from './charts';
+import { Skeleton, ErrorCard } from './charts';
 
 const CATEGORY_COLORS = [
   '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6',
@@ -9,7 +9,7 @@ const CATEGORY_COLORS = [
 ];
 
 export default function CodeStrategies() {
-  const { data, error, isLoading } = useCodeAnalysis();
+  const { data, error, isLoading, refetch } = useCodeAnalysis();
   const filter = useFilterOptional();
 
   const focused = filter?.focusedCategory ?? null;
@@ -17,7 +17,7 @@ export default function CodeStrategies() {
     ? (name: string) => { filter.guardClick(); filter.toggleFocus('category', name); }
     : undefined;
 
-  if (error) return <div className="text-red-400 p-4">Error: {error.message}</div>;
+  if (error) return <ErrorCard message={error.message} onRetry={() => refetch()} />;
   if (isLoading) return <Skeleton variant="chart" />;
   if (!data) return null;
 
@@ -36,7 +36,7 @@ export default function CodeStrategies() {
   }));
 
   return (
-    <div className="bg-gray-900 rounded-lg border border-gray-700 p-6">
+    <div className="bg-gray-900 rounded-lg border border-gray-700 p-6 shadow-lg shadow-black/20">
       <div className="flex items-center justify-between mb-1">
         <div className="flex items-center gap-2">
           <h2 className="text-lg font-semibold text-gray-100">Code Strategy Analysis</h2>
@@ -50,19 +50,17 @@ export default function CodeStrategies() {
         {/* Donut chart */}
         <div>
           <h3 className="text-sm font-medium text-gray-300 mb-4">Category Distribution</h3>
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={360}>
             <PieChart>
               <Pie
                 data={pieData}
                 dataKey="count"
                 nameKey="name"
                 cx="50%"
-                cy="50%"
-                innerRadius={60}
-                outerRadius={100}
+                cy="45%"
+                innerRadius={55}
+                outerRadius={95}
                 paddingAngle={2}
-                label={({ name, ...rest }: any) => `${name} (${(rest as { pct: number }).pct}%)`}
-                labelLine={{ stroke: '#6b7280' }}
                 onClick={(_, idx) => onFocusClick?.(pieData[idx].name)}
                 style={{ cursor: 'pointer' }}
               >
@@ -76,7 +74,18 @@ export default function CodeStrategies() {
               <Tooltip
                 contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
                 labelStyle={{ color: '#f3f4f6' }}
+                itemStyle={{ color: '#d1d5db' }}
                 formatter={((value: number, name: string) => [`${value} blocks`, name]) as any}
+              />
+              <Legend
+                verticalAlign="bottom"
+                iconType="circle"
+                iconSize={8}
+                formatter={(value: string) => {
+                  const entry = pieData.find((d) => d.name === value);
+                  return `${value} (${entry?.pct ?? 0}%)`;
+                }}
+                wrapperStyle={{ color: '#9ca3af', fontSize: 12, paddingTop: 12 }}
               />
             </PieChart>
           </ResponsiveContainer>
@@ -103,6 +112,8 @@ export default function CodeStrategies() {
               <YAxis type="category" dataKey="name" tick={{ fill: '#9ca3af', fontSize: 12 }} width={100} />
               <Tooltip
                 contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
+                labelStyle={{ color: '#f3f4f6' }}
+                itemStyle={{ color: '#d1d5db' }}
                 formatter={((value: number, _name: string, props: any) => [`${value} (${props.payload.pct}%)`, 'Count']) as any}
               />
               <Bar dataKey="count" radius={[0, 4, 4, 0]}>

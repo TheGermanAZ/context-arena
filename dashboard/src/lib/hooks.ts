@@ -8,6 +8,9 @@ import type {
   RllmComparisonResponse,
   TokenCostResponse,
   CodeAnalysisResponse,
+  ScenarioHeatmapResponse,
+  CostAccuracyResponse,
+  ScenarioDifficultyResponse,
 } from './types';
 
 export function useLeaderboard() {
@@ -62,6 +65,30 @@ export function useCodeAnalysis() {
   return useQuery<CodeAnalysisResponse>({
     queryKey: ['code-analysis'],
     queryFn: api.codeAnalysis,
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useScenarioHeatmap() {
+  return useQuery<ScenarioHeatmapResponse>({
+    queryKey: ['scenario-heatmap'],
+    queryFn: api.scenarioHeatmap,
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useCostAccuracy() {
+  return useQuery<CostAccuracyResponse>({
+    queryKey: ['cost-accuracy'],
+    queryFn: api.costAccuracy,
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useScenarioDifficulty() {
+  return useQuery<ScenarioDifficultyResponse>({
+    queryKey: ['scenario-difficulty'],
+    queryFn: api.scenarioDifficulty,
     staleTime: 5 * 60 * 1000,
   });
 }

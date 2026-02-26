@@ -26,3 +26,18 @@ export function getStrategyColor(name: string): string {
 export function getProbeTypeColor(name: string): string {
   return PROBE_TYPE_COLORS[name] ?? '#6b7280';
 }
+
+export const SCENARIO_COLORS: Record<string, string> = {
+  'Early Fact Recall': '#3b82f6',       // blue
+  'State Change Tracking': '#10b981',   // emerald
+  'Contradiction Resolution': '#f59e0b', // amber
+  'Multi-hop Reasoning': '#8b5cf6',     // violet
+  'Long Horizon + Noise': '#ec4899',    // pink
+  'Cascading Corrections': '#ef4444',   // red
+  'Implicit Corrections': '#06b6d4',    // cyan
+  'Rapid-fire Corrections': '#d97706',  // amber-darker
+};
+
+export function getScenarioColor(name: string): string {
+  return SCENARIO_COLORS[name] ?? '#6b7280';
+}

@@ -19,12 +19,13 @@
 ## Table of Contents
 
 1. [Long-Context LLM Benchmarks](#long-context-llm-benchmarks)
-2. [Agent Memory Benchmarks](#agent-memory-benchmarks)
-3. [Compression & Faithfulness Benchmarks](#compression--faithfulness-benchmarks)
-4. [Production Evaluation Frameworks](#production-evaluation-frameworks)
-5. [Aggregate Leaderboards](#aggregate-leaderboards)
-6. [Actionable Tools (pip-installable)](#actionable-tools)
-7. [Recommended Evaluation Stack](#recommended-evaluation-stack)
+2. [RLM Benchmarks](#rlm-benchmarks)
+3. [Agent Memory Benchmarks](#agent-memory-benchmarks)
+4. [Compression & Faithfulness Benchmarks](#compression--faithfulness-benchmarks)
+5. [Production Evaluation Frameworks](#production-evaluation-frameworks)
+6. [Aggregate Leaderboards](#aggregate-leaderboards)
+7. [Actionable Tools (pip-installable)](#actionable-tools)
+8. [Recommended Evaluation Stack](#recommended-evaluation-stack)
 
 ---
 
@@ -220,6 +221,250 @@ Key finding: context engineering (curating input) matters more than raw window s
 | **L-Eval** | ACL 2024 (Outstanding) | 20 tasks | 200K | N-gram metrics can't evaluate LCLMs |
 | **AcademicEval** | TMLR 2025 | 4 tasks | Flexible | Live benchmark, no data leakage |
 | **NIAH** | Community (2023) | 1 task | Varies | Solved by frontier models — no longer discriminative |
+
+---
+
+## RLM Benchmarks
+
+Benchmarks used to evaluate Recursive Language Models. Two sources: the academic paper (MIT CSAIL) and Prime Intellect's independent RLMEnv implementation.
+
+**Paper:** [arXiv:2512.24601](https://arxiv.org/abs/2512.24601) — "Recursive Language Models" by Alex L. Zhang, Tim Kraska, Omar Khattab (MIT CSAIL)
+**Project page:** [rlm.md](https://rlm.md/)
+**Repo:** [github.com/alexzhang13/rlm](https://github.com/alexzhang13/rlm)
+**Blog (author):** [alexzhang13.github.io/blog/2025/rlm/](https://alexzhang13.github.io/blog/2025/rlm/)
+**Blog (Prime Intellect):** [primeintellect.ai/blog/rlm](https://www.primeintellect.ai/blog/rlm)
+**Post-trained model:** [mit-oasys/rlm-qwen3-8b-v0.1](https://huggingface.co/mit-oasys/rlm-qwen3-8b-v0.1)
+
+### Academic Paper Benchmarks (MIT CSAIL)
+
+Models tested: GPT-5 (with GPT-5-mini for sub-calls), Qwen3-Coder-480B-A35B-Instruct. Baselines: base model, Summary Agent, CodeAct + BM25, RLM (full), RLM (no sub-calls ablation).
+
+#### S-NIAH (Serial Needle-in-a-Haystack)
+
+| Field | Detail |
+|-------|--------|
+| **What it tests** | Finding a specific phrase/number in a large body of unrelated text. Constant processing complexity relative to input length. |
+| **Tasks** | 50 |
+| **Context lengths** | 8K to 262K tokens (2^13 to 2^18) |
+| **Metric** | Percentage correct |
+| **Origin** | Custom, derived from [RULER](https://arxiv.org/abs/2404.06654) concept |
+| **Status** | Part of the RLM paper; not a standalone repo |
+
+**Why S-NIAH instead of RULER:** Frontier models score 90%+ on standard NIAH, making it non-discriminative. S-NIAH retains the retrieval challenge at scale where models degrade.
+
+**Results:** GPT-5 base degrades sharply as context grows and cannot handle inputs beyond 272K. RLM(GPT-5) maintains strong performance across all lengths including beyond the window limit.
+
+#### OOLONG (trec_coarse split)
+
+| Field | Detail |
+|-------|--------|
+| **Paper** | [arXiv:2511.02817](https://arxiv.org/abs/2511.02817) |
+| **Repo** | [github.com/abertsch72/oolong](https://github.com/abertsch72/oolong) |
+| **Dataset** | [HF: oolongbench/datasets](https://huggingface.co/oolongbench/datasets) |
+| **What it tests** | Long-context reasoning requiring semantic chunking, classification, and aggregation over ~3000-6000 data rows. Linear processing complexity. |
+| **Tasks** | 50 (trec_coarse split — 6 distributional query types) |
+| **Input length** | 131K tokens |
+| **Metric** | Numerical answers: `0.75^|y - ŷ|`; exact match for others |
+| **Status** | Active |
+
+**Results (Table 1):**
+
+| Method | GPT-5 | Qwen3-Coder |
+|--------|-------|-------------|
+| Base model | 44.00% | 36.00% |
+| CodeAct + BM25 | 38.00% | 38.00% |
+| Summary Agent | 46.00% | 44.06% |
+| **RLM (full)** | **56.50%** | **48.00%** |
+| RLM (no sub-calls) | 36.00% | 43.50% |
+
+**Cost:** $0.43 ± $0.85 per query.
+
+**RLM config:** Root LM writes Python to chunk context, delegates classification of chunks to sub-LM via `llm_query()`, aggregates programmatically.
+
+**Run it:**
+```bash
+git clone https://github.com/abertsch72/oolong.git
+pip install -r requirements.txt
+export LITELLM_API_KEY="sk-..."
+python src/eval/eval_script_batched.py --model gpt-5-nano --dataset synth
+```
+
+#### OOLONG-Pairs (Custom Extension)
+
+| Field | Detail |
+|-------|--------|
+| **What it tests** | Pairwise chunk aggregation — requires comparing all pairs of entries. Quadratic processing complexity. |
+| **Tasks** | 20 (manually created by paper authors) |
+| **Input length** | 32K tokens |
+| **Metric** | F1 score |
+| **Queries** | Appendix E.1 of the RLM paper |
+| **Status** | Part of the RLM paper; queries in appendix, built on OOLONG framework |
+
+**Results (Table 1):**
+
+| Method | GPT-5 | Qwen3-Coder |
+|--------|-------|-------------|
+| Base model | 0.04% | 0.06% |
+| CodeAct + BM25 | 24.67% | 0.28% |
+| Summary Agent | 0.01% | 0.31% |
+| **RLM (full)** | **58.00%** | **23.11%** |
+| RLM (no sub-calls) | 43.93% | 17.34% |
+
+**Cost:** $0.33 ± $0.20 per query.
+
+**Key insight:** Most dramatic result in the paper. Base models score ~0% because the quadratic comparison overwhelms attention. RLM decomposes it into programmatic pairwise comparisons delegated to sub-LMs.
+
+#### BrowseComp-Plus (1K Documents)
+
+| Field | Detail |
+|-------|--------|
+| **Paper** | [arXiv:2508.06600](https://arxiv.org/pdf/2508.06600) |
+| **Repo** | [github.com/texttron/BrowseComp-Plus](https://github.com/texttron/BrowseComp-Plus) |
+| **What it tests** | Multi-hop QA for deep research over a large document corpus. Requires finding and associating information across multiple documents. |
+| **Tasks** | 150 (randomly sampled from verified offline corpus of 100,195 documents) |
+| **Document corpus** | 1,000 documents (~5K words each) |
+| **Input length** | 6M-11M tokens total |
+| **Metric** | Percentage correct |
+| **Origin** | Extended from OpenAI's BrowseComp |
+| **Status** | Active |
+
+**Results (Table 1):**
+
+| Method | GPT-5 | Qwen3-Coder |
+|--------|-------|-------------|
+| Base model | 0.00% | 0.00% |
+| CodeAct + BM25 | 51.00% | 12.66% |
+| Summary Agent | 70.47% | 38.00% |
+| **RLM (full)** | **91.33%** | **44.66%** |
+| RLM (no sub-calls) | 88.00% | 46.00% |
+
+**Cost:** $0.99 ± $1.22 per query. Cheaper than the theoretical base model cost ($1.50-$2.75) at the median.
+
+**Scaling behavior (from blog):** At 10 docs all approaches work. At 100 docs only iterative methods survive. At 1000 docs RLM(GPT-5) achieves near-perfect.
+
+#### LongBench v2 CodeQA
+
+Already in [Long-Context LLM Benchmarks](#longbench-v2-tsinghua) above. The RLM paper evaluates specifically on the **CodeQA split** (code repo understanding, 23K-4.2M tokens).
+
+| Method | GPT-5 | Qwen3-Coder |
+|--------|-------|-------------|
+| Base model | 24.00% | 20.00% |
+| CodeAct + BM25 | 22.00% | 24.00% |
+| Summary Agent | 58.00% | 50.00% |
+| **RLM (full)** | **62.00%** | **56.00%** |
+| RLM (no sub-calls) | 58.00% | **66.00%** |
+
+**Cost:** $0.11 ± $0.10 per query.
+
+**Notable:** The only benchmark where the no-sub-calls ablation (66%) beat the full RLM (56%) for Qwen3-Coder, suggesting code navigation benefits more from programmatic access than sub-LM delegation.
+
+#### LoCoDiff (Referenced in Blog)
+
+| Field | Detail |
+|-------|--------|
+| **Repo** | [github.com/AbanteAI/LoCoDiff-bench](https://github.com/AbanteAI/LoCoDiff-bench) |
+| **Project page** | [abanteai.github.io/LoCoDiff-bench](https://abanteai.github.io/LoCoDiff-bench/) |
+| **What it tests** | Tracking long git diff histories and outputting the final file state. Real coding-agent skill: tracking edited file state over long sequences of changes. |
+| **Input length** | 75K+ tokens |
+| **Status** | Active |
+
+**Results:** GPT-5 base solves <10% of histories longer than 75K tokens. RLM(GPT-5) solves it by writing Python to programmatically apply diffs rather than reasoning through them.
+
+### Prime Intellect RLMEnv Benchmarks
+
+Independent implementation via **RLMEnv**. Models: GPT-5-mini, GLM-4.6, GLM-4.5-Air, INTELLECT-3 (100B+ MoE). All environments use: Python REPL sandbox, 120s command timeout, parallel sub-LM calls via `llm_batch()`, REPL output capped at 8192 chars.
+
+**Repo:** [github.com/PrimeIntellect-ai/verifiers](https://github.com/PrimeIntellect-ai/verifiers) (under `environments/`)
+
+#### DeepDive
+
+| Field | Detail |
+|-------|--------|
+| **Repo** | [github.com/THUDM/DeepDive](https://github.com/THUDM/DeepDive) |
+| **Dataset** | [HF: zai-org/DeepDive](https://huggingface.co/datasets/zai-org/DeepDive) |
+| **RLMEnv impl** | [PrimeIntellect verifiers/environments/deepdive](https://github.com/PrimeIntellect-ai/verifiers/tree/sebastian/experiment/rlm/environments/deepdive) |
+| **What it tests** | Deep research via open knowledge graph traversal. Complex questions requiring multi-step web research. |
+| **Tools** | Search (Serper), click, open URL |
+
+**Results (GPT-5-mini):**
+
+| Variant | Mean Reward |
+|---------|-------------|
+| Standard LLM | ~0.50 |
+| RLM | ~0.30 |
+| RLM + environment tips | ~0.65 |
+
+**Key finding:** RLM underperformed without tips. With strategic tips (decompose questions, use parallel sub-LLM research), outperformed standard LLM by +0.15.
+
+#### math-python
+
+| Field | Detail |
+|-------|--------|
+| **RLMEnv impl** | [PrimeIntellect verifiers/environments/math_python](https://github.com/PrimeIntellect-ai/verifiers/tree/sebastian/experiment/rlm/environments/math_python) |
+| **What it tests** | Solving difficult math problems with Python tool access (numpy, scipy, sympy) |
+
+**Results (GPT-5-mini):**
+
+| Variant | Mean Reward |
+|---------|-------------|
+| Standard LLM | ~0.70 |
+| RLM | ~0.30 |
+| RLM + tips | ~0.30 (minimal improvement) |
+
+**Key finding:** RLM significantly *hurts* on math. Standard LLM already has Python tool access, so the RLM scaffold adds overhead without benefit. INTELLECT-3 was "almost completely incapable" of using RLM for math.
+
+#### Oolong (Prime Intellect variant)
+
+Same underlying benchmark as the academic paper, different evaluation setup. Tests synth, synth-with-labels, and real splits (50 random samples each).
+
+| Field | Detail |
+|-------|--------|
+| **RLMEnv impl** | [PrimeIntellect verifiers/environments/oolong](https://github.com/PrimeIntellect-ai/verifiers/tree/sebastian/experiment/rlm/environments/oolong) |
+
+**Results (GPT-5-mini by subset):**
+
+| Subset | Standard LLM | RLM |
+|--------|-------------|-----|
+| synth | ~0.60 | ~0.30 |
+| synth-with-labels | ~0.90 | ~0.95 |
+| real | ~0.00 (API rejections) | ~0.40-0.50 |
+
+**Key finding:** On real data (contexts exceeding API limits), RLM was the *only* approach that worked at all. Maintained performance across ~1.5M character contexts.
+
+#### Verbatim-copy
+
+| Field | Detail |
+|-------|--------|
+| **RLMEnv impl** | [PrimeIntellect verifiers/environments/verbatim_copy](https://github.com/PrimeIntellect-ai/verifiers/tree/sebastian/experiment/rlm/environments/verbatim_copy) |
+| **What it tests** | Exact reproduction of complex text sequences (words, JSON, CSV, codes, mixed). Tests iterative refinement. |
+| **Config options** | `content_type`: words/json/csv/codes/mixed/all; `target_length`: default 500 chars |
+
+**Results (GPT-5-mini):**
+
+| Variant | Mean Reward |
+|---------|-------------|
+| Standard LLM | ~0.75 |
+| RLM | ~0.88 |
+| RLM + tips | ~0.85 |
+
+**Key finding:** RLM's strongest showing on Prime Intellect benchmarks. JSON content saw the biggest gain (lowest baseline, biggest RLM improvement).
+
+### RLM Benchmark Summary
+
+| # | Benchmark | Source | Tests | Best RLM Score | vs Base | Repo |
+|---|-----------|--------|-------|----------------|---------|------|
+| 1 | S-NIAH | Paper | Needle retrieval (8K-262K) | Maintained at 262K+ | +large (base degrades) | Custom |
+| 2 | OOLONG | Paper | Aggregation (131K) | 56.50% (GPT-5) | +12.5pp | [abertsch72/oolong](https://github.com/abertsch72/oolong) |
+| 3 | OOLONG-Pairs | Paper | Pairwise aggregation (32K) | 58.00% F1 (GPT-5) | +57.96pp | Appendix E.1 |
+| 4 | BrowseComp-Plus | Paper | Multi-hop doc QA (6-11M) | 91.33% (GPT-5) | +91.33pp | [texttron/BrowseComp-Plus](https://github.com/texttron/BrowseComp-Plus) |
+| 5 | LongBench v2 CodeQA | Paper | Code repo understanding (23K-4.2M) | 62.00% (GPT-5) | +38pp | [THUDM/LongBench](https://github.com/THUDM/LongBench) |
+| 6 | LoCoDiff | Blog | Git diff tracking (75K+) | Programmatic solve | +large | [AbanteAI/LoCoDiff-bench](https://github.com/AbanteAI/LoCoDiff-bench) |
+| 7 | DeepDive | PI blog | Deep research | 0.65 (with tips) | +0.15 | [THUDM/DeepDive](https://github.com/THUDM/DeepDive) |
+| 8 | math-python | PI blog | Math + Python | 0.30 | **-0.40** | [PI verifiers](https://github.com/PrimeIntellect-ai/verifiers) |
+| 9 | Oolong (PI) | PI blog | Aggregation (real/synth) | 0.95 (synth-labels) | +0.05 to +0.50 | [abertsch72/oolong](https://github.com/abertsch72/oolong) |
+| 10 | Verbatim-copy | PI blog | Exact text reproduction | 0.88 | +0.13 | [PI verifiers](https://github.com/PrimeIntellect-ai/verifiers) |
+
+**Cross-cutting insight:** RLM excels when the task benefits from programmatic decomposition (aggregation, document search, pairwise comparison). It *hurts* when the standard LLM already has the tools it needs (math-python) or when the scaffold adds overhead to tasks the model can handle directly. Tips/instructions significantly impact RLM performance — the paradigm requires the model to understand *how* to delegate, not just *that* it can.
 
 ---
 

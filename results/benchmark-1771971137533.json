@@ -1,0 +1,128 @@
+[
+  {
+    "strategyName": "CorrectionAware",
+    "scenarioName": "Multi-hop Reasoning",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 51,
+        "outputTokens": 182,
+        "latencyMs": 2553.441958,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 262,
+        "outputTokens": 241,
+        "latencyMs": 3423.2409169999996,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 533,
+        "outputTokens": 285,
+        "latencyMs": 2765.8892920000008,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 841,
+        "outputTokens": 326,
+        "latencyMs": 3197.5010409999995,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 652,
+        "outputTokens": 359,
+        "latencyMs": 4040.213916999999,
+        "memoryOverheadTokens": 1801
+      },
+      {
+        "step": 6,
+        "inputTokens": 1036,
+        "outputTokens": 390,
+        "latencyMs": 3969.7837499999987,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 1451,
+        "outputTokens": 360,
+        "latencyMs": 4218.101500000001,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 1846,
+        "outputTokens": 325,
+        "latencyMs": 3146.686708000001,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 886,
+        "outputTokens": 351,
+        "latencyMs": 3343.652374999998,
+        "memoryOverheadTokens": 4358
+      },
+      {
+        "step": 10,
+        "inputTokens": 1268,
+        "outputTokens": 371,
+        "latencyMs": 3746.819374999999,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 1666,
+        "outputTokens": 399,
+        "latencyMs": 3896.700708000004,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 2093,
+        "outputTokens": 500,
+        "latencyMs": 4352.848208000003,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 1042,
+        "outputTokens": 500,
+        "latencyMs": 4195.469000000005,
+        "memoryOverheadTokens": 4890
+      },
+      {
+        "step": 14,
+        "inputTokens": 1577,
+        "outputTokens": 539,
+        "latencyMs": 4429.802082999995,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 2155,
+        "outputTokens": 466,
+        "latencyMs": 4752.242374999994,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 2690,
+        "outputTokens": 347,
+        "latencyMs": 3257.326874999999,
+        "memoryOverheadTokens": 0
+      }
+    ],
+    "finalAnswer": "# Answers to Your Questions\n\n**1) What is the total number of attendees?**\n**60 people**\n\n**2) What is the total catering cost for all meals?**\n**$6,300** (3 meals × 60 people × $35/person)\n\n**3) Which floor is the keynote in and why?**\n**Floor 3 conference room** — This is the largest available venue with a capacity of 50 people. However, there's an overflow issue: 60 attendees cannot fit, so 10 people will need overflow accommodation (the specific solution hasn't been determined yet).\n\n**4) What is the total budget from all departments?**\n**$38,000**\n- Engineering: $15,000\n- Sales: $10,000\n- Marketing: $8,000\n- HR: $5,000\n\n**5) Will everyone fit on the charter buses?**\n**Yes, exactly.** ✓\n- 2 charter buses × 30 capacity each = 60 total capacity\n- 60 attendees = perfect fit\n\n---\n\n## **KEY OUTSTANDING ITEMS:**\n\n1. **Keynote overflow plan** — How to accommodate 10 people who won't fit in the 50-capacity Floor 3 room?\n2. **Charter bus cost** — Not yet provided\n3. **Lodging costs** — For 2 nights at Aspen Mountain Lodge\n4. **Other pending expenses** — Keynote speaker fee, hackathon materials, etc.",
+    "correct": true,
+    "totalInputTokens": 20049,
+    "totalOutputTokens": 5941,
+    "totalMemoryOverheadTokens": 11049,
+    "totalLatencyMs": 59289.720082,
+    "estimatedCostUsd": 0.0486424,
+    "peakContextTokens": 2690
+  }
+]

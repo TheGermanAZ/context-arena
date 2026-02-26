@@ -1,0 +1,135 @@
+[
+  {
+    "strategyName": "CorrectionAware",
+    "scenarioName": "Implicit Corrections",
+    "steps": [
+      {
+        "step": 1,
+        "inputTokens": 73,
+        "outputTokens": 133,
+        "latencyMs": 2061.131875,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 2,
+        "inputTokens": 252,
+        "outputTokens": 126,
+        "latencyMs": 2028.334875,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 3,
+        "inputTokens": 426,
+        "outputTokens": 189,
+        "latencyMs": 1605.373791,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 4,
+        "inputTokens": 659,
+        "outputTokens": 243,
+        "latencyMs": 1341.8633340000006,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 5,
+        "inputTokens": 622,
+        "outputTokens": 336,
+        "latencyMs": 1861.8780420000003,
+        "memoryOverheadTokens": 1423
+      },
+      {
+        "step": 6,
+        "inputTokens": 987,
+        "outputTokens": 368,
+        "latencyMs": 1995.8212500000009,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 7,
+        "inputTokens": 1375,
+        "outputTokens": 372,
+        "latencyMs": 1766.342125000001,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 8,
+        "inputTokens": 1760,
+        "outputTokens": 372,
+        "latencyMs": 1762.1710419999981,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 9,
+        "inputTokens": 875,
+        "outputTokens": 372,
+        "latencyMs": 1770.882583999999,
+        "memoryOverheadTokens": 3868
+      },
+      {
+        "step": 10,
+        "inputTokens": 1264,
+        "outputTokens": 372,
+        "latencyMs": 1840.2561669999996,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 11,
+        "inputTokens": 1656,
+        "outputTokens": 385,
+        "latencyMs": 3421.402417000001,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 12,
+        "inputTokens": 2060,
+        "outputTokens": 372,
+        "latencyMs": 1954.539584000002,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 13,
+        "inputTokens": 967,
+        "outputTokens": 372,
+        "latencyMs": 1832.9614589999983,
+        "memoryOverheadTokens": 4763
+      },
+      {
+        "step": 14,
+        "inputTokens": 1357,
+        "outputTokens": 374,
+        "latencyMs": 1721.9519590000018,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 15,
+        "inputTokens": 1748,
+        "outputTokens": 374,
+        "latencyMs": 1841.8709589999999,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 16,
+        "inputTokens": 2134,
+        "outputTokens": 374,
+        "latencyMs": 1862.0767090000008,
+        "memoryOverheadTokens": 0
+      },
+      {
+        "step": 17,
+        "inputTokens": 1066,
+        "outputTokens": 360,
+        "latencyMs": 2165.8932910000003,
+        "memoryOverheadTokens": 4810
+      }
+    ],
+    "finalAnswer": "# FINAL RECIPE CARDS\n\n---\n\n## 🥒 APPETIZER: Bruschetta\n**Serves: 6**\n\n**Ingredients:**\n- 12 San Marzano tomatoes\n- 6 cloves garlic\n- Fresh basil\n- 1 baguette\n- Olive oil\n- Balsamic vinegar\n\n**Instructions:** *(Awaiting details)*\n\n---\n\n## 🐟 MAIN: Pan-seared Salmon\n\n**Ingredients:**\n- 4 salmon fillets (8oz each)\n- 3 tablespoons butter\n- Lemon juice\n- Capers\n- Dill\n\n**Cooking Instructions:**\n- Temperature: 400°F\n- Time: 14 minutes\n\n### Side: Roasted Asparagus\n\n**Ingredients:**\n- 1 bunch asparagus\n- Olive oil\n- Salt\n- Pepper\n\n**Cooking Instructions:**\n- Temperature: 400°F\n- Time: 15 minutes\n\n---\n\n## 🍰 DESSERT: Tiramisu\n\n**Key Ingredients:**\n- 5 egg yolks\n- 2.5 cups heavy cream\n- 30 ladyfingers\n- 3/4 cup sugar\n- 1 1/3 cups mascarpone\n- 2 cups espresso\n- 3 tablespoons coffee liqueur\n\n**Instructions:** *(Awaiting details)*\n\n---\n\n**Ready for bruschetta and tiramisu cooking instructions!**",
+    "correct": true,
+    "totalInputTokens": 19281,
+    "totalOutputTokens": 5494,
+    "totalMemoryOverheadTokens": 14864,
+    "totalLatencyMs": 32834.75146300001,
+    "estimatedCostUsd": 0.049292,
+    "peakContextTokens": 2134
+  }
+]

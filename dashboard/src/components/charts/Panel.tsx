@@ -18,7 +18,7 @@ export default function Panel({ title, badge, children, onExpand, exportData }: 
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={containerRef} className="bg-gray-900 rounded-lg border border-gray-700 overflow-hidden flex flex-col">
+    <div ref={containerRef} className="bg-gray-900 rounded-lg border border-gray-700 overflow-hidden flex flex-col shadow-lg shadow-black/20 hover:shadow-xl hover:shadow-black/30 hover:border-gray-600 transition-all duration-200">
       <div className="px-4 py-3 border-b border-gray-800 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-2">
           <h3 className="text-sm font-semibold text-gray-200">{title}</h3>

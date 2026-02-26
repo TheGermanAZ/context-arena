@@ -1,10 +1,10 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell, ResponsiveContainer } from 'recharts';
 import { useRllmComparison } from '../lib/hooks';
 import { useFilterOptional } from '../lib/FilterContext';
-import { Skeleton } from './charts';
+import { Skeleton, ErrorCard } from './charts';
 
 export default function RllmComparison() {
-  const { data, error, isLoading } = useRllmComparison();
+  const { data, error, isLoading, refetch } = useRllmComparison();
   const filter = useFilterOptional();
 
   const focused = filter?.focusedScenario ?? null;
@@ -12,7 +12,7 @@ export default function RllmComparison() {
     ? (name: string) => { filter.guardClick(); filter.toggleFocus('scenario', name); }
     : undefined;
 
-  if (error) return <div className="text-red-400 p-4">Error: {error.message}</div>;
+  if (error) return <ErrorCard message={error.message} onRetry={() => refetch()} />;
   if (isLoading) return <Skeleton variant="chart" />;
   if (!data) return null;
 
@@ -26,7 +26,7 @@ export default function RllmComparison() {
   }));
 
   return (
-    <div className="bg-gray-900 rounded-lg border border-gray-700 p-6">
+    <div className="bg-gray-900 rounded-lg border border-gray-700 p-6 shadow-lg shadow-black/20">
       <div className="flex items-center justify-between mb-6">
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -67,6 +67,7 @@ export default function RllmComparison() {
           <Tooltip
             contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
             labelStyle={{ color: '#f3f4f6' }}
+            itemStyle={{ color: '#d1d5db' }}
             labelFormatter={(_label, payload) => payload?.[0]?.payload?.fullName ?? _label}
           />
           <Legend wrapperStyle={{ color: '#9ca3af' }} />

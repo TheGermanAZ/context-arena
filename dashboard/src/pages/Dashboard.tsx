@@ -1,5 +1,6 @@
 import { useState, useEffect, type ComponentType } from 'react';
 import { FilterProvider, useFilter } from '../lib/FilterContext';
+import NavBar from '../components/NavBar';
 import { useSyncURL } from '../lib/useSyncURL';
 import Sidebar from '../components/Sidebar';
 import { Panel } from '../components/charts';
@@ -10,6 +11,9 @@ import RetentionCurve from '../components/RetentionCurve';
 import DepthComparison from '../components/DepthComparison';
 import RllmComparison from '../components/RllmComparison';
 import CodeStrategies from '../components/CodeStrategies';
+import ScenarioHeatmap from '../components/ScenarioHeatmap';
+import CostAccuracy from '../components/CostAccuracy';
+import ScenarioDifficulty from '../components/ScenarioDifficulty';
 
 /* ── Panel Registry ───────────────────────────────────────────── */
 
@@ -22,6 +26,9 @@ interface PanelConfig {
 const PANEL_MAP: Record<string, PanelConfig> = {
   'leaderboard': { component: Leaderboard, title: 'Strategy Leaderboard' },
   'token-cost': { component: TokenCost, title: 'Token Cost per Step' },
+  'scenario-heatmap': { component: ScenarioHeatmap, title: 'Scenario Heatmap' },
+  'cost-accuracy': { component: CostAccuracy, title: 'Cost vs Accuracy' },
+  'scenario-difficulty': { component: ScenarioDifficulty, title: 'Scenario Difficulty' },
   'retention-by-type': { component: RetentionByType, title: 'Retention by Type', badge: { text: 'RLM', color: 'emerald' } },
   'retention-curve': { component: RetentionCurve, title: 'Retention Curve', badge: { text: 'RLM', color: 'emerald' } },
   'depth-comparison': { component: DepthComparison, title: 'Depth 1 vs 2', badge: { text: 'RLM', color: 'emerald' } },
@@ -182,14 +189,17 @@ function DashboardContent() {
       <Sidebar expanded={sidebarExpanded} onToggle={() => setSidebarExpanded((e) => !e)} />
       <div className={`transition-all duration-200 ease-in-out ${sidebarExpanded ? 'ml-56' : 'ml-0'}`}>
         <div className="max-w-7xl mx-auto px-6 py-6">
-          <header className="mb-4 flex items-center gap-3">
-            {!sidebarExpanded && <div className="w-8" />}
-            <div>
-              <h1 className="text-2xl font-bold text-gray-100">Context Arena Dashboard</h1>
-              <p className="text-sm text-gray-400 mt-1">
-                Select panels from the sidebar — click chart elements to focus across views
-              </p>
+          <header className="mb-4 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              {!sidebarExpanded && <div className="w-8" />}
+              <div>
+                <h1 className="text-2xl font-bold text-gray-100">Context Arena Dashboard</h1>
+                <p className="text-sm text-gray-400 mt-1">
+                  Select panels from the sidebar — click chart elements to focus across views
+                </p>
+              </div>
             </div>
+            <NavBar />
           </header>
           <FilterBar />
           <PanelGrid />

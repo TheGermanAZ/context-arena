@@ -6,8 +6,11 @@ import {
   useDepthComparison,
   useRllmComparison,
   useCodeAnalysis,
+  useScenarioHeatmap,
+  useCostAccuracy,
 } from '../lib/hooks';
 import { KPICard, Skeleton } from '../components/charts';
+import NavBar from '../components/NavBar';
 import Leaderboard from '../components/Leaderboard';
 import TokenCost from '../components/TokenCost';
 import RetentionByType from '../components/RetentionByType';
@@ -15,12 +18,17 @@ import RetentionCurve from '../components/RetentionCurve';
 import DepthComparison from '../components/DepthComparison';
 import RllmComparison from '../components/RllmComparison';
 import CodeStrategies from '../components/CodeStrategies';
+import ScenarioHeatmap from '../components/ScenarioHeatmap';
+import CostAccuracy from '../components/CostAccuracy';
 
 /* ---------- constants ---------- */
 
 const SECTIONS = [
+  { id: 'methodology', label: 'Methodology' },
   { id: 'leaderboard', label: 'Leaderboard' },
+  { id: 'heatmap', label: 'Heatmap' },
   { id: 'cost', label: 'Cost of Remembering' },
+  { id: 'efficiency', label: 'Efficiency Frontier' },
   { id: 'forgotten', label: 'What Gets Forgotten' },
   { id: 'depth', label: 'Depth' },
   { id: 'hand-vs-gen', label: 'Hand-rolled vs Code-Gen' },
@@ -104,6 +112,8 @@ export default function Demo() {
   const depthComparison = useDepthComparison();
   const rllmComparison = useRllmComparison();
   const codeAnalysis = useCodeAnalysis();
+  const scenarioHeatmap = useScenarioHeatmap();
+  const costAccuracy = useCostAccuracy();
 
   /* ---- derived values ---- */
   const top = leaderboard.data?.[0];
@@ -133,24 +143,39 @@ export default function Demo() {
       ? ((1 - top.avgInputTokens / fullContext.avgInputTokens) * 100).toFixed(0)
       : undefined;
 
+  /* ---- heatmap derived values ---- */
+  const sortedScenarios = scenarioHeatmap.data?.scenarioSummaries
+    ? [...scenarioHeatmap.data.scenarioSummaries].sort((a, b) => a.accuracy - b.accuracy)
+    : undefined;
+  const hardestScenario = sortedScenarios?.[0];
+  const easiestScenario = sortedScenarios?.[sortedScenarios.length - 1];
+  const perfectStrategies = scenarioHeatmap.data?.strategySummaries.filter((s) => s.accuracy === 1).length;
+
+  /* ---- cost-accuracy derived values ---- */
+  const paretoCount = costAccuracy.data?.paretoFrontier.length;
+  const cheapestPareto = costAccuracy.data?.paretoFrontier[0];
+
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
       {/* ---- sticky nav ---- */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-950/80 backdrop-blur-sm border-b border-gray-800/50">
-        <div className="max-w-5xl mx-auto px-6 py-3 flex gap-2 overflow-x-auto">
-          {SECTIONS.map(({ id, label }) => (
-            <a
-              key={id}
-              href={`#${id}`}
-              className={`px-3 py-1 rounded-full text-xs font-medium transition-colors whitespace-nowrap ${
-                activeId === id
-                  ? 'bg-emerald-600 text-white'
-                  : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'
-              }`}
-            >
-              {label}
-            </a>
-          ))}
+        <div className="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between">
+          <div className="flex gap-2 overflow-x-auto">
+            {SECTIONS.map(({ id, label }) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                className={`px-3 py-1 rounded-full text-xs font-medium transition-colors whitespace-nowrap ${
+                  activeId === id
+                    ? 'bg-emerald-600 text-white'
+                    : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'
+                }`}
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+          <NavBar />
         </div>
       </nav>
 
@@ -202,7 +227,26 @@ export default function Demo() {
           )}
         </div>
 
-        {/* ---- Section 1: The Leaderboard ---- */}
+        {/* ---- Section 1: Methodology ---- */}
+        <DemoSection id="methodology" title="Methodology">
+          <Insight>
+            How we tested LLM memory — the experiment design behind these results.
+          </Insight>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+            <KPICard label="Strategies" value={8} format={(n) => `${n}`} subtitle="Memory approaches" accentColor="#3b82f6" />
+            <KPICard label="Scenarios" value={8} format={(n) => `${n}`} subtitle="Test situations" accentColor="#10b981" />
+            <KPICard label="Test Cases" value={62} format={(n) => `${n}`} subtitle="Strategy × scenario" accentColor="#f59e0b" />
+            <KPICard label="Model" value={1} format={() => 'Haiku'} subtitle="claude-3-5-haiku" accentColor="#8b5cf6" />
+          </div>
+          <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-6 text-sm text-gray-300 space-y-3">
+            <p><strong className="text-gray-100">Model:</strong> Claude 3.5 Haiku — chosen for speed and cost, enabling 62 full conversation runs.</p>
+            <p><strong className="text-gray-100">Compression trigger:</strong> Each strategy defines when and how context is compressed — from never (Full Context) to every turn (Window).</p>
+            <p><strong className="text-gray-100">Probe matching:</strong> After each conversation, structured probes test whether specific facts survive. A fact is "retained" if the model can accurately recall it.</p>
+            <p><strong className="text-gray-100">Cost model:</strong> $0.80/M input tokens, $4.00/M output tokens — actual Haiku pricing at time of benchmarking.</p>
+          </div>
+        </DemoSection>
+
+        {/* ---- Section 2: The Leaderboard ---- */}
         <DemoSection id="leaderboard" title="The Leaderboard">
           {top ? (
             <Insight>
@@ -211,10 +255,49 @@ export default function Demo() {
           ) : (
             <Skeleton variant="kpi" />
           )}
+          {hardestScenario && easiestScenario ? (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+              <KPICard
+                label="Hardest Scenario"
+                value={hardestScenario.accuracy * 100}
+                format={(n) => `${n.toFixed(0)}%`}
+                subtitle={hardestScenario.scenario ?? ''}
+                accentColor="#ef4444"
+              />
+              <KPICard
+                label="Easiest Scenario"
+                value={easiestScenario.accuracy * 100}
+                format={(n) => `${n.toFixed(0)}%`}
+                subtitle={easiestScenario.scenario ?? ''}
+                accentColor="#10b981"
+              />
+              <KPICard
+                label="Perfect Strategies"
+                value={perfectStrategies ?? 0}
+                format={(n) => `${n}`}
+                subtitle="100% accuracy"
+                accentColor="#3b82f6"
+              />
+            </div>
+          ) : (
+            <Skeleton variant="kpi" />
+          )}
           <Leaderboard />
         </DemoSection>
 
-        {/* ---- Section 2: The Cost of Remembering ---- */}
+        {/* ---- Section 3: Which Scenarios Break Which Strategies? ---- */}
+        <DemoSection id="heatmap" title="Which Scenarios Break Which Strategies?">
+          {hardestScenario ? (
+            <Insight>
+              {`${hardestScenario.scenario} is the toughest scenario — ${hardestScenario.total - hardestScenario.correct} of ${hardestScenario.total} strategies fail it. The heatmap below reveals which strategy-scenario combinations succeed.`}
+            </Insight>
+          ) : (
+            <Skeleton variant="kpi" />
+          )}
+          <ScenarioHeatmap />
+        </DemoSection>
+
+        {/* ---- Section 4: The Cost of Remembering ---- */}
         <DemoSection id="cost" title="The Cost of Remembering">
           {top && fullContext ? (
             <Insight>
@@ -226,7 +309,19 @@ export default function Demo() {
           <TokenCost />
         </DemoSection>
 
-        {/* ---- Section 3: What Gets Forgotten ---- */}
+        {/* ---- Section 5: The Efficiency Frontier ---- */}
+        <DemoSection id="efficiency" title="The Efficiency Frontier">
+          {paretoCount != null && cheapestPareto ? (
+            <Insight>
+              {`Only ${paretoCount} of 8 strategies sit on the Pareto frontier — offering the best accuracy at their cost point. The cheapest optimal strategy is ${cheapestPareto.strategy} at $${cheapestPareto.totalCost.toFixed(4)}.`}
+            </Insight>
+          ) : (
+            <Skeleton variant="kpi" />
+          )}
+          <CostAccuracy />
+        </DemoSection>
+
+        {/* ---- Section 6: What Gets Forgotten ---- */}
         <DemoSection id="forgotten" title="What Gets Forgotten">
           {worstType && bestType ? (
             <Insight>
@@ -241,7 +336,7 @@ export default function Demo() {
           </div>
         </DemoSection>
 
-        {/* ---- Section 4: Does Depth Help? ---- */}
+        {/* ---- Section 7: Does Depth Help? ---- */}
         <DemoSection id="depth" title="Does Depth Help?">
           {depth1Pct != null && depth2Pct != null ? (
             <Insight>
@@ -253,7 +348,7 @@ export default function Demo() {
           <DepthComparison />
         </DemoSection>
 
-        {/* ---- Section 5: Hand-rolled vs Code-Gen ---- */}
+        {/* ---- Section 8: Hand-rolled vs Code-Gen ---- */}
         <DemoSection id="hand-vs-gen" title="Hand-rolled vs Code-Gen">
           {handRolledPct != null && rllmPct != null ? (
             <Insight>
@@ -265,7 +360,7 @@ export default function Demo() {
           <RllmComparison />
         </DemoSection>
 
-        {/* ---- Section 6: Inside the Code ---- */}
+        {/* ---- Section 9: Inside the Code ---- */}
         <DemoSection id="code" title="Inside the Code">
           {codeData && topCategory ? (
             <Insight>
