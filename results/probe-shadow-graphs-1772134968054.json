@@ -1,0 +1,259 @@
+{
+  "proposal": "shadow-graphs",
+  "phase1": {
+    "passed": true,
+    "details": {
+      "scenario1": {
+        "captureRate": 1,
+        "capturedProbes": [
+          "production region us-east-1"
+        ],
+        "missedProbes": [],
+        "tripleCount": 60
+      },
+      "scenario8": {
+        "captureRate": 0.5,
+        "capturedProbes": [
+          "Paul and Quinn couple at Table 3"
+        ],
+        "missedProbes": [
+          "Jack and Iris conflict"
+        ],
+        "tripleCount": 60
+      },
+      "avgCaptureRate": 0.75
+    }
+  },
+  "phase2": {
+    "runs": [
+      {
+        "scenarioName": "Early Fact Recall",
+        "strategyName": "RLM+SSG",
+        "rep": 1,
+        "probeResults": [
+          {
+            "fact": "project name Mercury",
+            "type": "entity",
+            "retained": false
+          },
+          {
+            "fact": "budget $347,250",
+            "type": "quantity",
+            "retained": true
+          },
+          {
+            "fact": "project lead Dr. Sarah Chen",
+            "type": "entity",
+            "retained": true
+          },
+          {
+            "fact": "deadline March 15, 2027",
+            "type": "date",
+            "retained": true
+          },
+          {
+            "fact": "frontend uses Svelte (corrected from React)",
+            "type": "correction",
+            "retained": true
+          },
+          {
+            "fact": "QA lead Marcus Williams",
+            "type": "entity",
+            "retained": false
+          },
+          {
+            "fact": "production region us-east-1",
+            "type": "spatial",
+            "retained": false
+          },
+          {
+            "fact": "backend salary $145k-$175k",
+            "type": "quantity",
+            "retained": false
+          },
+          {
+            "fact": "sponsor James Rodriguez VP Engineering",
+            "type": "entity",
+            "retained": false
+          },
+          {
+            "fact": "API rate limit 1000 req/min standard",
+            "type": "quantity",
+            "retained": false
+          }
+        ],
+        "retainedCount": 4,
+        "totalProbes": 10,
+        "overheadTokens": 147318
+      },
+      {
+        "scenarioName": "Early Fact Recall",
+        "strategyName": "RLM+SSG",
+        "rep": 2,
+        "probeResults": [
+          {
+            "fact": "project name Mercury",
+            "type": "entity",
+            "retained": true
+          },
+          {
+            "fact": "budget $347,250",
+            "type": "quantity",
+            "retained": true
+          },
+          {
+            "fact": "project lead Dr. Sarah Chen",
+            "type": "entity",
+            "retained": true
+          },
+          {
+            "fact": "deadline March 15, 2027",
+            "type": "date",
+            "retained": true
+          },
+          {
+            "fact": "frontend uses Svelte (corrected from React)",
+            "type": "correction",
+            "retained": true
+          },
+          {
+            "fact": "QA lead Marcus Williams",
+            "type": "entity",
+            "retained": false
+          },
+          {
+            "fact": "production region us-east-1",
+            "type": "spatial",
+            "retained": false
+          },
+          {
+            "fact": "backend salary $145k-$175k",
+            "type": "quantity",
+            "retained": false
+          },
+          {
+            "fact": "sponsor James Rodriguez VP Engineering",
+            "type": "entity",
+            "retained": false
+          },
+          {
+            "fact": "API rate limit 1000 req/min standard",
+            "type": "quantity",
+            "retained": false
+          }
+        ],
+        "retainedCount": 5,
+        "totalProbes": 10,
+        "overheadTokens": 140504
+      },
+      {
+        "scenarioName": "Rapid-fire Corrections",
+        "strategyName": "RLM+SSG",
+        "rep": 1,
+        "probeResults": [
+          {
+            "fact": "Grace moved to Table 1",
+            "type": "correction",
+            "retained": true
+          },
+          {
+            "fact": "Jack and Iris conflict",
+            "type": "relationship",
+            "retained": false
+          },
+          {
+            "fact": "Paul and Quinn couple at Table 3",
+            "type": "relationship",
+            "retained": true
+          },
+          {
+            "fact": "Uma removed (can't make it)",
+            "type": "correction",
+            "retained": false
+          },
+          {
+            "fact": "Xavier added to Table 4",
+            "type": "entity",
+            "retained": true
+          },
+          {
+            "fact": "Frank moved to Table 3 (not immediate family)",
+            "type": "correction",
+            "retained": true
+          },
+          {
+            "fact": "Yuki and Zara added to Table 5",
+            "type": "entity",
+            "retained": true
+          }
+        ],
+        "retainedCount": 5,
+        "totalProbes": 7,
+        "overheadTokens": 96098
+      },
+      {
+        "scenarioName": "Rapid-fire Corrections",
+        "strategyName": "RLM+SSG",
+        "rep": 2,
+        "probeResults": [
+          {
+            "fact": "Grace moved to Table 1",
+            "type": "correction",
+            "retained": true
+          },
+          {
+            "fact": "Jack and Iris conflict",
+            "type": "relationship",
+            "retained": false
+          },
+          {
+            "fact": "Paul and Quinn couple at Table 3",
+            "type": "relationship",
+            "retained": true
+          },
+          {
+            "fact": "Uma removed (can't make it)",
+            "type": "correction",
+            "retained": false
+          },
+          {
+            "fact": "Xavier added to Table 4",
+            "type": "entity",
+            "retained": true
+          },
+          {
+            "fact": "Frank moved to Table 3 (not immediate family)",
+            "type": "correction",
+            "retained": true
+          },
+          {
+            "fact": "Yuki and Zara added to Table 5",
+            "type": "entity",
+            "retained": true
+          }
+        ],
+        "retainedCount": 5,
+        "totalProbes": 7,
+        "overheadTokens": 99067
+      }
+    ],
+    "retentionByType": {
+      "entity": 0.5833333333333334,
+      "quantity": 0.3333333333333333,
+      "date": 1,
+      "correction": 0.75,
+      "spatial": 0,
+      "relationship": 0.5
+    },
+    "comparisonToBaseline": {
+      "entity": -0.1366666666666666,
+      "quantity": -0.2866666666666667,
+      "date": 0.32999999999999996,
+      "correction": 0.050000000000000044,
+      "spatial": 0,
+      "relationship": 0.16999999999999998
+    }
+  },
+  "killCriteriaMet": true,
+  "recommendation": "abandon"
+}

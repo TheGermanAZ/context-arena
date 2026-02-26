@@ -1,0 +1,717 @@
+{
+  "proposal": "correction-format",
+  "timestamp": "2026-02-26T20:31:15.707Z",
+  "scenario": "Cascading Corrections",
+  "repsPerFormat": 2,
+  "formats": [
+    {
+      "name": "Explicit Negation",
+      "avgRetention": 0.5714285714285714,
+      "retentionByType": {
+        "correction": 1,
+        "quantity": 0
+      },
+      "runs": [
+        {
+          "scenarioName": "Cascading Corrections",
+          "strategyName": "RLM-Fmt(Explicit Negation)",
+          "rep": 1,
+          "probeResults": [
+            {
+              "fact": "pre-money valuation $12M (corrected from $10M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "round size $3M (corrected from $2M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "Sequoia investment $1.5M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "legal fees $75K (corrected from $50K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "monthly burn $175K (corrected from $150K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "net proceeds $2.925M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "share price $1.20",
+              "type": "quantity",
+              "retained": false
+            }
+          ],
+          "retainedCount": 4,
+          "totalProbes": 7,
+          "overheadTokens": 32410
+        },
+        {
+          "scenarioName": "Cascading Corrections",
+          "strategyName": "RLM-Fmt(Explicit Negation)",
+          "rep": 2,
+          "probeResults": [
+            {
+              "fact": "pre-money valuation $12M (corrected from $10M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "round size $3M (corrected from $2M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "Sequoia investment $1.5M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "legal fees $75K (corrected from $50K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "monthly burn $175K (corrected from $150K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "net proceeds $2.925M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "share price $1.20",
+              "type": "quantity",
+              "retained": false
+            }
+          ],
+          "retainedCount": 4,
+          "totalProbes": 7,
+          "overheadTokens": 37089
+        }
+      ]
+    },
+    {
+      "name": "Contrastive Pair",
+      "avgRetention": 0.5714285714285714,
+      "retentionByType": {
+        "correction": 1,
+        "quantity": 0
+      },
+      "runs": [
+        {
+          "scenarioName": "Cascading Corrections",
+          "strategyName": "RLM-Fmt(Contrastive Pair)",
+          "rep": 1,
+          "probeResults": [
+            {
+              "fact": "pre-money valuation $12M (corrected from $10M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "round size $3M (corrected from $2M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "Sequoia investment $1.5M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "legal fees $75K (corrected from $50K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "monthly burn $175K (corrected from $150K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "net proceeds $2.925M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "share price $1.20",
+              "type": "quantity",
+              "retained": false
+            }
+          ],
+          "retainedCount": 4,
+          "totalProbes": 7,
+          "overheadTokens": 32210
+        },
+        {
+          "scenarioName": "Cascading Corrections",
+          "strategyName": "RLM-Fmt(Contrastive Pair)",
+          "rep": 2,
+          "probeResults": [
+            {
+              "fact": "pre-money valuation $12M (corrected from $10M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "round size $3M (corrected from $2M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "Sequoia investment $1.5M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "legal fees $75K (corrected from $50K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "monthly burn $175K (corrected from $150K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "net proceeds $2.925M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "share price $1.20",
+              "type": "quantity",
+              "retained": false
+            }
+          ],
+          "retainedCount": 4,
+          "totalProbes": 7,
+          "overheadTokens": 27154
+        }
+      ]
+    },
+    {
+      "name": "Temporal Supersession",
+      "avgRetention": 0.5714285714285714,
+      "retentionByType": {
+        "correction": 1,
+        "quantity": 0
+      },
+      "runs": [
+        {
+          "scenarioName": "Cascading Corrections",
+          "strategyName": "RLM-Fmt(Temporal Supersession)",
+          "rep": 1,
+          "probeResults": [
+            {
+              "fact": "pre-money valuation $12M (corrected from $10M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "round size $3M (corrected from $2M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "Sequoia investment $1.5M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "legal fees $75K (corrected from $50K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "monthly burn $175K (corrected from $150K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "net proceeds $2.925M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "share price $1.20",
+              "type": "quantity",
+              "retained": false
+            }
+          ],
+          "retainedCount": 4,
+          "totalProbes": 7,
+          "overheadTokens": 37164
+        },
+        {
+          "scenarioName": "Cascading Corrections",
+          "strategyName": "RLM-Fmt(Temporal Supersession)",
+          "rep": 2,
+          "probeResults": [
+            {
+              "fact": "pre-money valuation $12M (corrected from $10M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "round size $3M (corrected from $2M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "Sequoia investment $1.5M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "legal fees $75K (corrected from $50K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "monthly burn $175K (corrected from $150K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "net proceeds $2.925M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "share price $1.20",
+              "type": "quantity",
+              "retained": false
+            }
+          ],
+          "retainedCount": 4,
+          "totalProbes": 7,
+          "overheadTokens": 44378
+        }
+      ]
+    },
+    {
+      "name": "Authoritative Override",
+      "avgRetention": 0.5714285714285714,
+      "retentionByType": {
+        "correction": 1,
+        "quantity": 0
+      },
+      "runs": [
+        {
+          "scenarioName": "Cascading Corrections",
+          "strategyName": "RLM-Fmt(Authoritative Override)",
+          "rep": 1,
+          "probeResults": [
+            {
+              "fact": "pre-money valuation $12M (corrected from $10M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "round size $3M (corrected from $2M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "Sequoia investment $1.5M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "legal fees $75K (corrected from $50K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "monthly burn $175K (corrected from $150K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "net proceeds $2.925M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "share price $1.20",
+              "type": "quantity",
+              "retained": false
+            }
+          ],
+          "retainedCount": 4,
+          "totalProbes": 7,
+          "overheadTokens": 37025
+        },
+        {
+          "scenarioName": "Cascading Corrections",
+          "strategyName": "RLM-Fmt(Authoritative Override)",
+          "rep": 2,
+          "probeResults": [
+            {
+              "fact": "pre-money valuation $12M (corrected from $10M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "round size $3M (corrected from $2M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "Sequoia investment $1.5M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "legal fees $75K (corrected from $50K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "monthly burn $175K (corrected from $150K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "net proceeds $2.925M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "share price $1.20",
+              "type": "quantity",
+              "retained": false
+            }
+          ],
+          "retainedCount": 4,
+          "totalProbes": 7,
+          "overheadTokens": 17260
+        }
+      ]
+    },
+    {
+      "name": "Self-Generated Re-Derivation",
+      "avgRetention": 0.5714285714285714,
+      "retentionByType": {
+        "correction": 1,
+        "quantity": 0
+      },
+      "runs": [
+        {
+          "scenarioName": "Cascading Corrections",
+          "strategyName": "RLM-Fmt(Self-Generated Re-Derivation)",
+          "rep": 1,
+          "probeResults": [
+            {
+              "fact": "pre-money valuation $12M (corrected from $10M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "round size $3M (corrected from $2M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "Sequoia investment $1.5M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "legal fees $75K (corrected from $50K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "monthly burn $175K (corrected from $150K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "net proceeds $2.925M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "share price $1.20",
+              "type": "quantity",
+              "retained": false
+            }
+          ],
+          "retainedCount": 4,
+          "totalProbes": 7,
+          "overheadTokens": 37558
+        },
+        {
+          "scenarioName": "Cascading Corrections",
+          "strategyName": "RLM-Fmt(Self-Generated Re-Derivation)",
+          "rep": 2,
+          "probeResults": [
+            {
+              "fact": "pre-money valuation $12M (corrected from $10M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "round size $3M (corrected from $2M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "Sequoia investment $1.5M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "legal fees $75K (corrected from $50K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "monthly burn $175K (corrected from $150K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "net proceeds $2.925M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "share price $1.20",
+              "type": "quantity",
+              "retained": false
+            }
+          ],
+          "retainedCount": 4,
+          "totalProbes": 7,
+          "overheadTokens": 39079
+        }
+      ]
+    },
+    {
+      "name": "Structured Diff",
+      "avgRetention": 0.5714285714285714,
+      "retentionByType": {
+        "correction": 1,
+        "quantity": 0
+      },
+      "runs": [
+        {
+          "scenarioName": "Cascading Corrections",
+          "strategyName": "RLM-Fmt(Structured Diff)",
+          "rep": 1,
+          "probeResults": [
+            {
+              "fact": "pre-money valuation $12M (corrected from $10M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "round size $3M (corrected from $2M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "Sequoia investment $1.5M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "legal fees $75K (corrected from $50K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "monthly burn $175K (corrected from $150K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "net proceeds $2.925M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "share price $1.20",
+              "type": "quantity",
+              "retained": false
+            }
+          ],
+          "retainedCount": 4,
+          "totalProbes": 7,
+          "overheadTokens": 27045
+        },
+        {
+          "scenarioName": "Cascading Corrections",
+          "strategyName": "RLM-Fmt(Structured Diff)",
+          "rep": 2,
+          "probeResults": [
+            {
+              "fact": "pre-money valuation $12M (corrected from $10M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "round size $3M (corrected from $2M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "Sequoia investment $1.5M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "legal fees $75K (corrected from $50K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "monthly burn $175K (corrected from $150K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "net proceeds $2.925M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "share price $1.20",
+              "type": "quantity",
+              "retained": false
+            }
+          ],
+          "retainedCount": 4,
+          "totalProbes": 7,
+          "overheadTokens": 42297
+        }
+      ]
+    },
+    {
+      "name": "Socratic Elicitation",
+      "avgRetention": 0.5714285714285714,
+      "retentionByType": {
+        "correction": 1,
+        "quantity": 0
+      },
+      "runs": [
+        {
+          "scenarioName": "Cascading Corrections",
+          "strategyName": "RLM-Fmt(Socratic Elicitation)",
+          "rep": 1,
+          "probeResults": [
+            {
+              "fact": "pre-money valuation $12M (corrected from $10M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "round size $3M (corrected from $2M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "Sequoia investment $1.5M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "legal fees $75K (corrected from $50K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "monthly burn $175K (corrected from $150K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "net proceeds $2.925M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "share price $1.20",
+              "type": "quantity",
+              "retained": false
+            }
+          ],
+          "retainedCount": 4,
+          "totalProbes": 7,
+          "overheadTokens": 33745
+        },
+        {
+          "scenarioName": "Cascading Corrections",
+          "strategyName": "RLM-Fmt(Socratic Elicitation)",
+          "rep": 2,
+          "probeResults": [
+            {
+              "fact": "pre-money valuation $12M (corrected from $10M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "round size $3M (corrected from $2M)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "Sequoia investment $1.5M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "legal fees $75K (corrected from $50K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "monthly burn $175K (corrected from $150K)",
+              "type": "correction",
+              "retained": true
+            },
+            {
+              "fact": "net proceeds $2.925M",
+              "type": "quantity",
+              "retained": false
+            },
+            {
+              "fact": "share price $1.20",
+              "type": "quantity",
+              "retained": false
+            }
+          ],
+          "retainedCount": 4,
+          "totalProbes": 7,
+          "overheadTokens": 32896
+        }
+      ]
+    }
+  ],
+  "comparison": {
+    "best": "Explicit Negation",
+    "bestRetention": 0.5714285714285714,
+    "worst": "Socratic Elicitation",
+    "worstRetention": 0.5714285714285714,
+    "spreadPP": 0,
+    "killCriteriaMet": true,
+    "recommendation": "abandon"
+  }
+}

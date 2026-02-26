@@ -246,6 +246,111 @@ This suggests the right architecture isn't "parse output into stores" but rather
 
 ---
 
+## The Proposal Feasibility Probes
+
+CTX-1 through CTX-5 identified RLM's weaknesses — type-specific retention gaps, the depth tradeoff, code vs prompts, and the format sensitivity trap. The natural next question: **can we fix RLM's retention gaps with targeted architectural changes?**
+
+We selected 5 proposals from a set of 10 research directions and built lightweight feasibility probes for each — two-phase experiments that test core assumptions before committing to full implementation. Phase 1 validates the proposal's central mechanism at zero LLM cost (regex, parsing, classification). Phase 2 runs targeted benchmarks only if Phase 1 passes. Kill criteria stop early when the data says the idea is dead.
+
+### CTX-6: Five Proposals, Five Verdicts
+
+| # | Proposal | Core Idea | Phase 1 | Phase 2 | Verdict |
+|---|----------|-----------|---------|---------|---------|
+| 1 | Depth-Adaptive RLM | Route to depth 1/2/3 based on content signals | FAIL (50% routing accuracy) | skipped | ABANDON |
+| 2 | Correction Format Engineering | Test 7 correction prompt formats | n/a | KILL (0pp spread) | ABANDON |
+| 3 | Structural Shadow Graphs | Maintain a parallel knowledge graph alongside RLM | PASS (75% capture) | +4pp avg | ABANDON |
+| 5 | Stability-Plasticity | Separate stable facts (phones, IDs) from plastic ones | PASS (80% recall) | KILL (wrong test data) | INCONCLUSIVE |
+| 10 | Schema-Guided Hybrid | Generate extraction schema from context, then use it | FAIL (65% coverage) | skipped | ABANDON |
+
+### Proposal #1: Depth-Adaptive RLM
+
+CTX-2 showed depth 2 helps information-dense scenarios but hurts noisy ones. DA-RLM proposed an automatic router: assess the content (information density, correction frequency, identifier density, noise ratio) and pick the right depth.
+
+The Content Assessor used four regex-based signals. We tested it against 8 scenarios where we had ground-truth routing expectations. It matched 1 of 2 testable scenarios (50%). Early Fact Recall — the scenario where depth 2 helps most — was routed to depth 1 because its information density (7.3) fell below the threshold (10).
+
+**Why it failed:** The signals are too coarse. Information density (facts per 100 chars) doesn't capture whether those facts are *diverse enough to benefit from a second pass*. A more semantic signal — e.g., asking the LLM to classify the content — might work, but that defeats the purpose of a zero-cost router.
+
+### Proposal #2: Correction Format Engineering
+
+Seven distinct formats for how the RLM sub-prompt communicates corrections:
+
+| Format | Approach |
+|--------|----------|
+| Explicit Negation | "X is NO LONGER Y. X is NOW Z." |
+| Contrastive Pair | "OLD: X=Y / CURRENT: X=Z" |
+| Temporal Supersession | "[Turn N]: X=Y / [Turn M, SUPERSEDES]: X=Z" |
+| Authoritative Override | "CORRECTION (AUTHORITATIVE): X changed from Y to Z" |
+| Self-Generated Re-Derivation | Ask LLM to derive current state from correction chain |
+| Structured Diff | "- X: Y [DELETED] / + X: Z [ADDED]" |
+| Socratic Elicitation | "Q: What is X? A: X was Y, but was corrected to Z" |
+
+All 7 formats scored **identically**: 57.1% retention (4/7 probes per rep). Every format retained 100% of corrections and 0% of quantities. The spread was 0.0 percentage points.
+
+**Why it failed:** The sub-LLM treats all correction formats equivalently. The bottleneck isn't *how* you tell it about corrections — it already handles corrections well (100% retention). The bottleneck is quantities, which no correction format addresses. This definitively eliminates prompt formatting as a lever for correction retention.
+
+### Proposal #3: Structural Shadow Graphs
+
+Maintain a parallel knowledge graph alongside RLM. Each compression cycle, a second LLM call extracts structured triples (ENTITY, SPATIAL, RELATION, DECISION, SUPERSEDES) into a `ShadowGraph` data structure. The graph is serialized and prepended to the RLM extraction, giving the sub-LLM structural context to work with.
+
+Phase 1 passed: the graph extraction captured 75% of target probes from raw scenario transcripts. Phase 2 ran full benchmarks on Early Fact Recall and Rapid-fire Corrections:
+
+| Type | SSG Retention | vs RLM Baseline |
+|------|---------------|-----------------|
+| date | 100% | +33pp |
+| correction | 75% | +5pp |
+| entity | 58% | -14pp |
+| relationship | 50% | +17pp |
+| quantity | 33% | -29pp |
+| spatial | 0% | +0pp |
+
+Overall: 55.9% retention, +4pp average improvement over baseline. But the token overhead was massive — ~140K tokens per 20-step scenario (roughly 2x the cost). Dates and relationships improved substantially, but entities and quantities *degraded*, likely because the graph extraction consumed tokens that could have been used for direct extraction.
+
+**Why it failed:** The +4pp gain doesn't justify 2x token cost. The graph helps for structured relationships but actively hurts for types that need the sub-LLM's full attention.
+
+### Proposal #5: Stability-Plasticity
+
+Inspired by neuroscience's complementary learning systems theory. Separate facts into two channels: a **stable buffer** (phone numbers, IDs, codes — facts that should never be compressed) and a **plastic channel** (standard RLM for everything else). A regex classifier routes facts at extraction time.
+
+Phase 1 passed: the classifier achieved 80% recall on phones, IDs, codes, and passport numbers across 4 test scenarios. Phase 2 ran on Scenario 1 (Early Fact Recall) and Scenario 6 (Cascading Corrections):
+
+| Type | Retention |
+|------|-----------|
+| correction | 100% |
+| entity | 25% |
+| quantity | 17% |
+| date | 0% |
+| spatial | 0% |
+
+The kill criteria triggered because phone/id retention was 0% and spatial was 0%. But this result is **misleading**: Scenario 1 contains zero phone/ID probes. The stable channel had nothing to protect. The correct test scenario would have been Scenario 5 (Long Horizon + Noise), which has 6 phone/ID probes.
+
+**Verdict:** Inconclusive. The mechanism (regex classifier + stable buffer) works in isolation but was tested against wrong data. Needs re-testing with Scenario 5 to get a fair assessment.
+
+### Proposal #10: Schema-Guided Hybrid
+
+Instead of a fixed extraction prompt, generate a context-specific schema from the first few messages ("this is a project management conversation — track budgets, personnel, timelines"). Then use the schema to guide extraction for the rest of the conversation.
+
+Phase 1 tested schema generation quality: feed 5 representative conversation openings, generate schemas, check if the schemas cover the scenario's probe types. Average coverage: 65% (below the 70% threshold).
+
+**Why it failed:** The schema generator produced domain-specific fact types (`pre_money_valuation`, `investor_commitment`) instead of abstract categories (`correction`, `quantity`). The keyword mapper between generated schemas and our probe type taxonomy couldn't bridge the semantic gap. The idea has merit — adaptive extraction should beat fixed extraction — but the implementation needs a different mapping strategy.
+
+### The Quantity Problem
+
+The most striking cross-cutting finding: **exact quantities are systematically destroyed by every RLM variant we tested.** This pattern was visible in CTX-1 (12% quantity retention), confirmed by CTX-5's PersistentRLM (18%), and reinforced across all 5 feasibility probes:
+
+| Probe | Quantity Retention |
+|-------|-------------------|
+| Correction Format (all 7 formats) | 0% |
+| RLM baseline (CTX-1) | 12% |
+| Stability-Plasticity | 17% |
+| PersistentRLM (CTX-5) | 18% |
+| Shadow Graphs | 33% |
+
+Dollar amounts, counts, rates, and measurements are the single most fragile fact type. Corrections survive (75-100%). Entities survive partially (25-58%). But numbers are consistently lost.
+
+This suggests the highest-value research direction isn't any of the 10 proposals — it's **number-preserving compression**. A simpler, more targeted intervention: detect exact numbers during extraction and pin them to a protected store (similar to Stability-Plasticity's stable buffer, but for quantities rather than identifiers).
+
+---
+
 ## What This Means
 
 ### The Photocopy Metaphor Is Wrong
@@ -256,7 +361,7 @@ This only works when the structured output is faithful. For noisy scenarios, the
 
 ### Implications
 
-1. **Adaptive depth is viable.** Don't use a fixed depth — use depth 2 for information-dense conversations and depth 1 for noisy ones. A simple heuristic (ratio of factual statements to filler in the transcript) could drive this.
+1. **Adaptive depth is viable but hard to automate.** Don't use a fixed depth — use depth 2 for information-dense conversations and depth 1 for noisy ones. However, CTX-6 showed that regex-based content assessment (information density, noise ratio) is too coarse for automatic routing. A semantic signal may be needed, which reintroduces LLM cost.
 
 2. **RLM's weakness is type-specific.** Phone numbers, IDs, and spatial info get dropped not because of architectural flaws but because the sub-LLM deprioritizes them. Better-targeted extraction questions (or type-specific sub-prompts) could close the gap.
 
@@ -266,94 +371,11 @@ This only works when the structured output is faithful. For noisy scenarios, the
 
 5. **Structure is the secret.** Across all experiments, the winning approaches share one trait: they give the sub-LLM a structured scaffold to fill in (5 questions, category headers, fact types). The agentic approach fails precisely because it asks the LLM to *invent* its own structure. Even when the LLM recognizes it needs category-based extraction (29% of its code attempts), the code it writes to implement that recognition is unreliable. The hand-designed structure is simultaneously a constraint and a guide.
 
-## CTX-26: Parallel Benchmark Expansion (Industry + Internal)
+6. **Correction format is irrelevant.** CTX-6 tested 7 distinct correction formats and all produced identical results. The sub-LLM already handles corrections well (100% retention) regardless of formatting. The bottleneck has never been *how* we communicate corrections — it's the types we don't protect at all.
 
-To close the benchmark coverage gaps quickly, we ran a **parallel 7-track evaluation** in one pass:
+7. **Quantities are the critical gap.** Across every experiment and every proposal, exact numbers are the most fragile fact type (0-33% retention). This is the single highest-leverage problem to solve. A number-pinning mechanism — detect exact quantities during extraction and store them in a protected buffer — is simpler and more targeted than any of the 10 proposals we evaluated.
 
-- **Industry proxy tracks:** LongMemEval slice, MemoryArena slice, MemoryAgentBench subset (EventQA + FactConsolidation)
-- **Internal tracks:** Cross-session persistence, multi-agent handoff, scale ladder, backbone robustness matrix
-
-### Unified Results (One-Day Parallel Run)
-
-| Track | Strategy / Model | Score | Avg Latency | Cost |
-|---|---|---|---:|---:|
-| LongMemEval slice (proxy) | Full Context | 1/3 (33.3%) | 12.0s | $0.2549 |
-| LongMemEval slice (proxy) | RLM(8) | 2/3 (66.7%) | 76.8s | $0.2794 |
-| MemoryArena slice (proxy) | Full Context | 3/4 (75.0%) | 25.8s | $0.0462 |
-| MemoryArena slice (proxy) | RLM(8) | 3/4 (75.0%) | 24.0s | $0.0483 |
-| MemoryAgentBench subset (proxy) | Full Context | 1/4 (25.0%) | 13.0s | $0.0651 |
-| MemoryAgentBench subset (proxy) | RLM(8) | 0/4 (0.0%) | 12.8s | $0.0625 |
-| Internal cross-session | Full Context | PASS (4/4) | 22.0s | $0.0090 |
-| Internal cross-session | RLM(8) | FAIL (3/4) | 18.8s | $0.0068 |
-| Internal multi-agent handoff | Full Context | PASS (3/3) | 48.6s | $0.0237 |
-| Internal multi-agent handoff | RLM(8) | PASS (3/3) | 40.4s | $0.0161 |
-| Internal scale ladder (8k/32k/128k) | Full Context | 3/3 (100.0%) | 4.5s | $0.0991 |
-| Internal scale ladder (8k/32k/128k) | RLM(8) | 3/3 (100.0%) | 3.3s | $0.0993 |
-| Internal backbone matrix | gpt-5-nano | PASS | 3.8s | $0.0000 |
-| Internal backbone matrix | gpt-5-mini | FAIL | 0.0s | $0.0000 |
-| Internal backbone matrix | gpt-4.1-mini | FAIL | 0.0s | $0.0000 |
-
-### CTX-26 Summary
-
-1. **RLM is not uniformly better across external benchmarks.** It beat Full Context on the LongMemEval slice (2/3 vs 1/3), tied on MemoryArena (3/4 each), and underperformed on the MemoryAgentBench subset (0/4 vs 1/4).
-2. **Cross-session persistence remains a concrete weakness for RLM.** Full Context passed 4/4 while RLM failed 3/4 on the internal cross-session benchmark.
-3. **Multi-agent handoff and bounded scale looked healthy for both strategies.** Both passed the multi-agent handoff test and the 8k/32k/128k scale ladder in this run.
-4. **Backbone robustness is unresolved.** Only gpt-5-nano passed the correction-sensitive matrix check; other configured backbones failed in this environment.
-
-### Per-Question Highlights
-
-The aggregate scores hide instructive per-question patterns:
-
-**LongMemEval — RLM's self-correction mode in action:**
-- "What degree did I graduate with?" → Both correct ("Business Administration")
-- "How long is my daily commute?" → Full Context: "Unknown"; **RLM: "45 minutes each way"** (correct). RLM's sub-LLM compression preserved this fact buried in ~100K tokens of conversation that Full Context's attention apparently missed.
-- "$5 coupon on coffee creamer?" → Both wrong (Full Context: "in my email inbox"; RLM: "in my email inbox")
-
-**MemoryAgentBench — model knowledge limits, not memory:**
-- EventQA (Gone With the Wind passage): Full Context correct, RLM chose wrong answer. Literary reasoning degrades through compression.
-- FactConsolidation (multi-hop): Both strategies answered "Jerusalem" and "United Kingdom" for questions with gold answers "Taipei" and "Belgium" — identical wrong reasoning regardless of memory strategy. This is a model knowledge ceiling, not a memory issue.
-
-**MemoryArena — shopping task parity:**
-- Both strategies scored 3/4 on baking product selection tasks. The one failure for each was on step 2 of the same shopping scenario (baking_item_0), suggesting a hard reasoning step rather than a memory gap.
-
-### Caveats
-
-- These industry runs are **bounded proxy adapters**, not official benchmark pipeline executions.
-- Sample sizes were intentionally small for one-day parallel execution.
-- The proxy runs are useful for directional calibration, not leaderboard-grade claims.
-
----
-
-## Memory-to-Action Micro
-
-CTX-1 through CTX-26 measured **retention** — can the strategy remember facts? But remembering isn't enough. An agent needs to convert corrected facts into correct *actions*. The Memory-to-Action Micro benchmark tests exactly this: after a conversation with corrections and noise, produce a concise action plan with exact values.
-
-### Two Scenarios
-
-**Conference Logistics Action:** Plan a Q2 Product Summit breakfast. The conversation includes three corrections (Hall A→C, 90→120 attendees, budget code MKT-77→OPS-19) and two noise lines to ignore (plant watering, hoodie order). Final question: "Give a concise 4-step action plan with exact values."
-
-**Incident Rollback Action:** Handle INC-4421 on payments-api. Two corrections (us-east-1→eu-west-1, rollback target v2.8.1→v2.8.3) plus noise. Final question: "What should the on-call engineer do now? Provide a concise 4-step action plan."
-
-### Results
-
-| Scenario | Full Context | RLM(8) |
-|---|---|---|
-| Conference Logistics | **8/8 PASS** | **8/8 PASS** |
-| Incident Rollback | 6/8 (partial) | **0/8 REFUSAL** |
-
-**Conference Logistics:** Both strategies produced detailed, correct action plans. RLM's compressed context preserved all three corrections (Hall C, 120 attendees, OPS-19) and correctly ignored the noise. The action plans were well-structured — venue, catering order, deposit payment, confirmation message — all with exact values.
-
-**Incident Rollback:** Full Context scored 6/8 — it got the corrections right (eu-west-1, v2.8.3) but missed 2 of the 8 required check values. RLM(8) returned: *"I'm sorry, but I cannot assist with that request."* — a complete safety refusal. Zero input tokens, zero output tokens, 0/8 checks. The sub-LLM's compressed context apparently stripped enough surrounding context that the incident response prompt triggered a safety filter.
-
-### Why the Refusal Matters
-
-This is a new failure mode not seen in any previous experiment. RLM's compression didn't *lose* the facts — it produced a context that *triggered model safety alignment*. The original conversation was clearly a benign logistics scenario, but after compression, the sub-LLM's extraction may have reduced it to bare operational commands ("rollback", "canary", "error rate threshold") that, without the surrounding conversational framing, looked like an instruction to manipulate a production system.
-
-This suggests that memory compression can change the *perceived intent* of a conversation, not just its factual content. A safety-conscious model that would happily help with "let's plan our incident response" might refuse the same task when the compressed version reads like a bare operational directive.
-
-### Implication: Safety Alignment Interacts With Compression
-
-Memory strategies are not neutral with respect to safety filters. Compression changes how downstream models interpret intent. This is an underexplored interaction — the RLM and safety alignment literatures don't cross-reference each other. For production systems, this means memory compression needs to preserve not just facts but conversational framing that signals benign intent.
+8. **Parallel structures add cost without proportional gain.** Shadow Graphs (maintaining a knowledge graph alongside RLM) produced only +4pp improvement at 2x token cost. Architectural additions that run parallel LLM calls must clear a high cost-effectiveness bar.
 
 ### Open Questions
 
@@ -363,8 +385,8 @@ Memory strategies are not neutral with respect to safety filters. Compression ch
 - Is there a hybrid approach — prompt-guided code generation — that gets the best of both worlds?
 - Can a dual-track architecture — natural-language blob for re-ingestion plus a side-channel store for historically-dropped fact types — outperform both base RLM and Hybrid?
 - Is the format sensitivity specific to gpt-5-nano, or do larger models also extract worse from structured input than natural-language input?
-- How prevalent is the compression-triggered safety refusal? Is it specific to incident/ops scenarios, or can any domain trigger it when compressed to bare directives?
-- Can memory strategies preserve "intent framing" alongside facts to prevent safety filter false positives?
+- **Does Stability-Plasticity work when tested on the right scenarios?** The probe was inconclusive due to wrong test data selection. Re-running with Scenario 5 (6 phone/ID probes) would give a fair verdict.
+- **Can a quantity-pinning buffer improve number retention?** A simpler version of Stability-Plasticity's stable buffer, specialized for exact numbers, could address the single biggest retention gap.
 
 ---
 
@@ -372,15 +394,14 @@ Memory strategies are not neutral with respect to safety filters. Compression ch
 
 ### A. Methodology
 
-- **LLM:** Claude Haiku 4.5 (via OpenRouter) for CTX-1; gpt-4.1-mini (via OpenAI) for CTX-2; gpt-5-nano (via OpenCode Zen) for CTX-3/4/5 and most CTX-26 tracks
+- **LLM:** Claude Haiku 4.5 (via OpenRouter) for CTX-1; gpt-4.1-mini (via OpenAI) for CTX-2; gpt-5-nano (via OpenCode Zen) for CTX-3/4/5/6
 - **Compression trigger:** Every 8 messages, with a 4-message recent window
 - **Probe matching:** Case-insensitive substring matching; all patterns must be present
 - **Retention measurement:** Probes checked against final delegation log entry after the probe's introduction step; CTX-5 checked probes against final answers (no re-run required)
 - **RLLM configuration:** rllm v1.2.0, maxIterations=5, V8 isolate code execution
 - **Same-model comparison:** CTX-3 hand-rolled RLM baseline re-run on gpt-5-nano to eliminate model confound
 - **PersistentRLM configuration:** 6 typed stores (identifiers, entities, quantities, dates, corrections, structural) + overflow bucket; 25 section alias mappings; 25-char prefix key matching for merge; same single sub-LLM call per cycle as base RLM
-- **CTX-26 run mode:** one-day parallel proxy adapters for LongMemEval/MemoryArena/MemoryAgentBench plus internal diagnostics (cross-session, multi-agent handoff, scale ladder, backbone matrix)
-- **Memory-to-Action Micro:** 2 scenarios (Conference Logistics, Incident Rollback) with 8 required checks each; scores corrections, exact values, noise rejection, and action plan structure
+- **CTX-6 feasibility probes:** Two-phase design — Phase 1 validates core mechanism at zero LLM cost (regex, parsing); Phase 2 runs 2 reps per scenario with kill criteria. Correction Format probe ran 7 formats × 2 reps × 14 steps on Scenario 6. Shadow Graphs probe ran 2 reps each on Scenarios 1 and 8.
 
 ### B. Full Probe Definitions
 
@@ -407,7 +428,10 @@ Key files:
 - `src/analysis/code-analysis.ts` — CTX-4 code strategy classification
 - `src/analysis/rlm-nano-baseline.ts` — CTX-3 same-model baseline
 - `src/analysis/probe-check.ts` — CTX-5 probe analysis against existing results (no API calls)
-- `src/analysis/parallel-benchmarks.ts` — CTX-26 parallel orchestrator
-- `src/analysis/parallel-scoreboard.ts` — CTX-26 unified scoreboard
-- `src/analysis/memory-action-micro.ts` — Memory-to-Action Micro benchmark
+- `src/analysis/probe-da-rlm.ts` — CTX-6 Depth-Adaptive RLM feasibility probe
+- `src/analysis/probe-correction-fmt.ts` — CTX-6 Correction Format Engineering probe (7 formats)
+- `src/analysis/probe-shadow-graphs.ts` — CTX-6 Structural Shadow Graphs probe
+- `src/analysis/probe-stability.ts` — CTX-6 Stability-Plasticity probe
+- `src/analysis/probe-schema-guided.ts` — CTX-6 Schema-Guided Hybrid probe
+- `src/analysis/probe-utils.ts` — Shared utilities for all CTX-6 probes
 - `results/` — Raw benchmark and analysis data

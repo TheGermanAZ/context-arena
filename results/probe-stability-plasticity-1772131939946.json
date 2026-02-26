@@ -1,0 +1,268 @@
+{
+  "proposal": "stability-plasticity",
+  "phase1": {
+    "passed": true,
+    "details": {
+      "recall": 80,
+      "validations": [
+        {
+          "scenarioName": "Early Fact Recall",
+          "totalStableProbes": 1,
+          "hits": 1,
+          "misses": []
+        },
+        {
+          "scenarioName": "Contradiction Resolution",
+          "totalStableProbes": 1,
+          "hits": 1,
+          "misses": []
+        },
+        {
+          "scenarioName": "Multi-hop Reasoning",
+          "totalStableProbes": 2,
+          "hits": 0,
+          "misses": [
+            "floor 3 conference room 50 people",
+            "floor 2 conference room 30 people"
+          ]
+        },
+        {
+          "scenarioName": "Long Horizon + Noise",
+          "totalStableProbes": 6,
+          "hits": 6,
+          "misses": []
+        }
+      ]
+    }
+  },
+  "phase2": {
+    "runs": [
+      {
+        "scenarioName": "Early Fact Recall",
+        "strategyName": "StabilityPlasticity",
+        "rep": 1,
+        "probeResults": [
+          {
+            "fact": "project name Mercury",
+            "type": "entity",
+            "retained": false
+          },
+          {
+            "fact": "budget $347,250",
+            "type": "quantity",
+            "retained": true
+          },
+          {
+            "fact": "project lead Dr. Sarah Chen",
+            "type": "entity",
+            "retained": true
+          },
+          {
+            "fact": "deadline March 15, 2027",
+            "type": "date",
+            "retained": false
+          },
+          {
+            "fact": "frontend uses Svelte (corrected from React)",
+            "type": "correction",
+            "retained": true
+          },
+          {
+            "fact": "QA lead Marcus Williams",
+            "type": "entity",
+            "retained": false
+          },
+          {
+            "fact": "production region us-east-1",
+            "type": "spatial",
+            "retained": false
+          },
+          {
+            "fact": "backend salary $145k-$175k",
+            "type": "quantity",
+            "retained": false
+          },
+          {
+            "fact": "sponsor James Rodriguez VP Engineering",
+            "type": "entity",
+            "retained": false
+          },
+          {
+            "fact": "API rate limit 1000 req/min standard",
+            "type": "quantity",
+            "retained": false
+          }
+        ],
+        "retainedCount": 3,
+        "totalProbes": 10,
+        "overheadTokens": 54085
+      },
+      {
+        "scenarioName": "Early Fact Recall",
+        "strategyName": "StabilityPlasticity",
+        "rep": 2,
+        "probeResults": [
+          {
+            "fact": "project name Mercury",
+            "type": "entity",
+            "retained": false
+          },
+          {
+            "fact": "budget $347,250",
+            "type": "quantity",
+            "retained": true
+          },
+          {
+            "fact": "project lead Dr. Sarah Chen",
+            "type": "entity",
+            "retained": true
+          },
+          {
+            "fact": "deadline March 15, 2027",
+            "type": "date",
+            "retained": false
+          },
+          {
+            "fact": "frontend uses Svelte (corrected from React)",
+            "type": "correction",
+            "retained": true
+          },
+          {
+            "fact": "QA lead Marcus Williams",
+            "type": "entity",
+            "retained": false
+          },
+          {
+            "fact": "production region us-east-1",
+            "type": "spatial",
+            "retained": false
+          },
+          {
+            "fact": "backend salary $145k-$175k",
+            "type": "quantity",
+            "retained": false
+          },
+          {
+            "fact": "sponsor James Rodriguez VP Engineering",
+            "type": "entity",
+            "retained": false
+          },
+          {
+            "fact": "API rate limit 1000 req/min standard",
+            "type": "quantity",
+            "retained": false
+          }
+        ],
+        "retainedCount": 3,
+        "totalProbes": 10,
+        "overheadTokens": 58365
+      },
+      {
+        "scenarioName": "Cascading Corrections",
+        "strategyName": "StabilityPlasticity",
+        "rep": 1,
+        "probeResults": [
+          {
+            "fact": "pre-money valuation $12M (corrected from $10M)",
+            "type": "correction",
+            "retained": true
+          },
+          {
+            "fact": "round size $3M (corrected from $2M)",
+            "type": "correction",
+            "retained": true
+          },
+          {
+            "fact": "Sequoia investment $1.5M",
+            "type": "quantity",
+            "retained": false
+          },
+          {
+            "fact": "legal fees $75K (corrected from $50K)",
+            "type": "correction",
+            "retained": true
+          },
+          {
+            "fact": "monthly burn $175K (corrected from $150K)",
+            "type": "correction",
+            "retained": true
+          },
+          {
+            "fact": "net proceeds $2.925M",
+            "type": "quantity",
+            "retained": false
+          },
+          {
+            "fact": "share price $1.20",
+            "type": "quantity",
+            "retained": false
+          }
+        ],
+        "retainedCount": 4,
+        "totalProbes": 7,
+        "overheadTokens": 34207
+      },
+      {
+        "scenarioName": "Cascading Corrections",
+        "strategyName": "StabilityPlasticity",
+        "rep": 2,
+        "probeResults": [
+          {
+            "fact": "pre-money valuation $12M (corrected from $10M)",
+            "type": "correction",
+            "retained": true
+          },
+          {
+            "fact": "round size $3M (corrected from $2M)",
+            "type": "correction",
+            "retained": true
+          },
+          {
+            "fact": "Sequoia investment $1.5M",
+            "type": "quantity",
+            "retained": false
+          },
+          {
+            "fact": "legal fees $75K (corrected from $50K)",
+            "type": "correction",
+            "retained": true
+          },
+          {
+            "fact": "monthly burn $175K (corrected from $150K)",
+            "type": "correction",
+            "retained": true
+          },
+          {
+            "fact": "net proceeds $2.925M",
+            "type": "quantity",
+            "retained": false
+          },
+          {
+            "fact": "share price $1.20",
+            "type": "quantity",
+            "retained": false
+          }
+        ],
+        "retainedCount": 4,
+        "totalProbes": 7,
+        "overheadTokens": 28287
+      }
+    ],
+    "retentionByType": {
+      "entity": 0.25,
+      "quantity": 0.16666666666666666,
+      "date": 0,
+      "correction": 1,
+      "spatial": 0
+    },
+    "comparisonToBaseline": {
+      "entity": 0.25,
+      "quantity": 0.16666666666666666,
+      "date": 0,
+      "correction": 1,
+      "spatial": 0
+    }
+  },
+  "killCriteriaMet": true,
+  "recommendation": "abandon"
+}
