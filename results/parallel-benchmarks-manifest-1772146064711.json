@@ -1,0 +1,67 @@
+{
+  "startedAt": "2026-02-26T22:43:18.121Z",
+  "finishedAt": "2026-02-26T22:47:44.711Z",
+  "jobs": [
+    {
+      "name": "industry-longmemeval",
+      "script": "src/analysis/longmemeval-slice.ts",
+      "args": [
+        "--sample=3",
+        "--ingest-batch=8"
+      ],
+      "exitCode": 0,
+      "artifactPath": "results/longmemeval-slice-1772146064700.json"
+    },
+    {
+      "name": "industry-memoryarena",
+      "script": "src/analysis/memoryarena-slice.ts",
+      "args": [
+        "--sample=2",
+        "--steps=2"
+      ],
+      "exitCode": 0,
+      "artifactPath": "results/memoryarena-slice-1772145997802.json"
+    },
+    {
+      "name": "industry-memoryagentbench",
+      "script": "src/analysis/memoryagentbench-slice.ts",
+      "args": [
+        "--sample=2"
+      ],
+      "exitCode": 0,
+      "artifactPath": "results/memoryagentbench-slice-1772145912608.json"
+    },
+    {
+      "name": "internal-cross-session",
+      "script": "src/analysis/internal-cross-session.ts",
+      "args": [],
+      "exitCode": 0,
+      "artifactPath": "results/internal-cross-session-1772145850703.json"
+    },
+    {
+      "name": "internal-multi-agent",
+      "script": "src/analysis/internal-multi-agent.ts",
+      "args": [],
+      "exitCode": 0,
+      "artifactPath": "results/internal-multi-agent-1772145887217.json"
+    },
+    {
+      "name": "internal-scale-ladder",
+      "script": "src/analysis/internal-scale-ladder.ts",
+      "args": [
+        "--tiers=8000,32000,128000"
+      ],
+      "exitCode": 0,
+      "artifactPath": "results/internal-scale-ladder-1772145821637.json"
+    },
+    {
+      "name": "internal-backbone-matrix",
+      "script": "src/analysis/internal-backbone-matrix.ts",
+      "args": [
+        "--models=gpt-5-nano,gpt-5-mini,gpt-4.1-mini"
+      ],
+      "exitCode": 0,
+      "artifactPath": "results/internal-backbone-matrix-1772145802060.json"
+    }
+  ]
+}

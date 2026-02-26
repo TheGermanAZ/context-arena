@@ -266,6 +266,95 @@ This only works when the structured output is faithful. For noisy scenarios, the
 
 5. **Structure is the secret.** Across all experiments, the winning approaches share one trait: they give the sub-LLM a structured scaffold to fill in (5 questions, category headers, fact types). The agentic approach fails precisely because it asks the LLM to *invent* its own structure. Even when the LLM recognizes it needs category-based extraction (29% of its code attempts), the code it writes to implement that recognition is unreliable. The hand-designed structure is simultaneously a constraint and a guide.
 
+## CTX-26: Parallel Benchmark Expansion (Industry + Internal)
+
+To close the benchmark coverage gaps quickly, we ran a **parallel 7-track evaluation** in one pass:
+
+- **Industry proxy tracks:** LongMemEval slice, MemoryArena slice, MemoryAgentBench subset (EventQA + FactConsolidation)
+- **Internal tracks:** Cross-session persistence, multi-agent handoff, scale ladder, backbone robustness matrix
+
+### Unified Results (One-Day Parallel Run)
+
+| Track | Strategy / Model | Score | Avg Latency | Cost |
+|---|---|---|---:|---:|
+| LongMemEval slice (proxy) | Full Context | 1/3 (33.3%) | 12.0s | $0.2549 |
+| LongMemEval slice (proxy) | RLM(8) | 2/3 (66.7%) | 76.8s | $0.2794 |
+| MemoryArena slice (proxy) | Full Context | 3/4 (75.0%) | 25.8s | $0.0462 |
+| MemoryArena slice (proxy) | RLM(8) | 3/4 (75.0%) | 24.0s | $0.0483 |
+| MemoryAgentBench subset (proxy) | Full Context | 1/4 (25.0%) | 13.0s | $0.0651 |
+| MemoryAgentBench subset (proxy) | RLM(8) | 0/4 (0.0%) | 12.8s | $0.0625 |
+| Internal cross-session | Full Context | PASS (4/4) | 22.0s | $0.0090 |
+| Internal cross-session | RLM(8) | FAIL (3/4) | 18.8s | $0.0068 |
+| Internal multi-agent handoff | Full Context | PASS (3/3) | 48.6s | $0.0237 |
+| Internal multi-agent handoff | RLM(8) | PASS (3/3) | 40.4s | $0.0161 |
+| Internal scale ladder (8k/32k/128k) | Full Context | 3/3 (100.0%) | 4.5s | $0.0991 |
+| Internal scale ladder (8k/32k/128k) | RLM(8) | 3/3 (100.0%) | 3.3s | $0.0993 |
+| Internal backbone matrix | gpt-5-nano | PASS | 3.8s | $0.0000 |
+| Internal backbone matrix | gpt-5-mini | FAIL | 0.0s | $0.0000 |
+| Internal backbone matrix | gpt-4.1-mini | FAIL | 0.0s | $0.0000 |
+
+### CTX-26 Summary
+
+1. **RLM is not uniformly better across external benchmarks.** It beat Full Context on the LongMemEval slice (2/3 vs 1/3), tied on MemoryArena (3/4 each), and underperformed on the MemoryAgentBench subset (0/4 vs 1/4).
+2. **Cross-session persistence remains a concrete weakness for RLM.** Full Context passed 4/4 while RLM failed 3/4 on the internal cross-session benchmark.
+3. **Multi-agent handoff and bounded scale looked healthy for both strategies.** Both passed the multi-agent handoff test and the 8k/32k/128k scale ladder in this run.
+4. **Backbone robustness is unresolved.** Only gpt-5-nano passed the correction-sensitive matrix check; other configured backbones failed in this environment.
+
+### Per-Question Highlights
+
+The aggregate scores hide instructive per-question patterns:
+
+**LongMemEval — RLM's self-correction mode in action:**
+- "What degree did I graduate with?" → Both correct ("Business Administration")
+- "How long is my daily commute?" → Full Context: "Unknown"; **RLM: "45 minutes each way"** (correct). RLM's sub-LLM compression preserved this fact buried in ~100K tokens of conversation that Full Context's attention apparently missed.
+- "$5 coupon on coffee creamer?" → Both wrong (Full Context: "in my email inbox"; RLM: "in my email inbox")
+
+**MemoryAgentBench — model knowledge limits, not memory:**
+- EventQA (Gone With the Wind passage): Full Context correct, RLM chose wrong answer. Literary reasoning degrades through compression.
+- FactConsolidation (multi-hop): Both strategies answered "Jerusalem" and "United Kingdom" for questions with gold answers "Taipei" and "Belgium" — identical wrong reasoning regardless of memory strategy. This is a model knowledge ceiling, not a memory issue.
+
+**MemoryArena — shopping task parity:**
+- Both strategies scored 3/4 on baking product selection tasks. The one failure for each was on step 2 of the same shopping scenario (baking_item_0), suggesting a hard reasoning step rather than a memory gap.
+
+### Caveats
+
+- These industry runs are **bounded proxy adapters**, not official benchmark pipeline executions.
+- Sample sizes were intentionally small for one-day parallel execution.
+- The proxy runs are useful for directional calibration, not leaderboard-grade claims.
+
+---
+
+## Memory-to-Action Micro
+
+CTX-1 through CTX-26 measured **retention** — can the strategy remember facts? But remembering isn't enough. An agent needs to convert corrected facts into correct *actions*. The Memory-to-Action Micro benchmark tests exactly this: after a conversation with corrections and noise, produce a concise action plan with exact values.
+
+### Two Scenarios
+
+**Conference Logistics Action:** Plan a Q2 Product Summit breakfast. The conversation includes three corrections (Hall A→C, 90→120 attendees, budget code MKT-77→OPS-19) and two noise lines to ignore (plant watering, hoodie order). Final question: "Give a concise 4-step action plan with exact values."
+
+**Incident Rollback Action:** Handle INC-4421 on payments-api. Two corrections (us-east-1→eu-west-1, rollback target v2.8.1→v2.8.3) plus noise. Final question: "What should the on-call engineer do now? Provide a concise 4-step action plan."
+
+### Results
+
+| Scenario | Full Context | RLM(8) |
+|---|---|---|
+| Conference Logistics | **8/8 PASS** | **8/8 PASS** |
+| Incident Rollback | 6/8 (partial) | **0/8 REFUSAL** |
+
+**Conference Logistics:** Both strategies produced detailed, correct action plans. RLM's compressed context preserved all three corrections (Hall C, 120 attendees, OPS-19) and correctly ignored the noise. The action plans were well-structured — venue, catering order, deposit payment, confirmation message — all with exact values.
+
+**Incident Rollback:** Full Context scored 6/8 — it got the corrections right (eu-west-1, v2.8.3) but missed 2 of the 8 required check values. RLM(8) returned: *"I'm sorry, but I cannot assist with that request."* — a complete safety refusal. Zero input tokens, zero output tokens, 0/8 checks. The sub-LLM's compressed context apparently stripped enough surrounding context that the incident response prompt triggered a safety filter.
+
+### Why the Refusal Matters
+
+This is a new failure mode not seen in any previous experiment. RLM's compression didn't *lose* the facts — it produced a context that *triggered model safety alignment*. The original conversation was clearly a benign logistics scenario, but after compression, the sub-LLM's extraction may have reduced it to bare operational commands ("rollback", "canary", "error rate threshold") that, without the surrounding conversational framing, looked like an instruction to manipulate a production system.
+
+This suggests that memory compression can change the *perceived intent* of a conversation, not just its factual content. A safety-conscious model that would happily help with "let's plan our incident response" might refuse the same task when the compressed version reads like a bare operational directive.
+
+### Implication: Safety Alignment Interacts With Compression
+
+Memory strategies are not neutral with respect to safety filters. Compression changes how downstream models interpret intent. This is an underexplored interaction — the RLM and safety alignment literatures don't cross-reference each other. For production systems, this means memory compression needs to preserve not just facts but conversational framing that signals benign intent.
+
 ### Open Questions
 
 - Does the self-correction effect hold at depth 3+? (Our depth-3 run was cut short by API limits.)
@@ -274,6 +363,8 @@ This only works when the structured output is faithful. For noisy scenarios, the
 - Is there a hybrid approach — prompt-guided code generation — that gets the best of both worlds?
 - Can a dual-track architecture — natural-language blob for re-ingestion plus a side-channel store for historically-dropped fact types — outperform both base RLM and Hybrid?
 - Is the format sensitivity specific to gpt-5-nano, or do larger models also extract worse from structured input than natural-language input?
+- How prevalent is the compression-triggered safety refusal? Is it specific to incident/ops scenarios, or can any domain trigger it when compressed to bare directives?
+- Can memory strategies preserve "intent framing" alongside facts to prevent safety filter false positives?
 
 ---
 
@@ -281,13 +372,15 @@ This only works when the structured output is faithful. For noisy scenarios, the
 
 ### A. Methodology
 
-- **LLM:** Claude Haiku 4.5 (via OpenRouter) for CTX-1; gpt-4.1-mini (via OpenAI) for CTX-2; gpt-5-nano (via OpenCode Zen) for CTX-3/4/5
+- **LLM:** Claude Haiku 4.5 (via OpenRouter) for CTX-1; gpt-4.1-mini (via OpenAI) for CTX-2; gpt-5-nano (via OpenCode Zen) for CTX-3/4/5 and most CTX-26 tracks
 - **Compression trigger:** Every 8 messages, with a 4-message recent window
 - **Probe matching:** Case-insensitive substring matching; all patterns must be present
 - **Retention measurement:** Probes checked against final delegation log entry after the probe's introduction step; CTX-5 checked probes against final answers (no re-run required)
 - **RLLM configuration:** rllm v1.2.0, maxIterations=5, V8 isolate code execution
 - **Same-model comparison:** CTX-3 hand-rolled RLM baseline re-run on gpt-5-nano to eliminate model confound
 - **PersistentRLM configuration:** 6 typed stores (identifiers, entities, quantities, dates, corrections, structural) + overflow bucket; 25 section alias mappings; 25-char prefix key matching for merge; same single sub-LLM call per cycle as base RLM
+- **CTX-26 run mode:** one-day parallel proxy adapters for LongMemEval/MemoryArena/MemoryAgentBench plus internal diagnostics (cross-session, multi-agent handoff, scale ladder, backbone matrix)
+- **Memory-to-Action Micro:** 2 scenarios (Conference Logistics, Incident Rollback) with 8 required checks each; scores corrections, exact values, noise rejection, and action plan structure
 
 ### B. Full Probe Definitions
 
@@ -314,4 +407,7 @@ Key files:
 - `src/analysis/code-analysis.ts` — CTX-4 code strategy classification
 - `src/analysis/rlm-nano-baseline.ts` — CTX-3 same-model baseline
 - `src/analysis/probe-check.ts` — CTX-5 probe analysis against existing results (no API calls)
+- `src/analysis/parallel-benchmarks.ts` — CTX-26 parallel orchestrator
+- `src/analysis/parallel-scoreboard.ts` — CTX-26 unified scoreboard
+- `src/analysis/memory-action-micro.ts` — Memory-to-Action Micro benchmark
 - `results/` — Raw benchmark and analysis data

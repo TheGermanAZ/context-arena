@@ -1,0 +1,32 @@
+{
+  "assigned_to": null,
+  "branch_links": [],
+  "comment_count": 3,
+  "complexity": null,
+  "created_at": "2026-02-26T22:34:18Z",
+  "created_by": "agent:codex",
+  "custom_fields": {},
+  "description": null,
+  "done_at": "2026-02-26T22:38:49Z",
+  "evidence_refs": [
+    {
+      "id": "ev_01KJE1N46F1PCV1YN6VQ4SBF25",
+      "role": "review",
+      "source_type": "comment"
+    }
+  ],
+  "id": "task_01KJE1DBXW4GB4BFMC71GP5FX9",
+  "last_event_id": "ev_01KJE1NN4DXG9WTJMCBJA1GYAA",
+  "last_status_changed_at": "2026-02-26T22:38:49Z",
+  "priority": "medium",
+  "relationships_out": [],
+  "reopened_count": 0,
+  "schema_version": 1,
+  "short_id": "CTX-25",
+  "status": "done",
+  "tags": null,
+  "title": "Reorganize strategy animation section layout",
+  "type": "task",
+  "updated_at": "2026-02-26T22:38:49Z",
+  "urgency": null
+}

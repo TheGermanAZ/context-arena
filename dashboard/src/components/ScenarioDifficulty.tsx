@@ -2,10 +2,17 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell, ResponsiveCo
 import { useScenarioDifficulty } from '../lib/hooks';
 import { useFilterOptional } from '../lib/FilterContext';
 import { Skeleton, ErrorCard } from './charts';
+import type { ScenarioDifficultyEntry } from '../lib/types';
 
-function DifficultyTooltip({ active, payload }: any) {
+interface DifficultyTooltipProps {
+  active?: boolean;
+  payload?: Array<{ payload?: ScenarioDifficultyEntry }>;
+}
+
+function DifficultyTooltip({ active, payload }: DifficultyTooltipProps) {
   if (!active || !payload?.[0]) return null;
   const d = payload[0].payload;
+  if (!d) return null;
   return (
     <div style={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', padding: '12px' }}>
       <p style={{ color: '#f3f4f6', fontWeight: 600, marginBottom: 4 }}>{d.name}</p>

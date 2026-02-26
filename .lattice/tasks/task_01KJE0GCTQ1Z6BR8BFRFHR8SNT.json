@@ -1,0 +1,39 @@
+{
+  "assigned_to": null,
+  "branch_links": [
+    {
+      "branch": "codex/strategy-animations",
+      "linked_at": "2026-02-26T22:18:33Z",
+      "linked_by": "agent:codex",
+      "repo": null
+    }
+  ],
+  "comment_count": 2,
+  "complexity": null,
+  "created_at": "2026-02-26T22:18:29Z",
+  "created_by": "agent:codex",
+  "custom_fields": {},
+  "description": null,
+  "done_at": null,
+  "evidence_refs": [
+    {
+      "id": "ev_01KJE0JWZMNQHGN3YEBRFD7CR1",
+      "role": "review",
+      "source_type": "comment"
+    }
+  ],
+  "id": "task_01KJE0GCTQ1Z6BR8BFRFHR8SNT",
+  "last_event_id": "ev_01KJE0JWZMNQHGN3YEBRFD7CR1",
+  "last_status_changed_at": "2026-02-26T22:19:41Z",
+  "priority": "medium",
+  "relationships_out": [],
+  "reopened_count": 0,
+  "schema_version": 1,
+  "short_id": "CTX-23",
+  "status": "review",
+  "tags": null,
+  "title": "Adjust Full Context return arrow to touch history boundary",
+  "type": "task",
+  "updated_at": "2026-02-26T22:19:51Z",
+  "urgency": null
+}

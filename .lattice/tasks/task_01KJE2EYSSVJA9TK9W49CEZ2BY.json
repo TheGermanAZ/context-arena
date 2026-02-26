@@ -1,0 +1,39 @@
+{
+  "assigned_to": null,
+  "branch_links": [
+    {
+      "branch": "codex/strategy-animations",
+      "linked_at": "2026-02-26T22:54:23Z",
+      "linked_by": "agent:gpt5-impl",
+      "repo": null
+    }
+  ],
+  "comment_count": 1,
+  "complexity": null,
+  "created_at": "2026-02-26T22:52:39Z",
+  "created_by": "agent:gpt5-orchestrator",
+  "custom_fields": {},
+  "description": null,
+  "done_at": "2026-02-26T22:56:43Z",
+  "evidence_refs": [
+    {
+      "id": "ev_01KJE2PB435MFK5AS6KNKRQY96",
+      "role": "review",
+      "source_type": "comment"
+    }
+  ],
+  "id": "task_01KJE2EYSSVJA9TK9W49CEZ2BY",
+  "last_event_id": "ev_01KJE2PDHNJ4XXW6YZP2E06F39",
+  "last_status_changed_at": "2026-02-26T22:56:43Z",
+  "priority": "medium",
+  "relationships_out": [],
+  "reopened_count": 0,
+  "schema_version": 1,
+  "short_id": "CTX-30",
+  "status": "done",
+  "tags": null,
+  "title": "Finish remaining quality improvements (CI gate, dashboard coverage, DiscoveredRLM TODO, bundle split)",
+  "type": "task",
+  "updated_at": "2026-02-26T22:56:43Z",
+  "urgency": null
+}

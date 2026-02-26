@@ -1,0 +1,39 @@
+{
+  "assigned_to": null,
+  "branch_links": [
+    {
+      "branch": "codex/strategy-animations",
+      "linked_at": "2026-02-26T21:30:59Z",
+      "linked_by": "agent:codex",
+      "repo": null
+    }
+  ],
+  "comment_count": 4,
+  "complexity": null,
+  "created_at": "2026-02-26T21:30:59Z",
+  "created_by": "agent:codex",
+  "custom_fields": {},
+  "description": null,
+  "done_at": "2026-02-26T21:33:42Z",
+  "evidence_refs": [
+    {
+      "id": "ev_01KJDXYCQ6NTTM5WF78TTY0S70",
+      "role": "review",
+      "source_type": "comment"
+    }
+  ],
+  "id": "task_01KJDXSE61FW3R2BGH0V9GNP2K",
+  "last_event_id": "ev_01KJDXYCSD6CA2WQMSGYP87ZZ4",
+  "last_status_changed_at": "2026-02-26T21:33:42Z",
+  "priority": "medium",
+  "relationships_out": [],
+  "reopened_count": 0,
+  "schema_version": 1,
+  "short_id": "CTX-13",
+  "status": "done",
+  "tags": null,
+  "title": "Animate depth-1 RLM nodes spawning from root RLM",
+  "type": "task",
+  "updated_at": "2026-02-26T21:33:42Z",
+  "urgency": null
+}

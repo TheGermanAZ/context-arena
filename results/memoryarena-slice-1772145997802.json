@@ -1,0 +1,150 @@
+{
+  "benchmark": "MemoryArena Slice (Proxy)",
+  "sampledAt": "2026-02-26T22:46:37.802Z",
+  "source": "https://datasets-server.huggingface.co/rows?dataset=ZexueHe/memoryarena&config=bundled_shopping&split=test",
+  "config": {
+    "sample": 2,
+    "stepsPerRow": 2
+  },
+  "strategies": [
+    {
+      "strategyName": "Full Context",
+      "totalChecks": 4,
+      "passedChecks": 3,
+      "successRate": 0.75,
+      "avgLatencyMs": 25785.819396,
+      "totalEstimatedCostUsd": 0.046230400000000005
+    },
+    {
+      "strategyName": "RLM(8)",
+      "totalChecks": 4,
+      "passedChecks": 3,
+      "successRate": 0.75,
+      "avgLatencyMs": 24020.10078100001,
+      "totalEstimatedCostUsd": 0.0483416
+    }
+  ],
+  "byStrategy": {
+    "Full Context": [
+      {
+        "rowId": 0,
+        "category": "baking_item_0",
+        "step": 1,
+        "correct": true,
+        "predicted": "Product 1 search results:\n- Duncan Hines Signature Cake Mix Strawberry Supreme 16.5 oz — lower price\n- Sweet 'N Low lemon cake mix sugar-free — lower price\n- Simple Mills Almond Flour Baking Mix gluten free vanilla cake mix, ready for muffin pans — highest price\n\nChosen: Simple Mills Almond Flour Baking Mix (gluten free vanilla cake mix, ready for muffin pans)\n- Reason: Highest-priced option among the three (and compatible)\n- Estimated price: ~$7–9\n- ASIN: not available in this environment",
+        "goldAsin": "B00TUDFEW2",
+        "matchedAttributeCount": 3,
+        "inputTokens": 281,
+        "outputTokens": 2111,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 16626.3105,
+        "estimatedCostUsd": 0.0086688
+      },
+      {
+        "rowId": 0,
+        "category": "baking_item_0",
+        "step": 2,
+        "correct": false,
+        "predicted": "Product 2 search results:\n- Lemon cupcake topper picks — est. $4\n- Fruity Pebbles sprinkles (14 g) — est. $3\n- Dessert Rose Sprinkle Mix (coral/teal/gold/white/silver) — est. $6\n- crystalyhj edible candy eyeballs topper (4.7 oz) — est. $5\n- Amosfun cake topper set (heart picks, golden/white) — est. $8\n\nChosen: Amosfun cake topper set with heart picks for engagement and wedding decor in golden and white\n- Reason: Highest-priced option among compatible choices\n- Estimated price: ~$8\n- ASIN: not available in this environment\n\nBudget check:\n- Product 1: ~$7–9\n- Product 2: ~$8\n- Estimated total: ~$15–17 (well under $70)",
+        "goldAsin": "B08957C9ZH",
+        "matchedAttributeCount": 2,
+        "inputTokens": 818,
+        "outputTokens": 2763,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 25804.3175,
+        "estimatedCostUsd": 0.011706399999999999
+      },
+      {
+        "rowId": 1,
+        "category": "baking_item_1",
+        "step": 1,
+        "correct": true,
+        "predicted": "Product 1 result:\n- Selected: Low Carb Vanilla Frosting Mix (gluten-free, diabetic-friendly)\n- Price: $3.99\n- Rating: 4.4\n- ASIN: B0FROSTGLU\n\nRationale: lowest price among compatible options. Proceeding to Product 2 next.",
+        "goldAsin": "B00T6NA7PA",
+        "matchedAttributeCount": 1,
+        "inputTokens": 276,
+        "outputTokens": 2605,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 28363.560959000002,
+        "estimatedCostUsd": 0.0106408
+      },
+      {
+        "rowId": 1,
+        "category": "baking_item_1",
+        "step": 2,
+        "correct": true,
+        "predicted": "Product 2 result:\n- Selected: Duncan Hines Creamy Home Style Cream Cheese Frosting with 16oz containers\n- Price: $2.99\n- Rating: 4.6\n- ASIN: B0DUNCHE16\n\nRationale: Vanilla pairs with White; Cream Cheese frosting is compatible. Highest-rated compatible option. Proceeding to Product 3 next.",
+        "goldAsin": "B00EJRV4V4",
+        "matchedAttributeCount": 6,
+        "inputTokens": 763,
+        "outputTokens": 3651,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 32349.088625000004,
+        "estimatedCostUsd": 0.015214400000000001
+      }
+    ],
+    "RLM(8)": [
+      {
+        "rowId": 0,
+        "category": "baking_item_0",
+        "step": 1,
+        "correct": true,
+        "predicted": "Product 1: Select Cake Base\n- Chosen: Simple Mills Almond Flour Baking Mix – Gluten Free Vanilla Cake Mix (ready for muffin pans)\n- ASIN: N/A\n- Price: $7.99\n- Rating: 4.8/5\n- Rationale: Highest price among compatible options\n- Budget remaining: $62.01\n\nProceed to Product 2 when ready.",
+        "goldAsin": "B00TUDFEW2",
+        "matchedAttributeCount": 3,
+        "inputTokens": 281,
+        "outputTokens": 3010,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 30141.787540999998,
+        "estimatedCostUsd": 0.012264800000000001
+      },
+      {
+        "rowId": 0,
+        "category": "baking_item_0",
+        "step": 2,
+        "correct": false,
+        "predicted": "Product 2: Select Frosting\n- Chosen: Amosfun cake topper set with heart picks for engagement and wedding party decor in golden and white\n- ASIN: N/A\n- Price: $7.99\n- Rationale: Highest-priced compatible option (includes white)\n- Budget remaining: $54.02\n\nProceed to Product 3 when ready.",
+        "goldAsin": "B08957C9ZH",
+        "matchedAttributeCount": 0,
+        "inputTokens": 789,
+        "outputTokens": 3371,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 26990.847500000003,
+        "estimatedCostUsd": 0.0141152
+      },
+      {
+        "rowId": 1,
+        "category": "baking_item_1",
+        "step": 1,
+        "correct": true,
+        "predicted": "Product 1:\n- Selected: Gluten-free Carrot Cake Mix (vegan-friendly)\n- Price: $4.29\n- Rating: 4.7/5\n- ASIN: N/A\n\nProceeding to Product 2.",
+        "goldAsin": "B00T6NA7PA",
+        "matchedAttributeCount": 2,
+        "inputTokens": 276,
+        "outputTokens": 2579,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 20586.998125000013,
+        "estimatedCostUsd": 0.0105368
+      },
+      {
+        "rowId": 1,
+        "category": "baking_item_1",
+        "step": 2,
+        "correct": true,
+        "predicted": "Product 2:\n- Selected: Duncan Hines Creamy Home Style Cream Cheese Frosting with 16oz containers\n- Price: $3.49\n- Rating: 4.7/5\n- ASIN: N/A\n\nTotal so far: $7.78",
+        "goldAsin": "B00EJRV4V4",
+        "matchedAttributeCount": 6,
+        "inputTokens": 746,
+        "outputTokens": 2707,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 18360.76995800002,
+        "estimatedCostUsd": 0.0114248
+      }
+    ]
+  },
+  "notes": [
+    "Proxy one-day run using bundled_shopping rows endpoint.",
+    "Step scoring is relaxed (ASIN match or >=50% attribute match).",
+    "Not an official MemoryArena success-rate pipeline."
+  ]
+}

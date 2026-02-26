@@ -1,0 +1,50 @@
+{
+  "assigned_to": null,
+  "branch_links": [
+    {
+      "branch": "main",
+      "linked_at": "2026-02-26T20:47:30Z",
+      "linked_by": "agent:codex",
+      "repo": null
+    },
+    {
+      "branch": "codex/strategy-animations",
+      "linked_at": "2026-02-26T20:48:57Z",
+      "linked_by": "agent:codex-impl",
+      "repo": null
+    }
+  ],
+  "comment_count": 5,
+  "complexity": null,
+  "created_at": "2026-02-26T20:47:30Z",
+  "created_by": "agent:codex",
+  "custom_fields": {},
+  "description": null,
+  "done_at": "2026-02-26T20:50:58Z",
+  "evidence_refs": [
+    {
+      "id": "ev_01KJDVG5BA15SMS29TXF4545VV",
+      "role": "review",
+      "source_type": "comment"
+    },
+    {
+      "id": "ev_01KJDVGA9BMW0DP2CN00E889ST",
+      "role": "review",
+      "source_type": "comment"
+    }
+  ],
+  "id": "task_01KJDV9SPE26TESTH93DWY3NKC",
+  "last_event_id": "ev_01KJDVGA9BMW0DP2CN00E889ST",
+  "last_status_changed_at": "2026-02-26T20:50:58Z",
+  "priority": "medium",
+  "relationships_out": [],
+  "reopened_count": 0,
+  "schema_version": 1,
+  "short_id": "CTX-10",
+  "status": "done",
+  "tags": null,
+  "title": "Add animations for displaying different strategies",
+  "type": "task",
+  "updated_at": "2026-02-26T20:51:03Z",
+  "urgency": null
+}

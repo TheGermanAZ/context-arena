@@ -87,6 +87,7 @@ export function FilterProvider({ children }: { children: ReactNode }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useFilter() {
   const ctx = useContext(FilterContext);
   if (!ctx) throw new Error('useFilter must be used within FilterProvider');
@@ -94,6 +95,7 @@ export function useFilter() {
 }
 
 /** Safe version that returns null outside FilterProvider (for demo route) */
+// eslint-disable-next-line react-refresh/only-export-components
 export function useFilterOptional() {
   return useContext(FilterContext);
 }

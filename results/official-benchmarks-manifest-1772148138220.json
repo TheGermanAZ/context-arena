@@ -1,0 +1,21 @@
+{
+  "startedAt": "2026-02-26T23:18:46.081Z",
+  "finishedAt": "2026-02-26T23:22:18.220Z",
+  "jobs": [
+    {
+      "name": "official-longmemeval",
+      "exitCode": 0,
+      "artifactPath": "results/official-longmemeval-1772148096443.json"
+    },
+    {
+      "name": "official-memoryarena",
+      "exitCode": 0,
+      "artifactPath": "results/official-memoryarena-1772148138212.json"
+    },
+    {
+      "name": "official-memoryagentbench",
+      "exitCode": 0,
+      "artifactPath": "results/official-memoryagentbench-1772148094598.json"
+    }
+  ]
+}

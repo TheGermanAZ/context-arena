@@ -1,0 +1,39 @@
+{
+  "assigned_to": null,
+  "branch_links": [
+    {
+      "branch": "codex/strategy-animations",
+      "linked_at": "2026-02-26T21:21:31Z",
+      "linked_by": "agent:codex",
+      "repo": null
+    }
+  ],
+  "comment_count": 4,
+  "complexity": null,
+  "created_at": "2026-02-26T21:21:31Z",
+  "created_by": "agent:codex",
+  "custom_fields": {},
+  "description": null,
+  "done_at": "2026-02-26T21:29:11Z",
+  "evidence_refs": [
+    {
+      "id": "ev_01KJDXP4469K2E0BFAZTES7G1Z",
+      "role": "review",
+      "source_type": "comment"
+    }
+  ],
+  "id": "task_01KJDX8321P82Q0HSNR0W5FFYW",
+  "last_event_id": "ev_01KJDXP467QN679QYYJTG1BB23",
+  "last_status_changed_at": "2026-02-26T21:29:11Z",
+  "priority": "medium",
+  "relationships_out": [],
+  "reopened_count": 0,
+  "schema_version": 1,
+  "short_id": "CTX-12",
+  "status": "done",
+  "tags": null,
+  "title": "Implement animated recursive RLM architecture diagram",
+  "type": "task",
+  "updated_at": "2026-02-26T21:29:11Z",
+  "urgency": null
+}

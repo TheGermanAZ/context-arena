@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "benchmarkOutputPath": "results/benchmark-1772144427265.json",
+  "startedAt": "2026-02-26T22:20:27.265Z",
+  "finishedAt": "2026-02-26T22:20:27.276Z",
+  "gitSha": "59e334bf1e0b7349648210a131a41a9f21a004dc",
+  "filters": {
+    "onlyStrategy": "__none__",
+    "onlyScenario": null,
+    "quick": false,
+    "sample": 1,
+    "seed": 123,
+    "concurrency": 8,
+    "sequential": false,
+    "resumePath": null
+  },
+  "selected": {
+    "strategies": [],
+    "scenarios": [
+      "Rapid-fire Corrections"
+    ]
+  },
+  "totals": {
+    "plannedRuns": 0,
+    "cachedRuns": 0,
+    "executedRuns": 0,
+    "failedRuns": 0,
+    "resultCount": 0
+  }
+}

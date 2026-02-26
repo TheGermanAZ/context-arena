@@ -1,0 +1,39 @@
+{
+  "assigned_to": null,
+  "branch_links": [
+    {
+      "branch": "codex/strategy-animations",
+      "linked_at": "2026-02-26T20:58:57Z",
+      "linked_by": "agent:codex",
+      "repo": null
+    }
+  ],
+  "comment_count": 5,
+  "complexity": null,
+  "created_at": "2026-02-26T20:58:57Z",
+  "created_by": "agent:codex",
+  "custom_fields": {},
+  "description": null,
+  "done_at": "2026-02-26T21:00:28Z",
+  "evidence_refs": [
+    {
+      "id": "ev_01KJDW1HSNNT64E8BXB6FWRVKF",
+      "role": "review",
+      "source_type": "comment"
+    }
+  ],
+  "id": "task_01KJDVYRNVRV18AM9ZFJ3HVC0V",
+  "last_event_id": "ev_01KJDW1HVQE6189J4G7WA9C0T2",
+  "last_status_changed_at": "2026-02-26T21:00:28Z",
+  "priority": "medium",
+  "relationships_out": [],
+  "reopened_count": 0,
+  "schema_version": 1,
+  "short_id": "CTX-11",
+  "status": "done",
+  "tags": null,
+  "title": "Add RLM workflow animation to UI",
+  "type": "task",
+  "updated_at": "2026-02-26T21:00:28Z",
+  "urgency": null
+}

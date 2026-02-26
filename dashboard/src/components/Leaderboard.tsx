@@ -41,7 +41,7 @@ export default function Leaderboard() {
             </tr>
           </thead>
           <tbody>
-            {data.map((row) => {
+            {data.map((row, idx) => {
               const isFocused = focused === row.strategy;
               const isDimmed = hasFocus && !isFocused;
 
@@ -49,13 +49,14 @@ export default function Leaderboard() {
                 <tr
                   key={row.strategy}
                   onClick={(e) => { e.stopPropagation(); onFocusClick?.(row.strategy); }}
-                  className={`border-b border-gray-800 cursor-pointer transition-all duration-150 ${
+                  className={`strategy-reveal border-b border-gray-800 cursor-pointer transition-all duration-150 ${
                     isFocused
                       ? 'bg-gray-800 ring-1 ring-emerald-500/30'
                       : isDimmed
                         ? 'opacity-25 hover:opacity-50'
                         : 'hover:bg-gray-800/50'
                   }`}
+                  style={{ animationDelay: `${80 + idx * 70}ms` }}
                 >
                   <td className="px-4 py-3 text-gray-500 font-mono">{row.rank}</td>
                   <td className="px-4 py-3">
@@ -68,7 +69,14 @@ export default function Leaderboard() {
                     <div className="flex items-center gap-3">
                       <span className="text-gray-100 font-mono w-16">{(row.accuracy * 100).toFixed(0)}%</span>
                       <div className="flex-1 bg-gray-800 rounded-full h-2 max-w-24">
-                        <div className="h-full rounded-full transition-all" style={{ width: `${(row.accuracy / maxAccuracy) * 100}%`, backgroundColor: getStrategyColor(row.strategy) }} />
+                        <div
+                          className="h-full rounded-full strategy-bar-grow"
+                          style={{
+                            width: `${(row.accuracy / maxAccuracy) * 100}%`,
+                            backgroundColor: getStrategyColor(row.strategy),
+                            animationDelay: `${180 + idx * 70}ms`,
+                          }}
+                        />
                       </div>
                       <span className="text-gray-500 text-xs">{row.accuracyFraction}</span>
                     </div>

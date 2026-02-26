@@ -1,0 +1,42 @@
+{
+  "assigned_to": null,
+  "branch_links": [],
+  "comment_count": 2,
+  "complexity": null,
+  "created_at": "2026-02-26T21:55:15Z",
+  "created_by": "agent:gpt5-orchestrator",
+  "custom_fields": {},
+  "description": null,
+  "done_at": "2026-02-26T22:26:00Z",
+  "evidence_refs": [
+    {
+      "id": "ev_01KJE0Y1RTGY630Z9J6T208VP3",
+      "role": "review",
+      "source_type": "comment"
+    },
+    {
+      "id": "ev_01KJE0Y618ESHFC455YFB8W32P",
+      "role": "review",
+      "source_type": "comment"
+    },
+    {
+      "id": "art_01KJE0Y618ESHFC455YFB8W32N",
+      "role": "review",
+      "source_type": "artifact"
+    }
+  ],
+  "id": "task_01KJDZ5VKNSYKCMC6SSWA3H53J",
+  "last_event_id": "ev_01KJE0Y618ESHFC455YFB8W32R",
+  "last_status_changed_at": "2026-02-26T22:26:00Z",
+  "priority": "medium",
+  "relationships_out": [],
+  "reopened_count": 0,
+  "schema_version": 1,
+  "short_id": "CTX-18",
+  "status": "done",
+  "tags": null,
+  "title": "1-day benchmark coverage: LongMemEval slice + memory-to-action micro-benchmark",
+  "type": "task",
+  "updated_at": "2026-02-26T22:26:00Z",
+  "urgency": null
+}

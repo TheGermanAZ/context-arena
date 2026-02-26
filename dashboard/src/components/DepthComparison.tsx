@@ -2,6 +2,40 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LabelList,
 import { useDepthComparison } from '../lib/hooks';
 import { useFilterOptional } from '../lib/FilterContext';
 import { Skeleton, ErrorCard } from './charts';
+import type { DepthScenario } from '../lib/types';
+
+interface DepthChartRow {
+  name: string;
+  fullName: string;
+  depth1: number;
+  depth2: number;
+  delta: number;
+}
+
+interface ActivePayloadState {
+  activePayload?: Array<{ payload?: DepthChartRow }>;
+}
+
+interface DeltaLabelProps {
+  x?: number;
+  y?: number;
+  width?: number;
+  index?: number;
+  deltas: number[];
+}
+
+function DeltaLabel({ x = 0, y = 0, width = 0, index, deltas }: DeltaLabelProps) {
+  if (index === undefined) return null;
+  const delta = deltas[index];
+  if (delta === undefined || delta === 0) return null;
+
+  const color = delta > 0 ? '#10b981' : '#ef4444';
+  return (
+    <text x={x + width / 2} y={y - 8} fill={color} textAnchor="middle" fontSize={11} fontWeight="bold">
+      {delta > 0 ? '+' : ''}{delta}
+    </text>
+  );
+}
 
 export default function DepthComparison() {
   const { data, error, isLoading, refetch } = useDepthComparison();
@@ -18,25 +52,14 @@ export default function DepthComparison() {
 
   const hasFocus = focused != null;
 
-  const chartData = data.scenarios.map((s) => ({
+  const chartData: DepthChartRow[] = data.scenarios.map((s: DepthScenario) => ({
     name: s.name.length > 20 ? s.name.slice(0, 18) + '...' : s.name,
     fullName: s.name,
     depth1: s.depth1.retained,
     depth2: s.depth2.retained,
     delta: s.delta,
   }));
-
-  const CustomLabel = (props: any) => {
-    const { x, y, width, index } = props;
-    const delta = chartData[index]?.delta;
-    if (delta === undefined || delta === 0) return null;
-    const color = delta > 0 ? '#10b981' : '#ef4444';
-    return (
-      <text x={x + width / 2} y={y - 8} fill={color} textAnchor="middle" fontSize={11} fontWeight="bold">
-        {delta > 0 ? '+' : ''}{delta}
-      </text>
-    );
-  };
+  const deltas = chartData.map((entry) => entry.delta);
 
   return (
     <div className="bg-gray-900 rounded-lg border border-gray-700 p-6 shadow-lg shadow-black/20">
@@ -54,7 +77,7 @@ export default function DepthComparison() {
           data={chartData}
           margin={{ top: 20, right: 30 }}
           onClick={(state) => {
-            const fullName = (state as any)?.activePayload?.[0]?.payload?.fullName;
+            const fullName = (state as ActivePayloadState | undefined)?.activePayload?.[0]?.payload?.fullName;
             if (fullName) onFocusClick?.(fullName);
           }}
           style={{ cursor: 'pointer' }}
@@ -80,7 +103,7 @@ export default function DepthComparison() {
               const isDimmed = hasFocus && focused !== entry.fullName;
               return <Cell key={`d2-${entry.fullName}`} fill="#8b5cf6" fillOpacity={isDimmed ? 0.15 : 1} />;
             })}
-            <LabelList content={<CustomLabel />} />
+            <LabelList content={<DeltaLabel deltas={deltas} />} />
           </Bar>
         </BarChart>
       </ResponsiveContainer>

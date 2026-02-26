@@ -1,0 +1,159 @@
+{
+  "benchmark": "Official MemoryAgentBench Mode",
+  "mode": "official splits/sources + deterministic scoring fallback",
+  "sampledAt": "2026-02-26T23:21:34.598Z",
+  "source": "https://datasets-server.huggingface.co/rows?dataset=ai-hyz/MemoryAgentBench&config=default",
+  "config": {
+    "samplePerSubset": 2,
+    "maxContextChars": 60000
+  },
+  "strategies": [
+    {
+      "strategyName": "Full Context",
+      "total": 4,
+      "correct": 1,
+      "accuracy": 0.25,
+      "avgLatencyMs": 12182.589333500004,
+      "totalEstimatedCostUsd": 0.06138400000000001
+    },
+    {
+      "strategyName": "RLM(8)",
+      "total": 4,
+      "correct": 1,
+      "accuracy": 0.25,
+      "avgLatencyMs": 13689.632458250002,
+      "totalEstimatedCostUsd": 0.062468
+    }
+  ],
+  "byStrategy": {
+    "Full Context": [
+      {
+        "subset": "EventQA",
+        "source": "eventqa_full",
+        "correct": false,
+        "question": "These are the events that have already occurred:\n\n1. Debbie sat with Stuart and Brent Tarleton on the porch of Tara.\n\n\nBelow is a list of possible subsequent events:\n\n['Debbie gazed out the window, eager to see her friend arrive from across the street.', 'Debbie paced in the garden, counting the minutes until her sister finally came home.', 'Debbie listened intently as her brother picked up his guitar, anticipating his new song.', 'Debbie sat on the porch swing, hoping her mother would return from the store.', \"Debbie leaned against the fence, excitedly watching for her neighbor's dog to come play.\", 'Debbie waited for her father at the end of the driveway.']\n\n Your task is to choose from the above events which event happens next based on the book excerpt. In your response to me, only include the answer without anything else. ",
+        "hypothesis": "Debbie sat on the porch swing, hoping her mother would return from the store.",
+        "accepted": [
+          "Debbie waited for her father at the end of the driveway."
+        ],
+        "inputTokens": 14383,
+        "outputTokens": 2469,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 17728.508209000007,
+        "estimatedCostUsd": 0.0213824
+      },
+      {
+        "subset": "EventQA",
+        "source": "eventqa_full",
+        "correct": true,
+        "question": "These are the events that have already occurred:\n\n1. M. Alton was appointed Bishop of D——.\n\n\nBelow is a list of possible subsequent events:\n\n['The journalist reported the arrival of Humphrey Waylon.', 'The committee designated the artist as Jacquin Labarre.', 'The investigator recognized the figure as Jacquin Labarre.', 'The host identified the man as Humphrey Waylon.', 'The audience acknowledged the speaker as Humphrey Waylon.', 'The attendees pointed out the leader as Jacquin Labarre.']\n\n Your task is to choose from the above events which event happens next based on the book excerpt. In your response to me, only include the answer without anything else. ",
+        "hypothesis": "The host identified the man as Humphrey Waylon.",
+        "accepted": [
+          "The host identified the man as Humphrey Waylon."
+        ],
+        "inputTokens": 14207,
+        "outputTokens": 2252,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 21531.150458000004,
+        "estimatedCostUsd": 0.0203736
+      },
+      {
+        "subset": "FactConsolidation",
+        "source": "factconsolidation_mh_6k",
+        "correct": false,
+        "question": "What is the country of citizenship of the spouse of the author of Our Mutual Friend?",
+        "hypothesis": "United Kingdom",
+        "accepted": [
+          "Belgium"
+        ],
+        "inputTokens": 6038,
+        "outputTokens": 436,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 5047.315833000001,
+        "estimatedCostUsd": 0.0065744
+      },
+      {
+        "subset": "FactConsolidation",
+        "source": "factconsolidation_mh_32k",
+        "correct": false,
+        "question": "Where did the religion associated with the Bagratuni Dynasty come into existence?",
+        "hypothesis": "Jerusalem.",
+        "accepted": [
+          "Taipei"
+        ],
+        "inputTokens": 14217,
+        "outputTokens": 420,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 4423.382834000004,
+        "estimatedCostUsd": 0.013053600000000002
+      }
+    ],
+    "RLM(8)": [
+      {
+        "subset": "EventQA",
+        "source": "eventqa_full",
+        "correct": false,
+        "question": "These are the events that have already occurred:\n\n1. Debbie sat with Stuart and Brent Tarleton on the porch of Tara.\n\n\nBelow is a list of possible subsequent events:\n\n['Debbie gazed out the window, eager to see her friend arrive from across the street.', 'Debbie paced in the garden, counting the minutes until her sister finally came home.', 'Debbie listened intently as her brother picked up his guitar, anticipating his new song.', 'Debbie sat on the porch swing, hoping her mother would return from the store.', \"Debbie leaned against the fence, excitedly watching for her neighbor's dog to come play.\", 'Debbie waited for her father at the end of the driveway.']\n\n Your task is to choose from the above events which event happens next based on the book excerpt. In your response to me, only include the answer without anything else. ",
+        "hypothesis": "Debbie sat on the porch swing, hoping her mother would return from the store.",
+        "accepted": [
+          "Debbie waited for her father at the end of the driveway."
+        ],
+        "inputTokens": 14383,
+        "outputTokens": 2317,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 18716.811749999993,
+        "estimatedCostUsd": 0.0207744
+      },
+      {
+        "subset": "EventQA",
+        "source": "eventqa_full",
+        "correct": true,
+        "question": "These are the events that have already occurred:\n\n1. M. Alton was appointed Bishop of D——.\n\n\nBelow is a list of possible subsequent events:\n\n['The journalist reported the arrival of Humphrey Waylon.', 'The committee designated the artist as Jacquin Labarre.', 'The investigator recognized the figure as Jacquin Labarre.', 'The host identified the man as Humphrey Waylon.', 'The audience acknowledged the speaker as Humphrey Waylon.', 'The attendees pointed out the leader as Jacquin Labarre.']\n\n Your task is to choose from the above events which event happens next based on the book excerpt. In your response to me, only include the answer without anything else. ",
+        "hypothesis": "The host identified the man as Humphrey Waylon.",
+        "accepted": [
+          "The host identified the man as Humphrey Waylon."
+        ],
+        "inputTokens": 14207,
+        "outputTokens": 2896,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 27570.458583,
+        "estimatedCostUsd": 0.0229496
+      },
+      {
+        "subset": "FactConsolidation",
+        "source": "factconsolidation_mh_6k",
+        "correct": false,
+        "question": "What is the country of citizenship of the spouse of the author of Our Mutual Friend?",
+        "hypothesis": "United Kingdom.",
+        "accepted": [
+          "Belgium"
+        ],
+        "inputTokens": 6038,
+        "outputTokens": 235,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 2876.0327920000127,
+        "estimatedCostUsd": 0.0057704
+      },
+      {
+        "subset": "FactConsolidation",
+        "source": "factconsolidation_mh_32k",
+        "correct": false,
+        "question": "Where did the religion associated with the Bagratuni Dynasty come into existence?",
+        "hypothesis": "Jerusalem.",
+        "accepted": [
+          "Taipei"
+        ],
+        "inputTokens": 14217,
+        "outputTokens": 400,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 5595.226708000002,
+        "estimatedCostUsd": 0.012973600000000002
+      }
+    ]
+  },
+  "notes": [
+    "Uses official dataset and split names (Accurate_Retrieval, Conflict_Resolution).",
+    "EventQA and FactConsolidation selected by official metadata.source tags.",
+    "Deterministic exact/substring scoring used in place of LLM-judge scoring due missing judge API credentials."
+  ]
+}

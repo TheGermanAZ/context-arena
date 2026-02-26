@@ -1,0 +1,108 @@
+{
+  "benchmark": "Official LongMemEval Mode",
+  "mode": "official dataset schema + deterministic fallback scoring",
+  "sampledAt": "2026-02-26T23:21:36.443Z",
+  "source": "https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned/resolve/main/longmemeval_s_cleaned.json",
+  "sampleSize": 3,
+  "strategies": [
+    {
+      "strategyName": "Full Context",
+      "total": 3,
+      "correct": 2,
+      "accuracy": 0.6666666666666666,
+      "avgLatencyMs": 7533.843653333333,
+      "totalEstimatedCostUsd": 0.25164640000000005
+    },
+    {
+      "strategyName": "RLM(8)",
+      "total": 3,
+      "correct": 3,
+      "accuracy": 1,
+      "avgLatencyMs": 5783.901666666672,
+      "totalEstimatedCostUsd": 0.2124992
+    }
+  ],
+  "byStrategy": {
+    "Full Context": [
+      {
+        "questionId": "e47becba",
+        "questionType": "single-session-user",
+        "correct": true,
+        "hypothesis": "Business Administration.",
+        "answer": "Business Administration",
+        "inputTokens": 102505,
+        "outputTokens": 235,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 5881.220458999999,
+        "estimatedCostUsd": 0.082944
+      },
+      {
+        "questionId": "118b2229",
+        "questionType": "single-session-user",
+        "correct": true,
+        "hypothesis": "About 45 minutes each way (roughly 90 minutes total per day).",
+        "answer": "45 minutes each way",
+        "inputTokens": 101825,
+        "outputTokens": 631,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 8750.641667,
+        "estimatedCostUsd": 0.083984
+      },
+      {
+        "questionId": "51a45a95",
+        "questionType": "single-session-user",
+        "correct": false,
+        "hypothesis": "In my email inbox.",
+        "answer": "Target",
+        "inputTokens": 103623,
+        "outputTokens": 455,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 7969.668834,
+        "estimatedCostUsd": 0.08471840000000001
+      }
+    ],
+    "RLM(8)": [
+      {
+        "questionId": "e47becba",
+        "questionType": "single-session-user",
+        "correct": true,
+        "hypothesis": "Business Administration",
+        "answer": "Business Administration",
+        "inputTokens": 44233,
+        "outputTokens": 198,
+        "memoryOverheadTokens": 76607,
+        "latencyMs": 3509.500417000003,
+        "estimatedCostUsd": 0.09746400000000001
+      },
+      {
+        "questionId": "118b2229",
+        "questionType": "single-session-user",
+        "correct": true,
+        "hypothesis": "45 minutes each way (about 90 minutes total per day).",
+        "answer": "45 minutes each way",
+        "inputTokens": 101825,
+        "outputTokens": 521,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 6928.318583000015,
+        "estimatedCostUsd": 0.08354400000000001
+      },
+      {
+        "questionId": "51a45a95",
+        "questionType": "single-session-user",
+        "correct": true,
+        "hypothesis": "Target",
+        "answer": "Target",
+        "inputTokens": 36749,
+        "outputTokens": 523,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 6913.885999999999,
+        "estimatedCostUsd": 0.0314912
+      }
+    ]
+  },
+  "notes": [
+    "Uses official LongMemEval-S dataset schema and question types.",
+    "Official LLM-judge scoring requires OPENAI_API_KEY; unavailable in this environment.",
+    "Deterministic exact/substring fallback used for this run."
+  ]
+}

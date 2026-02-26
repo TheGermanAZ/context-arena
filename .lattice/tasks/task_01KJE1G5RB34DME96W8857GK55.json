@@ -1,0 +1,44 @@
+{
+  "assigned_to": null,
+  "branch_links": [
+    {
+      "branch": "codex/strategy-animations",
+      "linked_at": "2026-02-26T22:36:08Z",
+      "linked_by": "agent:gpt5-orchestrator",
+      "repo": null
+    }
+  ],
+  "comment_count": 2,
+  "complexity": null,
+  "created_at": "2026-02-26T22:35:50Z",
+  "created_by": "agent:gpt5-orchestrator",
+  "custom_fields": {},
+  "description": null,
+  "done_at": "2026-02-26T22:51:29Z",
+  "evidence_refs": [
+    {
+      "id": "ev_01KJE2CTD47K7R2S1B37X5AKGG",
+      "role": "review",
+      "source_type": "comment"
+    },
+    {
+      "id": "art_01KJE2CTD47K7R2S1B37X5AKGF",
+      "role": "review",
+      "source_type": "artifact"
+    }
+  ],
+  "id": "task_01KJE1G5RB34DME96W8857GK55",
+  "last_event_id": "ev_01KJE2CTD47K7R2S1B37X5AKGK",
+  "last_status_changed_at": "2026-02-26T22:51:29Z",
+  "priority": "medium",
+  "relationships_out": [],
+  "reopened_count": 0,
+  "schema_version": 1,
+  "short_id": "CTX-26",
+  "status": "done",
+  "tags": null,
+  "title": "Parallel benchmark expansion: industry + internal suites with unified scoreboard",
+  "type": "task",
+  "updated_at": "2026-02-26T22:51:29Z",
+  "urgency": null
+}

@@ -1,0 +1,97 @@
+{
+  "benchmark": "MemoryAgentBench Subset (Proxy)",
+  "sampledAt": "2026-02-26T22:45:12.608Z",
+  "source": "https://datasets-server.huggingface.co/rows?dataset=ai-hyz/MemoryAgentBench&config=default",
+  "config": {
+    "samplePerSubset": 2
+  },
+  "strategies": [
+    {
+      "strategyName": "Full Context",
+      "total": 2,
+      "correct": 0,
+      "accuracy": 0,
+      "avgLatencyMs": 10222.429832999998,
+      "totalEstimatedCostUsd": 0.034185600000000003
+    },
+    {
+      "strategyName": "RLM(8)",
+      "total": 2,
+      "correct": 0,
+      "accuracy": 0,
+      "avgLatencyMs": 8469.156541000004,
+      "totalEstimatedCostUsd": 0.0339696
+    }
+  ],
+  "byStrategy": {
+    "Full Context": [
+      {
+        "subset": "FactConsolidation",
+        "source": "factconsolidation_mh_6k",
+        "correct": false,
+        "question": "What is the country of citizenship of the spouse of the author of Our Mutual Friend?",
+        "predicted": "United Kingdom.",
+        "accepted": [
+          "Belgium"
+        ],
+        "inputTokens": 6036,
+        "outputTokens": 271,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 3807.954082999997,
+        "estimatedCostUsd": 0.0059128
+      },
+      {
+        "subset": "FactConsolidation",
+        "source": "factconsolidation_mh_32k",
+        "correct": false,
+        "question": "Where did the religion associated with the Bagratuni Dynasty come into existence?",
+        "predicted": "Jerusalem.",
+        "accepted": [
+          "Taipei"
+        ],
+        "inputTokens": 32376,
+        "outputTokens": 593,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 16636.905583,
+        "estimatedCostUsd": 0.0282728
+      }
+    ],
+    "RLM(8)": [
+      {
+        "subset": "FactConsolidation",
+        "source": "factconsolidation_mh_6k",
+        "correct": false,
+        "question": "What is the country of citizenship of the spouse of the author of Our Mutual Friend?",
+        "predicted": "United Kingdom",
+        "accepted": [
+          "Belgium"
+        ],
+        "inputTokens": 6036,
+        "outputTokens": 391,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 12135.952416,
+        "estimatedCostUsd": 0.0063928000000000006
+      },
+      {
+        "subset": "FactConsolidation",
+        "source": "factconsolidation_mh_32k",
+        "correct": false,
+        "question": "Where did the religion associated with the Bagratuni Dynasty come into existence?",
+        "predicted": "Jerusalem.",
+        "accepted": [
+          "Taipei"
+        ],
+        "inputTokens": 32376,
+        "outputTokens": 419,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 4802.360666000008,
+        "estimatedCostUsd": 0.027576800000000002
+      }
+    ]
+  },
+  "notes": [
+    "Proxy one-day run using ai-hyz/MemoryAgentBench rows endpoint.",
+    "Subset filter: EventQA from Accurate_Retrieval + FactConsolidation from Conflict_Resolution via metadata.source.",
+    "Scoring uses normalized exact/substring match against accepted answers."
+  ]
+}

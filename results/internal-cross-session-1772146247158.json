@@ -1,0 +1,30 @@
+{
+  "benchmark": "Internal Cross-Session",
+  "sampledAt": "2026-02-26T22:50:47.158Z",
+  "strategies": [
+    {
+      "strategyName": "Full Context",
+      "correct": true,
+      "matchedChecks": 4,
+      "totalChecks": 4,
+      "finalAnswer": "Current budget is $465,000; vendor is BluePeak Labs; launch month is November 2027; required audit is SOC2 before launch.",
+      "totalInputTokens": 298,
+      "totalOutputTokens": 2186,
+      "totalMemoryOverheadTokens": 0,
+      "totalLatencyMs": 22048.100792000005,
+      "estimatedCostUsd": 0.0089824
+    },
+    {
+      "strategyName": "RLM(8)",
+      "correct": false,
+      "matchedChecks": 3,
+      "totalChecks": 4,
+      "finalAnswer": "The current budget is $465,000; vendor is BluePeak Labs; launch month is November 2027; required audit is SOC 2 audit before launch.",
+      "totalInputTokens": 372,
+      "totalOutputTokens": 1638,
+      "totalMemoryOverheadTokens": 0,
+      "totalLatencyMs": 18815.235209000002,
+      "estimatedCostUsd": 0.0068496
+    }
+  ]
+}

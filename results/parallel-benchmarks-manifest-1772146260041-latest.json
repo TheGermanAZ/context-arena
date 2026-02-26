@@ -1,0 +1,41 @@
+{
+  "startedAt": "2026-02-26T22:51:00.041Z",
+  "finishedAt": "2026-02-26T22:51:00.041Z",
+  "jobs": [
+    {
+      "name": "industry-longmemeval",
+      "artifactPath": "results/longmemeval-slice-1772146064700.json",
+      "exitCode": 0
+    },
+    {
+      "name": "industry-memoryarena",
+      "artifactPath": "results/memoryarena-slice-1772145997802.json",
+      "exitCode": 0
+    },
+    {
+      "name": "industry-memoryagentbench",
+      "artifactPath": "results/memoryagentbench-slice-1772146202754.json",
+      "exitCode": 0
+    },
+    {
+      "name": "internal-cross-session",
+      "artifactPath": "results/internal-cross-session-1772146247158.json",
+      "exitCode": 0
+    },
+    {
+      "name": "internal-multi-agent",
+      "artifactPath": "results/internal-multi-agent-1772145887217.json",
+      "exitCode": 0
+    },
+    {
+      "name": "internal-scale-ladder",
+      "artifactPath": "results/internal-scale-ladder-1772145821637.json",
+      "exitCode": 0
+    },
+    {
+      "name": "internal-backbone-matrix",
+      "artifactPath": "results/internal-backbone-matrix-1772145802060.json",
+      "exitCode": 0
+    }
+  ]
+}

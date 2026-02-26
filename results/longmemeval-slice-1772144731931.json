@@ -1,0 +1,70 @@
+{
+  "benchmark": "LongMemEval-S Slice (Proxy)",
+  "mode": "session-compacted, streamed first N records, ingest-batch=6",
+  "source": "https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned/resolve/main/longmemeval_s_cleaned.json",
+  "sampledAt": "2026-02-26T22:25:31.930Z",
+  "sampleSize": 1,
+  "strategies": [
+    {
+      "strategyName": "Full Context",
+      "sampleSize": 1,
+      "correct": 1,
+      "accuracy": 1,
+      "avgInputTokens": 102686,
+      "avgOutputTokens": 288,
+      "avgMemoryOverheadTokens": 0,
+      "avgLatencyMs": 7992.891792000001,
+      "totalEstimatedCostUsd": 0.08330080000000001
+    },
+    {
+      "strategyName": "RLM(8)",
+      "sampleSize": 1,
+      "correct": 1,
+      "accuracy": 1,
+      "avgInputTokens": 58586,
+      "avgOutputTokens": 209,
+      "avgMemoryOverheadTokens": 0,
+      "avgLatencyMs": 54483.562833,
+      "totalEstimatedCostUsd": 0.047704800000000006
+    }
+  ],
+  "byStrategy": {
+    "Full Context": [
+      {
+        "questionId": "e47becba",
+        "questionType": "single-session-user",
+        "question": "What degree did I graduate with?",
+        "goldAnswer": "Business Administration",
+        "predictedAnswer": "Business Administration",
+        "correct": true,
+        "tokenF1": 1,
+        "inputTokens": 102686,
+        "outputTokens": 288,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 7992.891792000001,
+        "estimatedCostUsd": 0.08330080000000001
+      }
+    ],
+    "RLM(8)": [
+      {
+        "questionId": "e47becba",
+        "questionType": "single-session-user",
+        "question": "What degree did I graduate with?",
+        "goldAnswer": "Business Administration",
+        "predictedAnswer": "Business Administration",
+        "correct": true,
+        "tokenF1": 1,
+        "inputTokens": 58586,
+        "outputTokens": 209,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 54483.562833,
+        "estimatedCostUsd": 0.047704800000000006
+      }
+    ]
+  },
+  "notes": [
+    "Fast one-day proxy, not official LongMemEval pipeline.",
+    "Each haystack session is compacted into one synthetic message for bounded runtime.",
+    "Scoring uses normalized exact/substring match plus token F1 for visibility."
+  ]
+}

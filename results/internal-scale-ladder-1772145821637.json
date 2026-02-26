@@ -1,0 +1,109 @@
+{
+  "benchmark": "Internal Scale Ladder",
+  "sampledAt": "2026-02-26T22:43:41.637Z",
+  "tiers": [
+    8000,
+    32000,
+    128000
+  ],
+  "strategies": [
+    {
+      "strategyName": "Full Context",
+      "total": 3,
+      "passed": 3,
+      "passRate": 1,
+      "avgLatencyMs": 4522.137833,
+      "totalEstimatedCostUsd": 0.09911120000000001
+    },
+    {
+      "strategyName": "RLM(8)",
+      "total": 3,
+      "passed": 3,
+      "passRate": 1,
+      "avgLatencyMs": 3299.5616109999996,
+      "totalEstimatedCostUsd": 0.09928720000000002
+    }
+  ],
+  "byStrategy": {
+    "Full Context": [
+      {
+        "strategyName": "Full Context",
+        "tierTargetTokens": 8000,
+        "achievedApproxTokens": 8016,
+        "correct": true,
+        "predicted": "AURORA-991",
+        "inputTokens": 5838,
+        "outputTokens": 141,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 4335.502167,
+        "estimatedCostUsd": 0.005234400000000001
+      },
+      {
+        "strategyName": "Full Context",
+        "tierTargetTokens": 32000,
+        "achievedApproxTokens": 32008,
+        "correct": true,
+        "predicted": "AURORA-991",
+        "inputTokens": 23204,
+        "outputTokens": 137,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 2881.782916,
+        "estimatedCostUsd": 0.0191112
+      },
+      {
+        "strategyName": "Full Context",
+        "tierTargetTokens": 128000,
+        "achievedApproxTokens": 128005,
+        "correct": true,
+        "predicted": "AURORA-991",
+        "inputTokens": 92687,
+        "outputTokens": 154,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 6349.128416,
+        "estimatedCostUsd": 0.07476560000000002
+      }
+    ],
+    "RLM(8)": [
+      {
+        "strategyName": "RLM(8)",
+        "tierTargetTokens": 8000,
+        "achievedApproxTokens": 8016,
+        "correct": true,
+        "predicted": "AURORA-991",
+        "inputTokens": 5838,
+        "outputTokens": 184,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 2762.9095829999987,
+        "estimatedCostUsd": 0.0054064000000000004
+      },
+      {
+        "strategyName": "RLM(8)",
+        "tierTargetTokens": 32000,
+        "achievedApproxTokens": 32008,
+        "correct": true,
+        "predicted": "AURORA-991",
+        "inputTokens": 23204,
+        "outputTokens": 152,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 3431.872125,
+        "estimatedCostUsd": 0.0191712
+      },
+      {
+        "strategyName": "RLM(8)",
+        "tierTargetTokens": 128000,
+        "achievedApproxTokens": 128005,
+        "correct": true,
+        "predicted": "AURORA-991",
+        "inputTokens": 92687,
+        "outputTokens": 140,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 3703.9031250000007,
+        "estimatedCostUsd": 0.07470960000000001
+      }
+    ]
+  },
+  "notes": [
+    "Tier sizes are approximate token targets using text-length scaling.",
+    "1M tier may skip or fail depending on provider/runtime limits."
+  ]
+}

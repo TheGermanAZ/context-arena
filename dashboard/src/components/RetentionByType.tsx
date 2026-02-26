@@ -4,6 +4,13 @@ import { useFilterOptional } from '../lib/FilterContext';
 import { Skeleton, ErrorCard } from './charts';
 import { getProbeTypeColor } from '../lib/colors';
 
+interface RetentionTooltipItem {
+  payload?: {
+    retained?: number;
+    total?: number;
+  };
+}
+
 export default function RetentionByType() {
   const { data, error, isLoading, refetch } = useRetentionByType();
   const filter = useFilterOptional();
@@ -52,7 +59,10 @@ export default function RetentionByType() {
             contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
             labelStyle={{ color: '#f3f4f6' }}
             itemStyle={{ color: '#d1d5db' }}
-            formatter={((value: number, _name: string, props: any) => [`${value}% (${props.payload.retained}/${props.payload.total})`, 'Retention']) as any}
+            formatter={(value: number | string | undefined, _name: string | number | undefined, item: RetentionTooltipItem) => [
+              `${value ?? 0}% (${item.payload?.retained ?? 0}/${item.payload?.total ?? 0})`,
+              'Retention',
+            ]}
           />
           <Bar dataKey="pct" radius={[0, 4, 4, 0]}>
             {chartData.map((entry) => {

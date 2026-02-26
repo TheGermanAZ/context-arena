@@ -1,0 +1,32 @@
+{
+  "assigned_to": null,
+  "branch_links": [],
+  "comment_count": 1,
+  "complexity": null,
+  "created_at": "2026-02-26T22:03:59Z",
+  "created_by": "agent:gpt5-orchestrator",
+  "custom_fields": {},
+  "description": null,
+  "done_at": "2026-02-26T22:06:25Z",
+  "evidence_refs": [
+    {
+      "id": "ev_01KJDZT7EKSN5BNT24WH3AGFMK",
+      "role": "review",
+      "source_type": "comment"
+    }
+  ],
+  "id": "task_01KJDZNV7XA5SM59N9KXR214VN",
+  "last_event_id": "ev_01KJDZTA2SS6M3483738G5T3EZ",
+  "last_status_changed_at": "2026-02-26T22:06:25Z",
+  "priority": "medium",
+  "relationships_out": [],
+  "reopened_count": 0,
+  "schema_version": 1,
+  "short_id": "CTX-19",
+  "status": "done",
+  "tags": null,
+  "title": "1-day quality hardening: CI gate + benchmark validity + reproducibility",
+  "type": "task",
+  "updated_at": "2026-02-26T22:06:25Z",
+  "urgency": null
+}

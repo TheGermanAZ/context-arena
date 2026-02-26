@@ -4,6 +4,10 @@ import { useFilterOptional } from '../lib/FilterContext';
 import { Skeleton, ErrorCard } from './charts';
 import { getProbeTypeColor } from '../lib/colors';
 
+interface LegendClickPayload {
+  value?: string | number;
+}
+
 export default function RetentionCurve() {
   const { data, error, isLoading, refetch } = useRetentionCurve();
   const filter = useFilterOptional();
@@ -57,11 +61,14 @@ export default function RetentionCurve() {
             contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
             labelStyle={{ color: '#f3f4f6' }}
             itemStyle={{ color: '#d1d5db' }}
-            formatter={((value: number) => [`${value}%`, '']) as any}
+            formatter={(value: number | string | undefined) => [`${value ?? 0}%`, '']}
           />
           <Legend
             wrapperStyle={{ color: '#9ca3af', cursor: 'pointer' }}
-            onClick={(e: any) => onFocusClick?.(e.value)}
+            onClick={(e: LegendClickPayload) => {
+              const value = e.value;
+              if (typeof value === 'string') onFocusClick?.(value);
+            }}
           />
           {data.types.map((type) => {
             const isFocused = focused === type;

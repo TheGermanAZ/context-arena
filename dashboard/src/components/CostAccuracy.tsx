@@ -3,13 +3,18 @@ import { useCostAccuracy } from '../lib/hooks';
 import { useFilterOptional } from '../lib/FilterContext';
 import { Skeleton, ErrorCard } from './charts';
 import { getStrategyColor } from '../lib/colors';
+import type { CostAccuracyPoint } from '../lib/types';
 
 interface DotProps {
   cx?: number;
   cy?: number;
-  payload?: any;
+  payload?: CostAccuracyPoint;
   focused: string | null;
   hasFocus: boolean;
+}
+
+interface ActivePayloadState {
+  activePayload?: Array<{ payload?: CostAccuracyPoint }>;
 }
 
 function CustomDot(props: DotProps) {
@@ -65,8 +70,8 @@ export default function CostAccuracy() {
       <ResponsiveContainer width="100%" height={400}>
         <ComposedChart
           margin={{ top: 20, right: 30, bottom: 20, left: 20 }}
-          onClick={(state: any) => {
-            const payload = state?.activePayload?.[0]?.payload;
+          onClick={(state) => {
+            const payload = (state as ActivePayloadState | undefined)?.activePayload?.[0]?.payload;
             if (payload?.strategy) onFocusClick?.(payload.strategy);
           }}
           style={{ cursor: 'pointer' }}
@@ -92,7 +97,8 @@ export default function CostAccuracy() {
           <Tooltip
             content={({ active, payload }) => {
               if (!active || !payload?.length) return null;
-              const point = payload[0].payload;
+              const point = payload[0]?.payload as CostAccuracyPoint | undefined;
+              if (!point) return null;
               return (
                 <div style={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', padding: '10px 14px' }}>
                   <p style={{ color: '#f3f4f6', fontWeight: 600, marginBottom: 4 }}>{point.strategy}</p>

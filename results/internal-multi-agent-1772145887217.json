@@ -1,0 +1,30 @@
+{
+  "benchmark": "Internal Multi-Agent Handoff",
+  "sampledAt": "2026-02-26T22:44:47.216Z",
+  "strategies": [
+    {
+      "strategyName": "Full Context",
+      "correct": true,
+      "matchedChecks": 3,
+      "totalChecks": 3,
+      "finalAnswer": "Final Rollout Handoff Note – Mobile App v4 Rollout (Agent B)\n\nDate: April 18, 2026\nRegion: eu-central\nCrash-free gate: ≥ 99.7%\n\nRollout plan\n- Phased rollout in eu-central using feature flags:\n  - Phase 1: Canary 1%\n  - Phase 2: 5%\n  - Phase 3: 25%\n  - Phase 4: 50%\n  - Phase 5: 100%\n- Each phase validated against the gate condition before progressing\n\nGate and validation\n- Crash-free rate definition: (Sessions - Crashes) / Sessions\n- Measurement window: rolling 24 hours post-release for each phase\n- Data sources: telemetry/crash analytics\n- Escalation: if crash-free rate < 99.7% in any phase, halt rollout and trigger rollback\n\nPre-release readiness\n- Instrumentation and feature flags enabled in eu-central\n- Health dashboards and alerts wired (crash counts, sessions, latency, errors)\n- Pre-release QA complete; smoke tests passed in EU region\n\nRollback plan\n- Trigger conditions: failure to meet gate in any phase\n- Rollback steps: revert to v3; re-point traffic away from v4; verify stability post-rollback\n- Notify stakeholders and stakeholders’ on-call rotations\n\nRoles and responsibilities (Agent B)\n- Monitor phase progression and gate status in eu-central\n- Enforce rollout gates; pause/rollback if gate breach occurs\n- Coordinate with SRE/Eng Lead for incident response\n- Maintain and update runbooks, dashboards, and communications\n\nDeliverables for Agent B\n- [ ] Confirm eu-central readiness and region routing\n- [ ] Enable and test feature flags for phased rollout\n- [ ] Set up and verify crash-free dashboards and alerts\n- [ ] Prepare rollback/runbook and communication templates\n- [ ] Create or update stakeholder contact list and status updates\n- [ ] Schedule regular check-ins during each phase\n\nKey contacts\n- On-call SRE and Eng Lead: [names/contacts to be filled]\n- Product/PM: [name/contact]\n- Support/Customer Ops: [name/contact]\n\nNotes\n- If any phase gate is not passed within defined window, pause progression and execute rollback per runbook.",
+      "totalInputTokens": 685,
+      "totalOutputTokens": 5793,
+      "totalMemoryOverheadTokens": 0,
+      "totalLatencyMs": 48619.646875,
+      "estimatedCostUsd": 0.02372
+    },
+    {
+      "strategyName": "RLM(8)",
+      "correct": true,
+      "matchedChecks": 3,
+      "totalChecks": 3,
+      "finalAnswer": "Handoff Note: Mobile App v4 Rollout – Agent B\n\nTarget/Region/Gate\n- Target date: April 18\n- Rollout region: eu-central\n- Gate criterion: crash-free rate >= 99.7% (EU) post-release",
+      "totalInputTokens": 674,
+      "totalOutputTokens": 3881,
+      "totalMemoryOverheadTokens": 0,
+      "totalLatencyMs": 40425.775791,
+      "estimatedCostUsd": 0.0160632
+    }
+  ]
+}

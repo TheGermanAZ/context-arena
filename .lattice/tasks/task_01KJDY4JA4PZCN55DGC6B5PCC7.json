@@ -1,0 +1,39 @@
+{
+  "assigned_to": null,
+  "branch_links": [
+    {
+      "branch": "codex/strategy-animations",
+      "linked_at": "2026-02-26T21:37:04Z",
+      "linked_by": "agent:codex",
+      "repo": null
+    }
+  ],
+  "comment_count": 3,
+  "complexity": null,
+  "created_at": "2026-02-26T21:37:04Z",
+  "created_by": "agent:codex",
+  "custom_fields": {},
+  "description": null,
+  "done_at": "2026-02-26T21:38:00Z",
+  "evidence_refs": [
+    {
+      "id": "ev_01KJDY68SKC6N5R8VPN78R69QT",
+      "role": "review",
+      "source_type": "comment"
+    }
+  ],
+  "id": "task_01KJDY4JA4PZCN55DGC6B5PCC7",
+  "last_event_id": "ev_01KJDY68VBD5K4FD3CZH9KF5W3",
+  "last_status_changed_at": "2026-02-26T21:38:00Z",
+  "priority": "medium",
+  "relationships_out": [],
+  "reopened_count": 0,
+  "schema_version": 1,
+  "short_id": "CTX-15",
+  "status": "done",
+  "tags": null,
+  "title": "Adjust child RLM spawn origin to root LLM box",
+  "type": "task",
+  "updated_at": "2026-02-26T21:38:00Z",
+  "urgency": null
+}
