@@ -48,26 +48,36 @@ Beyond pass/fail scoring, we instrumented each scenario with **probes** — spec
 
 ## The Leaderboard
 
-We tested 8 strategies. Each uses a different approach to managing memory when the conversation exceeds a threshold (typically 8 messages before compression triggers):
+We tested 8 strategies on Claude Haiku 4.5 (via OpenRouter), then re-ran the full leaderboard on gpt-5-nano (via OpenCode Zen) for same-model comparison with agentic extraction. Results below are from gpt-5-nano:
 
-| Strategy | Accuracy | Approach |
-|---|---|---|
-| **Full Context** | 8/8 (100%) | No compression — send everything. The ceiling. |
-| **Hybrid** | 8/8 (100%) | Extract facts + narrative summary in parallel |
-| **RLM(8)** | 7/8 (88%) | Delegate to sub-LLM with targeted questions |
-| **Summarize(8)** | 6/8 (75%) | Compress old messages into a summary |
-| **CorrectionAware** | 6/8 (75%) | Narrative summary + correction log overlay |
-| **Structured(8)** | 5/8 (63%) | Key-value fact extraction |
-| **Window(10)** | 4/6 (67%) | Keep last 10 messages, drop the rest |
-| **Window(6)** | 4/8 (50%) | Keep last 6 messages, drop the rest |
+| Strategy | Accuracy | Retention | Approach |
+|---|---|---|---|
+| **Hybrid** | 7/8 (88%) | 71% | Extract facts + narrative summary in parallel |
+| **Full Context** | 7/8 (88%) | 66% | No compression — send everything |
+| **Structured(8)** | 6/8 (75%) | 60% | Key-value fact extraction |
+| **RLM(8)** | 5/8 (63%) | 53% | Delegate to sub-LLM with targeted questions |
+| **DiscoveredRLM** | 4/8 (50%) | 56% | LLM-inspired 2-pass extract + verify |
+| **Summarize(8)** | 3/8 (38%) | 48% | Compress old messages into a summary |
+| **RLLM** | 3/8 (38%) | 42% | Agentic code-execution extraction |
+| **Window(10)** | 2/8 (25%)* | 45% | Keep last 10 messages, drop the rest |
+
+*\*Window(10) had 4 connection errors — true score likely higher.*
+
+### Model Matters
+
+gpt-5-nano is a weaker model than Haiku. The rankings shifted:
+- **Full Context dropped from 100% to 88%** — even with all messages present, the smaller model fails Contradiction Resolution. This means nano has weaker inherent reasoning, not just weaker compression.
+- **Hybrid held steady at the top** — its dual-track architecture is robust across model sizes.
+- **Structured jumped from 63% to 75%** — key-value extraction plays to nano's pattern-matching strengths.
+- **Summarize dropped from 75% to 38%** — narrative summarization degrades sharply on a weaker model.
 
 ### What Separates the Winners
 
-**Hybrid** (8/8) works because it runs two tracks in parallel: one extracts facts as natural-language sentences (preserving relationships like "Floor 3 has a conference room with capacity 50"), while the other produces a narrative summary. Neither track alone scores 8/8 — the combination does.
+**Hybrid** (7/8) works because it runs two tracks in parallel: one extracts facts as natural-language sentences (preserving relationships like "Floor 3 has a conference room with capacity 50"), while the other produces a narrative summary. Neither track alone reaches the top — the combination does.
 
-**RLM** (7/8) uses a fundamentally different approach. Instead of summarizing, it delegates old messages to a sub-LLM with five targeted questions (ENTITIES, DECISIONS, CORRECTIONS, NUMBERS, CURRENT STATE). Theoretically elegant — task-directed extraction should preserve more than generic summarization. In practice, it fails Early Fact Recall while passing all the correction-heavy scenarios.
+**RLM** (5/8) uses a fundamentally different approach. Instead of summarizing, it delegates old messages to a sub-LLM with five targeted questions (ENTITIES, DECISIONS, CORRECTIONS, NUMBERS, CURRENT STATE). On nano, it drops to 63% accuracy but its probe retention (53%) remains competitive — it preserves information even when the final answer is wrong.
 
-**Sliding Window** (4-5/8) is the baseline everyone uses in production. It works until it doesn't — anything older than the window is gone forever.
+**Sliding Window** (2/8) is the baseline everyone uses in production. It works until it doesn't — anything older than the window is gone forever.
 
 ---
 
