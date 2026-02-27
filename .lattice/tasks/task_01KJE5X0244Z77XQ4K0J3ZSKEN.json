@@ -1,0 +1,39 @@
+{
+  "assigned_to": null,
+  "branch_links": [
+    {
+      "branch": "codex/ctx-37-findings-pr",
+      "linked_at": "2026-02-26T23:54:43Z",
+      "linked_by": "agent:gpt5-impl",
+      "repo": null
+    }
+  ],
+  "comment_count": 2,
+  "complexity": null,
+  "created_at": "2026-02-26T23:52:44Z",
+  "created_by": "agent:gpt5-orchestrator",
+  "custom_fields": {},
+  "description": null,
+  "done_at": "2026-02-26T23:54:43Z",
+  "evidence_refs": [
+    {
+      "id": "ev_01KJE60M6Y4JAKR18F0M8GZ3H7",
+      "role": "review",
+      "source_type": "comment"
+    }
+  ],
+  "id": "task_01KJE5X0244Z77XQ4K0J3ZSKEN",
+  "last_event_id": "ev_01KJE60M8TXX19YYMQN1F199MB",
+  "last_status_changed_at": "2026-02-26T23:54:43Z",
+  "priority": "medium",
+  "relationships_out": [],
+  "reopened_count": 0,
+  "schema_version": 1,
+  "short_id": "CTX-37",
+  "status": "done",
+  "tags": null,
+  "title": "Publish CTX-33 findings update via PR and merge",
+  "type": "task",
+  "updated_at": "2026-02-26T23:54:43Z",
+  "urgency": null
+}

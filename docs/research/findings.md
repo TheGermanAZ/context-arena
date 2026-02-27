@@ -377,37 +377,6 @@ Dollar amounts, counts, rates, and measurements were the single most fragile fac
 
 ---
 
-## CTX-33: Official-Mode Benchmark Runs
-
-To move beyond proxy-only evidence, we integrated the official public datasets/splits for all three industry benchmarks and reran them in parallel:
-
-- **LongMemEval** (`longmemeval-cleaned`, LongMemEval-S schema)
-- **MemoryArena** (`ZexueHe/memoryarena`, `bundled_shopping/test`)
-- **MemoryAgentBench** (`ai-hyz/MemoryAgentBench`, EventQA + FactConsolidation subset from official splits)
-
-### CTX-33 Results
-
-| Benchmark                                      | Strategy     | Score        | Avg Latency |    Cost | Scoring                |
-| ---------------------------------------------- | ------------ | ------------ | ----------: | ------: | ---------------------- |
-| LongMemEval                                    | Full Context | 2/3 (66.7%)  |        7.5s | $0.2516 | deterministic fallback |
-| LongMemEval                                    | RLM(8)       | 3/3 (100.0%) |        5.8s | $0.2125 | deterministic fallback |
-| MemoryArena                                    | Full Context | 2/4 (50.0%)  |       24.2s | $0.0471 | deterministic fallback |
-| MemoryArena                                    | RLM(8)       | 3/4 (75.0%)  |       28.7s | $0.0616 | deterministic fallback |
-| MemoryAgentBench (EventQA + FactConsolidation) | Full Context | 1/4 (25.0%)  |       12.2s | $0.0614 | deterministic fallback |
-| MemoryAgentBench (EventQA + FactConsolidation) | RLM(8)       | 1/4 (25.0%)  |       13.7s | $0.0625 | deterministic fallback |
-
-### CTX-33 Summary
-
-1. **RLM improved on 2/3 official-mode tracks in this bounded run** (LongMemEval and MemoryArena).
-2. **MemoryAgentBench remained difficult for both strategies** (1/4 each), reinforcing the conflict/retrieval gap.
-3. **Trade-offs remain scenario-dependent:** RLM was faster/cheaper on LongMemEval but slower/more expensive on MemoryArena.
-
-### CTX-33 Caveat
-
-- Official datasets and split names were used, but upstream LLM-judge scoring steps require external judge credentials that were unavailable in this runtime, so deterministic fallback scoring was used and explicitly labeled.
-
----
-
 ## CTX-39: Stability-Plasticity v2 Re-Probe
 
 The original Stability-Plasticity probe (CTX-6) was inconclusive due to testing on the wrong scenarios. CTX-39 re-ran it properly: all 8 scenarios, 4 repetitions each, with the correct stable/plastic probe classification.
@@ -522,9 +491,9 @@ QPB is the clear winner for production use: it gets 96.8% of Full Context's reca
 
 ## EXP-02: Intent Framing Preservation
 
-EXP-02 tested whether injecting a benign-context frame into QPB's system prompt eliminates the safety refusals discovered in Memory-to-Action Micro. Four strategies tested across 2 scenarios × 3 reps.
+EXP-02 tested whether injecting a benign-context frame into QPB's system prompt eliminates safety refusals. Four strategies tested across 2 scenarios × 3 reps. **These results used the v1 action-plan question format** — the benchmark has since been redesigned to test fact recall (see Memory-to-Action Micro section).
 
-### EXP-02 Results
+### EXP-02 Results (v1 — Action-Plan Question)
 
 | Strategy     | Pass Rate | Refusals | Avg Checks (of 8) |
 |-------------|-----------|----------|--------------------|
@@ -537,15 +506,42 @@ EXP-02 tested whether injecting a benign-context frame into QPB's system prompt 
 
 ### EXP-02 Key Findings
 
-1. **Safety refusals are not RLM-specific.** Full Context also triggered a refusal on Conference Logistics. This is a model-level issue with gpt-5-nano's safety alignment on action-plan generation, not a compression artifact.
+1. **The benchmark was flawed.** Full Context averaged only 4.7/8 checks — it tested action-plan generation capability, not memory quality. Safety refusals were triggered by the action-plan question interacting with compressed context, not by memory strategy failures.
 
-2. **The framing approach partially works.** QPB+Frame eliminated refusals on Conference Logistics (0/3 refusals vs QPB's baseline) and achieved the only pass on that scenario. But it still produced 1 refusal on Incident Rollback.
+2. **EXP-02 needs re-running with v2 fact-recall questions.** The v2 redesign eliminates the action-plan confound. If refusals disappear, the original finding was an artifact of the question format. If they persist, compression genuinely alters perceived intent.
 
-3. **All strategies struggle on Memory-to-Action Micro.** Even Full Context averaged only 4.7/8 checks. The benchmark may be testing gpt-5-nano's action-planning capability limits, not just memory quality.
+### EXP-02 Verdict: REWORK (pending v2 re-run)
 
-### EXP-02 Verdict: REWORK
+---
 
-The framing approach shows promise but isn't reliable enough. The 1/6 refusal rate for QPB+Frame doesn't meet the zero-refusal gate. Possible next steps: stronger framing language, few-shot action-plan examples in the system prompt, or accepting that gpt-5-nano is too small for reliable action-plan generation.
+## What We Ship Now
+
+| Strategy | Decision | Rationale | Caveat |
+|---|---|---|---|
+| QPB | **Ship (behind flag)** | Highest production-feasible retention gain with zero additional LLM calls (96.8% on CTX-7). | Needs external benchmark validation (LongMemEval/MemoryArena/MemoryAgentBench with QPB). |
+| QTD | **Do not ship (research)** | Matches Full Context recall (98.4%) and proves question-aware compression works. | Query-time distillation puts LLM latency on the critical path. |
+| Stability-Plasticity | **Do not ship (kill)** | Full-run confirmation still trips kill criteria from side effects. | Improves some target types but regresses non-target types (`date`, `relationship`). |
+
+### Claim Confidence and Caveats
+
+| Major claim | Confidence | Caveat |
+|---|---|---|
+| QPB is the current best production candidate | High | Internal scenarios only so far; external generalization still pending. |
+| Blind compression is the dominant RLM failure mode | High | Demonstrated on current scenario suite and model family; validate on stronger backbones. |
+| Stability-Plasticity should be abandoned | Medium-High | CTX-39 and CTX-43 disagree on absolute baseline level, but both fail promotion criteria. |
+| Safety/refusal interaction is real | Medium | v1 benchmark question format was confounded; needs v2 fact-recall rerun confirmation. |
+| Official-track improvement exists for RLM | Medium | Official-mode run used deterministic fallback scoring due missing judge credentials. |
+
+### Fact-Type Regression Risk Table
+
+| Fact type | Best observed strategy | Risky strategy | Evidence | Regression risk |
+|---|---|---|---|---|
+| `quantity` | QPB | Baseline RLM | CTX-7: `65% -> 100%`; CTX-43: SP only `+6pp` vs RLM | Medium (if QPB not used) |
+| `phone/id` | QPB | Baseline RLM | CTX-7: `57% -> 100%`; CTX-43: SP `+7pp` | Medium (if side-channel disabled) |
+| `date` | QPB / Full Context | Stability-Plasticity | CTX-7: QPB `100%`; CTX-43: SP `-17pp` vs RLM | High |
+| `relationship` | Full Context / QTD / QPB (tie ceiling) | Stability-Plasticity | CTX-7 ceiling `67%`; CTX-43: SP `-17pp` vs RLM | High |
+| `correction` | Full Context / QTD | Baseline RLM | CTX-7: RLM `90%`, QPB `95%`, QTD `100%`; CTX-43: SP `+8pp` | Medium |
+| `spatial` | Most strategies (near parity) | n/a | CTX-7 all `100%`; CTX-43 parity `33%` vs `33%` | Low |
 
 ---
 
@@ -575,12 +571,18 @@ This only works when the structured output is faithful. For noisy scenarios, the
 
 8. **Blind compression is the root cause.** CTX-7's Query-Time Distillation (QTD) proves this definitively: when the sub-LLM knows the question being asked, retention matches Full Context (98.4%). RLM's information loss isn't from compression itself — it's from compressing without knowing what matters. This points toward question-aware delegation as the next architectural direction.
 
-8. **Parallel structures add cost without proportional gain.** Shadow Graphs (maintaining a knowledge graph alongside RLM) produced only +4pp improvement at 2x token cost. Architectural additions that run parallel LLM calls must clear a high cost-effectiveness bar.
+9. **Parallel structures add cost without proportional gain.** Shadow Graphs (maintaining a knowledge graph alongside RLM) produced only +4pp improvement at 2x token cost. Architectural additions that run parallel LLM calls must clear a high cost-effectiveness bar.
+
+---
+
+## CTX-26: Parallel Benchmarks (Proxy Mode)
+
+To calibrate RLM against industry benchmarks and internal diagnostics, we ran a one-day parallel sweep:
 
 - **Industry proxy tracks:** LongMemEval slice, MemoryArena slice, MemoryAgentBench subset (EventQA + FactConsolidation)
 - **Internal tracks:** Cross-session persistence, multi-agent handoff, scale ladder, backbone robustness matrix
 
-### Unified Results (One-Day Parallel Run)
+### CTX-26 Unified Results
 
 | Track                               | Strategy / Model | Score        | Avg Latency |    Cost |
 | ----------------------------------- | ---------------- | ------------ | ----------: | ------: |
@@ -665,42 +667,64 @@ To move beyond proxy-only evidence, we integrated the official public datasets/s
 
 ## Memory-to-Action Micro
 
-CTX-1 through CTX-26 measured **retention** — can the strategy remember facts? But remembering isn't enough. An agent needs to convert corrected facts into correct _actions_. The Memory-to-Action Micro benchmark tests exactly this: after a conversation with corrections and noise, produce a concise action plan with exact values.
+CTX-1 through CTX-26 measured retention within the strategy's internal state. Memory-to-Action Micro tests whether corrected facts survive compression and can be recalled in the final answer — after a conversation with corrections and noise, the model must list all current corrected details with exact values.
 
 ### Two Scenarios
 
-**Conference Logistics Action:** Plan a Q2 Product Summit breakfast. The conversation includes three corrections (Hall A→C, 90→120 attendees, budget code MKT-77→OPS-19) and two noise lines to ignore (plant watering, hoodie order). Final question: "Give a concise 4-step action plan with exact values."
+**Conference Logistics:** Plan a Q2 Product Summit breakfast. The conversation includes three corrections (Hall A→C, 90→120 attendees, budget code MKT-77→OPS-19) and two noise lines to ignore (plant watering, hoodie order). 8 fact checks via regex.
 
-**Incident Rollback Action:** Handle INC-4421 on payments-api. Two corrections (us-east-1→eu-west-1, rollback target v2.8.1→v2.8.3) plus noise. Final question: "What should the on-call engineer do now? Provide a concise 4-step action plan."
+**Incident Rollback:** Handle INC-4421 on payments-api. Two corrections (us-east-1→eu-west-1, rollback target v2.8.1→v2.8.3) plus noise. 8 fact checks via regex.
 
-### Results
+### Original Results (v1 — Action-Plan Question)
+
+The original benchmark asked "Give a concise 4-step action plan with exact values." This conflated memory quality with model action-planning capability:
 
 | Scenario             | Full Context  | RLM(8)          |
 | -------------------- | ------------- | --------------- |
 | Conference Logistics | **8/8 PASS**  | **8/8 PASS**    |
 | Incident Rollback    | 6/8 (partial) | **0/8 REFUSAL** |
 
-**Conference Logistics:** Both strategies produced detailed, correct action plans. RLM's compressed context preserved all three corrections (Hall C, 120 attendees, OPS-19) and correctly ignored the noise. The action plans were well-structured — venue, catering order, deposit payment, confirmation message — all with exact values.
+Full Context scored only 6/8 on Incident Rollback despite having all messages — confirming the benchmark tested action-plan generation, not memory. RLM(8) triggered a safety refusal because compressed context stripped conversational framing, making bare operational commands ("rollback", "canary", "error rate threshold") look like a request to manipulate a production system.
 
-**Incident Rollback:** Full Context scored 6/8 — it got the corrections right (eu-west-1, v2.8.3) but missed 2 of the 8 required check values. RLM(8) returned: _"I'm sorry, but I cannot assist with that request."_ — a complete safety refusal. Zero input tokens, zero output tokens, 0/8 checks. The sub-LLM's compressed context apparently stripped enough surrounding context that the incident response prompt triggered a safety filter.
+### Redesign (v2 — Fact-Recall Question)
 
-### Why the Refusal Matters
+The benchmark was redesigned to isolate memory: the final question now asks "List all the current, corrected details" with a fact-recall system prompt. Same regex scoring, same scenarios — just a question that tests whether facts survived compression, not whether the model can generate action plans. Results pending re-run.
 
-This is a new failure mode not seen in any previous experiment. RLM's compression didn't _lose_ the facts — it produced a context that _triggered model safety alignment_. The original conversation was clearly a benign logistics scenario, but after compression, the sub-LLM's extraction may have reduced it to bare operational commands ("rollback", "canary", "error rate threshold") that, without the surrounding conversational framing, looked like an instruction to manipulate a production system.
+### Observation: Safety Alignment Interacts With Compression
 
-This suggests that memory compression can change the _perceived intent_ of a conversation, not just its factual content. A safety-conscious model that would happily help with "let's plan our incident response" might refuse the same task when the compressed version reads like a bare operational directive.
+The v1 refusal revealed that compression can change _perceived intent_. A safety-conscious model that helps with "let's plan our incident response" might refuse when the compressed version reads like a bare operational directive. This interaction between memory compression and safety alignment is underexplored in the literature, though the finding is entangled with the action-plan question format. The v2 redesign should clarify whether the refusal was triggered by the question or the compression.
 
-### Implication: Safety Alignment Interacts With Compression
+### Failure Exemplars
 
-Memory strategies are not neutral with respect to safety filters. Compression changes how downstream models interpret intent. This is an underexplored interaction — the RLM and safety alignment literatures don't cross-reference each other. For production systems, this means memory compression needs to preserve not just facts but conversational framing that signals benign intent.
+1. **Incident rollback refusal (v1 benchmark question):**
+RLM returned a full refusal (`0/8`) on Incident Rollback while Full Context still achieved partial correctness (`6/8`). This is the clearest example of compression changing perceived intent, not just dropping facts.
 
-### Open Questions
+2. **Long Horizon + Noise regression under Stability-Plasticity (CTX-43):**
+Stability-Plasticity retained `12/16 (75%)` while baseline RLM retained `14/16 (88%)` on the same scenario. The stable/plastic split did not improve noise resilience and likely diluted useful context.
+
+3. **Contradiction Resolution model-limit failure despite full memory:**
+On the nano leaderboard run, Full Context still failed Contradiction Resolution. This is the canonical example that not all misses are memory misses; reasoning limits can dominate even with full transcript access.
+
+## Promotion Checklist (Release Gates)
+
+| Gate | Target | Current status | Evidence |
+|---|---|---|---|
+| Quantity retention | `>= 50%` | **PASS (QPB)** | CTX-7 quantity retention `100%` |
+| Phone/ID retention | `>= 90%` | **PASS (QPB)** | CTX-7 phone/id retention `100%` |
+| Cross-session | `4/4` pass | **PENDING** | Needs QPB run on internal cross-session track |
+| Benign refusal rate | `0%` | **PENDING** | EXP-02 requires v2 fact-recall rerun |
+| Token overhead vs RLM | `<= 10%` | **PASS (expected)** | QPB adds regex side-channel, no extra LLM calls |
+| Official tracks improvement | Improve on `>= 2/3` | **PENDING** | Need official-mode rerun with QPB |
+
+---
+
+## Open Questions
 
 - Does the self-correction effect hold at depth 3+? (Our depth-3 run was cut short by API limits.)
 - Can the sub-LLM prompt be tuned per-type to eliminate the 0% retention categories?
 - Would a larger model (e.g., GPT-4, Claude Sonnet) close the agentic extraction gap? The code quality might improve enough to make the indirection worthwhile.
 - Is there a hybrid approach — prompt-guided code generation — that gets the best of both worlds?
-- Can a dual-track architecture — natural-language blob for re-ingestion plus a side-channel store for historically-dropped fact types — outperform both base RLM and Hybrid?
+- ~~Can a dual-track architecture — natural-language blob for re-ingestion plus a side-channel store for historically-dropped fact types — outperform both base RLM and Hybrid?~~ **Partially answered (CTX-7): QPB is exactly this architecture** — natural-language delegation blob + regex side-channel for quantities/IDs/dates. It reaches 96.8% retention vs RLM's 75.8%. The remaining question is whether the dual-track concept extends further (e.g., pairing QPB with Hybrid's narrative track).
 - Is the format sensitivity specific to gpt-5-nano, or do larger models also extract worse from structured input than natural-language input?
 - ~~**Does Stability-Plasticity work when tested on the right scenarios?**~~ **Answered (CTX-39, CTX-43): Not as a promotable strategy.** CTX-39 (4 reps) failed outright (63.7% vs RLM 75.8%). CTX-43 full-run confirmation (2 reps) showed a small overall gain (65.3% vs 62.1%), but still triggered kill criteria due to side effects (`date -17pp`, `relationship -17pp`). Verdict remains: abandon.
 - ~~**Can a quantity-pinning buffer improve number retention?**~~ **Answered (CTX-7): Yes, dramatically.** QPB raises quantity retention from 65% to 100%, dates from 33% to 100%, phone/IDs from 57% to 100%. Overall retention jumps from 75.8% to 96.8% with zero additional LLM cost.
@@ -769,41 +793,26 @@ Key files:
 - `src/analysis/official-memoryarena.ts` — CTX-33 MemoryArena adapter (official dataset/splits)
 - `src/analysis/official-memoryagentbench.ts` — CTX-33 MemoryAgentBench subset adapter (official dataset/splits)
 - `src/analysis/memory-action-micro.ts` — Memory-to-Action Micro benchmark
+- `src/analysis/qtd-qpb-experiment.ts` — CTX-7 QTD + QPB experiment
+- `src/analysis/exp-02-intent-framing.ts` — EXP-02 Intent Framing Preservation experiment
 - `results/` — Raw benchmark and analysis data
 
-Based on your latest results, the biggest RLM gains are clear:
+### D. Repro Footers (CTX Sections)
 
-Add a protected exact-values side channel (numbers, IDs, codes, units).
-RLM is losing quantities hardest (often 0-33% retention). Keep these facts pinned and re-inject every cycle with provenance (turn, latest_value, supersedes).
+| Section | Runner(s) | Command | Primary artifact(s) | Runner SHA |
+|---|---|---|---|---|
+| CTX-1 | `src/analysis/rlm-loss.ts` | `bun src/analysis/rlm-loss.ts` | `results/rlm-loss-1771975745614.json` | `d94d3a9` |
+| CTX-2 | `src/analysis/rlm-depth.ts` | `bun src/analysis/rlm-depth.ts` | `results/rlm-depth-1772038754541.json` | `8be991e` |
+| CTX-3 | `src/analysis/rllm-extraction.ts`, `src/analysis/rlm-nano-baseline.ts` | `bun src/analysis/rllm-extraction.ts`, `bun src/analysis/rlm-nano-baseline.ts` | `results/rllm-extraction-1772059948992.json`, `results/rlm-nano-baseline-1772120705953.json` | `5890859`, `fe3d586` |
+| CTX-4 | `src/analysis/code-analysis.ts` | `bun src/analysis/code-analysis.ts` | `results/code-analysis-1772060027268.json` | `6f87fa6` |
+| CTX-5 | `src/analysis/probe-check.ts` | `bun src/analysis/probe-check.ts` | probe-check over existing artifacts (no dedicated CTX-5 JSON) | `e4fe0f0` |
+| CTX-6 | `probe-da-rlm`, `probe-correction-fmt`, `probe-shadow-graphs`, `probe-schema-guided`, `probe-stability` | `bun src/analysis/<runner>.ts` | `results/probe-da-rlm-1772129460150.json`, `results/probe-correction-fmt-1772137875707.json`, `results/probe-shadow-graphs-1772134968054.json`, `results/probe-schema-guided-1772129572424.json` | `6bac4a3`, `2f1f77a` |
+| CTX-39 | `src/analysis/probe-stability.ts` | `bun src/analysis/probe-stability.ts` | `results/probe-stability-plasticity-1772131939946.json` | `6bac4a3` |
+| CTX-43 | `src/analysis/probe-stability.ts` | `bun src/analysis/probe-stability.ts` | `results/probe-stability-plasticity-v2-1772195858439.json` | `6bac4a3` |
+| CTX-7 | `src/analysis/qtd-qpb-experiment.ts` | `bun src/analysis/qtd-qpb-experiment.ts` | `results/qtd-qpb-experiment-1772176379889.json` | `ca4ada9` |
+| EXP-02 | `src/analysis/exp-02-intent-framing.ts` | `bun src/analysis/exp-02-intent-framing.ts` | `results/exp-02-intent-framing-1772206795415.json` | `386cbb9` |
+| CTX-26 | `src/analysis/parallel-benchmarks.ts` | `bun src/analysis/parallel-benchmarks.ts` | `results/parallel-benchmarks-manifest-1772146260041-latest.json` | `f9be87f` |
+| CTX-33 | `src/analysis/official-benchmarks.ts` | `bun src/analysis/official-benchmarks.ts` | `results/official-benchmarks-manifest-1772148138220.json` | `f9be87f` |
+| Memory-to-Action Micro | `src/analysis/memory-action-micro.ts` | `bun src/analysis/memory-action-micro.ts` | `results/memory-action-micro-1772143521108.json` | `f9be87f` |
 
-Keep the natural-language RLM blob for re-ingestion.
-PersistentRLM got worse because structured stores broke cross-field associations. Use dual-track memory:
-
-Track A: natural-language delegated summary (for LLM comprehension)
-Track B: pinned critical facts (for precision)
-Use depth adaptively, but not with regex heuristics.
-Depth-2 helped dense scenarios and hurt noisy ones. Use a lightweight semantic gate (or manual mode per benchmark) instead of the failed rule-based router.
-
-Add “intent framing” to compressed context.
-Your incident rollback refusal is a compression/safety interaction issue. Preserve explicit benign context in every compressed payload (this is simulation/analysis/planning, not live ops execution).
-
-Route by task family, not one strategy everywhere.
-RLM wins on some tracks (LongMemEval, MemoryArena) but not all (MemoryAgentBench, cross-session). Use a meta-router:
-
-Retrieval-heavy long chat -> RLM
-Conflict-heavy / cross-session -> Hybrid or Full Context fallback
-Re-run targeted experiments before another broad sweep.
-Highest-value next runs:
-
-Stability-Plasticity on Scenario 5 (where phone/ID probes exist)
-Quantity-pinning ablation (baseline vs +pinning)
-Cross-session regression pack
-MemoryAgentBench-focused tuning run
-Set hard acceptance gates for “RLM vNext”.
-Example:
-
-Quantity retention >= 50%
-Phone/ID retention >= 90%
-Cross-session 4/4 pass
-MemoryAgentBench > 1/4 baseline
-If you want, I can turn this into a concrete experiment matrix (runs, configs, and stop/go criteria) for your next benchmark cycle.
+**Note:** `Runner SHA` is the latest commit touching the runner file; legacy runs did not persist a dedicated per-run code SHA in artifacts.

@@ -2,38 +2,38 @@
   "assigned_to": null,
   "branch_links": [
     {
-      "branch": "codex/strategy-animations",
-      "linked_at": "2026-02-26T22:18:33Z",
+      "branch": "ctx/qtd-qpb-experiment",
+      "linked_at": "2026-02-27T03:03:32Z",
       "linked_by": "agent:codex",
       "repo": null
     }
   ],
   "comment_count": 2,
   "complexity": null,
-  "created_at": "2026-02-26T22:18:29Z",
+  "created_at": "2026-02-27T03:00:06Z",
   "created_by": "agent:codex",
   "custom_fields": {},
   "description": null,
-  "done_at": "2026-02-27T00:12:04Z",
+  "done_at": "2026-02-27T03:03:44Z",
   "evidence_refs": [
     {
-      "id": "ev_01KJE0JWZMNQHGN3YEBRFD7CR1",
+      "id": "ev_01KJEGTPYSXBYY65ACEQ2G10QY",
       "role": "review",
       "source_type": "comment"
     }
   ],
-  "id": "task_01KJE0GCTQ1Z6BR8BFRFHR8SNT",
-  "last_event_id": "ev_01KJE70C4VAQ4J5HG3Q8ZMXFZE",
-  "last_status_changed_at": "2026-02-27T00:12:04Z",
+  "id": "task_01KJEGM2M5M7X27W9Q27NGKCSV",
+  "last_event_id": "ev_01KJEGTQ0REXHTXT989NMBWJK5",
+  "last_status_changed_at": "2026-02-27T03:03:44Z",
   "priority": "medium",
   "relationships_out": [],
   "reopened_count": 0,
   "schema_version": 1,
-  "short_id": "CTX-23",
+  "short_id": "CTX-40",
   "status": "done",
   "tags": null,
-  "title": "Adjust Full Context return arrow to touch history boundary",
+  "title": "Define RLM vNext experiment matrix with stop/go gates",
   "type": "task",
-  "updated_at": "2026-02-27T00:12:04Z",
+  "updated_at": "2026-02-27T03:03:44Z",
   "urgency": null
 }

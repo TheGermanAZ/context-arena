@@ -1,0 +1,32 @@
+{
+  "assigned_to": null,
+  "branch_links": [],
+  "comment_count": 2,
+  "complexity": null,
+  "created_at": "2026-02-27T16:26:33Z",
+  "created_by": "agent:codex",
+  "custom_fields": {},
+  "description": null,
+  "done_at": "2026-02-27T16:30:17Z",
+  "evidence_refs": [
+    {
+      "id": "ev_01KJFYZHV7TBMV5V9JDN9EY3F2",
+      "role": "review",
+      "source_type": "comment"
+    }
+  ],
+  "id": "task_01KJFYRQHVPMP7T5R02Q009HF8",
+  "last_event_id": "ev_01KJFYZHXBZ1P2F58H2D25P97P",
+  "last_status_changed_at": "2026-02-27T16:30:17Z",
+  "priority": "medium",
+  "relationships_out": [],
+  "reopened_count": 0,
+  "schema_version": 1,
+  "short_id": "CTX-46",
+  "status": "done",
+  "tags": null,
+  "title": "Enhance findings with ship-now, caveats, risks, exemplars, gates, and repro footer",
+  "type": "task",
+  "updated_at": "2026-02-27T16:30:17Z",
+  "urgency": null
+}

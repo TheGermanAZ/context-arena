@@ -1,0 +1,39 @@
+{
+  "assigned_to": null,
+  "branch_links": [
+    {
+      "branch": "ctx/qtd-qpb-experiment",
+      "linked_at": "2026-02-27T03:01:10Z",
+      "linked_by": "agent:claude-opus-4",
+      "repo": null
+    }
+  ],
+  "comment_count": 1,
+  "complexity": null,
+  "created_at": "2026-02-27T03:00:45Z",
+  "created_by": "agent:claude-opus-4",
+  "custom_fields": {},
+  "description": null,
+  "done_at": "2026-02-27T07:14:36Z",
+  "evidence_refs": [
+    {
+      "id": "ev_01KJEZ627S1CVK5SZEJC9QZTDC",
+      "role": "review",
+      "source_type": "comment"
+    }
+  ],
+  "id": "task_01KJEGN85ZSVD0TKT01JGGJAB2",
+  "last_event_id": "ev_01KJEZ627S1CVK5SZEJC9QZTDC",
+  "last_status_changed_at": "2026-02-27T07:14:36Z",
+  "priority": "medium",
+  "relationships_out": [],
+  "reopened_count": 0,
+  "schema_version": 1,
+  "short_id": "CTX-41",
+  "status": "done",
+  "tags": null,
+  "title": "CTX-7 experiment: QTD + QPB strategies implementation and benchmarking",
+  "type": "task",
+  "updated_at": "2026-02-27T07:14:36Z",
+  "urgency": null
+}

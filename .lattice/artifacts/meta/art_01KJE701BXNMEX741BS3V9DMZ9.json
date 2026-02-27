@@ -1,0 +1,19 @@
+{
+  "created_at": "2026-02-27T00:11:53Z",
+  "created_by": "agent:claude-opus-4",
+  "custom_fields": {},
+  "id": "art_01KJE701BXNMEX741BS3V9DMZ9",
+  "model": null,
+  "payload": {
+    "content_type": "text/markdown",
+    "file": "art_01KJE701BXNMEX741BS3V9DMZ9.md",
+    "size_bytes": 182
+  },
+  "schema_version": 1,
+  "sensitive": false,
+  "summary": "Verified: arrow path terminates at x=346 (history panel boundary), payload bar at y=356 below Turn 6 (y=309). Both fixes merged via PR #9. Task was already done but status was stale.",
+  "tags": [],
+  "title": "Review findings",
+  "token_usage": null,
+  "type": "note"
+}

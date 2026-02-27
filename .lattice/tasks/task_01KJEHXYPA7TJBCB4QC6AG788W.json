@@ -1,0 +1,32 @@
+{
+  "assigned_to": null,
+  "branch_links": [],
+  "comment_count": 4,
+  "complexity": null,
+  "created_at": "2026-02-27T03:22:59Z",
+  "created_by": "agent:codex",
+  "custom_fields": {},
+  "description": null,
+  "done_at": "2026-02-27T12:37:48Z",
+  "evidence_refs": [
+    {
+      "id": "ev_01KJFHNW1SJGJ9VR1YEEN2X38D",
+      "role": "review",
+      "source_type": "comment"
+    }
+  ],
+  "id": "task_01KJEHXYPA7TJBCB4QC6AG788W",
+  "last_event_id": "ev_01KJFHNW3E6ZRABTNEV30Q1Z8Y",
+  "last_status_changed_at": "2026-02-27T12:37:48Z",
+  "priority": "medium",
+  "relationships_out": [],
+  "reopened_count": 1,
+  "schema_version": 1,
+  "short_id": "CTX-43",
+  "status": "done",
+  "tags": null,
+  "title": "Run RLM vNext experiment",
+  "type": "task",
+  "updated_at": "2026-02-27T12:37:48Z",
+  "urgency": null
+}
