@@ -18,9 +18,61 @@ describe("QPBStrategy", () => {
 
   test("reset clears pinned buffer", () => {
     const strategy = new QPBStrategy();
-    strategy.addMessage({ role: "user", content: "test" });
+    strategy.addMessage({ role: "user", content: "Budget is $420,000" });
+    expect(strategy.getPinnedBuffer().size).toBe(1);
     strategy.reset();
     expect(strategy.getPinnedBuffer().size).toBe(0);
+  });
+
+  test("addMessage eagerly extracts quantities into pinned buffer", () => {
+    const strategy = new QPBStrategy();
+    strategy.addMessage({ role: "user", content: "Budget revised to $465,000 after scope expansion." });
+    expect(strategy.getPinnedBuffer().size).toBe(1);
+    const values = Array.from(strategy.getPinnedBuffer().values());
+    expect(values.some((v) => v.includes("$465,000"))).toBe(true);
+  });
+
+  test("serializePinnedBuffer returns empty string when buffer is empty", () => {
+    const strategy = new QPBStrategy();
+    expect(strategy.serializePinnedBuffer()).toBe("");
+  });
+
+  test("serializePinnedBuffer returns formatted block with markers", () => {
+    const strategy = new QPBStrategy();
+    strategy.addMessage({ role: "user", content: "Budget: $465,000\nVendor code: INC-4421" });
+    const serialized = strategy.serializePinnedBuffer();
+    expect(serialized).toContain("[PINNED VALUES]");
+    expect(serialized).toContain("[/PINNED VALUES]");
+    expect(serialized).toContain("$465,000");
+    expect(serialized).toContain("INC-4421");
+  });
+
+  test("cross-session: serialized buffer hydrates after reset", () => {
+    const strategy = new QPBStrategy();
+
+    // Session 1: accumulate facts
+    strategy.addMessage({ role: "user", content: "Project budget is $420,000." });
+    strategy.addMessage({ role: "user", content: "Vendor is Northwind. Policy ID: POL-2024-8891." });
+    expect(strategy.getPinnedBuffer().size).toBeGreaterThanOrEqual(2);
+
+    // Serialize before reset
+    const serialized = strategy.serializePinnedBuffer();
+    expect(serialized).toContain("$420,000");
+    expect(serialized).toContain("POL-2024");
+
+    // Reset (simulates session boundary)
+    strategy.reset();
+    expect(strategy.getPinnedBuffer().size).toBe(0);
+
+    // Session 2: feed persistence note containing serialized buffer
+    strategy.addMessage({ role: "user", content: `Previous session note:\nProject Atlas is underway.${serialized}` });
+
+    // Buffer should be hydrated from the persistence note
+    const buffer = strategy.getPinnedBuffer();
+    expect(buffer.size).toBeGreaterThanOrEqual(2);
+    const values = Array.from(buffer.values());
+    expect(values.some((v) => v.includes("$420,000"))).toBe(true);
+    expect(values.some((v) => v.includes("POL-2024"))).toBe(true);
   });
 });
 

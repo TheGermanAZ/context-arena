@@ -12,6 +12,7 @@ import { calculateCost } from "../utils/metrics";
 import type { MemoryStrategy } from "../strategies/base";
 import { FullContextStrategy } from "../strategies/full-context";
 import { RLMStrategy } from "../strategies/rlm";
+import { QPBStrategy } from "../strategies/qpb";
 
 interface SessionResult {
   strategyName: string;
@@ -81,7 +82,10 @@ async function runOne(strategy: MemoryStrategy): Promise<SessionResult> {
   totalLatencyMs += performance.now() - s1start;
   totalInputTokens += s1resp.inputTokens;
   totalOutputTokens += s1resp.outputTokens;
-  const note1 = s1resp.content;
+  const pins1 = "serializePinnedBuffer" in strategy
+    ? (strategy as QPBStrategy).serializePinnedBuffer()
+    : "";
+  const note1 = s1resp.content + pins1;
 
   // Session 2
   strategy.reset();
@@ -99,7 +103,10 @@ async function runOne(strategy: MemoryStrategy): Promise<SessionResult> {
   totalLatencyMs += performance.now() - s2start;
   totalInputTokens += s2resp.inputTokens;
   totalOutputTokens += s2resp.outputTokens;
-  const note2 = s2resp.content;
+  const pins2 = "serializePinnedBuffer" in strategy
+    ? (strategy as QPBStrategy).serializePinnedBuffer()
+    : "";
+  const note2 = s2resp.content + pins2;
 
   // Session 3 + final query
   strategy.reset();
@@ -138,6 +145,7 @@ async function main() {
   const strategies: Array<{ name: string; create: () => MemoryStrategy }> = [
     { name: "Full Context", create: () => new FullContextStrategy() },
     { name: "RLM(8)", create: () => new RLMStrategy(8, 4) },
+    { name: "QPB", create: () => new QPBStrategy(8, 4) },
   ];
 
   const results: SessionResult[] = [];

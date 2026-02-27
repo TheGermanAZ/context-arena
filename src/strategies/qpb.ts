@@ -59,10 +59,44 @@ export class QPBStrategy implements MemoryStrategy {
     return this.pinnedBuffer;
   }
 
+  /**
+   * Serialize the pinned buffer to a text block for persistence notes.
+   * Append this to the end of a session's persistence note so exact
+   * values survive across session resets.
+   */
+  serializePinnedBuffer(): string {
+    if (this.pinnedBuffer.size === 0) return "";
+    const lines = Array.from(this.pinnedBuffer.values()).map((v) => `- ${v}`);
+    return `\n[PINNED VALUES]\n${lines.join("\n")}\n[/PINNED VALUES]`;
+  }
+
   addMessage(message: LLMMessage): void {
     this.messages.push(message);
     this.messagesSinceDelegation++;
     this.currentStep++;
+
+    // Eager scan: extract quantities from every incoming message.
+    // This ensures persistence notes (fed as user messages at session start)
+    // hydrate the pinned buffer immediately, without waiting for delegation.
+    const extracted = QPBStrategy.extractQuantities(message.content);
+    for (const entry of extracted) {
+      let found = false;
+      for (const existingKey of Array.from(this.pinnedBuffer.keys())) {
+        if (
+          existingKey.includes(entry.key.slice(0, 25)) ||
+          entry.key.includes(existingKey.slice(0, 25))
+        ) {
+          // Update existing entry with newer value
+          this.pinnedBuffer.delete(existingKey);
+          this.pinnedBuffer.set(entry.key, entry.value);
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        this.pinnedBuffer.set(entry.key, entry.value);
+      }
+    }
   }
 
   /**
