@@ -15,19 +15,20 @@ import { useLeaderboard } from '../lib/hooks';
 function useScrollSpy(ids: string[]) {
   const [activeId, setActiveId] = useState(ids[0]);
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveId(entry.target.id);
-        });
-      },
-      { rootMargin: '-20% 0px -70% 0px' },
-    );
-    ids.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
+    const HEADER_OFFSET = 100;
+    function onScroll() {
+      let current = ids[0];
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= HEADER_OFFSET) {
+          current = id;
+        }
+      }
+      setActiveId(current);
+    }
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, [ids]);
   return activeId;
 }
@@ -216,36 +217,37 @@ export default function Findings() {
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
-      {/* ── Top nav (site links only) ── */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-950/80 backdrop-blur-sm border-b border-gray-800/50">
-        <div className="max-w-5xl mx-auto px-6 py-3 flex items-center justify-end pl-52">
+      {/* ── Sticky header ── */}
+      <header className="sticky top-0 z-30 bg-gray-950/80 backdrop-blur-md border-b border-gray-800/60">
+        <div className="max-w-[90rem] mx-auto px-6 py-4 flex items-center justify-between">
+          <h1 className="text-lg font-semibold text-gray-100">Findings</h1>
           <NavBar />
         </div>
-      </nav>
+      </header>
 
-      {/* ── Section sidebar ── */}
-      <aside className="fixed top-0 left-0 h-full w-48 bg-gray-900/80 backdrop-blur-sm border-r border-gray-800/50 z-40 flex flex-col pt-16 pb-6 overflow-y-auto">
-        <div className="px-4 mb-4">
-          <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-500">Sections</span>
-        </div>
-        <nav className="flex flex-col gap-0.5 px-3">
-          {SECTIONS.map(({ id, label }) => (
-            <a
-              key={id}
-              href={`#${id}`}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                activeId === id
-                  ? 'bg-emerald-600/20 text-emerald-400 border-l-2 border-emerald-500'
-                  : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/50'
-              }`}
-            >
-              {label}
-            </a>
-          ))}
-        </nav>
-      </aside>
+      {/* ── Sidebar + Content ── */}
+      <div className="max-w-[90rem] mx-auto flex">
+        {/* ── Section sidebar ── */}
+        <aside className="hidden lg:block w-72 shrink-0 sticky top-[57px] h-[calc(100vh-57px)] overflow-y-auto border-r border-gray-800/40 py-8 px-4">
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-600 mb-4 px-2">Sections</p>
+          <nav className="flex flex-col gap-0.5">
+            {SECTIONS.map(({ id, label }) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                className={`text-left text-xs px-2 py-1.5 rounded transition-colors leading-snug ${
+                  activeId === id
+                    ? 'text-emerald-400 bg-emerald-500/10 font-medium'
+                    : 'text-gray-500 hover:text-gray-300 hover:bg-gray-800/40'
+                }`}
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
+        </aside>
 
-      <div className="ml-48 max-w-5xl mx-auto px-6 pt-24">
+        <main className="flex-1 min-w-0 max-w-5xl px-6 pt-12 mx-auto">
         {/* ── Hero ── */}
         <header className="pt-8 pb-12">
           <h1 className="text-5xl font-extrabold tracking-tight mb-4">
@@ -1095,6 +1097,7 @@ export default function Findings() {
         <footer className="py-12 text-center text-gray-600 text-sm">
           Built on data from 17 strategies × 8 scenarios × 62 probes × 10 experiments
         </footer>
+        </main>
       </div>
     </div>
   );

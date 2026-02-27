@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useMemo, useState, useEffect, useCallback, useRef } from 'react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import NavBar from '../components/NavBar';
@@ -7,21 +7,100 @@ import { Skeleton } from '../components/charts';
 
 const OrderedListContext = createContext(false);
 
+function slugify(text: string): string {
+  return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+
+/** Strip "Week N, Day N:" prefix and "(Feb NN)" suffix for short sidebar labels */
+function shortLabel(text: string): string {
+  return text
+    .replace(/^Week \d+,?\s*Day \d+(?:-\d+)?(?:\s*\(cont\.\))?:\s*/i, '')
+    .replace(/\s*\(Feb\s*\d+(?:-\d+)?\)\s*$/, '')
+    .trim();
+}
+
 export default function Journal() {
   const { data, isLoading, error } = useJournal();
+  const [activeSlug, setActiveSlug] = useState<string>('');
+  const sidebarRef = useRef<HTMLElement>(null);
+
+  const headings = useMemo(() => {
+    if (!data?.content) return [];
+    const matches = [...data.content.matchAll(/^## (.+)$/gm)];
+    return matches.map((m) => ({ text: m[1], short: shortLabel(m[1]), slug: slugify(m[1]) }));
+  }, [data?.content]);
+
+  // Track active section via scroll position
+  useEffect(() => {
+    if (headings.length === 0) return;
+    const HEADER_OFFSET = 100; // sticky header + some breathing room
+
+    function onScroll() {
+      const slugs = headings.map((h) => h.slug);
+      let current = slugs[0];
+      for (const slug of slugs) {
+        const el = document.getElementById(slug);
+        if (el && el.getBoundingClientRect().top <= HEADER_OFFSET) {
+          current = slug;
+        }
+      }
+      setActiveSlug(current);
+    }
+
+    onScroll(); // set initial active
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [headings]);
+
+  // Auto-scroll sidebar to keep active item visible
+  useEffect(() => {
+    if (!activeSlug || !sidebarRef.current) return;
+    const btn = sidebarRef.current.querySelector(`[data-slug="${activeSlug}"]`) as HTMLElement | null;
+    if (btn) btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, [activeSlug]);
+
+  const scrollTo = useCallback((slug: string) => {
+    const el = document.getElementById(slug);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-300">
       {/* Header */}
       <header className="sticky top-0 z-30 bg-gray-950/80 backdrop-blur-md border-b border-gray-800/60">
-        <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="max-w-[90rem] mx-auto px-6 py-4 flex items-center justify-between">
           <h1 className="text-lg font-semibold text-gray-100">Project Journal</h1>
           <NavBar />
         </div>
       </header>
 
-      {/* Content */}
-      <main className="max-w-4xl mx-auto px-6 py-12">
+      {/* Sidebar + Content */}
+      <div className="max-w-[90rem] mx-auto flex">
+        {/* Sidebar */}
+        {headings.length > 0 && (
+          <aside ref={sidebarRef} className="hidden lg:block w-72 shrink-0 sticky top-[57px] h-[calc(100vh-57px)] overflow-y-auto border-r border-gray-800/40 py-8 px-4">
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-600 mb-4 px-2">Sections</p>
+            <nav className="flex flex-col gap-0.5">
+              {headings.map((h) => (
+                <button
+                  key={h.slug}
+                  data-slug={h.slug}
+                  onClick={() => scrollTo(h.slug)}
+                  className={`text-left text-xs px-2 py-1.5 rounded transition-colors leading-snug ${
+                    activeSlug === h.slug
+                      ? 'text-emerald-400 bg-emerald-500/10 font-medium'
+                      : 'text-gray-500 hover:text-gray-300 hover:bg-gray-800/40'
+                  }`}
+                >
+                  {h.short}
+                </button>
+              ))}
+            </nav>
+          </aside>
+        )}
+
+        {/* Content */}
+        <main className="flex-1 min-w-0 max-w-4xl px-6 py-12 mx-auto">
         {error && (
           <div className="rounded-lg border border-red-800 bg-red-900/20 px-6 py-4 text-red-300">
             Failed to load journal: {error.message}
@@ -36,9 +115,13 @@ export default function Journal() {
                 h1: ({ children }) => (
                   <h1 className="text-4xl font-bold text-gray-100 mb-3 mt-0">{children}</h1>
                 ),
-                h2: ({ children }) => (
-                  <h2 className="text-2xl font-bold text-gray-100 mt-14 mb-4 pb-2 border-b border-gray-800/50">{children}</h2>
-                ),
+                h2: ({ children }) => {
+                  const text = typeof children === 'string' ? children : String(children);
+                  const id = slugify(text);
+                  return (
+                    <h2 id={id} className="text-2xl font-bold text-gray-100 mt-14 mb-4 pb-2 border-b border-gray-800/50 scroll-mt-20">{shortLabel(text)}</h2>
+                  );
+                },
                 h3: ({ children }) => (
                   <h3 className="text-xl font-semibold text-gray-200 mt-8 mb-3">{children}</h3>
                 ),
@@ -134,7 +217,8 @@ export default function Journal() {
             </Markdown>
           </article>
         )}
-      </main>
+        </main>
+      </div>
 
       {/* Footer */}
       <footer className="py-12 text-center text-gray-600 text-sm border-t border-gray-800/40">
