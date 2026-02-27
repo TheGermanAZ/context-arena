@@ -61,6 +61,7 @@ const SECTIONS = [
   { id: 'depth', label: 'Depth Paradox' },
   { id: 'prompts-vs-code', label: 'Prompts vs Code' },
   { id: 'persistence', label: 'Persistence Trap' },
+  { id: 'proposals', label: 'Proposals Tested' },
   { id: 'landscape', label: 'The Field' },
   { id: 'insights', label: 'Insights' },
   { id: 'future', label: 'Where Next' },
@@ -173,12 +174,61 @@ function ProposalCard({
   );
 }
 
+function VerdictBadge({ verdict }: { verdict: 'ABANDON' | 'INCONCLUSIVE' | 'PASS' }) {
+  const styles = {
+    ABANDON: 'bg-red-500/10 text-red-400 border-red-500/20',
+    INCONCLUSIVE: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+    PASS: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+  };
+  return (
+    <span className={`text-xs font-bold px-2.5 py-1 rounded-full border ${styles[verdict]}`}>
+      {verdict}
+    </span>
+  );
+}
+
+function ProbeCard({
+  number,
+  title,
+  phase1,
+  phase2,
+  verdict,
+  why,
+}: {
+  number: number;
+  title: string;
+  phase1: string;
+  phase2: string;
+  verdict: 'ABANDON' | 'INCONCLUSIVE';
+  why: string;
+}) {
+  return (
+    <div className="rounded-lg border border-gray-800 bg-gray-900/50 p-5">
+      <div className="flex items-center gap-3 mb-3">
+        <span className="text-gray-500 font-bold text-sm">#{number}</span>
+        <h4 className="text-gray-100 font-semibold text-sm flex-1">{title}</h4>
+        <VerdictBadge verdict={verdict} />
+      </div>
+      <div className="grid grid-cols-2 gap-2 mb-3 text-xs">
+        <div>
+          <span className="text-gray-500">Phase 1: </span>
+          <span className="text-gray-300">{phase1}</span>
+        </div>
+        <div>
+          <span className="text-gray-500">Phase 2: </span>
+          <span className="text-gray-300">{phase2}</span>
+        </div>
+      </div>
+      <p className="text-gray-500 text-xs leading-relaxed">{why}</p>
+    </div>
+  );
+}
+
 /* ─── Main page ──────────────────────────────── */
 
 export default function Findings() {
   const activeId = useScrollSpy(SECTION_IDS);
   const leaderboard = useLeaderboard();
-  const top = leaderboard.data?.[0];
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
@@ -224,10 +274,10 @@ export default function Findings() {
               </>
             ) : (
               <>
-                <KPICard label="Strategies Tested" value={8} format={(n) => String(n)} subtitle="memory approaches" accentColor="#10b981" />
-                <KPICard label="Scenarios" value={8} format={(n) => String(n)} subtitle="failure modes" accentColor="#8b5cf6" />
-                <KPICard label="Probes" value={62} format={(n) => String(n)} subtitle="fact-level tracking" accentColor="#f59e0b" />
-                <KPICard label="Best Accuracy" value={top ? top.accuracy * 100 : 100} format={(n) => `${n.toFixed(0)}%`} subtitle={top?.strategy ?? 'Full Context'} accentColor="#10b981" />
+                <KPICard label="Strategies Tested" value={9} format={(n) => String(n)} subtitle="memory approaches" accentColor="#10b981" />
+                <KPICard label="Proposals Probed" value={5} format={(n) => String(n)} subtitle="4 abandoned, 1 inconclusive" accentColor="#ef4444" />
+                <KPICard label="Probes" value={62} format={(n) => String(n)} subtitle="across 8 scenarios" accentColor="#f59e0b" />
+                <KPICard label="Experiments" value={6} format={(n) => String(n)} subtitle="CTX-1 through CTX-6" accentColor="#8b5cf6" />
               </>
             )}
           </div>
@@ -493,7 +543,95 @@ export default function Findings() {
         </FindingsSection>
 
         {/* ════════════════════════════════════════════
-            Section 8 — The Field
+            Section 8 — Testing the Proposals (CTX-6)
+           ════════════════════════════════════════════ */}
+        <FindingsSection id="proposals" title="Testing the Proposals">
+          <Prose>
+            CTX-1 through CTX-5 identified RLM&apos;s weaknesses. Can targeted architectural changes fix
+            them? We built lightweight feasibility probes for 5 proposals — two-phase experiments that test
+            core assumptions before committing to full implementation. Phase 1 validates at zero LLM cost
+            (regex, parsing). Phase 2 runs targeted benchmarks only if Phase 1 passes. Kill criteria stop
+            early when the data says the idea is dead.
+          </Prose>
+          <DataTable
+            headers={['#', 'Proposal', 'Phase 1', 'Phase 2', 'Verdict']}
+            rows={[
+              [1, 'Depth-Adaptive RLM', 'FAIL (50%)', 'skipped', 'ABANDON'],
+              [2, 'Correction Format Engineering', 'n/a', 'KILL (0pp spread)', 'ABANDON'],
+              [3, 'Structural Shadow Graphs', 'PASS (75%)', '+4pp avg', 'ABANDON'],
+              [5, 'Stability-Plasticity', 'PASS (80%)', 'KILL (wrong data)', 'INCONCLUSIVE'],
+              [10, 'Schema-Guided Hybrid', 'FAIL (65%)', 'skipped', 'ABANDON'],
+            ]}
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-8">
+            <ProbeCard
+              number={1}
+              title="Depth-Adaptive RLM"
+              phase1="FAIL — 50% routing accuracy"
+              phase2="skipped"
+              verdict="ABANDON"
+              why="Regex-based content signals (information density, noise ratio) are too coarse for automatic depth routing. The scenario that benefits most from depth 2 was routed to depth 1."
+            />
+            <ProbeCard
+              number={2}
+              title="Correction Format Engineering"
+              phase1="n/a"
+              phase2="KILL — 0pp spread"
+              verdict="ABANDON"
+              why="All 7 formats scored identically: 57.1%. Every format retained 100% corrections, 0% quantities. The sub-LLM treats all correction formats equivalently."
+            />
+            <ProbeCard
+              number={3}
+              title="Structural Shadow Graphs"
+              phase1="PASS — 75% capture"
+              phase2="+4pp avg improvement"
+              verdict="ABANDON"
+              why="Only +4pp gain at 2x token cost (~140K tokens per scenario). Dates and relationships improved, but entities and quantities degraded."
+            />
+            <ProbeCard
+              number={5}
+              title="Stability-Plasticity"
+              phase1="PASS — 80% classifier recall"
+              phase2="KILL — wrong test data"
+              verdict="INCONCLUSIVE"
+              why="Tested phone/ID retention on a scenario with zero phone/ID probes. The stable buffer had nothing to protect. Needs retest with Scenario 5."
+            />
+            <ProbeCard
+              number={10}
+              title="Schema-Guided Hybrid"
+              phase1="FAIL — 65% coverage"
+              phase2="skipped"
+              verdict="ABANDON"
+              why='Schema generator produced domain-specific types ("pre_money_valuation") instead of abstract categories ("correction", "quantity"). The mapper couldn&apos;t bridge the gap.'
+            />
+          </div>
+
+          <h3 className="text-xl font-semibold text-gray-200 mb-4">The Quantity Problem</h3>
+          <Prose>
+            The most striking cross-cutting finding: exact quantities are systematically destroyed by every
+            RLM variant we tested. This emerged in CTX-1 and is now confirmed across every experiment:
+          </Prose>
+          <DataTable
+            headers={['Experiment', 'Quantity Retention']}
+            rows={[
+              ['Correction Format (all 7 formats)', '0%'],
+              ['RLM baseline (CTX-1)', '12%'],
+              ['Stability-Plasticity', '17%'],
+              ['PersistentRLM (CTX-5)', '18%'],
+              ['Shadow Graphs', '33%'],
+            ]}
+          />
+          <Callout>
+            Dollar amounts, counts, rates, and measurements are the single most fragile fact type.
+            Corrections survive (75-100%). Entities survive partially (25-58%). But numbers are
+            consistently lost. <strong>Number-preserving compression</strong> — not any of the 10 proposals
+            — may be the highest-leverage research direction.
+          </Callout>
+        </FindingsSection>
+
+        {/* ════════════════════════════════════════════
+            Section 9 — The Field
            ════════════════════════════════════════════ */}
         <FindingsSection id="landscape" title="The Field">
           <Prose>
@@ -623,6 +761,18 @@ export default function Findings() {
                 title: 'Non-Monotonic Retention',
                 text: 'Facts lost at cycle 1 can reappear at cycles 2-3 then be permanently lost at 4-5. The sub-LLM\'s extraction quality varies based on input format, not monotonically on distance.',
               },
+              {
+                title: 'Correction Format Is Irrelevant',
+                text: 'Seven distinct correction formats — from explicit negation to Socratic elicitation — all scored identically (57.1%). The sub-LLM already handles corrections well (100% retention). The bottleneck was never how we communicate corrections.',
+              },
+              {
+                title: 'Quantities Are The Critical Gap',
+                text: 'Exact numbers are the most fragile fact type across every experiment (0-33% retention). Dollar amounts, rates, and measurements are systematically lost. Number-preserving compression is the single highest-leverage unsolved problem.',
+              },
+              {
+                title: 'Parallel Structures Add Cost, Not Quality',
+                text: 'Shadow Graphs (knowledge graph alongside RLM) produced only +4pp improvement at 2x token cost. Architectural additions that run parallel LLM calls must clear a high cost-effectiveness bar.',
+              },
             ].map(({ title, text }) => (
               <Callout key={title}>
                 <strong>{title}.</strong> {text}
@@ -636,39 +786,47 @@ export default function Findings() {
            ════════════════════════════════════════════ */}
         <FindingsSection id="future" title="Where Next">
           <Prose>
-            Five research proposals emerged from this work, each targeting a specific weakness
-            identified by the benchmark:
+            Five proposals were tested with feasibility probes. Four were abandoned, one is inconclusive.
+            But the probes revealed where to look next:
           </Prose>
+
+          <h3 className="text-xl font-semibold text-gray-200 mb-4">What We Predicted vs. What Happened</h3>
+          <DataTable
+            headers={['Proposal', 'Predicted', 'Actual', 'Gap']}
+            rows={[
+              ['#1 DA-RLM', '75-80% retention', 'Phase 1 fail (50% routing)', 'Router too coarse'],
+              ['#2 Correction Format', '85%+ on corrections', '57.1% — all 7 identical', 'Format irrelevant'],
+              ['#3 Shadow Graphs', '70-90% on spatial/ID', '+4pp avg at 2x cost', 'Cost-ineffective'],
+              ['#5 Stability-Plasticity', '88%+ overall', 'Inconclusive (wrong data)', 'Needs retest'],
+              ['#10 Schema-Guided', 'Adaptive extraction', '65% schema coverage', 'Semantic gap'],
+            ]}
+          />
+
+          <h3 className="text-xl font-semibold text-gray-200 mt-8 mb-4">Emerging Directions</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
             <ProposalCard
-              number={1}
-              title="Depth-Adaptive RLM"
-              abstract="Dynamically select compression depth per segment based on content assessment, unifying self-correction benefits with noise-resilience."
-              predicted="75-80% retention (vs. RLM's 59.7%)"
+              number={0}
+              title="Number-Preserving Compression"
+              abstract="Detect exact quantities during extraction and pin them to a protected buffer. The single highest-leverage intervention — quantities are 0-33% across every experiment."
+              predicted="New direction from CTX-6 meta-finding"
             />
             <ProposalCard
-              number={2}
-              title="Correction Format Engineering"
-              abstract="Systematically test how correction presentation format affects entrenchment bypass, hypothesizing re-derivation > assertion formats."
-              predicted="75% → 85%+ on correction scenarios"
-            />
-            <ProposalCard
-              number={3}
-              title="Structural Shadow Graphs"
-              abstract="Parallel property graph alongside RLM text output to preserve spatial facts, identifiers, and relationships that text flattening destroys."
-              predicted="0% → 70-90% on spatial/ID/decision facts"
+              number={5}
+              title="Stability-Plasticity (Retest)"
+              abstract="The only proposal not definitively killed. Regex classifier works (80% recall). Needs retest with Scenario 5 (6 phone/ID probes) for a fair assessment."
+              predicted="Inconclusive — retest required"
             />
             <ProposalCard
               number={4}
               title="Foresight-Guided Extraction"
               abstract="Augment RLM extraction with anticipatory salience signals predicting what information will be queried, biasing toward high-impact facts."
-              predicted="59.7% → 70-75% overall"
+              predicted="59.7% → 70-75% overall (untested)"
             />
             <ProposalCard
-              number={5}
-              title="Stability-Plasticity Decomposed Memory"
-              abstract="Dual-channel context (Stable for identifiers/spatial, Plastic for corrections) with independent compression rules matched to retention requirements."
-              predicted="79% → 88%+ overall retention"
+              number={6}
+              title="Dual-Track Architecture"
+              abstract="Keep the natural-language blob for re-ingestion plus a side-channel store for historically-dropped fact types. Combine RLM's language understanding with Hybrid's persistence."
+              predicted="New direction from CTX-5 findings"
             />
           </div>
 
@@ -678,9 +836,10 @@ export default function Findings() {
               'Does the self-correction effect hold at depth 3+?',
               'Can the sub-LLM prompt be tuned per-type to eliminate the 0% retention categories?',
               'Would a larger model close the agentic extraction gap, or does code quality not matter when the fundamental approach is flawed?',
-              'Is there a hybrid approach — prompt-guided code generation — that gets the best of both worlds?',
               'Can a dual-track architecture (natural-language blob + side-channel store) outperform both base RLM and Hybrid?',
               'Is the format sensitivity specific to small models, or do larger models also extract worse from structured input?',
+              'Does Stability-Plasticity work when tested on the right scenarios (Scenario 5, 6 phone/ID probes)?',
+              'Can a quantity-pinning buffer improve number retention — the single biggest gap across all experiments?',
             ].map((q) => (
               <li key={q} className="flex gap-3">
                 <span className="text-emerald-500 mt-1">?</span>
@@ -714,7 +873,7 @@ export default function Findings() {
 
         {/* Footer */}
         <footer className="py-12 text-center text-gray-600 text-sm">
-          Built on data from 8 strategies × 8 scenarios × 62 probes
+          Built on data from 9 strategies × 8 scenarios × 62 probes × 5 feasibility probes
         </footer>
       </div>
     </div>
