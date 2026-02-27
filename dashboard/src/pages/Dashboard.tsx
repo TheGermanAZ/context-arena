@@ -15,6 +15,7 @@ const CodeStrategies = lazy(() => import('../components/CodeStrategies'));
 const ScenarioHeatmap = lazy(() => import('../components/ScenarioHeatmap'));
 const CostAccuracy = lazy(() => import('../components/CostAccuracy'));
 const ScenarioDifficulty = lazy(() => import('../components/ScenarioDifficulty'));
+const ParallelBenchmarks = lazy(() => import('../components/ParallelBenchmarks'));
 
 /* ── Panel Registry ───────────────────────────────────────────── */
 
@@ -35,6 +36,7 @@ const PANEL_MAP: Record<string, PanelConfig> = {
   'depth-comparison': { render: () => <DepthComparison />, title: 'Depth 1 vs 2', badge: { text: 'RLM', color: 'emerald' } },
   'rllm-comparison': { render: () => <RllmComparison />, title: 'RLLM vs Hand-rolled', badge: { text: 'RLLM', color: 'red' } },
   'code-strategies': { render: () => <CodeStrategies />, title: 'Code Strategies', badge: { text: 'RLLM', color: 'red' } },
+  'parallel-benchmarks': { render: () => <ParallelBenchmarks />, title: 'Benchmark Expansion', badge: { text: 'CTX-26', color: 'emerald' } },
 };
 
 /* ── Filter Bar ───────────────────────────────────────────────── */

@@ -162,3 +162,24 @@ export const costAccuracyResponseSchema = z.object({
 export const scenarioDifficultyResponseSchema = z.object({
   scenarios: z.array(scenarioDifficultyEntrySchema),
 });
+
+// --- Parallel Benchmarks (CTX-26 expansion) ---
+
+const parallelBenchmarkRowSchema = z.object({
+  track: z.string(),
+  type: z.enum(['industry', 'internal']),
+  strategy: z.string(),
+  score: z.string(),
+  passed: z.boolean(),
+  avgLatencyMs: z.number(),
+  costUsd: z.number(),
+});
+
+export const parallelBenchmarksResponseSchema = z.object({
+  rows: z.array(parallelBenchmarkRowSchema),
+  summary: z.object({
+    industryCount: z.number(),
+    internalCount: z.number(),
+    totalTracks: z.number(),
+  }),
+});

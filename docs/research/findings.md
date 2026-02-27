@@ -408,6 +408,120 @@ This only works when the structured output is faithful. For noisy scenarios, the
 
 8. **Parallel structures add cost without proportional gain.** Shadow Graphs (maintaining a knowledge graph alongside RLM) produced only +4pp improvement at 2x token cost. Architectural additions that run parallel LLM calls must clear a high cost-effectiveness bar.
 
+- **Industry proxy tracks:** LongMemEval slice, MemoryArena slice, MemoryAgentBench subset (EventQA + FactConsolidation)
+- **Internal tracks:** Cross-session persistence, multi-agent handoff, scale ladder, backbone robustness matrix
+
+### Unified Results (One-Day Parallel Run)
+
+| Track | Strategy / Model | Score | Avg Latency | Cost |
+|---|---|---|---:|---:|
+| LongMemEval slice (proxy) | Full Context | 1/3 (33.3%) | 12.0s | $0.2549 |
+| LongMemEval slice (proxy) | RLM(8) | 2/3 (66.7%) | 76.8s | $0.2794 |
+| MemoryArena slice (proxy) | Full Context | 3/4 (75.0%) | 25.8s | $0.0462 |
+| MemoryArena slice (proxy) | RLM(8) | 3/4 (75.0%) | 24.0s | $0.0483 |
+| MemoryAgentBench subset (proxy) | Full Context | 1/4 (25.0%) | 13.0s | $0.0651 |
+| MemoryAgentBench subset (proxy) | RLM(8) | 0/4 (0.0%) | 12.8s | $0.0625 |
+| Internal cross-session | Full Context | PASS (4/4) | 22.0s | $0.0090 |
+| Internal cross-session | RLM(8) | FAIL (3/4) | 18.8s | $0.0068 |
+| Internal multi-agent handoff | Full Context | PASS (3/3) | 48.6s | $0.0237 |
+| Internal multi-agent handoff | RLM(8) | PASS (3/3) | 40.4s | $0.0161 |
+| Internal scale ladder (8k/32k/128k) | Full Context | 3/3 (100.0%) | 4.5s | $0.0991 |
+| Internal scale ladder (8k/32k/128k) | RLM(8) | 3/3 (100.0%) | 3.3s | $0.0993 |
+| Internal backbone matrix | gpt-5-nano | PASS | 3.8s | $0.0000 |
+| Internal backbone matrix | gpt-5-mini | FAIL | 0.0s | $0.0000 |
+| Internal backbone matrix | gpt-4.1-mini | FAIL | 0.0s | $0.0000 |
+
+### CTX-26 Summary
+
+1. **RLM is not uniformly better across external benchmarks.** It beat Full Context on the LongMemEval slice (2/3 vs 1/3), tied on MemoryArena (3/4 each), and underperformed on the MemoryAgentBench subset (0/4 vs 1/4).
+2. **Cross-session persistence remains a concrete weakness for RLM.** Full Context passed 4/4 while RLM failed 3/4 on the internal cross-session benchmark.
+3. **Multi-agent handoff and bounded scale looked healthy for both strategies.** Both passed the multi-agent handoff test and the 8k/32k/128k scale ladder in this run.
+4. **Backbone robustness is unresolved.** Only gpt-5-nano passed the correction-sensitive matrix check; other configured backbones failed in this environment.
+
+### Per-Question Highlights
+
+The aggregate scores hide instructive per-question patterns:
+
+**LongMemEval — RLM's self-correction mode in action:**
+- "What degree did I graduate with?" → Both correct ("Business Administration")
+- "How long is my daily commute?" → Full Context: "Unknown"; **RLM: "45 minutes each way"** (correct). RLM's sub-LLM compression preserved this fact buried in ~100K tokens of conversation that Full Context's attention apparently missed.
+- "$5 coupon on coffee creamer?" → Both wrong (Full Context: "in my email inbox"; RLM: "in my email inbox")
+
+**MemoryAgentBench — model knowledge limits, not memory:**
+- EventQA (Gone With the Wind passage): Full Context correct, RLM chose wrong answer. Literary reasoning degrades through compression.
+- FactConsolidation (multi-hop): Both strategies answered "Jerusalem" and "United Kingdom" for questions with gold answers "Taipei" and "Belgium" — identical wrong reasoning regardless of memory strategy. This is a model knowledge ceiling, not a memory issue.
+
+**MemoryArena — shopping task parity:**
+- Both strategies scored 3/4 on baking product selection tasks. The one failure for each was on step 2 of the same shopping scenario (baking_item_0), suggesting a hard reasoning step rather than a memory gap.
+
+### Caveats
+
+- These industry runs are **bounded proxy adapters**, not official benchmark pipeline executions.
+- Sample sizes were intentionally small for one-day parallel execution.
+- The proxy runs are useful for directional calibration, not leaderboard-grade claims.
+
+## CTX-33: Official-Mode Benchmark Runs
+
+To move beyond proxy-only evidence, we integrated the official public datasets/splits for all three industry benchmarks and reran them in parallel:
+
+- **LongMemEval** (`longmemeval-cleaned`, LongMemEval-S schema)
+- **MemoryArena** (`ZexueHe/memoryarena`, `bundled_shopping/test`)
+- **MemoryAgentBench** (`ai-hyz/MemoryAgentBench`, EventQA + FactConsolidation subset from official splits)
+
+### CTX-33 Results
+
+| Benchmark | Strategy | Score | Avg Latency | Cost | Scoring |
+|---|---|---|---:|---:|---|
+| LongMemEval | Full Context | 2/3 (66.7%) | 7.5s | $0.2516 | deterministic fallback |
+| LongMemEval | RLM(8) | 3/3 (100.0%) | 5.8s | $0.2125 | deterministic fallback |
+| MemoryArena | Full Context | 2/4 (50.0%) | 24.2s | $0.0471 | deterministic fallback |
+| MemoryArena | RLM(8) | 3/4 (75.0%) | 28.7s | $0.0616 | deterministic fallback |
+| MemoryAgentBench (EventQA + FactConsolidation) | Full Context | 1/4 (25.0%) | 12.2s | $0.0614 | deterministic fallback |
+| MemoryAgentBench (EventQA + FactConsolidation) | RLM(8) | 1/4 (25.0%) | 13.7s | $0.0625 | deterministic fallback |
+
+### CTX-33 Summary
+
+1. **RLM improved on 2/3 official-mode tracks in this bounded run** (LongMemEval and MemoryArena).
+2. **MemoryAgentBench remained difficult for both strategies** (1/4 each), reinforcing the conflict/retrieval gap.
+3. **Trade-offs remain scenario-dependent:** RLM was faster/cheaper on LongMemEval but slower/more expensive on MemoryArena.
+
+### CTX-33 Caveat
+
+- Official datasets and split names were used, but upstream LLM-judge scoring steps require external judge credentials that were unavailable in this runtime, so deterministic fallback scoring was used and explicitly labeled.
+
+---
+
+## Memory-to-Action Micro
+
+CTX-1 through CTX-26 measured **retention** — can the strategy remember facts? But remembering isn't enough. An agent needs to convert corrected facts into correct *actions*. The Memory-to-Action Micro benchmark tests exactly this: after a conversation with corrections and noise, produce a concise action plan with exact values.
+
+### Two Scenarios
+
+**Conference Logistics Action:** Plan a Q2 Product Summit breakfast. The conversation includes three corrections (Hall A→C, 90→120 attendees, budget code MKT-77→OPS-19) and two noise lines to ignore (plant watering, hoodie order). Final question: "Give a concise 4-step action plan with exact values."
+
+**Incident Rollback Action:** Handle INC-4421 on payments-api. Two corrections (us-east-1→eu-west-1, rollback target v2.8.1→v2.8.3) plus noise. Final question: "What should the on-call engineer do now? Provide a concise 4-step action plan."
+
+### Results
+
+| Scenario | Full Context | RLM(8) |
+|---|---|---|
+| Conference Logistics | **8/8 PASS** | **8/8 PASS** |
+| Incident Rollback | 6/8 (partial) | **0/8 REFUSAL** |
+
+**Conference Logistics:** Both strategies produced detailed, correct action plans. RLM's compressed context preserved all three corrections (Hall C, 120 attendees, OPS-19) and correctly ignored the noise. The action plans were well-structured — venue, catering order, deposit payment, confirmation message — all with exact values.
+
+**Incident Rollback:** Full Context scored 6/8 — it got the corrections right (eu-west-1, v2.8.3) but missed 2 of the 8 required check values. RLM(8) returned: *"I'm sorry, but I cannot assist with that request."* — a complete safety refusal. Zero input tokens, zero output tokens, 0/8 checks. The sub-LLM's compressed context apparently stripped enough surrounding context that the incident response prompt triggered a safety filter.
+
+### Why the Refusal Matters
+
+This is a new failure mode not seen in any previous experiment. RLM's compression didn't *lose* the facts — it produced a context that *triggered model safety alignment*. The original conversation was clearly a benign logistics scenario, but after compression, the sub-LLM's extraction may have reduced it to bare operational commands ("rollback", "canary", "error rate threshold") that, without the surrounding conversational framing, looked like an instruction to manipulate a production system.
+
+This suggests that memory compression can change the *perceived intent* of a conversation, not just its factual content. A safety-conscious model that would happily help with "let's plan our incident response" might refuse the same task when the compressed version reads like a bare operational directive.
+
+### Implication: Safety Alignment Interacts With Compression
+
+Memory strategies are not neutral with respect to safety filters. Compression changes how downstream models interpret intent. This is an underexplored interaction — the RLM and safety alignment literatures don't cross-reference each other. For production systems, this means memory compression needs to preserve not just facts but conversational framing that signals benign intent.
+
 ### Open Questions
 
 - Does the self-correction effect hold at depth 3+? (Our depth-3 run was cut short by API limits.)
@@ -433,7 +547,9 @@ This only works when the structured output is faithful. For noisy scenarios, the
 - **Same-model comparison:** CTX-3 hand-rolled RLM baseline re-run on gpt-5-nano to eliminate model confound
 - **PersistentRLM configuration:** 6 typed stores (identifiers, entities, quantities, dates, corrections, structural) + overflow bucket; 25 section alias mappings; 25-char prefix key matching for merge; same single sub-LLM call per cycle as base RLM
 - **CTX-6 feasibility probes:** Two-phase design — Phase 1 validates core mechanism at zero LLM cost (regex, parsing); Phase 2 runs 2 reps per scenario with kill criteria. Correction Format probe ran 7 formats × 2 reps × 14 steps on Scenario 6. Shadow Graphs probe ran 2 reps each on Scenarios 1 and 8.
+- **CTX-26 run mode:** one-day parallel proxy adapters for LongMemEval/MemoryArena/MemoryAgentBench plus internal diagnostics (cross-session, multi-agent handoff, scale ladder, backbone matrix)
 - **CTX-33 run mode:** one-day parallel official-mode adapters using upstream public datasets/splits for LongMemEval, MemoryArena, and MemoryAgentBench; deterministic fallback scoring used when external LLM-judge credentials were unavailable
+- **Memory-to-Action Micro:** 2 scenarios (Conference Logistics, Incident Rollback) with 8 required checks each; scores corrections, exact values, noise rejection, and action plan structure
 
 ### B. Full Probe Definitions
 
@@ -466,9 +582,12 @@ Key files:
 - `src/analysis/probe-stability.ts` — CTX-6 Stability-Plasticity probe
 - `src/analysis/probe-schema-guided.ts` — CTX-6 Schema-Guided Hybrid probe
 - `src/analysis/probe-utils.ts` — Shared utilities for all CTX-6 probes
+- `src/analysis/parallel-benchmarks.ts` — CTX-26 parallel orchestrator
+- `src/analysis/parallel-scoreboard.ts` — CTX-26 unified scoreboard
 - `src/analysis/official-benchmarks.ts` — CTX-33 official-mode parallel orchestrator
 - `src/analysis/official-scoreboard.ts` — CTX-33 unified official-mode scoreboard
 - `src/analysis/official-longmemeval.ts` — CTX-33 LongMemEval adapter (official dataset/splits)
 - `src/analysis/official-memoryarena.ts` — CTX-33 MemoryArena adapter (official dataset/splits)
 - `src/analysis/official-memoryagentbench.ts` — CTX-33 MemoryAgentBench subset adapter (official dataset/splits)
+- `src/analysis/memory-action-micro.ts` — Memory-to-Action Micro benchmark
 - `results/` — Raw benchmark and analysis data

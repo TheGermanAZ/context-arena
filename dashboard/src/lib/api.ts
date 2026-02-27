@@ -9,6 +9,7 @@ import type {
   ScenarioHeatmapResponse,
   CostAccuracyResponse,
   ScenarioDifficultyResponse,
+  ParallelBenchmarksResponse,
 } from './types';
 import type { ZodType } from 'zod';
 import {
@@ -22,6 +23,7 @@ import {
   scenarioHeatmapResponseSchema,
   costAccuracyResponseSchema,
   scenarioDifficultyResponseSchema,
+  parallelBenchmarksResponseSchema,
 } from './schemas';
 
 async function fetchJson<T>(url: string, schema: ZodType<T>, endpoint: string): Promise<T> {
@@ -59,4 +61,6 @@ export const api = {
   costAccuracy: () => fetchJson<CostAccuracyResponse>('/api/cost-accuracy', costAccuracyResponseSchema, '/api/cost-accuracy'),
   scenarioDifficulty: () =>
     fetchJson<ScenarioDifficultyResponse>('/api/scenario-difficulty', scenarioDifficultyResponseSchema, '/api/scenario-difficulty'),
+  parallelBenchmarks: () =>
+    fetchJson<ParallelBenchmarksResponse>('/api/parallel-benchmarks', parallelBenchmarksResponseSchema, '/api/parallel-benchmarks'),
 };

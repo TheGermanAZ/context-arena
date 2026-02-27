@@ -704,6 +704,206 @@ app.get('/api/scenario-difficulty', async (c) => {
   return c.json({ scenarios });
 });
 
+// View 11: Parallel Benchmarks (CTX-26 expansion)
+interface ParallelBenchmarkRow {
+  track: string;
+  type: 'industry' | 'internal';
+  strategy: string;
+  score: string;
+  passed: boolean;
+  avgLatencyMs: number;
+  costUsd: number;
+}
+
+function formatFraction(num: number, den: number): string {
+  const pct = den > 0 ? ((num / den) * 100).toFixed(1) : '0.0';
+  return `${num}/${den} (${pct}%)`;
+}
+
+function formatPassFail(passed: boolean, matched: number, total: number): string {
+  return `${passed ? 'PASS' : 'FAIL'} (${matched}/${total})`;
+}
+
+app.get('/api/parallel-benchmarks', async (c) => {
+  const rows: ParallelBenchmarkRow[] = [];
+
+  // ── LongMemEval Slice ──
+  const longmemRaw = await findBest<JsonRecord>('longmemeval-slice', (data) =>
+    isRecord(data) && Array.isArray(data.strategies) ? data.strategies.length : 0,
+  );
+  if (longmemRaw && Array.isArray(longmemRaw.strategies)) {
+    const sampleSize = toNumber(longmemRaw.sampleSize, 1);
+    for (const s of longmemRaw.strategies.filter(isRecord)) {
+      const correct = toNumber(s.correct);
+      rows.push({
+        track: 'LongMemEval Slice',
+        type: 'industry',
+        strategy: toString(s.strategyName),
+        score: formatFraction(correct, sampleSize),
+        passed: correct === sampleSize,
+        avgLatencyMs: Math.round(toNumber(s.avgLatencyMs)),
+        costUsd: +toNumber(s.totalEstimatedCostUsd).toFixed(4),
+      });
+    }
+  }
+
+  // ── MemoryArena Slice ──
+  const arenaRaw = await findBest<JsonRecord>('memoryarena-slice', (data) =>
+    isRecord(data) && Array.isArray(data.strategies) ? data.strategies.length : 0,
+  );
+  if (arenaRaw && Array.isArray(arenaRaw.strategies)) {
+    for (const s of arenaRaw.strategies.filter(isRecord)) {
+      const passed = toNumber(s.passedChecks);
+      const total = toNumber(s.totalChecks);
+      rows.push({
+        track: 'MemoryArena Slice',
+        type: 'industry',
+        strategy: toString(s.strategyName),
+        score: formatFraction(passed, total),
+        passed: passed === total,
+        avgLatencyMs: Math.round(toNumber(s.avgLatencyMs)),
+        costUsd: +toNumber(s.totalEstimatedCostUsd).toFixed(4),
+      });
+    }
+  }
+
+  // ── MemoryAgentBench Subset ──
+  const agentbenchRaw = await findBest<JsonRecord>('memoryagentbench-slice', (data) =>
+    isRecord(data) && Array.isArray(data.strategies) ? data.strategies.length : 0,
+  );
+  if (agentbenchRaw && Array.isArray(agentbenchRaw.strategies)) {
+    for (const s of agentbenchRaw.strategies.filter(isRecord)) {
+      const correct = toNumber(s.correct);
+      const total = toNumber(s.total);
+      rows.push({
+        track: 'MemoryAgentBench Subset',
+        type: 'industry',
+        strategy: toString(s.strategyName),
+        score: formatFraction(correct, total),
+        passed: correct === total,
+        avgLatencyMs: Math.round(toNumber(s.avgLatencyMs)),
+        costUsd: +toNumber(s.totalEstimatedCostUsd).toFixed(4),
+      });
+    }
+  }
+
+  // ── Memory-Action Micro ──
+  const microBest = await findBest<JsonRecord>('memory-action-micro', (data) =>
+    isRecord(data) && Array.isArray(data.strategies) ? data.strategies.length : 0,
+  );
+  if (microBest && Array.isArray(microBest.strategies)) {
+    for (const s of microBest.strategies.filter(isRecord)) {
+      const matched = toNumber(s.matchedChecks);
+      const total = toNumber(s.totalChecks);
+      rows.push({
+        track: 'Memory-Action Micro',
+        type: 'internal',
+        strategy: toString(s.strategyName),
+        score: formatPassFail(toBoolean(s.passed), matched, total),
+        passed: toBoolean(s.passed),
+        avgLatencyMs: Math.round(toNumber(s.latencyMs)),
+        costUsd: +toNumber(s.estimatedCostUsd).toFixed(4),
+      });
+    }
+  }
+
+  // ── Cross-Session ──
+  const crossRaw = await findBest<JsonRecord>('internal-cross-session', (data) =>
+    isRecord(data) && Array.isArray(data.strategies) ? data.strategies.length : 0,
+  );
+  if (crossRaw && Array.isArray(crossRaw.strategies)) {
+    for (const s of crossRaw.strategies.filter(isRecord)) {
+      const matched = toNumber(s.matchedChecks);
+      const total = toNumber(s.totalChecks);
+      rows.push({
+        track: 'Cross-Session',
+        type: 'internal',
+        strategy: toString(s.strategyName),
+        score: formatPassFail(toBoolean(s.correct), matched, total),
+        passed: toBoolean(s.correct),
+        avgLatencyMs: Math.round(toNumber(s.totalLatencyMs)),
+        costUsd: +toNumber(s.estimatedCostUsd).toFixed(4),
+      });
+    }
+  }
+
+  // ── Multi-Agent Handoff ──
+  const multiRaw = await findBest<JsonRecord>('internal-multi-agent', (data) =>
+    isRecord(data) && Array.isArray(data.strategies) ? data.strategies.length : 0,
+  );
+  if (multiRaw && Array.isArray(multiRaw.strategies)) {
+    for (const s of multiRaw.strategies.filter(isRecord)) {
+      const matched = toNumber(s.matchedChecks);
+      const total = toNumber(s.totalChecks);
+      rows.push({
+        track: 'Multi-Agent Handoff',
+        type: 'internal',
+        strategy: toString(s.strategyName),
+        score: formatPassFail(toBoolean(s.correct), matched, total),
+        passed: toBoolean(s.correct),
+        avgLatencyMs: Math.round(toNumber(s.totalLatencyMs)),
+        costUsd: +toNumber(s.estimatedCostUsd).toFixed(4),
+      });
+    }
+  }
+
+  // ── Scale Ladder ──
+  const scaleRaw = await findBest<JsonRecord>('internal-scale-ladder', (data) =>
+    isRecord(data) && Array.isArray(data.strategies) ? data.strategies.length : 0,
+  );
+  if (scaleRaw && Array.isArray(scaleRaw.strategies)) {
+    for (const s of scaleRaw.strategies.filter(isRecord)) {
+      const passed = toNumber(s.passed);
+      const total = toNumber(s.total);
+      rows.push({
+        track: 'Scale Ladder',
+        type: 'internal',
+        strategy: toString(s.strategyName),
+        score: formatFraction(passed, total),
+        passed: passed === total,
+        avgLatencyMs: Math.round(toNumber(s.avgLatencyMs)),
+        costUsd: +toNumber(s.totalEstimatedCostUsd).toFixed(4),
+      });
+    }
+  }
+
+  // ── Backbone Matrix ──
+  const backboneRaw = await findBest<JsonRecord>('internal-backbone-matrix', (data) =>
+    isRecord(data) && Array.isArray(data.results) ? data.results.length : 0,
+  );
+  if (backboneRaw && Array.isArray(backboneRaw.results)) {
+    for (const r of backboneRaw.results.filter(isRecord)) {
+      if (toString(r.model) !== 'gpt-5-nano') continue;
+      const correct = toBoolean(r.correct);
+      rows.push({
+        track: 'Backbone Matrix',
+        type: 'internal',
+        strategy: toString(r.model),
+        score: correct ? 'PASS' : 'FAIL',
+        passed: correct,
+        avgLatencyMs: Math.round(toNumber(r.latencyMs)),
+        costUsd: 0,
+      });
+    }
+  }
+
+  // Sort: industry first, then internal, then by track name
+  rows.sort((a, b) => {
+    if (a.type !== b.type) return a.type === 'industry' ? -1 : 1;
+    if (a.track !== b.track) return a.track.localeCompare(b.track);
+    return a.strategy.localeCompare(b.strategy);
+  });
+
+  const industryCount = rows.filter((r) => r.type === 'industry').length;
+  const internalCount = rows.filter((r) => r.type === 'internal').length;
+  const tracks = new Set(rows.map((r) => r.track));
+
+  return c.json({
+    rows,
+    summary: { industryCount, internalCount, totalTracks: tracks.size },
+  });
+});
+
 const port = 3001;
 Bun.serve({ fetch: app.fetch, port });
 console.log(`Dashboard API server running on http://localhost:${port}`);

@@ -33,6 +33,13 @@ const PANEL_GROUPS = [
       { id: 'code-strategies', label: 'Code Strategies' },
     ],
   },
+  {
+    label: 'Benchmark Expansion',
+    badge: { text: 'CTX-26', color: 'emerald' as const },
+    panels: [
+      { id: 'parallel-benchmarks', label: 'Parallel Benchmarks' },
+    ],
+  },
 ];
 
 const PRESETS: Record<string, string[]> = {
@@ -40,6 +47,7 @@ const PRESETS: Record<string, string[]> = {
   'Strategy Analysis': ['scenario-heatmap', 'cost-accuracy', 'scenario-difficulty'],
   'RLM Deep Dive': ['retention-by-type', 'retention-curve', 'depth-comparison'],
   'Code Generation': ['rllm-comparison', 'code-strategies'],
+  'Benchmark Expansion': ['leaderboard', 'parallel-benchmarks'],
 };
 
 interface SidebarProps {

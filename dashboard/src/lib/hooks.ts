@@ -11,6 +11,7 @@ import type {
   ScenarioHeatmapResponse,
   CostAccuracyResponse,
   ScenarioDifficultyResponse,
+  ParallelBenchmarksResponse,
 } from './types';
 
 export function useLeaderboard() {
@@ -89,6 +90,14 @@ export function useScenarioDifficulty() {
   return useQuery<ScenarioDifficultyResponse>({
     queryKey: ['scenario-difficulty'],
     queryFn: api.scenarioDifficulty,
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useParallelBenchmarks() {
+  return useQuery<ParallelBenchmarksResponse>({
+    queryKey: ['parallel-benchmarks'],
+    queryFn: api.parallelBenchmarks,
     staleTime: 5 * 60 * 1000,
   });
 }
