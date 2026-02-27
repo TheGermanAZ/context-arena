@@ -45,26 +45,9 @@ A candidate proceeds only if all gates pass:
 
 ## Phase 1: Highest-Leverage Fixes (Run First)
 
-### EXP-01: Quantity Pinning Buffer (QPin)
+### EXP-01: Quantity Pinning Buffer (QPin) — **GO** ✅
 
-- Hypothesis: protecting exact values as a side-channel will close the largest RLM gap.
-- Variants:
-  - V0: `RLM(8)` baseline
-  - V1: `RLM(8)+QPin` (pin exact numeric facts with unit + entity key)
-  - V2: `RLM(8)+QPin+Supersedes` (track corrected numeric lineage)
-- Datasets:
-  - Internal 8 scenarios (focus: State Change, Contradiction, Cascading Corrections)
-  - Memory-to-Action Micro
-- Primary metrics:
-  - Quantity retention
-  - Final accuracy
-  - Token overhead
-- Kill criteria:
-  - Quantity retention gain < +15pp vs V0 after 3 reps
-  - or token overhead > +10% with no accuracy gain
-- Go criteria:
-  - Quantity retention >= 50%
-  - and no scenario accuracy regression > 1 scenario vs V0
+**Completed in CTX-7.** QPB (RLM + regex side-channel) raises quantity retention from 65% to 100%, dates from 33% to 100%, phone/IDs from 57% to 100%. Overall: 96.8% vs RLM's 75.8%. Zero additional LLM cost. All go criteria exceeded. Results: `results/qtd-qpb-experiment-1772176379889.json`
 
 ### EXP-02: Intent Framing Preservation (Safety)
 
@@ -86,24 +69,9 @@ A candidate proceeds only if all gates pass:
   - 0 refusals on benign tasks across all reps
   - and no correctness drop > 1 check total vs V0
 
-### EXP-03: Stability-Plasticity Re-test on Correct Data
+### EXP-03: Stability-Plasticity Re-test on Correct Data — **KILL** ❌
 
-- Hypothesis: stable buffer helps when evaluated on scenarios that actually contain phone/id probes.
-- Variants:
-  - V0: `RLM(8)`
-  - V1: stable phone/id buffer only
-  - V2: stable phone/id + exact value pinning
-- Datasets:
-  - Scenario 5 (Long Horizon + Noise)
-  - Any scenario with >= 4 phone/id probes
-- Primary metrics:
-  - Phone/ID retention
-  - Cross-type collateral damage (entity, quantity)
-- Kill criteria:
-  - Phone/ID retention < 90% in V2
-- Go criteria:
-  - Phone/ID retention >= 90%
-  - and no quantity retention drop > 5pp vs V0
+**Completed in CTX-39.** Phase 1 passed (100% stable-probe recall) but Phase 2 scored 63.7% overall — worse than base RLM (75.8%). Kill criteria met. The stable/plastic split adds complexity without improving outcomes. Results: `results/probe-stability-plasticity-v2-1772195858439.json`
 
 ---
 
