@@ -8,26 +8,32 @@
       "repo": null
     }
   ],
-  "comment_count": 0,
+  "comment_count": 2,
   "complexity": null,
   "created_at": "2026-02-27T16:31:00Z",
   "created_by": "agent:codex",
   "custom_fields": {},
   "description": null,
-  "done_at": null,
-  "evidence_refs": [],
+  "done_at": "2026-02-27T16:33:21Z",
+  "evidence_refs": [
+    {
+      "id": "ev_01KJFZ55C4P6QRC1Z9A7QA50E7",
+      "role": "review",
+      "source_type": "comment"
+    }
+  ],
   "id": "task_01KJFZ0VR5Y9AMR3QJNA4YHQ7K",
-  "last_event_id": "ev_01KJFZ23NS4PTGD7PXF4H2WCWS",
-  "last_status_changed_at": "2026-02-27T16:31:24Z",
+  "last_event_id": "ev_01KJFZ55E98MBBF7RGNFRCVHDT",
+  "last_status_changed_at": "2026-02-27T16:33:21Z",
   "priority": "medium",
   "relationships_out": [],
   "reopened_count": 0,
   "schema_version": 1,
   "short_id": "CTX-47",
-  "status": "in_progress",
+  "status": "done",
   "tags": null,
   "title": "Create PR and merge all current changes",
   "type": "task",
-  "updated_at": "2026-02-27T16:31:41Z",
+  "updated_at": "2026-02-27T16:33:21Z",
   "urgency": null
 }

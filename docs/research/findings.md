@@ -377,31 +377,40 @@ Dollar amounts, counts, rates, and measurements were the single most fragile fac
 
 ---
 
-## CTX-39: Stability-Plasticity v2 Re-Probe
+## CTX-39: Stability-Plasticity v2 + Quantity-Pinning Re-Probe
 
-The original Stability-Plasticity probe (CTX-6) was inconclusive due to testing on the wrong scenarios. CTX-39 re-ran it properly: all 8 scenarios, 4 repetitions each, with the correct stable/plastic probe classification.
+The original Stability-Plasticity probe (CTX-6) was inconclusive due to testing on wrong scenarios. CTX-39 re-ran it with three improvements: (1) quantity-pinning classifier added to the stable buffer (currency, percentages, number+unit patterns via regex), (2) fresh RLM(8) baseline run alongside every scenario (not stale historical data), (3) all 8 scenarios with per-hypothesis kill criteria. Artifact: `results/probe-stability-plasticity-v2-1772216876776.json`.
 
 ### CTX-39 Results
 
-- **Phase 1 (mechanism validation):** PASS — 100% stable-probe recall across all 6 tested scenarios, 0 false positives. The stable buffer correctly identifies and preserves facts tagged as stable.
-- **Phase 2 (full benchmark):** 63.7% overall retention (158/248 probes across 4 reps × 8 scenarios)
+- **Phase 1 (classifier validation):** PASS — 24/24 stable-probe recall, 0 false positives on noise text.
+- **Phase 2 (strategy comparison):** 2 reps × 8 scenarios = 32 runs total.
+  - StabilityPlasticity: **80/124 (64.5%)**
+  - RLM(8) baseline: **73/124 (58.9%)**
+  - Net delta: **+5.6pp**
 
-| Scenario               | Retention |
-|------------------------|-----------|
-| Contradiction Resolution | 88%     |
-| Implicit Corrections     | 86%     |
-| Long Horizon + Noise     | 81%     |
-| Rapid-fire Corrections   | 71%     |
-| Cascading Corrections    | 57%     |
-| Multi-hop Reasoning      | 53%     |
-| State Change Tracking    | 43%     |
-| Early Fact Recall        | 38%     |
+Per-type deltas (StabilityPlasticity − RLM baseline):
 
-### CTX-39 Verdict: KILL
+| Type         | SP    | RLM   | Δ      |
+|--------------|-------|-------|--------|
+| correction   | 90%   | 88%   | +3pp   |
+| date         | 83%   | 67%   | +17pp  |
+| decision     | 100%  | 100%  | +0pp   |
+| entity       | 63%   | 63%   | +0pp   |
+| phone/id     | 86%   | 86%   | +0pp   |
+| quantity     | 26%   | 18%   | +9pp   |
+| relationship | 50%   | 33%   | +17pp  |
+| spatial      | 50%   | 33%   | +17pp  |
 
-Kill criteria met. At 63.7%, Stability-Plasticity performs **worse** than base RLM (75.8%) despite its mechanism working correctly in isolation. The stable/plastic classification adds complexity without improving outcomes — the sub-LLM still loses facts during compression, and the dual-buffer architecture splits attention without compensating. The approach is abandoned.
+### CTX-39 Verdict: KILL (Both Hypotheses Failed)
 
-This result validates the CTX-7 direction: the problem isn't _which facts_ to protect (Stability-Plasticity's approach) but _how_ to compress without losing them (QTD/QPB's approach).
+- **H1 (phone/id pinning):** Δ 0pp (needed ≥+15pp). RLM already retains phone/id at 86% — the stable buffer adds nothing because RLM doesn't lose these facts.
+- **H2 (quantity pinning):** Δ +9pp (needed ≥+10pp). Real but modest improvement (18% → 26%), below the pre-registered threshold.
+- **No side effects:** No type degraded by ≥15pp.
+
+**Key finding:** The biggest gains were on medium-retention types not specifically targeted — date (+17pp), relationship (+17pp), spatial (+17pp). The stable buffer may help by freeing the sub-LLM's attention budget for non-stable facts. But this effect is unreliable: CTX-43 (a prior run without quantity-pinning) showed the _opposite_ pattern — date −17pp, relationship −17pp — a 34pp swing on the same types between runs. The variance is too high for the mechanism to be trustworthy.
+
+This definitively validates the CTX-7 direction: the problem isn't _which facts_ to protect (Stability-Plasticity's approach) but _how_ to compress without losing them (QPB's approach).
 
 ---
 
@@ -439,6 +448,8 @@ Scenario-level highlights (2 reps aggregated):
 ### CTX-43 Verdict: KILL (Confirmed)
 
 Despite a small overall gain (+3.2pp), kill criteria were still triggered because non-target side effects exceeded threshold (`date -17pp`, `relationship -17pp`, limit `-15pp`). The mechanism helps selected fact types, but the tradeoff remains too costly for promotion.
+
+**Variance note:** Comparing CTX-43 (date −17pp, relationship −17pp) with the final CTX-39 v2 run (date +17pp, relationship +17pp), the same types swung by 34pp between runs. This high run-to-run variance means per-type deltas below ~20pp are unreliable signals — further evidence that the mechanism's effects are noise, not signal.
 
 ---
 
