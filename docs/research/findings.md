@@ -285,7 +285,7 @@ We selected 5 proposals from a set of 10 research directions and built lightweig
 | 1   | Depth-Adaptive RLM            | Route to depth 1/2/3 based on content signals         | FAIL (50% routing accuracy) | skipped                | ABANDON      |
 | 2   | Correction Format Engineering | Test 7 correction prompt formats                      | n/a                         | KILL (0pp spread)      | ABANDON      |
 | 3   | Structural Shadow Graphs      | Maintain a parallel knowledge graph alongside RLM     | PASS (75% capture)          | +4pp avg               | ABANDON      |
-| 5   | Stability-Plasticity          | Separate stable facts (phones, IDs) from plastic ones | PASS (80% recall)           | KILL (wrong test data) | INCONCLUSIVE |
+| 5   | Stability-Plasticity          | Separate stable facts (phones, IDs) from plastic ones | PASS (100% recall, CTX-39)  | KILL (63.7% < RLM 75.8%) | **KILLED** |
 | 10  | Schema-Guided Hybrid          | Generate extraction schema from context, then use it  | FAIL (65% coverage)         | skipped                | ABANDON      |
 
 ### Proposal #1: Depth-Adaptive RLM
@@ -371,9 +371,9 @@ The most striking cross-cutting finding: **exact quantities are systematically d
 | PersistentRLM (CTX-5)             | 18%                |
 | Shadow Graphs                     | 33%                |
 
-Dollar amounts, counts, rates, and measurements are the single most fragile fact type. Corrections survive (75-100%). Entities survive partially (25-58%). But numbers are consistently lost.
+Dollar amounts, counts, rates, and measurements were the single most fragile fact type. Corrections survive (75-100%). Entities survive partially (25-58%). But numbers were consistently lost — until CTX-7.
 
-This suggests the highest-value research direction isn't any of the 10 proposals — it's **number-preserving compression**. A simpler, more targeted intervention: detect exact numbers during extraction and pin them to a protected store (similar to Stability-Plasticity's stable buffer, but for quantities rather than identifiers).
+**Update (CTX-7):** The Quantity-Pinning Buffer (QPB) closes this gap entirely. QPB raises quantity retention from 65% to **100%** with zero additional LLM cost — a regex side-channel that pins quantities/IDs/dates across compression cycles. See CTX-7 section below for full results.
 
 ---
 
@@ -405,6 +405,34 @@ To move beyond proxy-only evidence, we integrated the official public datasets/s
 ### CTX-33 Caveat
 
 - Official datasets and split names were used, but upstream LLM-judge scoring steps require external judge credentials that were unavailable in this runtime, so deterministic fallback scoring was used and explicitly labeled.
+
+---
+
+## CTX-39: Stability-Plasticity v2 Re-Probe
+
+The original Stability-Plasticity probe (CTX-6) was inconclusive due to testing on the wrong scenarios. CTX-39 re-ran it properly: all 8 scenarios, 4 repetitions each, with the correct stable/plastic probe classification.
+
+### CTX-39 Results
+
+- **Phase 1 (mechanism validation):** PASS — 100% stable-probe recall across all 6 tested scenarios, 0 false positives. The stable buffer correctly identifies and preserves facts tagged as stable.
+- **Phase 2 (full benchmark):** 63.7% overall retention (158/248 probes across 4 reps × 8 scenarios)
+
+| Scenario               | Retention |
+|------------------------|-----------|
+| Contradiction Resolution | 88%     |
+| Implicit Corrections     | 86%     |
+| Long Horizon + Noise     | 81%     |
+| Rapid-fire Corrections   | 71%     |
+| Cascading Corrections    | 57%     |
+| Multi-hop Reasoning      | 53%     |
+| State Change Tracking    | 43%     |
+| Early Fact Recall        | 38%     |
+
+### CTX-39 Verdict: KILL
+
+Kill criteria met. At 63.7%, Stability-Plasticity performs **worse** than base RLM (75.8%) despite its mechanism working correctly in isolation. The stable/plastic classification adds complexity without improving outcomes — the sub-LLM still loses facts during compression, and the dual-buffer architecture splits attention without compensating. The approach is abandoned.
+
+This result validates the CTX-7 direction: the problem isn't _which facts_ to protect (Stability-Plasticity's approach) but _how_ to compress without losing them (QTD/QPB's approach).
 
 ---
 
@@ -608,8 +636,10 @@ Memory strategies are not neutral with respect to safety filters. Compression ch
 - Is there a hybrid approach — prompt-guided code generation — that gets the best of both worlds?
 - Can a dual-track architecture — natural-language blob for re-ingestion plus a side-channel store for historically-dropped fact types — outperform both base RLM and Hybrid?
 - Is the format sensitivity specific to gpt-5-nano, or do larger models also extract worse from structured input than natural-language input?
-- **Does Stability-Plasticity work when tested on the right scenarios?** The probe was inconclusive due to wrong test data selection. Re-running with Scenario 5 (6 phone/ID probes) would give a fair verdict.
-- **Can a quantity-pinning buffer improve number retention?** A simpler version of Stability-Plasticity's stable buffer, specialized for exact numbers, could address the single biggest retention gap.
+- ~~**Does Stability-Plasticity work when tested on the right scenarios?**~~ **Answered (CTX-39): No.** Re-probed with correct data (all 8 scenarios, 4 reps each). Phase 1 passed (100% stable-probe recall), but Phase 2 scored 63.7% overall retention — worse than base RLM's 75.8%. Kill criteria met; recommendation: abandon. The stable/plastic split doesn't help when the sub-LLM still loses facts during the compression step itself.
+- ~~**Can a quantity-pinning buffer improve number retention?**~~ **Answered (CTX-7): Yes, dramatically.** QPB raises quantity retention from 65% to 100%, dates from 33% to 100%, phone/IDs from 57% to 100%. Overall retention jumps from 75.8% to 96.8% with zero additional LLM cost.
+- **What's the production-viable path to closing the final 3.2% gap between QPB (96.8%) and Full Context (98.4%)?** The remaining misses are corrections and relationships — categories where regex side-channels don't help.
+- **Does QPB's advantage hold at scale?** Tested on 8 internal scenarios. Industry benchmarks (LongMemEval, MemoryArena, MemoryAgentBench) need re-running with QPB to validate external generalization.
 
 ---
 
@@ -628,6 +658,8 @@ Memory strategies are not neutral with respect to safety filters. Compression ch
 - **CTX-26 run mode:** one-day parallel proxy adapters for LongMemEval/MemoryArena/MemoryAgentBench plus internal diagnostics (cross-session, multi-agent handoff, scale ladder, backbone matrix)
 - **CTX-33 run mode:** one-day parallel official-mode adapters using upstream public datasets/splits for LongMemEval, MemoryArena, and MemoryAgentBench; deterministic fallback scoring used when external LLM-judge credentials were unavailable
 - **Memory-to-Action Micro:** 2 scenarios (Conference Logistics, Incident Rollback) with 8 required checks each; scores corrections, exact values, noise rejection, and action plan structure
+- **CTX-39 Stability-Plasticity v2:** All 8 scenarios, 4 repetitions each; Phase 1 validates stable-probe recall at zero LLM cost, Phase 2 runs full benchmark with kill criteria. Script: `src/analysis/probe-stability.ts`
+- **CTX-7 QTD + QPB:** 4 strategies × 8 scenarios (62 probes); QTD tokenBudget=8000, recentWindow=4; QPB delegateEvery=8, recentWindow=4 (matching RLM baseline); probe retention checked against distillation output (QTD), delegation log + pinned buffer (QPB), full transcript (Full Context), delegation log (RLM). Script: `src/analysis/qtd-qpb-experiment.ts`
 
 ### B. Full Probe Definitions
 
