@@ -63,6 +63,21 @@ We tested 8 strategies on Claude Haiku 4.5 (via OpenRouter), then re-ran the ful
 
 *\*Window(10) had 4 connection errors — true score likely higher.*
 
+### Per-Scenario Pass/Fail Grid
+
+| Scenario | Full Context | Hybrid | Structured | RLM(8) | DiscoveredRLM | Summarize | RLLM | Window(10) |
+|---|---|---|---|---|---|---|---|---|
+| Early Fact Recall | PASS | PASS | PASS | FAIL | FAIL | FAIL | FAIL | FAIL |
+| State Change Tracking | PASS | PASS | PASS | PASS | PASS | FAIL | PASS | PASS |
+| Contradiction Resolution | FAIL | PASS | FAIL | FAIL | FAIL | FAIL | FAIL | ERR |
+| Multi-hop Reasoning | PASS | PASS | PASS | PASS | PASS | FAIL | FAIL | ERR |
+| Long Horizon + Noise | PASS | PASS | PASS | PASS | FAIL | PASS | FAIL | ERR |
+| Cascading Corrections | PASS | PASS | PASS | PASS | PASS | PASS | PASS | ERR |
+| Implicit Corrections | PASS | FAIL | FAIL | FAIL | FAIL | FAIL | FAIL | FAIL |
+| Rapid-fire Corrections | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS |
+
+Implicit Corrections is the hardest scenario — only Full Context passes it. Contradiction Resolution trips up even Full Context on nano (it passes on Haiku), confirming this is a model reasoning limit, not a memory limit. Cascading Corrections and Rapid-fire Corrections are the easiest — most strategies pass both.
+
 ### Model Matters
 
 gpt-5-nano is a weaker model than Haiku. The rankings shifted:
