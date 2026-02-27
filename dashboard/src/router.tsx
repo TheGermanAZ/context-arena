@@ -5,6 +5,7 @@ const Landing = lazy(() => import('./pages/Landing'));
 const Demo = lazy(() => import('./pages/Demo'));
 const Findings = lazy(() => import('./pages/Findings'));
 const DashboardPage = lazy(() => import('./pages/Dashboard'));
+const Journal = lazy(() => import('./pages/Journal'));
 
 const RouteFallback = (
   <div className="min-h-screen bg-gray-950 text-gray-400 flex items-center justify-center">
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
   {
     path: '/dashboard',
     element: <Suspense fallback={RouteFallback}><DashboardPage /></Suspense>,
+  },
+  {
+    path: '/journal',
+    element: <Suspense fallback={RouteFallback}><Journal /></Suspense>,
   },
   { path: '*', element: <Navigate to="/" replace /> },
 ]);

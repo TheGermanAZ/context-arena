@@ -232,6 +232,12 @@
 .strategy-node-glow-lime { --strategy-glow: rgba(132, 204, 22, 0.5); }
 .strategy-node-glow-violet { --strategy-glow: rgba(139, 92, 246, 0.52); }
 .strategy-node-glow-pink { --strategy-glow: rgba(236, 72, 153, 0.55); }
+.strategy-node-glow-emerald { --strategy-glow: rgba(16, 185, 129, 0.55); }
+.strategy-node-glow-red { --strategy-glow: rgba(239, 68, 68, 0.55); }
+.strategy-node-glow-blue { --strategy-glow: rgba(59, 130, 246, 0.55); }
+.strategy-node-glow-teal { --strategy-glow: rgba(20, 184, 166, 0.55); }
+.strategy-node-glow-orange { --strategy-glow: rgba(249, 115, 22, 0.55); }
+.strategy-node-glow-rose { --strategy-glow: rgba(244, 63, 94, 0.55); }
 
 @media (prefers-reduced-motion: reduce) {
   .strategy-reveal,

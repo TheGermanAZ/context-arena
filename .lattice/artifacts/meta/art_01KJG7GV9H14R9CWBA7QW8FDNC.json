@@ -1,0 +1,19 @@
+{
+  "created_at": "2026-02-27T18:59:32Z",
+  "created_by": "agent:claude-opus-4",
+  "custom_fields": {},
+  "id": "art_01KJG7GV9H14R9CWBA7QW8FDNC",
+  "model": null,
+  "payload": {
+    "content_type": "text/markdown",
+    "file": "art_01KJG7GV9H14R9CWBA7QW8FDNC.md",
+    "size_bytes": 316
+  },
+  "schema_version": 1,
+  "sensitive": false,
+  "summary": "Route /findings exists with lazy-loaded Findings page component, router entry at path '/findings', and Suspense fallback. Implementation was completed by the impl sub-agent on Feb 26. Verified: compon",
+  "tags": [],
+  "title": "Review findings",
+  "token_usage": null,
+  "type": "note"
+}

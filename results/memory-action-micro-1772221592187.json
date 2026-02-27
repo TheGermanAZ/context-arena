@@ -1,0 +1,62 @@
+{
+  "benchmark": "Memory-to-Action Micro",
+  "sampledAt": "2026-02-27T19:46:32.187Z",
+  "scenario": {
+    "name": "Conference Logistics Action",
+    "description": "Tests whether corrected planning facts survive compression and can be recalled with exact values.",
+    "steps": [
+      "We are finalizing logistics for the Q2 Product Summit breakfast event.",
+      "Initial plan: venue Hall A, expected headcount 90.",
+      "Catering vendor is Sunrise Catering.",
+      "Correction: event moved to Hall C, not Hall A.",
+      "Correction: updated headcount is 120 attendees, not 90.",
+      "Dietary counts are 14 vegan and 9 gluten-free meals.",
+      "Payment terms: submit $1,800 deposit before Friday 4:00 PM.",
+      "Initial budget code was MKT-77.",
+      "Correction: use budget code OPS-19, not MKT-77.",
+      "Reminder: include a final confirmation message to Sunrise Catering.",
+      "Ignore this note: office plant watering moved to Tuesdays.",
+      "Ignore this note: team hoodie order approved for next month."
+    ],
+    "finalQuestion": "List all the current, corrected details for this event. Include every specific value, code, name, count, and deadline from our conversation. Use only the latest corrected values.",
+    "requiredCheckCount": 8
+  },
+  "strategies": [
+    {
+      "strategyName": "Full Context",
+      "passed": false,
+      "matchedChecks": 6,
+      "totalChecks": 8,
+      "finalAnswer": "- Event name: Q2 Product Summit breakfast event\n- Venue: Hall C\n- Headcount: 120 attendees\n- Catering vendor: Sunrise Catering\n- Dietary counts: vegan 14; gluten-free 9\n- Payment terms: deposit $1,800; deadline before Friday 4:00 PM\n- Budget code: OPS-19",
+      "inputTokens": 274,
+      "outputTokens": 1711,
+      "memoryOverheadTokens": 0,
+      "latencyMs": 14716.687,
+      "estimatedCostUsd": 0.0070632
+    },
+    {
+      "strategyName": "RLM(8)",
+      "passed": true,
+      "matchedChecks": 8,
+      "totalChecks": 8,
+      "finalAnswer": "- Event name: Q2 Product Summit breakfast event\n- Category: breakfast event\n- Status: logistics being finalized\n- Venue: Hall C\n- Catering vendor: Sunrise Catering\n- Expected headcount: 120\n- Dietary counts: vegan meals 14; gluten-free meals 9\n- Budget code: OPS-19\n- Payment terms: deposit $1,800 due before Friday 4:00 PM\n- Final confirmation message to Sunrise Catering:\n  \"Hello Sunrise Catering, this is to confirm your catering services for the Q2 Product Summit breakfast event at Hall C. Expected headcount: 120; dietary counts: 14 vegan meals and 9 gluten-free meals. Deposit: $1,800 due by Friday 4:00 PM. Budget code OPS-19. Please confirm receipt and advise on any additional requirements.\"",
+      "inputTokens": 654,
+      "outputTokens": 2575,
+      "memoryOverheadTokens": 4207,
+      "latencyMs": 69177.068042,
+      "estimatedCostUsd": 0.0141888
+    },
+    {
+      "strategyName": "QPB",
+      "passed": true,
+      "matchedChecks": 8,
+      "totalChecks": 8,
+      "finalAnswer": "- Event: Q2 Product Summit breakfast event\n- Type: breakfast event\n- Venue: Hall C\n- Headcount: 120 attendees\n- Dietary counts: vegan 14; gluten-free 9\n- Catering: Sunrise Catering\n- Deposit amount: $1,800\n- Deposit deadline: Friday 4:00 PM\n- Payment terms: deposit $1,800 due before Friday 4:00 PM\n- Budget code: OPS-19\n- Final confirmation to Sunrise Catering: Q2 Product Summit breakfast event at Hall C with 120 attendees; dietary: 14 vegan, 9 gluten-free; Sunrise Catering; deposit $1,800 due before Friday 4:00 PM; budget code OPS-19.",
+      "inputTokens": 628,
+      "outputTokens": 3454,
+      "memoryOverheadTokens": 5232,
+      "latencyMs": 90601.06979099999,
+      "estimatedCostUsd": 0.018504
+    }
+  ]
+}
