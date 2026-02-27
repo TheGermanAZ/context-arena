@@ -6,6 +6,7 @@ import RetentionCurve from '../components/RetentionCurve';
 import DepthComparison from '../components/DepthComparison';
 import RllmComparison from '../components/RllmComparison';
 import CodeStrategies from '../components/CodeStrategies';
+import ParallelBenchmarks from '../components/ParallelBenchmarks';
 import { KPICard, Skeleton } from '../components/charts';
 import { useLeaderboard } from '../lib/hooks';
 
@@ -559,22 +560,12 @@ export default function Findings() {
             />
           </div>
 
-          <h3 className="text-xl font-semibold text-gray-200 mb-4">External Calibration</h3>
+          <h3 className="text-xl font-semibold text-gray-200 mb-4">Benchmark Expansion</h3>
           <Prose>
-            We ran bounded proxy adapters against three industry benchmarks to calibrate our
-            internal findings against the broader field:
+            We ran bounded proxy adapters against industry benchmarks and built internal micro-benchmarks
+            to calibrate our findings across 7 tracks:
           </Prose>
-          <DataTable
-            headers={['Track', 'Strategy', 'Score', 'Latency', 'Cost']}
-            rows={[
-              ['LongMemEval slice', 'Full Context', '33.3%', '12.0s', '$0.25'],
-              ['LongMemEval slice', 'RLM(8)', '66.7%', '76.8s', '$0.28'],
-              ['MemoryArena slice', 'Full Context', '75.0%', '25.8s', '$0.05'],
-              ['MemoryArena slice', 'RLM(8)', '75.0%', '24.0s', '$0.05'],
-              ['MemoryAgentBench', 'Full Context', '25.0%', '13.0s', '$0.07'],
-              ['MemoryAgentBench', 'RLM(8)', '0.0%', '12.8s', '$0.06'],
-            ]}
-          />
+          <ParallelBenchmarks />
           <Callout>
             Agents scoring 90%+ on recall benchmarks achieve 0-12% success on agentic tasks. The
             gap between &quot;can remember&quot; and &quot;can act on memories&quot; is the field&apos;s

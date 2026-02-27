@@ -141,3 +141,20 @@ export interface ScenarioDifficultyEntry {
 export interface ScenarioDifficultyResponse {
   scenarios: ScenarioDifficultyEntry[];
 }
+
+// --- Parallel Benchmarks (CTX-26 expansion) ---
+
+export interface ParallelBenchmarkRow {
+  track: string;
+  type: 'industry' | 'internal';
+  strategy: string;
+  score: string;
+  passed: boolean;
+  avgLatencyMs: number;
+  costUsd: number;
+}
+
+export interface ParallelBenchmarksResponse {
+  rows: ParallelBenchmarkRow[];
+  summary: { industryCount: number; internalCount: number; totalTracks: number };
+}
