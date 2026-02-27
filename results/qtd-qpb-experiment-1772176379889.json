@@ -1,0 +1,1543 @@
+{
+  "experiment": "CTX-7: QTD + QPB",
+  "model": "gpt-5-nano",
+  "provider": "OpenCode Zen",
+  "timestamp": "2026-02-27T07:12:59.889Z",
+  "strategies": [
+    "Full Context",
+    "RLM(8)",
+    "QTD",
+    "QPB"
+  ],
+  "scenarioCount": 8,
+  "results": [
+    {
+      "strategy": "Full Context",
+      "scenario": "Early Fact Recall",
+      "retained": 10,
+      "total": 10,
+      "cycles": 0,
+      "probeResults": [
+        {
+          "fact": "project name Mercury",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "budget $347,250",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "project lead Dr. Sarah Chen",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "deadline March 15, 2027",
+          "type": "date",
+          "retained": true
+        },
+        {
+          "fact": "frontend uses Svelte (corrected from React)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "QA lead Marcus Williams",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "production region us-east-1",
+          "type": "spatial",
+          "retained": true
+        },
+        {
+          "fact": "backend salary $145k-$175k",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "sponsor James Rodriguez VP Engineering",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "API rate limit 1000 req/min standard",
+          "type": "quantity",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "Full Context",
+      "scenario": "State Change Tracking",
+      "retained": 7,
+      "total": 7,
+      "cycles": 0,
+      "probeResults": [
+        {
+          "fact": "initial Widget-A: 500",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "initial Widget-B: 300",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "new product Gizmo-Z",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "Gadget-X discontinued/clearance",
+          "type": "decision",
+          "retained": true
+        },
+        {
+          "fact": "warehouse fire -30 Widget-B",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "new product MegaPart-Q 400 units",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "Widget-A price $24.99",
+          "type": "quantity",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "Full Context",
+      "scenario": "Contradiction Resolution",
+      "retained": 8,
+      "total": 8,
+      "cycles": 0,
+      "probeResults": [
+        {
+          "fact": "budget $8,500 (corrected from $5,000)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "hotel Aman Tokyo (corrected from Park Hyatt)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Aman rate $500/night (corrected from $800)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Kenji lives in Shinjuku (corrected from Shibuya)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Kenji phone 090-8765-4321",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "trip dates June 1-18 (extended from June 14)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "flight cost $1,350",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "cooking class $95 Kyoto",
+          "type": "quantity",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "Full Context",
+      "scenario": "Multi-hop Reasoning",
+      "retained": 8,
+      "total": 8,
+      "cycles": 0,
+      "probeResults": [
+        {
+          "fact": "engineering team 24 people",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "floor 3 conference room 50 people",
+          "type": "spatial",
+          "retained": true
+        },
+        {
+          "fact": "floor 2 conference room 30 people",
+          "type": "spatial",
+          "retained": true
+        },
+        {
+          "fact": "catering $35 per person per meal",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "3 catered meals",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "2 charter buses 30 each",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "keynote in largest conference room",
+          "type": "relationship",
+          "retained": true
+        },
+        {
+          "fact": "engineering budget $15k",
+          "type": "quantity",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "Full Context",
+      "scenario": "Long Horizon + Noise",
+      "retained": 8,
+      "total": 8,
+      "cycles": 0,
+      "probeResults": [
+        {
+          "fact": "Dr. Martinez appointment 2:30pm Thursday",
+          "type": "date",
+          "retained": true
+        },
+        {
+          "fact": "patient ID RMC-2847",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "mechanic phone 555-0147",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "son's school play Friday March 14 6pm",
+          "type": "date",
+          "retained": true
+        },
+        {
+          "fact": "insurance policy HLT-99284-B",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "house alarm code 8472",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "passport number P-847291",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "flight UA447 gate B12 code XKRM47",
+          "type": "phone/id",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "Full Context",
+      "scenario": "Cascading Corrections",
+      "retained": 7,
+      "total": 7,
+      "cycles": 0,
+      "probeResults": [
+        {
+          "fact": "pre-money valuation $12M (corrected from $10M)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "round size $3M (corrected from $2M)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Sequoia investment $1.5M",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "legal fees $75K (corrected from $50K)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "monthly burn $175K (corrected from $150K)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "net proceeds $2.925M",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "share price $1.20",
+          "type": "quantity",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "Full Context",
+      "scenario": "Implicit Corrections",
+      "retained": 7,
+      "total": 7,
+      "cycles": 0,
+      "probeResults": [
+        {
+          "fact": "8 San Marzano tomatoes (corrected from 6 Roma)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "salmon 8oz fillets (corrected from 6oz)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "asparagus 400F (corrected from 425F)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "5 egg yolks (corrected from 6)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "serves 6 (corrected from 4)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "6 garlic cloves (corrected from 4)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "30 ladyfingers (corrected from 24)",
+          "type": "correction",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "Full Context",
+      "scenario": "Rapid-fire Corrections",
+      "retained": 6,
+      "total": 7,
+      "cycles": 0,
+      "probeResults": [
+        {
+          "fact": "Grace moved to Table 1",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Jack and Iris conflict",
+          "type": "relationship",
+          "retained": false
+        },
+        {
+          "fact": "Paul and Quinn couple at Table 3",
+          "type": "relationship",
+          "retained": true
+        },
+        {
+          "fact": "Uma removed (can't make it)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Xavier added to Table 4",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "Frank moved to Table 3 (not immediate family)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Yuki and Zara added to Table 5",
+          "type": "entity",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "RLM(8)",
+      "scenario": "Early Fact Recall",
+      "retained": 9,
+      "total": 10,
+      "cycles": 5,
+      "probeResults": [
+        {
+          "fact": "project name Mercury",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "budget $347,250",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "project lead Dr. Sarah Chen",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "deadline March 15, 2027",
+          "type": "date",
+          "retained": true
+        },
+        {
+          "fact": "frontend uses Svelte (corrected from React)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "QA lead Marcus Williams",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "production region us-east-1",
+          "type": "spatial",
+          "retained": true
+        },
+        {
+          "fact": "backend salary $145k-$175k",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "sponsor James Rodriguez VP Engineering",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "API rate limit 1000 req/min standard",
+          "type": "quantity",
+          "retained": false
+        }
+      ]
+    },
+    {
+      "strategy": "RLM(8)",
+      "scenario": "State Change Tracking",
+      "retained": 5,
+      "total": 7,
+      "cycles": 3,
+      "probeResults": [
+        {
+          "fact": "initial Widget-A: 500",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "initial Widget-B: 300",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "new product Gizmo-Z",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "Gadget-X discontinued/clearance",
+          "type": "decision",
+          "retained": true
+        },
+        {
+          "fact": "warehouse fire -30 Widget-B",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "new product MegaPart-Q 400 units",
+          "type": "entity",
+          "retained": false
+        },
+        {
+          "fact": "Widget-A price $24.99",
+          "type": "quantity",
+          "retained": false
+        }
+      ]
+    },
+    {
+      "strategy": "RLM(8)",
+      "scenario": "Contradiction Resolution",
+      "retained": 5,
+      "total": 8,
+      "cycles": 3,
+      "probeResults": [
+        {
+          "fact": "budget $8,500 (corrected from $5,000)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "hotel Aman Tokyo (corrected from Park Hyatt)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Aman rate $500/night (corrected from $800)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Kenji lives in Shinjuku (corrected from Shibuya)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Kenji phone 090-8765-4321",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "trip dates June 1-18 (extended from June 14)",
+          "type": "correction",
+          "retained": false
+        },
+        {
+          "fact": "flight cost $1,350",
+          "type": "quantity",
+          "retained": false
+        },
+        {
+          "fact": "cooking class $95 Kyoto",
+          "type": "quantity",
+          "retained": false
+        }
+      ]
+    },
+    {
+      "strategy": "RLM(8)",
+      "scenario": "Multi-hop Reasoning",
+      "retained": 7,
+      "total": 8,
+      "cycles": 3,
+      "probeResults": [
+        {
+          "fact": "engineering team 24 people",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "floor 3 conference room 50 people",
+          "type": "spatial",
+          "retained": true
+        },
+        {
+          "fact": "floor 2 conference room 30 people",
+          "type": "spatial",
+          "retained": true
+        },
+        {
+          "fact": "catering $35 per person per meal",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "3 catered meals",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "2 charter buses 30 each",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "keynote in largest conference room",
+          "type": "relationship",
+          "retained": true
+        },
+        {
+          "fact": "engineering budget $15k",
+          "type": "quantity",
+          "retained": false
+        }
+      ]
+    },
+    {
+      "strategy": "RLM(8)",
+      "scenario": "Long Horizon + Noise",
+      "retained": 3,
+      "total": 8,
+      "cycles": 5,
+      "probeResults": [
+        {
+          "fact": "Dr. Martinez appointment 2:30pm Thursday",
+          "type": "date",
+          "retained": false
+        },
+        {
+          "fact": "patient ID RMC-2847",
+          "type": "phone/id",
+          "retained": false
+        },
+        {
+          "fact": "mechanic phone 555-0147",
+          "type": "phone/id",
+          "retained": false
+        },
+        {
+          "fact": "son's school play Friday March 14 6pm",
+          "type": "date",
+          "retained": false
+        },
+        {
+          "fact": "insurance policy HLT-99284-B",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "house alarm code 8472",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "passport number P-847291",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "flight UA447 gate B12 code XKRM47",
+          "type": "phone/id",
+          "retained": false
+        }
+      ]
+    },
+    {
+      "strategy": "RLM(8)",
+      "scenario": "Cascading Corrections",
+      "retained": 6,
+      "total": 7,
+      "cycles": 3,
+      "probeResults": [
+        {
+          "fact": "pre-money valuation $12M (corrected from $10M)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "round size $3M (corrected from $2M)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Sequoia investment $1.5M",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "legal fees $75K (corrected from $50K)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "monthly burn $175K (corrected from $150K)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "net proceeds $2.925M",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "share price $1.20",
+          "type": "quantity",
+          "retained": false
+        }
+      ]
+    },
+    {
+      "strategy": "RLM(8)",
+      "scenario": "Implicit Corrections",
+      "retained": 6,
+      "total": 7,
+      "cycles": 4,
+      "probeResults": [
+        {
+          "fact": "8 San Marzano tomatoes (corrected from 6 Roma)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "salmon 8oz fillets (corrected from 6oz)",
+          "type": "correction",
+          "retained": false
+        },
+        {
+          "fact": "asparagus 400F (corrected from 425F)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "5 egg yolks (corrected from 6)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "serves 6 (corrected from 4)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "6 garlic cloves (corrected from 4)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "30 ladyfingers (corrected from 24)",
+          "type": "correction",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "RLM(8)",
+      "scenario": "Rapid-fire Corrections",
+      "retained": 6,
+      "total": 7,
+      "cycles": 4,
+      "probeResults": [
+        {
+          "fact": "Grace moved to Table 1",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Jack and Iris conflict",
+          "type": "relationship",
+          "retained": false
+        },
+        {
+          "fact": "Paul and Quinn couple at Table 3",
+          "type": "relationship",
+          "retained": true
+        },
+        {
+          "fact": "Uma removed (can't make it)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Xavier added to Table 4",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "Frank moved to Table 3 (not immediate family)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Yuki and Zara added to Table 5",
+          "type": "entity",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "QTD",
+      "scenario": "Early Fact Recall",
+      "retained": 10,
+      "total": 10,
+      "cycles": 1,
+      "probeResults": [
+        {
+          "fact": "project name Mercury",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "budget $347,250",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "project lead Dr. Sarah Chen",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "deadline March 15, 2027",
+          "type": "date",
+          "retained": true
+        },
+        {
+          "fact": "frontend uses Svelte (corrected from React)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "QA lead Marcus Williams",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "production region us-east-1",
+          "type": "spatial",
+          "retained": true
+        },
+        {
+          "fact": "backend salary $145k-$175k",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "sponsor James Rodriguez VP Engineering",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "API rate limit 1000 req/min standard",
+          "type": "quantity",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "QTD",
+      "scenario": "State Change Tracking",
+      "retained": 7,
+      "total": 7,
+      "cycles": 0,
+      "probeResults": [
+        {
+          "fact": "initial Widget-A: 500",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "initial Widget-B: 300",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "new product Gizmo-Z",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "Gadget-X discontinued/clearance",
+          "type": "decision",
+          "retained": true
+        },
+        {
+          "fact": "warehouse fire -30 Widget-B",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "new product MegaPart-Q 400 units",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "Widget-A price $24.99",
+          "type": "quantity",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "QTD",
+      "scenario": "Contradiction Resolution",
+      "retained": 8,
+      "total": 8,
+      "cycles": 0,
+      "probeResults": [
+        {
+          "fact": "budget $8,500 (corrected from $5,000)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "hotel Aman Tokyo (corrected from Park Hyatt)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Aman rate $500/night (corrected from $800)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Kenji lives in Shinjuku (corrected from Shibuya)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Kenji phone 090-8765-4321",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "trip dates June 1-18 (extended from June 14)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "flight cost $1,350",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "cooking class $95 Kyoto",
+          "type": "quantity",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "QTD",
+      "scenario": "Multi-hop Reasoning",
+      "retained": 8,
+      "total": 8,
+      "cycles": 0,
+      "probeResults": [
+        {
+          "fact": "engineering team 24 people",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "floor 3 conference room 50 people",
+          "type": "spatial",
+          "retained": true
+        },
+        {
+          "fact": "floor 2 conference room 30 people",
+          "type": "spatial",
+          "retained": true
+        },
+        {
+          "fact": "catering $35 per person per meal",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "3 catered meals",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "2 charter buses 30 each",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "keynote in largest conference room",
+          "type": "relationship",
+          "retained": true
+        },
+        {
+          "fact": "engineering budget $15k",
+          "type": "quantity",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "QTD",
+      "scenario": "Long Horizon + Noise",
+      "retained": 8,
+      "total": 8,
+      "cycles": 0,
+      "probeResults": [
+        {
+          "fact": "Dr. Martinez appointment 2:30pm Thursday",
+          "type": "date",
+          "retained": true
+        },
+        {
+          "fact": "patient ID RMC-2847",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "mechanic phone 555-0147",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "son's school play Friday March 14 6pm",
+          "type": "date",
+          "retained": true
+        },
+        {
+          "fact": "insurance policy HLT-99284-B",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "house alarm code 8472",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "passport number P-847291",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "flight UA447 gate B12 code XKRM47",
+          "type": "phone/id",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "QTD",
+      "scenario": "Cascading Corrections",
+      "retained": 7,
+      "total": 7,
+      "cycles": 0,
+      "probeResults": [
+        {
+          "fact": "pre-money valuation $12M (corrected from $10M)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "round size $3M (corrected from $2M)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Sequoia investment $1.5M",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "legal fees $75K (corrected from $50K)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "monthly burn $175K (corrected from $150K)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "net proceeds $2.925M",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "share price $1.20",
+          "type": "quantity",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "QTD",
+      "scenario": "Implicit Corrections",
+      "retained": 7,
+      "total": 7,
+      "cycles": 0,
+      "probeResults": [
+        {
+          "fact": "8 San Marzano tomatoes (corrected from 6 Roma)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "salmon 8oz fillets (corrected from 6oz)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "asparagus 400F (corrected from 425F)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "5 egg yolks (corrected from 6)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "serves 6 (corrected from 4)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "6 garlic cloves (corrected from 4)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "30 ladyfingers (corrected from 24)",
+          "type": "correction",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "QTD",
+      "scenario": "Rapid-fire Corrections",
+      "retained": 6,
+      "total": 7,
+      "cycles": 0,
+      "probeResults": [
+        {
+          "fact": "Grace moved to Table 1",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Jack and Iris conflict",
+          "type": "relationship",
+          "retained": false
+        },
+        {
+          "fact": "Paul and Quinn couple at Table 3",
+          "type": "relationship",
+          "retained": true
+        },
+        {
+          "fact": "Uma removed (can't make it)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Xavier added to Table 4",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "Frank moved to Table 3 (not immediate family)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Yuki and Zara added to Table 5",
+          "type": "entity",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "QPB",
+      "scenario": "Early Fact Recall",
+      "retained": 10,
+      "total": 10,
+      "cycles": 5,
+      "probeResults": [
+        {
+          "fact": "project name Mercury",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "budget $347,250",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "project lead Dr. Sarah Chen",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "deadline March 15, 2027",
+          "type": "date",
+          "retained": true
+        },
+        {
+          "fact": "frontend uses Svelte (corrected from React)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "QA lead Marcus Williams",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "production region us-east-1",
+          "type": "spatial",
+          "retained": true
+        },
+        {
+          "fact": "backend salary $145k-$175k",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "sponsor James Rodriguez VP Engineering",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "API rate limit 1000 req/min standard",
+          "type": "quantity",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "QPB",
+      "scenario": "State Change Tracking",
+      "retained": 7,
+      "total": 7,
+      "cycles": 3,
+      "probeResults": [
+        {
+          "fact": "initial Widget-A: 500",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "initial Widget-B: 300",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "new product Gizmo-Z",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "Gadget-X discontinued/clearance",
+          "type": "decision",
+          "retained": true
+        },
+        {
+          "fact": "warehouse fire -30 Widget-B",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "new product MegaPart-Q 400 units",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "Widget-A price $24.99",
+          "type": "quantity",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "QPB",
+      "scenario": "Contradiction Resolution",
+      "retained": 8,
+      "total": 8,
+      "cycles": 3,
+      "probeResults": [
+        {
+          "fact": "budget $8,500 (corrected from $5,000)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "hotel Aman Tokyo (corrected from Park Hyatt)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Aman rate $500/night (corrected from $800)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Kenji lives in Shinjuku (corrected from Shibuya)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Kenji phone 090-8765-4321",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "trip dates June 1-18 (extended from June 14)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "flight cost $1,350",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "cooking class $95 Kyoto",
+          "type": "quantity",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "QPB",
+      "scenario": "Multi-hop Reasoning",
+      "retained": 8,
+      "total": 8,
+      "cycles": 3,
+      "probeResults": [
+        {
+          "fact": "engineering team 24 people",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "floor 3 conference room 50 people",
+          "type": "spatial",
+          "retained": true
+        },
+        {
+          "fact": "floor 2 conference room 30 people",
+          "type": "spatial",
+          "retained": true
+        },
+        {
+          "fact": "catering $35 per person per meal",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "3 catered meals",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "2 charter buses 30 each",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "keynote in largest conference room",
+          "type": "relationship",
+          "retained": true
+        },
+        {
+          "fact": "engineering budget $15k",
+          "type": "quantity",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "QPB",
+      "scenario": "Long Horizon + Noise",
+      "retained": 8,
+      "total": 8,
+      "cycles": 5,
+      "probeResults": [
+        {
+          "fact": "Dr. Martinez appointment 2:30pm Thursday",
+          "type": "date",
+          "retained": true
+        },
+        {
+          "fact": "patient ID RMC-2847",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "mechanic phone 555-0147",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "son's school play Friday March 14 6pm",
+          "type": "date",
+          "retained": true
+        },
+        {
+          "fact": "insurance policy HLT-99284-B",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "house alarm code 8472",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "passport number P-847291",
+          "type": "phone/id",
+          "retained": true
+        },
+        {
+          "fact": "flight UA447 gate B12 code XKRM47",
+          "type": "phone/id",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "QPB",
+      "scenario": "Cascading Corrections",
+      "retained": 7,
+      "total": 7,
+      "cycles": 3,
+      "probeResults": [
+        {
+          "fact": "pre-money valuation $12M (corrected from $10M)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "round size $3M (corrected from $2M)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Sequoia investment $1.5M",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "legal fees $75K (corrected from $50K)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "monthly burn $175K (corrected from $150K)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "net proceeds $2.925M",
+          "type": "quantity",
+          "retained": true
+        },
+        {
+          "fact": "share price $1.20",
+          "type": "quantity",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "QPB",
+      "scenario": "Implicit Corrections",
+      "retained": 6,
+      "total": 7,
+      "cycles": 4,
+      "probeResults": [
+        {
+          "fact": "8 San Marzano tomatoes (corrected from 6 Roma)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "salmon 8oz fillets (corrected from 6oz)",
+          "type": "correction",
+          "retained": false
+        },
+        {
+          "fact": "asparagus 400F (corrected from 425F)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "5 egg yolks (corrected from 6)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "serves 6 (corrected from 4)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "6 garlic cloves (corrected from 4)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "30 ladyfingers (corrected from 24)",
+          "type": "correction",
+          "retained": true
+        }
+      ]
+    },
+    {
+      "strategy": "QPB",
+      "scenario": "Rapid-fire Corrections",
+      "retained": 6,
+      "total": 7,
+      "cycles": 4,
+      "probeResults": [
+        {
+          "fact": "Grace moved to Table 1",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Jack and Iris conflict",
+          "type": "relationship",
+          "retained": false
+        },
+        {
+          "fact": "Paul and Quinn couple at Table 3",
+          "type": "relationship",
+          "retained": true
+        },
+        {
+          "fact": "Uma removed (can't make it)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Xavier added to Table 4",
+          "type": "entity",
+          "retained": true
+        },
+        {
+          "fact": "Frank moved to Table 3 (not immediate family)",
+          "type": "correction",
+          "retained": true
+        },
+        {
+          "fact": "Yuki and Zara added to Table 5",
+          "type": "entity",
+          "retained": true
+        }
+      ]
+    }
+  ]
+}
