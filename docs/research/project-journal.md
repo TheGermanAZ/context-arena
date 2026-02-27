@@ -46,9 +46,9 @@ CorrectionAware was rewritten twice (v1 failed on rapid-fire, v2 used a summary-
 
 ---
 
-## Week 1, Day 2: CTX-1 and CTX-2 — Characterization (Feb 25)
+## Week 1, Day 2: Probe Framework and Depth Scaling — Characterization (Feb 25)
 
-### CTX-1: The Probe Framework
+### The Probe Framework
 
 Pass/fail on 8 scenarios told us _which_ strategies won, but not _why_ the losers lost. We needed finer-grained measurement.
 
@@ -75,7 +75,7 @@ Phone numbers, IDs, floor plans — completely wiped. Dollar amounts nearly all 
 
 **Surprise finding:** The retention curve was non-monotonic. Probes showed LOST at cycle 1, RETAINED at cycles 2-3, then LOST again at cycles 4-5. Cycle 1 processed raw conversation (messy). Cycles 2-3 processed the sub-LLM's own structured output (easier to copy forward). Cycles 4-5 showed compounding loss catching up.
 
-### CTX-2: The Depth Experiment
+### The Depth Experiment
 
 Standard RLM uses depth 1: one sub-LLM call per compression cycle. We built DeepRLM: chain N sub-LLM calls. Depth 2 means the first extraction gets re-processed by a second pass with the same questions.
 
@@ -90,9 +90,9 @@ The photocopy metaphor was wrong. The second pass re-reads with fresh eyes — b
 
 ---
 
-## Week 1, Day 2-3: CTX-3 and CTX-4 — The Code Generation Experiment (Feb 25-26)
+## Week 1, Day 2-3: The Code Generation Experiment (Feb 25-26)
 
-### CTX-3: Can the LLM Write Better Extraction Code?
+### Can the LLM Write Better Extraction Code?
 
 The `rllm` package lets the LLM generate JavaScript that runs in a V8 isolate to extract facts. Hypothesis: a code-writing LLM should outperform fixed prompts. Code is flexible; prompts are rigid templates.
 
@@ -109,7 +109,7 @@ We ran both on gpt-5-nano to eliminate the model confound.
 
 In 6 of 8 scenarios, RLLM retained exactly 0 facts.
 
-### CTX-4: What Code Did It Write?
+### What Code Did the LLM Write?
 
 We captured all 168 code blocks and classified them:
 
@@ -139,9 +139,9 @@ This fed directly into the feasibility testing phase.
 
 ---
 
-## Week 1, Day 3: CTX-5 — The PersistentRLM Experiment (Feb 26)
+## Week 1, Day 3: The PersistentRLM Experiment (Feb 26)
 
-CTX-1 identified RLM's root cause: `this.delegatedKnowledge = [subLLMResult.content]` — wholesale replacement every cycle. If the sub-LLM drops a fact, it's gone forever.
+The Probe Framework identified RLM's root cause: `this.delegatedKnowledge = [subLLMResult.content]` — wholesale replacement every cycle. If the sub-LLM drops a fact, it's gone forever.
 
 The fix seemed obvious: parse the sub-LLM's output into typed stores (identifiers, entities, quantities, dates, corrections, structural) and merge incrementally. Same call, same cost — just parse-then-merge instead of wholesale replace.
 
@@ -151,13 +151,13 @@ The fix seemed obvious: parse the sub-LLM's output into typed stores (identifier
 
 **Why:** The sub-LLM processes its own natural-language blob with full language understanding — "Gadget-X moved to clearance, count unchanged at 200" is one compound fact. When it receives typed stores (`QUANTITIES: Gadget-X: 200 units` and `STRUCTURAL: Gadget-X: moved to clearance`), it treats them as independent facts. Structure splits associations that natural language keeps together.
 
-This was the inverse of CTX-3. In CTX-3, prompts beat code because code adds indirection. Here, typed stores beat natural language at _storage_ but lose at _re-ingestion_. The format you feed the sub-LLM shapes what it attends to.
+This was the inverse of the Code Generation experiment. There, prompts beat code because code adds indirection. Here, typed stores beat natural language at _storage_ but lose at _re-ingestion_. The format you feed the sub-LLM shapes what it attends to.
 
 **The lesson:** Don't parse output into stores. Keep the natural-language blob AND maintain a side-channel for facts the blob drops. This pointed directly at QPB, though we didn't build it yet.
 
 ---
 
-## Week 1, Day 3: CTX-6 — The Feasibility Sprint (Feb 26)
+## Week 1, Day 3: The Feasibility Sprint (Feb 26)
 
 Five proposals from the research list, each tested with a two-phase probe: Phase 1 validates the core mechanism at zero LLM cost, Phase 2 runs benchmarks with kill criteria.
 
@@ -183,7 +183,7 @@ Maintain a parallel knowledge graph alongside RLM. Extract triples (ENTITY, SPAT
 
 Inspired by neuroscience's complementary learning systems. Separate stable facts (phones, IDs, codes) from plastic ones. Regex classifier routes at extraction time.
 
-**Inconclusive:** Phase 1 passed (80% recall), but Phase 2 tested on the wrong scenarios — Scenario 1 has zero phone/ID probes. Deferred to CTX-39 for proper re-testing.
+**Inconclusive:** Phase 1 passed (80% recall), but Phase 2 tested on the wrong scenarios — Scenario 1 has zero phone/ID probes. Deferred for proper re-testing.
 
 ### Proposal #10: Schema-Guided Hybrid
 
@@ -214,7 +214,7 @@ Re-ran all strategies on gpt-5-nano for a clean same-model comparison:
 
 Model matters: gpt-5-nano is weaker than Haiku. Full Context dropped from 100% to 88% (fails Contradiction Resolution even with all messages). Structured jumped from 63% to 75% (key-value extraction plays to nano's strengths). Summarize dropped from 75% to 38% (narrative summarization degrades on weaker models).
 
-### CTX-26: Proxy Benchmark Sweep
+### Proxy Benchmark Sweep
 
 One-day parallel run against industry benchmarks:
 
@@ -229,7 +229,7 @@ One-day parallel run against industry benchmarks:
 
 RLM won on LongMemEval, tied on MemoryArena, lost on MemoryAgentBench and cross-session. Not uniformly better — task family matters.
 
-### CTX-33: Official-Mode Benchmark Runs
+### Official-Mode Benchmark Runs
 
 Upgraded from proxy adapters to official datasets/splits:
 
@@ -262,11 +262,11 @@ The dashboard visualized the leaderboard, per-scenario grids, probe retention he
 
 ---
 
-## Week 2, Day 1: CTX-7 — The Breakthrough (Feb 26-27)
+## Week 2, Day 1: The Quantity-Pinning Breakthrough (Feb 26-27)
 
 ### Design Phase
 
-CTX-1 through CTX-6 circled around the same problem: the sub-LLM's extraction is lossy, and no architectural wrapper fixes it. Five proposals all abandoned. The quantity problem persisted.
+The first six experiments circled around the same problem: the sub-LLM's extraction is lossy, and no architectural wrapper fixes it. Five proposals all abandoned. The quantity problem persisted.
 
 Two new hypotheses emerged from the findings:
 
@@ -304,12 +304,12 @@ QTD matched Full Context at 98.4%, proving that question-guided compression elim
 
 ## Week 2, Day 1: The vNext Experiment Matrix (Feb 27)
 
-With CTX-7's breakthrough, we designed a structured experiment plan for promoting QPB to production:
+With the Quantity-Pinning breakthrough, we designed a structured experiment plan for promoting QPB to production:
 
 **Phase 1 (highest-leverage fixes):**
-- EXP-01: Quantity Pinning Buffer — **GO** (CTX-7 results)
-- EXP-02: Intent Framing Preservation — **REWORK** (benchmark was flawed)
-- EXP-03: Stability-Plasticity Re-test — **KILL**
+- Quantity Pinning Buffer — **GO** (Quantity-Pinning results)
+- Intent Framing Preservation — **REWORK** (benchmark was flawed)
+- Stability-Plasticity Re-test — **KILL**
 
 **Phase 2 (architecture upgrades):** Dual-Track RLM, Semantic Depth Router — gated on ≥2 GOs from Phase 1.
 
@@ -319,13 +319,13 @@ With CTX-7's breakthrough, we designed a structured experiment plan for promotin
 
 ---
 
-## Week 2, Day 1: CTX-39 and CTX-43 — Closing the Stability-Plasticity Question (Feb 27)
+## Week 2, Day 1: Closing the Stability-Plasticity Question (Feb 27)
 
-### CTX-43: Initial Full-Run (Without Quantity-Pinning)
+### Initial Full-Run (Without Quantity-Pinning)
 
 The first proper re-test with 2 reps per strategy across all 8 scenarios. StabilityPlasticity: 65.3% vs RLM: 62.1% (+3.2pp). Kill triggered by side effects: `date -17pp`, `relationship -17pp`.
 
-### CTX-39: Final Re-Test with Quantity-Pinning
+### Final Re-Test with Quantity-Pinning
 
 The definitive run with three improvements: quantity-pinning classifier (currency/percentages/number+unit via regex), fresh RLM(8) baseline alongside every scenario, and per-hypothesis kill criteria.
 
@@ -334,13 +334,13 @@ Phase 1 passed (24/24 recall, 0 false positives). Phase 2 ran 32 comparisons (2 
 - **H1 (phone/id):** Δ 0pp. RLM already retains phone/id at 86% — the stable buffer adds nothing.
 - **H2 (quantity):** Δ +9pp (18% → 26%). Real but below the +10pp threshold.
 
-Biggest gains were on untargeted medium-retention types: date (+17pp), relationship (+17pp), spatial (+17pp). The stable buffer may free the sub-LLM's attention for non-stable facts — but comparing CTX-43 (date −17pp) with CTX-39 v2 (date +17pp), the same types swung 34pp between runs. **The variance is the finding:** per-type deltas are noise, not signal. The mechanism's overall effect (+3-6pp) is too small and too unstable to justify the complexity.
+Biggest gains were on untargeted medium-retention types: date (+17pp), relationship (+17pp), spatial (+17pp). The stable buffer may free the sub-LLM's attention for non-stable facts — but comparing the initial run (date −17pp) with the re-test (date +17pp), the same types swung 34pp between runs. **The variance is the finding:** per-type deltas are noise, not signal. The mechanism's overall effect (+3-6pp) is too small and too unstable to justify the complexity.
 
-**Verdict: KILL.** Three runs across two configurations, all fail promotion criteria. Abandoned. This definitively validated the CTX-7 direction: the problem isn't _which facts_ to protect but _how_ to compress without losing them (QPB's approach).
+**Verdict: KILL.** Three runs across two configurations, all fail promotion criteria. Abandoned. This definitively validated the Quantity-Pinning direction: the problem isn't _which facts_ to protect but _how_ to compress without losing them (QPB's approach).
 
 ---
 
-## Week 2, Day 1: EXP-02 — The Flawed Benchmark (Feb 27)
+## Week 2, Day 1: Intent Framing — The Flawed Benchmark (Feb 27)
 
 ### v1 Run
 
@@ -366,19 +366,19 @@ The v2 rerun should show Full Context near 100% (a proper ceiling) and isolate m
 
 A full re-read of findings.md revealed structural problems that had accumulated as new experiments were appended:
 
-1. **Duplicate CTX-33 section** — the same official-benchmark results appeared twice (once misplaced between CTX-6 and CTX-39, once in the correct position after CTX-26). Removed the duplicate.
-2. **CTX-26 floating without a header** — the parallel benchmark results were orphaned below the Implications section with no `##` heading. Added `## CTX-26: Parallel Benchmarks (Proxy Mode)`.
+1. **Duplicate Official Benchmarks section** — the same results appeared twice (once misplaced between the Feasibility Sprint and Stability-Plasticity, once in the correct position after the Proxy Sweep). Removed the duplicate.
+2. **Proxy Benchmarks floating without a header** — the parallel benchmark results were orphaned below the Implications section with no `##` heading. Added a proper section header.
 3. **Duplicate implication numbering** — two items both numbered "8." Renumbered.
 4. **Orphaned recommendations at the bottom** — 36 lines of pasted suggestions from an earlier analysis, all superseded by work already done (QPB, Stability-Plasticity re-test, intent framing, experiment matrix). Removed.
 5. **Open Questions nested incorrectly** — was a `###` subsection of Memory-to-Action Micro instead of its own `##` section. Promoted and updated the dual-track question as partially answered by QPB.
 
 ### Scoring Methodology Gap
 
-The re-read also surfaced a critical assumption error: **CTX-7's 96.8% measures probe retention (facts in the delegation log), not final-answer accuracy (pass/fail on 8 scenarios).** The original leaderboard scores both, and RLM has 63% accuracy despite 53% retention — the two metrics diverge. QPB has never been run through the full leaderboard. Its probe retention is impressive, but we don't know if it passes 7/8 or 8/8 scenarios.
+The re-read also surfaced a critical assumption error: **The Quantity-Pinning experiment's 96.8% measures probe retention (facts in the delegation log), not final-answer accuracy (pass/fail on 8 scenarios).** The original leaderboard scores both, and RLM has 63% accuracy despite 53% retention — the two metrics diverge. QPB has never been run through the full leaderboard. Its probe retention is impressive, but we don't know if it passes 7/8 or 8/8 scenarios.
 
 ### Memory-to-Action Benchmark Redesign (v2)
 
-The Memory-to-Action Micro benchmark and EXP-02 were both flawed: they asked "Give a concise 4-step action plan with exact values," which tested gpt-5-nano's action-plan generation capability, not memory. Full Context scored 0/6 passes on EXP-02 and only 4.7/8 average checks — even the ceiling failed.
+The Memory-to-Action Micro benchmark and the Intent Framing experiment were both flawed: they asked "Give a concise 4-step action plan with exact values," which tested gpt-5-nano's action-plan generation capability, not memory. Full Context scored 0/6 passes on Intent Framing and only 4.7/8 average checks — even the ceiling failed.
 
 **Fix:** Changed the final question from action-plan generation to direct fact recall:
 - Conference Logistics: "List all the current, corrected details for this event. Include every specific value, code, name, count, and deadline."
@@ -386,7 +386,7 @@ The Memory-to-Action Micro benchmark and EXP-02 were both flawed: they asked "Gi
 
 System prompt changed from "planning assistant / operational steps" to "fact-recall assistant / list all facts with exact values." Same regex scoring, same scenarios — now tests whether facts survived compression, not whether the model can write plans.
 
-Updated findings.md: v1 results preserved as historical record, v2 redesign documented, EXP-02 verdict changed to "REWORK (pending v2 re-run)."
+Updated findings.md: v1 results preserved as historical record, v2 redesign documented, Intent Framing verdict changed to "REWORK (pending v2 re-run)."
 
 ### QPB Cross-Session Serialization
 
@@ -418,7 +418,7 @@ The cross-session benchmark was updated to append `serializePinnedBuffer()` to e
 | QPB final-answer accuracy (leaderboard run) | **Not yet tested** |
 | QPB cross-session | **Not yet tested** |
 | QPB on official tracks (LongMemEval, MemoryArena, MemoryAgentBench) | **Not yet tested** |
-| EXP-02 v2 fact-recall rerun | **Not yet tested** |
+| Intent Framing v2 fact-recall rerun | **Not yet tested** |
 | Token overhead measurement | Expected PASS (regex only, no LLM calls) |
 
 ### The Arc
@@ -428,10 +428,10 @@ The project followed a natural progression:
 1. **"Which strategy wins?"** — The leaderboard. Hybrid at the top, Window at the bottom.
 2. **"What types of facts break?"** — The probe framework. Quantities, phone/IDs, spatial info destroyed.
 3. **"Can we fix it architecturally?"** — Five proposals. All failed.
-4. **"Why do they break?"** — Format sensitivity (CTX-5), blind compression (CTX-7), model limits (EXP-02).
+4. **"Why do they break?"** — Format sensitivity (PersistentRLM), blind compression (Quantity-Pinning), model limits (Intent Framing).
 5. **"How do we fix it?"** — QPB: keep the blob, add a side-channel. Zero-cost, +21pp retention.
 
-The biggest pivot was CTX-5 (PersistentRLM). We expected typed stores to fix wholesale replacement. They made it worse. That failure reframed the entire problem: the bottleneck isn't storage architecture, it's the sub-LLM's re-ingestion quality. Once we stopped trying to restructure the blob and started protecting facts alongside it, retention jumped from 75.8% to 96.8%.
+The biggest pivot was the PersistentRLM experiment. We expected typed stores to fix wholesale replacement. They made it worse. That failure reframed the entire problem: the bottleneck isn't storage architecture, it's the sub-LLM's re-ingestion quality. Once we stopped trying to restructure the blob and started protecting facts alongside it, retention jumped from 75.8% to 96.8%.
 
 ---
 
@@ -453,16 +453,16 @@ The biggest pivot was CTX-5 (PersistentRLM). We expected typed stores to fix who
 | File | Experiment |
 |------|-----------|
 | `results/final-leaderboard-*.json` | Full 8-strategy leaderboard on gpt-5-nano |
-| `results/rlm-loss-*.json` | CTX-1 probe retention analysis |
-| `results/rlm-depth-*.json` | CTX-2 depth-scaling data |
-| `results/rllm-extraction-*.json` | CTX-3 agentic extraction results |
-| `results/code-analysis-*.json` | CTX-4 code classification |
-| `results/probe-*.json` | CTX-6 feasibility probes (5 files) |
-| `results/qtd-qpb-experiment-*.json` | CTX-7 QPB/QTD results |
-| `results/probe-stability-plasticity-v2-*.json` | CTX-39/CTX-43 Stability-Plasticity re-probe results |
-| `results/exp-02-intent-framing-*.json` | EXP-02 safety framing results (v1) |
-| `results/parallel-benchmarks-*.json` | CTX-26 proxy benchmark sweep |
-| `results/official-*.json` | CTX-33 official benchmark runs |
+| `results/rlm-loss-*.json` | Probe retention analysis |
+| `results/rlm-depth-*.json` | Depth-scaling data |
+| `results/rllm-extraction-*.json` | Agentic extraction results |
+| `results/code-analysis-*.json` | Code classification |
+| `results/probe-*.json` | Feasibility probes (5 files) |
+| `results/qtd-qpb-experiment-*.json` | Quantity-Pinning / QTD results |
+| `results/probe-stability-plasticity-v2-*.json` | Stability-Plasticity re-probe results |
+| `results/exp-02-intent-framing-*.json` | Intent Framing results (v1) |
+| `results/parallel-benchmarks-*.json` | Proxy benchmark sweep |
+| `results/official-*.json` | Official benchmark runs |
 | `results/memory-action-micro-*.json` | Memory-to-Action Micro results |
 
 ### Documentation
