@@ -104,6 +104,17 @@ A candidate proceeds only if all gates pass:
 - Go criteria:
   - Phone/ID retention >= 90%
   - and no quantity retention drop > 5pp vs V0
+### EXP-01: Quantity Pinning Buffer (QPin) — **GO** ✅
+
+**Completed in CTX-7.** QPB (RLM + regex side-channel) raises quantity retention from 65% to 100%, dates from 33% to 100%, phone/IDs from 57% to 100%. Overall: 96.8% vs RLM's 75.8%. Zero additional LLM cost. All go criteria exceeded. Results: `results/qtd-qpb-experiment-1772176379889.json`
+
+### EXP-02: Intent Framing Preservation (Safety) — **REWORK** 🔄
+
+**v1 completed, v2 pending.** The v1 benchmark used action-plan questions that tested model capability, not memory. Full Context scored 0/6 passes (4.7/8 avg checks) — confirming the benchmark was flawed. The benchmark has been redesigned with fact-recall questions to isolate memory quality. Re-run needed with v2 questions before this experiment can be properly evaluated. Results (v1): `results/exp-02-intent-framing-1772206795415.json`
+
+### EXP-03: Stability-Plasticity Re-test on Correct Data — **KILL** ❌
+
+**Completed in CTX-39.** Phase 1 passed (100% stable-probe recall) but Phase 2 scored 63.7% overall — worse than base RLM (75.8%). Kill criteria met. The stable/plastic split adds complexity without improving outcomes. Results: `results/probe-stability-plasticity-v2-1772195858439.json`
 
 ---
 
@@ -177,9 +188,12 @@ A candidate proceeds only if all gates pass:
 
 ## Execution Order and Decision Tree
 
-1. Run EXP-01 and EXP-02 in parallel.
-2. Run EXP-03 after EXP-01 baseline artifacts are finalized.
-3. If fewer than 2 experiments in Phase 1 are `GO`, stop and rework extraction prompt before architecture work.
+1. ~~Run EXP-01 and EXP-02 in parallel.~~ **Done.** EXP-01: GO, EXP-02: REWORK.
+2. ~~Run EXP-03 after EXP-01 baseline artifacts are finalized.~~ **Done.** EXP-03: KILL.
+3. **Current state: 1 GO, 1 REWORK, 1 KILL.** Gate says "fewer than 2 GO → stop and rework." Options:
+   - (a) Rework EXP-02 with stronger framing or larger model to get a second GO.
+   - (b) Proceed to Phase 2 with QPB as the sole Phase 1 winner (relaxed gate).
+   - (c) Accept that safety refusals are a model limitation and focus Phase 2 on retention.
 4. If >= 2 `GO` in Phase 1, run EXP-04 then EXP-05.
 5. If EXP-04 and EXP-05 both `GO`, run EXP-06 final routing benchmark.
 6. Promote to default production strategy only if global gates all pass.

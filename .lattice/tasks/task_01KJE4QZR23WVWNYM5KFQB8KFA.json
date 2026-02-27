@@ -1,0 +1,37 @@
+{
+  "assigned_to": null,
+  "branch_links": [],
+  "comment_count": 1,
+  "complexity": null,
+  "created_at": "2026-02-26T23:32:32Z",
+  "created_by": "agent:claude-opus-4",
+  "custom_fields": {},
+  "description": "Add /api/parallel-benchmarks endpoint, ParallelBenchmarks component, integrate into Findings and Dashboard pages. Covers all 7 CTX-26 benchmark tracks.",
+  "done_at": "2026-02-27T00:03:38Z",
+  "evidence_refs": [
+    {
+      "id": "ev_01KJE6GY74JKVQ6K5BQD3QPCMG",
+      "role": "review",
+      "source_type": "comment"
+    },
+    {
+      "id": "art_01KJE6GY74JKVQ6K5BQD3QPCMF",
+      "role": "review",
+      "source_type": "artifact"
+    }
+  ],
+  "id": "task_01KJE4QZR23WVWNYM5KFQB8KFA",
+  "last_event_id": "ev_01KJE6GY75EB7YG5G20K3V6VF6",
+  "last_status_changed_at": "2026-02-27T00:03:38Z",
+  "priority": "high",
+  "relationships_out": [],
+  "reopened_count": 0,
+  "schema_version": 1,
+  "short_id": "CTX-36",
+  "status": "done",
+  "tags": null,
+  "title": "Surface parallel benchmark experiments on the website",
+  "type": "task",
+  "updated_at": "2026-02-27T00:03:38Z",
+  "urgency": null
+}

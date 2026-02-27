@@ -1,0 +1,1 @@
+Implemented /api/parallel-benchmarks endpoint, ParallelBenchmarks.tsx component, integrated into Findings and Dashboard. Code reviewed, two important issues fixed (mutable render var, inconsistent findBest pattern). Merged via PR #13.

@@ -10,7 +10,7 @@
   "done_at": null,
   "evidence_refs": [],
   "id": "task_01KJ8YB28ZEAYJM7D88K55GV0P",
-  "last_event_id": "ev_01KJ9EPX1MNER9ZR8NXTN4PCZH",
+  "last_event_id": "ev_01KJE717Z83QP24CCZN2N6ZJM6",
   "last_status_changed_at": "2026-02-24T23:36:48Z",
   "priority": "medium",
   "relationships_out": [
@@ -29,6 +29,6 @@
   "tags": null,
   "title": "Test RLM at delegation depth 2+",
   "type": "task",
-  "updated_at": "2026-02-25T03:50:30Z",
+  "updated_at": "2026-02-27T00:12:32Z",
   "urgency": null
 }

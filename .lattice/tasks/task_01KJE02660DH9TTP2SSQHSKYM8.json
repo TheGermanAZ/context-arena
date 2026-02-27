@@ -8,32 +8,42 @@
       "repo": null
     }
   ],
-  "comment_count": 2,
+  "comment_count": 3,
   "complexity": null,
   "created_at": "2026-02-26T22:10:43Z",
   "created_by": "agent:codex",
   "custom_fields": {},
   "description": null,
-  "done_at": null,
+  "done_at": "2026-02-27T00:11:53Z",
   "evidence_refs": [
     {
       "id": "ev_01KJE0572DHYSAPK35RCSY0VNR",
       "role": "review",
       "source_type": "comment"
+    },
+    {
+      "id": "ev_01KJE701BXNMEX741BS3V9DMZA",
+      "role": "review",
+      "source_type": "comment"
+    },
+    {
+      "id": "art_01KJE701BXNMEX741BS3V9DMZ9",
+      "role": "review",
+      "source_type": "artifact"
     }
   ],
   "id": "task_01KJE02660DH9TTP2SSQHSKYM8",
-  "last_event_id": "ev_01KJE0572DHYSAPK35RCSY0VNR",
-  "last_status_changed_at": "2026-02-26T22:12:16Z",
+  "last_event_id": "ev_01KJE701BXNMEX741BS3V9DMZC",
+  "last_status_changed_at": "2026-02-27T00:11:53Z",
   "priority": "medium",
   "relationships_out": [],
   "reopened_count": 0,
   "schema_version": 1,
   "short_id": "CTX-21",
-  "status": "review",
+  "status": "done",
   "tags": null,
   "title": "Fix Full Context animation arrow target and payload bar overlap",
   "type": "task",
-  "updated_at": "2026-02-26T22:12:22Z",
+  "updated_at": "2026-02-27T00:11:53Z",
   "urgency": null
 }
