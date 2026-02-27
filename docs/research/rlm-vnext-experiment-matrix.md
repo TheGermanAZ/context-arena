@@ -45,65 +45,19 @@ A candidate proceeds only if all gates pass:
 
 ## Phase 1: Highest-Leverage Fixes (Run First)
 
-### EXP-01: Quantity Pinning Buffer (QPin)
+### EXP-01: Quantity Pinning Buffer (QPin) — **GO** ✅
 
-- Hypothesis: protecting exact values as a side-channel will close the largest RLM gap.
-- Variants:
-  - V0: `RLM(8)` baseline
-  - V1: `RLM(8)+QPin` (pin exact numeric facts with unit + entity key)
-  - V2: `RLM(8)+QPin+Supersedes` (track corrected numeric lineage)
-- Datasets:
-  - Internal 8 scenarios (focus: State Change, Contradiction, Cascading Corrections)
-  - Memory-to-Action Micro
-- Primary metrics:
-  - Quantity retention
-  - Final accuracy
-  - Token overhead
-- Kill criteria:
-  - Quantity retention gain < +15pp vs V0 after 3 reps
-  - or token overhead > +10% with no accuracy gain
-- Go criteria:
-  - Quantity retention >= 50%
-  - and no scenario accuracy regression > 1 scenario vs V0
+**Completed in CTX-7.** QPB (RLM + regex side-channel) raises quantity retention from 65% to 100%, dates from 33% to 100%, phone/IDs from 57% to 100%. Overall: 96.8% vs RLM's 75.8%. Zero additional LLM cost. All go criteria exceeded. Results: `results/qtd-qpb-experiment-1772176379889.json`
 
-### EXP-02: Intent Framing Preservation (Safety)
+### EXP-02: Intent Framing Preservation (Safety) — **REWORK** 🔄
 
-- Hypothesis: preserving benign framing in compressed memory eliminates false safety refusals.
-- Variants:
-  - V0: current `RLM(8)`
-  - V1: add explicit benign-context frame to delegated memory
-  - V2: benign frame + action-plan constraint template (non-operational language)
-- Datasets:
-  - Memory-to-Action Micro (all scenarios)
-  - Internal incident-like prompts (add 3 synthetic variants)
-- Primary metrics:
-  - Refusal rate on benign tasks
-  - Action correctness checks
-  - Latency delta
-- Kill criteria:
-  - Any benign refusal persists in V2 after 3 reps
-- Go criteria:
-  - 0 refusals on benign tasks across all reps
-  - and no correctness drop > 1 check total vs V0
+**Completed.** QPB+Frame reduced but didn't eliminate refusals (1/6 remained). The refusal problem is model-level (gpt-5-nano), not compression-specific — Full Context also refusals. All strategies scored poorly on action-plan generation (avg 4.7/8). Results: `results/exp-02-intent-framing-1772206795415.json`
 
-### EXP-03: Stability-Plasticity Re-test on Correct Data
+Possible rework: stronger framing, few-shot examples, or larger model.
 
-- Hypothesis: stable buffer helps when evaluated on scenarios that actually contain phone/id probes.
-- Variants:
-  - V0: `RLM(8)`
-  - V1: stable phone/id buffer only
-  - V2: stable phone/id + exact value pinning
-- Datasets:
-  - Scenario 5 (Long Horizon + Noise)
-  - Any scenario with >= 4 phone/id probes
-- Primary metrics:
-  - Phone/ID retention
-  - Cross-type collateral damage (entity, quantity)
-- Kill criteria:
-  - Phone/ID retention < 90% in V2
-- Go criteria:
-  - Phone/ID retention >= 90%
-  - and no quantity retention drop > 5pp vs V0
+### EXP-03: Stability-Plasticity Re-test on Correct Data — **KILL** ❌
+
+**Completed in CTX-39.** Phase 1 passed (100% stable-probe recall) but Phase 2 scored 63.7% overall — worse than base RLM (75.8%). Kill criteria met. The stable/plastic split adds complexity without improving outcomes. Results: `results/probe-stability-plasticity-v2-1772195858439.json`
 
 ---
 
@@ -177,9 +131,12 @@ A candidate proceeds only if all gates pass:
 
 ## Execution Order and Decision Tree
 
-1. Run EXP-01 and EXP-02 in parallel.
-2. Run EXP-03 after EXP-01 baseline artifacts are finalized.
-3. If fewer than 2 experiments in Phase 1 are `GO`, stop and rework extraction prompt before architecture work.
+1. ~~Run EXP-01 and EXP-02 in parallel.~~ **Done.** EXP-01: GO, EXP-02: REWORK.
+2. ~~Run EXP-03 after EXP-01 baseline artifacts are finalized.~~ **Done.** EXP-03: KILL.
+3. **Current state: 1 GO, 1 REWORK, 1 KILL.** Gate says "fewer than 2 GO → stop and rework." Options:
+   - (a) Rework EXP-02 with stronger framing or larger model to get a second GO.
+   - (b) Proceed to Phase 2 with QPB as the sole Phase 1 winner (relaxed gate).
+   - (c) Accept that safety refusals are a model limitation and focus Phase 2 on retention.
 4. If >= 2 `GO` in Phase 1, run EXP-04 then EXP-05.
 5. If EXP-04 and EXP-05 both `GO`, run EXP-06 final routing benchmark.
 6. Promote to default production strategy only if global gates all pass.
