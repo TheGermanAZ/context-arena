@@ -417,9 +417,49 @@ The cross-session benchmark was updated to append `serializePinnedBuffer()` to e
 |------|--------|
 | QPB final-answer accuracy (leaderboard run) | **Not yet tested** |
 | QPB cross-session | **Not yet tested** |
-| QPB on official tracks (LongMemEval, MemoryArena, MemoryAgentBench) | **Not yet tested** |
+| QPB on official tracks (LongMemEval, MemoryArena, MemoryAgentBench) | **FAIL (0/3 improved)** — CTX-48 |
 | Intent Framing v2 fact-recall rerun | **Not yet tested** |
-| Token overhead measurement | Expected PASS (regex only, no LLM calls) |
+| Token overhead measurement | **FAIL (15.5% > 10%)** — CTX-48 |
+
+## CTX-48: QPB Promotion Gate Run — KILL (Feb 27)
+
+**The sobering twist:** QPB's 96.8% internal retention doesn't translate to final-answer quality.
+
+We ran all 6 promotion gates from the experiment matrix. QPB was added to every remaining runner (Memory-Action Micro, LongMemEval, MemoryArena, MemoryAgentBench, focused leaderboard). The results:
+
+| Gate | Target | Result | Verdict |
+|------|--------|--------|---------|
+| Quantity retention | ≥50% | 17.6% | **FAIL** |
+| Phone/ID retention | ≥90% | 85.7% | **FAIL** |
+| Cross-session | 4/4 | 4/4 | PASS |
+| Benign refusal | 0% | 0% | PASS |
+| Official tracks ≥2/3 | QPB > RLM | 0/3 | **FAIL** |
+| Token overhead ≤10% | vs RLM | 15.5% | **FAIL** |
+
+**2/6 pass. KILL per decision framework.**
+
+### The Storage ≠ Retrieval Gap
+
+This is the key lesson. QPB solves *storage* (quantities persist in the context window at 100%) but not *retrieval* (the model surfaces only 17.6% of them in its response). The pinned buffer is like writing facts on a whiteboard the model can see but doesn't read. The gap between internal-state retention and final-answer retention was predicted in the plan as a risk, and it turned out to be fatal.
+
+This is analogous to the "knowing vs telling" problem in human cognition — having information available doesn't mean it gets activated at retrieval time. The model has the facts; it just doesn't reliably surface them when generating a response. Three retrieval-side interventions are worth exploring next:
+
+1. **Prompt engineering:** Explicitly instruct the model to reference the pinned buffer when answering (e.g., "Review PINNED QUANTITIES and include relevant values").
+2. **QPB + QTD hybrid:** QTD already yields 98.4% retention by knowing the question at compression time. Combining QPB's zero-cost storage with QTD's query-aware retrieval could close the gap without doubling LLM calls.
+3. **Structured retrieval injection:** Instead of appending pinned values to the system prompt and hoping the model reads them, inject them directly into the final question context — force-feed rather than buffet.
+
+### What This Means for the Arc
+
+The project arc now has a sixth chapter:
+
+1. **"Which strategy wins?"** — Leaderboard.
+2. **"What types of facts break?"** — Probes.
+3. **"Can we fix it architecturally?"** — Five proposals failed.
+4. **"Why do they break?"** — Format sensitivity, blind compression.
+5. **"How do we fix storage?"** — QPB. Zero-cost, +21pp internal retention.
+6. **"Does storage fix retrieval?"** — No. The model must be prompted to surface pinned facts.
+
+The next direction is retrieval-side intervention: prompt engineering that explicitly instructs the model to reference the pinned buffer in its response, or query-time distillation (QTD) that knows what to extract. QPB's storage layer is sound — the problem is in the last mile.
 
 ### The Arc
 
@@ -430,6 +470,7 @@ The project followed a natural progression:
 3. **"Can we fix it architecturally?"** — Five proposals. All failed.
 4. **"Why do they break?"** — Format sensitivity (PersistentRLM), blind compression (Quantity-Pinning), model limits (Intent Framing).
 5. **"How do we fix it?"** — QPB: keep the blob, add a side-channel. Zero-cost, +21pp retention.
+6. **"Does storage fix retrieval?"** — No. QPB's 96.8% internal retention → 17.6% final-answer quantity retention. The model must be guided to surface preserved facts.
 
 The biggest pivot was the PersistentRLM experiment. We expected typed stores to fix wholesale replacement. They made it worse. That failure reframed the entire problem: the bottleneck isn't storage architecture, it's the sub-LLM's re-ingestion quality. Once we stopped trying to restructure the blob and started protecting facts alongside it, retention jumped from 75.8% to 96.8%.
 
@@ -464,6 +505,7 @@ The biggest pivot was the PersistentRLM experiment. We expected typed stores to 
 | `results/parallel-benchmarks-*.json` | Proxy benchmark sweep |
 | `results/official-*.json` | Official benchmark runs |
 | `results/memory-action-micro-*.json` | Memory-to-Action Micro results |
+| `results/qpb-leaderboard-*.json` | QPB promotion gate leaderboard (CTX-48) |
 
 ### Documentation
 

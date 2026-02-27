@@ -704,7 +704,7 @@ This only works when the structured output is faithful. For noisy scenarios, the
 
 6. **Correction format is irrelevant.** The Feasibility Probes tested 7 distinct correction formats and all produced identical results. The sub-LLM already handles corrections well (100% retention) regardless of formatting. The bottleneck has never been _how_ we communicate corrections — it's the types we don't protect at all.
 
-7. **Quantities were the critical gap — now solved.** Across the first six experiments, exact numbers were the most fragile fact type (0-33% retention). The QPB Experiment's Quantity-Pinning Buffer (QPB) closes this gap entirely: quantity retention jumps from 65% to 100%, dates from 33% to 100%, phone/IDs from 57% to 100%. The fix is a zero-cost regex side-channel — no additional LLM calls needed.
+7. **Quantities were the critical gap — storage solved, retrieval not.** Across the first six experiments, exact numbers were the most fragile fact type (0-33% retention). QPB's regex side-channel raises *internal-state* quantity retention from 65% to 100% (CTX-7). However, the promotion gate run (CTX-48) revealed that internal retention ≠ final-answer retention: quantity retention in the model's *response* is only 17.6%. The pinned buffer preserves facts in context but the model doesn't surface them in output. Storage is solved; the retrieval gap remains.
 
 8. **Blind compression is the root cause.** The QPB Experiment's Query-Time Distillation (QTD) proves this definitively: when the sub-LLM knows the question being asked, retention matches Full Context (98.4%). RLM's information loss isn't from compression itself — it's from compressing without knowing what matters. This points toward question-aware delegation as the next architectural direction.
 
@@ -844,14 +844,57 @@ On the nano leaderboard run, Full Context still failed Contradiction Resolution.
 
 ## Promotion Checklist (Release Gates)
 
-| Gate | Target | Current status | Evidence |
+### Previous Assessment (Internal State Only — CTX-7)
+
+| Gate | Target | Status | Evidence |
 |---|---|---|---|
-| Quantity retention | `>= 50%` | **PASS (QPB)** | QPB Experiment quantity retention `100%` |
-| Phone/ID retention | `>= 90%` | **PASS (QPB)** | QPB Experiment phone/id retention `100%` |
-| Cross-session | `4/4` pass | **PENDING** | Needs QPB run on internal cross-session track |
-| Benign refusal rate | `0%` | **PENDING** | Intent Framing Experiment requires v2 fact-recall rerun |
-| Token overhead vs RLM | `<= 10%` | **PASS (expected)** | QPB adds regex side-channel, no extra LLM calls |
-| Official tracks improvement | Improve on `>= 2/3` | **PENDING** | Need official-mode rerun with QPB |
+| Quantity retention | `>= 50%` | **PASS (QPB)** | QPB Experiment quantity retention `100%` (internal state) |
+| Phone/ID retention | `>= 90%` | **PASS (QPB)** | QPB Experiment phone/id retention `100%` (internal state) |
+| Cross-session | `4/4` pass | **PENDING** | — |
+| Benign refusal rate | `0%` | **PENDING** | — |
+| Token overhead vs RLM | `<= 10%` | **PASS (expected)** | — |
+| Official tracks improvement | Improve on `>= 2/3` | **PENDING** | — |
+
+### Final Assessment (Final-Answer Retention — CTX-48)
+
+**Verdict: KILL** — Internal retention does not translate to final-answer quality.
+
+| Gate | Target | Result | Verdict | Evidence |
+|---|---|---|---|---|
+| Quantity retention | `>= 50%` | **17.6%** | **FAIL** | QPB leaderboard `retentionByType.quantity` = 17.6% (vs RLM 23.5%, Full Context 35.3%) |
+| Phone/ID retention | `>= 90%` | **85.7%** | **FAIL** (marginal) | QPB leaderboard `retentionByType.phone/id` = 85.7% (ties RLM at 71.4% → actually QPB improves, but below 90% threshold) |
+| Cross-session | `4/4` pass | **4/4** | **PASS** | `results/internal-cross-session-1772221698135.json` |
+| Benign refusal rate | `0%` | **0%** | **PASS** | Memory-Action Micro QPB 8/8, zero refusals (`results/memory-action-micro-1772221592187.json`) |
+| Token overhead vs RLM | `<= 10%` | **15.5%** | **FAIL** | QPB 119,209 avg tokens vs RLM 103,170 = +15.5% overhead |
+| Official tracks improvement | Improve on `>= 2/3` | **0/3** | **FAIL** | LongMemEval: tie (2/3 each). MemoryArena: QPB 75% < RLM 100%. MemoryAgentBench: tie (0/4 each). |
+
+**Result: 2/6 gates pass (cross-session + benign refusal). 4/6 fail. KILL per decision framework.**
+
+### Analysis: Why Internal Retention ≠ Final-Answer Retention
+
+The CTX-7 QPB Experiment measured probes surviving in QPB's *internal state* (system prompt + messages). The leaderboard measures probes present in the model's *final response*. The gap is stark:
+
+- **Internal quantity retention (CTX-7):** 100% — the pinned buffer preserves all quantities in context
+- **Final-answer quantity retention (CTX-48):** 17.6% — the model doesn't surface them in its response
+
+QPB solves the *storage* problem (quantities persist in the context window) but not the *retrieval* problem (the model must decide to include each quantity in its answer). The pinned buffer is like writing facts on a whiteboard the model can see but doesn't read. This is a fundamental architectural gap: preserving information in context is necessary but not sufficient for retention in output.
+
+This is analogous to the "knowing vs telling" problem in human cognition — having information available in working memory doesn't mean it gets activated at retrieval time. The model has the facts; it just doesn't reliably surface them when generating a response. The next architectural direction is retrieval-side intervention:
+
+1. **Prompt engineering:** Explicitly instruct the model to reference the pinned buffer when answering. E.g., "Before responding, review the PINNED QUANTITIES section and include any relevant values in your answer."
+2. **Query-aware delegation (QTD):** The QTD experiment already showed that knowing the question at compression time yields 98.4% retention — matching Full Context. Combining QPB's storage layer with QTD's retrieval awareness could close the gap.
+3. **Structured retrieval:** Instead of appending pinned values to the system prompt and hoping the model reads them, inject them directly into the final question context — force-feed rather than buffet.
+
+### Artifacts
+
+| Runner | Result file |
+|---|---|
+| QPB Focused Leaderboard | `results/qpb-leaderboard-1772232837973.json` |
+| Memory-Action Micro | `results/memory-action-micro-1772221592187.json` |
+| Internal Cross-Session | `results/internal-cross-session-1772221698135.json` |
+| Official LongMemEval | `results/official-longmemeval-1772233321458.json` |
+| Official MemoryArena | `results/official-memoryarena-1772233564949.json` |
+| Official MemoryAgentBench | `results/official-memoryagentbench-1772233659792.json` |
 
 ---
 
@@ -951,5 +994,6 @@ Key files:
 | Proxy Benchmarks | `src/analysis/parallel-benchmarks.ts` | `bun src/analysis/parallel-benchmarks.ts` | `results/parallel-benchmarks-manifest-1772146260041-latest.json` | `f9be87f` |
 | Official Benchmarks | `src/analysis/official-benchmarks.ts` | `bun src/analysis/official-benchmarks.ts` | `results/official-benchmarks-manifest-1772148138220.json` | `f9be87f` |
 | Memory-to-Action Micro | `src/analysis/memory-action-micro.ts` | `bun src/analysis/memory-action-micro.ts` | `results/memory-action-micro-1772143521108.json` | `f9be87f` |
+| QPB Promotion Gates (CTX-48) | `src/analysis/qpb-leaderboard.ts`, `memory-action-micro.ts`, `internal-cross-session.ts`, `official-*.ts` | See individual runners | `results/qpb-leaderboard-1772232837973.json`, `results/memory-action-micro-1772221592187.json`, `results/internal-cross-session-1772221698135.json`, `results/official-longmemeval-1772233321458.json`, `results/official-memoryarena-1772233564949.json`, `results/official-memoryagentbench-1772233659792.json` | `1aaf498` |
 
 **Note:** `Runner SHA` is the latest commit touching the runner file; legacy runs did not persist a dedicated per-run code SHA in artifacts.

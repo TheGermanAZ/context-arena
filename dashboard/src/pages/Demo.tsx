@@ -34,6 +34,7 @@ const SECTIONS = [
   { id: 'hand-vs-gen', label: 'Hand-rolled vs Code-Gen' },
   { id: 'code', label: 'Inside the Code' },
   { id: 'qpb', label: 'The QPB Breakthrough' },
+  { id: 'gates', label: 'Promotion Gates' },
   { id: 'ship', label: 'What We Ship' },
 ] as const;
 
@@ -381,34 +382,83 @@ export default function Demo() {
         {/* ---- Section 10: The QPB Breakthrough ---- */}
         <DemoSection id="qpb" title="The QPB Breakthrough">
           <Insight>
-            After 6 experiments and 14 failed strategy variants, two new approaches cracked the retention problem.
+            After 6 experiments and 14 failed strategy variants, two new approaches cracked the internal retention problem.
             QPB (Quantity-Pinning Buffer) extends RLM with a regex side-channel that pins quantities, IDs, and
-            dates — zero extra LLM calls, 96.8% retention. QTD (Query-Time Distillation) proves the theoretical
-            ceiling: compress only at query time with the question in hand → 98.4%.
+            dates — zero extra LLM calls, 96.8% internal-state retention. QTD (Query-Time Distillation) proves the theoretical
+            ceiling: compress only at query time with the question in hand &rarr; 98.4%.
           </Insight>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-            <KPICard label="QPB Retention" value={96.8} format={(n) => `${n}%`} subtitle="vs 75.8% RLM baseline" accentColor="#22c55e" />
+            <KPICard label="QPB Internal" value={96.8} format={(n) => `${n}%`} subtitle="internal-state retention" accentColor="#22c55e" />
             <KPICard label="QTD Retention" value={98.4} format={(n) => `${n}%`} subtitle="Theoretical ceiling" accentColor="#3b82f6" />
-            <KPICard label="Quantity Fix" value={100} format={(n) => `${n}%`} subtitle="was 65% in RLM" accentColor="#f59e0b" />
+            <KPICard label="Quantity Fix" value={100} format={(n) => `${n}%`} subtitle="internal: was 65% in RLM" accentColor="#f59e0b" />
             <KPICard label="Extra LLM Cost" value={0} format={(n) => `${n}`} subtitle="QPB: regex only" accentColor="#8b5cf6" />
           </div>
           <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-6 text-sm text-gray-300 space-y-3 mb-6">
-            <p><strong className="text-gray-100">Why QPB works:</strong> RLM&apos;s sub-LLM systematically drops exact numbers, IDs, and dates during compression. QPB catches these via regex patterns and stores them in a pinned buffer that persists across compression cycles. The sub-LLM still does what it&apos;s good at (language understanding); the buffer handles what it drops.</p>
+            <p><strong className="text-gray-100">Why QPB works (internally):</strong> RLM&apos;s sub-LLM systematically drops exact numbers, IDs, and dates during compression. QPB catches these via regex patterns and stores them in a pinned buffer that persists across compression cycles. The sub-LLM still does what it&apos;s good at (language understanding); the buffer handles what it drops.</p>
             <p><strong className="text-gray-100">Why QTD proves the root cause:</strong> When you compress with the question in hand, retention matches Full Context (98.4%). The problem was never compression itself — it was <em>blind</em> compression.</p>
+            <p><strong className="text-amber-400">The catch:</strong> These numbers measure facts surviving in QPB&apos;s <em>internal state</em> (system prompt + messages). The promotion gates measure facts in the model&apos;s <em>final answer</em> — a harder bar. See below.</p>
+          </div>
+        </DemoSection>
+
+        {/* ---- Section 10.5: Promotion Gates ---- */}
+        <DemoSection id="gates" title="The Promotion Gates (CTX-48)">
+          <Insight>
+            QPB&apos;s 96.8% internal retention looked like a breakthrough — until we measured what
+            actually appears in the model&apos;s final answers. The storage problem is solved; the retrieval
+            problem is not.
+          </Insight>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
+            <KPICard label="Gates Passed" value={2} format={(n) => `${n}/6`} subtitle="KILL verdict" accentColor="#ef4444" />
+            <KPICard label="Quantity (Answer)" value={17.6} format={(n) => `${n}%`} subtitle="needed ≥50%" accentColor="#ef4444" />
+            <KPICard label="Internal vs Answer" value={82.4} format={(n) => `${n}pp gap`} subtitle="100% internal → 17.6% answer" accentColor="#f59e0b" />
+          </div>
+          <div className="overflow-x-auto mb-6 rounded-lg border border-gray-800">
+            <table className="w-full text-sm">
+              <thead className="bg-gray-900/80">
+                <tr>
+                  {['Gate', 'Target', 'Result', 'Verdict'].map((h) => (
+                    <th key={h} className="text-left text-gray-300 font-medium py-2.5 px-4 border-b border-gray-700">{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ['Quantity retention', '≥ 50%', '17.6%', 'FAIL'],
+                  ['Phone/ID retention', '≥ 90%', '85.7%', 'FAIL'],
+                  ['Cross-session', '4/4', '4/4', 'PASS'],
+                  ['Benign refusal', '0%', '0%', 'PASS'],
+                  ['Official tracks ≥ 2/3', 'QPB > RLM', '0/3', 'FAIL'],
+                  ['Token overhead', '≤ 10%', '15.5%', 'FAIL'],
+                ].map(([gate, target, result, verdict]) => (
+                  <tr key={gate} className="hover:bg-gray-800/30 transition-colors">
+                    <td className="text-gray-300 py-2.5 px-4 border-b border-gray-800/50">{gate}</td>
+                    <td className="text-gray-500 py-2.5 px-4 border-b border-gray-800/50">{target}</td>
+                    <td className="text-gray-300 py-2.5 px-4 border-b border-gray-800/50 font-mono">{result}</td>
+                    <td className={`py-2.5 px-4 border-b border-gray-800/50 font-bold ${verdict === 'PASS' ? 'text-emerald-400' : 'text-red-400'}`}>{verdict}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="bg-gray-800/50 border border-amber-500/30 rounded-lg p-6 text-sm text-gray-300 space-y-3">
+            <p><strong className="text-amber-400">The &ldquo;knowing vs telling&rdquo; gap:</strong> QPB solves <em>storage</em> (quantities persist in the context window at 100%) but not <em>retrieval</em> (the model surfaces only 17.6% of them in its response). The pinned buffer is like writing facts on a whiteboard the model can see but doesn&apos;t read.</p>
+            <p><strong className="text-gray-100">Next direction:</strong> Retrieval-side intervention — prompt engineering to direct the model to reference the pinned buffer, or combining QPB&apos;s storage with QTD&apos;s query-aware retrieval.</p>
           </div>
         </DemoSection>
 
         {/* ---- Section 11: What We Ship ---- */}
         <DemoSection id="ship" title="What We Ship Now">
           <Insight>
-            After 17 strategy configurations and 10 experiments, the research converges on a clear winner.
-            QPB ships behind a feature flag; QTD stays in research; Stability-Plasticity is killed.
+            After 17 strategy configurations, 10 experiments, and 6 promotion gates, no strategy clears the bar.
+            QPB&apos;s storage layer is sound but the retrieval gap kills promotion. QTD stays in research.
+            The next direction is retrieval-side intervention.
           </Insight>
           <div className="space-y-4 mb-8">
             {[
-              { strategy: 'QPB', decision: 'Ship (behind flag)', color: 'border-emerald-500/30 bg-emerald-900/10', badge: 'text-emerald-400 bg-emerald-500/10', detail: '96.8% retention with zero additional LLM calls. Needs external benchmark validation.' },
-              { strategy: 'QTD', decision: 'Research only', color: 'border-blue-500/30 bg-blue-900/10', badge: 'text-blue-400 bg-blue-500/10', detail: '98.4% retention — matches Full Context. But query-time distillation puts LLM latency on the critical path.' },
+              { strategy: 'QPB', decision: 'Killed (promotion gates)', color: 'border-red-500/30 bg-red-900/10', badge: 'text-red-400 bg-red-500/10', detail: '96.8% internal retention, but only 17.6% quantity retention in final answers. 2/6 promotion gates passed. Storage solved, retrieval gap remains.' },
+              { strategy: 'QTD', decision: 'Research only', color: 'border-blue-500/30 bg-blue-900/10', badge: 'text-blue-400 bg-blue-500/10', detail: '98.4% retention — matches Full Context. Query-time distillation puts LLM latency on the critical path, but its retrieval awareness could fix QPB\'s gap.' },
               { strategy: 'Stability-Plasticity', decision: 'Killed', color: 'border-red-500/30 bg-red-900/10', badge: 'text-red-400 bg-red-500/10', detail: '3 full runs across 2 configurations. All fail promotion criteria. Per-type variance (34pp swings) means effects are noise, not signal.' },
+              { strategy: 'QPB + QTD Hybrid', decision: 'Next to explore', color: 'border-amber-500/30 bg-amber-900/10', badge: 'text-amber-400 bg-amber-500/10', detail: 'Combine QPB\'s zero-cost storage layer with QTD\'s query-aware retrieval. QPB proved storage works; QTD proved retrieval works. The hybrid could close the gap.' },
             ].map(({ strategy, decision, color, badge, detail }) => (
               <div key={strategy} className={`rounded-lg border ${color} p-5`}>
                 <div className="flex items-center gap-3 mb-2">

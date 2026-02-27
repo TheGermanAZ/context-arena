@@ -1,0 +1,567 @@
+{
+  "results": [
+    {
+      "strategyName": "Full Context",
+      "scenarioName": "Early Fact Recall",
+      "correct": true,
+      "answer": "- Budget: $347,250\n- Project lead: Dr. Sarah Chen\n- Deadline: March 15, 2027\n- Frontend framework: Svelte (TypeScript)\n\nNote: Phase 1 is web-only; mobile Phase 2 will begin after the deadline.",
+      "totalTokens": 140085,
+      "latencyMs": 483852.669083,
+      "retentionByType": {
+        "entity": {
+          "retained": 1,
+          "total": 4
+        },
+        "quantity": {
+          "retained": 1,
+          "total": 3
+        },
+        "date": {
+          "retained": 1,
+          "total": 1
+        },
+        "correction": {
+          "retained": 1,
+          "total": 1
+        },
+        "spatial": {
+          "retained": 0,
+          "total": 1
+        }
+      }
+    },
+    {
+      "strategyName": "Full Context",
+      "scenarioName": "State Change Tracking",
+      "correct": true,
+      "answer": "Current inventory counts:\n- Widget-A: 370 units\n- Widget-B: 1,005 units\n- Gadget-X: 200 units\n- Gizmo-Z: 0 units\n- MegaPart-Q: 400 units",
+      "totalTokens": 14236,
+      "latencyMs": 66395.63345800003,
+      "retentionByType": {
+        "quantity": {
+          "retained": 0,
+          "total": 4
+        },
+        "entity": {
+          "retained": 2,
+          "total": 2
+        },
+        "decision": {
+          "retained": 0,
+          "total": 1
+        }
+      }
+    },
+    {
+      "strategyName": "Full Context",
+      "scenarioName": "Contradiction Resolution",
+      "correct": false,
+      "answer": "Here’s your complete trip summary for June 1–18, 2026, based on the current plan and latest updates.\n\nDates\n- June 1–18, 2026 (18 days, 17 nights)\n- Key pauses: Toyosu Market visit on June 3; Kyoto overnight June 7–9; Kenji dinner June 10; Kyoto cooking class and tea ceremony on June 8.\n\nFlights\n- Airline: ANA\n- Cost: $1,350 total for two travelers\n\nLodging (based on Option A2 with Aman Tokyo deal)\n- Aman Tokyo: 10 nights at $500/night = $5,000\n- Mid-range Tokyo hotels: 5 nights at $180/night = $900\n- Kyoto lodging: 2 nights (estimated total) = $300–$600\n- Total lodging estimate (Tokyo + Kyoto): $6,200–$6,500\n\nTotal cost projection\n- Flights: $1,350\n- Lodging: $6,200–$6,500\n- Grand total: $7,550–$7,850\n- Budget left for transport, meals, activities: approximately $650–$950\n\nKenji details\n- Neighborhood: Shinjuku\n- Phone: 090-8765-4321\n- Meeting with Kenji: June 10, around 7:00 pm, at Shinjuku East Exit\n\nDay-by-day highlights (highlights only)\n- June 1–6 (Tokyo): Shinjuku/Shibuya/Harajuku, Asakusa/Ueno, Akihabara/Ginza\n- June 3: Toyosu Market visit\n- June 7–9: Kyoto overnight trip by Shinkansen\n  - June 7: Fushimi Inari, Kiyomizu-dera, Gion\n  - June 8: Kyoto cooking class ($95) + tea ceremony ($60)\n  - June 9: Shinkansen back to Tokyo\n- June 10: Kenji dinner in Shinjuku\n- June 10–18: Tokyo again with day trips (Nikko, Hakone, Kamakura, Fuji area) or other activities\n- June 18: Departure\n\nNext steps (to lock this in)\n- Confirm year and finalize the lodging mix (keep Aman Tokyo 10 nights? If you want different split, tell me).\n- Confirm ANA flight cost: $1,350 total for two? (If different, I’ll adjust.)\n- Confirm and book Kenji dinner date/time (June 10) and I can draft 2–3 restaurant options.\n- Confirm Kyoto activities (cooking class and tea ceremony) times, and I’ll place bookings and add to the itinerary.\n\nWould you like me to turn this into a booking-ready itinerary with exact hotel reservations, restaurant/experience holds, and a day-by-day transport plan?",
+      "totalTokens": 103755,
+      "latencyMs": 444461.097834,
+      "retentionByType": {
+        "correction": {
+          "retained": 4,
+          "total": 5
+        },
+        "phone/id": {
+          "retained": 1,
+          "total": 1
+        },
+        "quantity": {
+          "retained": 2,
+          "total": 2
+        }
+      }
+    },
+    {
+      "strategyName": "Full Context",
+      "scenarioName": "Multi-hop Reasoning",
+      "correct": true,
+      "answer": "Here are the answers:\n\n1) Total attendees: 60\n\n2) Total catering cost: $6,300 (60 people × $35 per meal × 3 meals)\n\n3) Keynote location: Floor 3 in the largest conference room (capacity 50) to accommodate the keynote; overflow viewing for about 10 attendees on Floor 2\n\n4) Total budget from all departments: $38,000 (Engineering $15k, Sales $10k, Marketing $8k, HR $5k)\n\n5) Bus capacity: Yes—two 30-seat charter buses total 60 seats, matching 60 attendees.",
+      "totalTokens": 69308,
+      "latencyMs": 481038.837958,
+      "retentionByType": {
+        "quantity": {
+          "retained": 3,
+          "total": 5
+        },
+        "spatial": {
+          "retained": 2,
+          "total": 2
+        },
+        "relationship": {
+          "retained": 1,
+          "total": 1
+        }
+      }
+    },
+    {
+      "strategyName": "Full Context",
+      "scenarioName": "Long Horizon + Noise",
+      "correct": true,
+      "answer": "Here are your items (facts only):\n\n1) Doctor appointment\n- Doctor: Dr. Martinez\n- Date/time: Thursday at 2:30 PM\n- Location: Riverside Medical Center\n- Patient ID: RMC-2847\n\n2) Prescription\n- Lisinopril 10 mg\n- Dose: once daily in the morning\n\n3) Car maintenance\n- Mechanic: 555-0147\n- Oil change: due before 40,000 miles\n- Current mileage: 38,500\n- Miles to go: 1,500\n\n4) Son's school play\n- Date/time: Friday, March 14, 6:00 PM\n- Location: Jefferson Elementary\n- Role: Peter Pan\n\n5) Insurance\n- Policy: HLT-99284-B\n- Claim: CLM-2024-0892\n\n6) House alarm\n- Company: SafeGuard\n- Current code: 8472\n- Old code: 1234\n\n7) Flight to Denver\n- Airline/Flight: United UA447\n- Date: March 20\n- Departure time: 7:15 AM\n- Gate: B12\n- Confirmation: XKRM47\n\nWould you like me to save this as a note and/or set reminders?",
+      "totalTokens": 74477,
+      "latencyMs": 359737.4357500002,
+      "retentionByType": {
+        "date": {
+          "retained": 2,
+          "total": 2
+        },
+        "phone/id": {
+          "retained": 5,
+          "total": 6
+        }
+      }
+    },
+    {
+      "strategyName": "Full Context",
+      "scenarioName": "Cascading Corrections",
+      "correct": true,
+      "answer": "Final deal summary:\n\n1) Pre-money valuation: $12,000,000\n2) Round size: $3,000,000\n3) Post-money valuation: $15,000,000\n4) Total dilution: 20.0%\n5) Sequoia's ownership: 10.0%\n6) Net proceeds after legal fees: $2,925,000\n7) Monthly burn rate: $175,000\n8) Runway: ≈ 16.7 months",
+      "totalTokens": 64631,
+      "latencyMs": 350069.85758299986,
+      "retentionByType": {
+        "correction": {
+          "retained": 4,
+          "total": 4
+        },
+        "quantity": {
+          "retained": 0,
+          "total": 3
+        }
+      }
+    },
+    {
+      "strategyName": "Full Context",
+      "scenarioName": "Implicit Corrections",
+      "correct": true,
+      "answer": "Final recipe cards\n\n1) Bruschetta (serves 6)\nIngredients\n- 12 San Marzano tomatoes, diced\n- 6 garlic cloves, minced\n- Fresh basil, about 3/4 cup chopped (or ~12 leaves)\n- Baguette, 1 1/2 loaves (roughly 2 baguettes), sliced 1/2 inch thick\n- Extra-virgin olive oil, 4 1/2 tablespoons (plus extra for brushing)\n- Balsamic vinegar, 1 1/2 teaspoons (optional: up to 3)\n- Salt and pepper to taste\n\nInstructions\n1) In a bowl, combine tomatoes, garlic, and basil. Drizzle with 3 tablespoons olive oil and balsamic (if using); season with salt and pepper. Toss and marinate 10–15 minutes.\n2) Preheat oven to 375–400°F. Slice baguette and brush slices with about 1 1/2 tablespoons olive oil. Toast on a sheet pan until golden, about 5–7 minutes.\n3) Top each toasted baguette with tomato mixture. Serve immediately.\n\n2) Pan-Seared Salmon with Lemon-Caper Dill Sauce (serves 4)\nIngredients\n- 4 salmon fillets (8 oz each)\n- 3 tablespoons unsalted butter\n- Lemon juice, 2 tablespoons\n- Capers, 2 tablespoons, drained\n- Fresh dill, 2 tablespoons, chopped\n- Salt and black pepper\n- 1 teaspoon olive oil (optional, for searing)\n\nInstructions\n1) Preheat oven to 400°F.\n2) Pat fillets dry; season with salt and pepper.\n3) In a heavy ovenproof skillet, heat olive oil (if using) over medium-high. Add 2 tablespoons butter; swirl to coat. Sear salmon, skin-side down if present, 2–3 minutes until golden. Turn and sear 1–2 minutes.\n4) Transfer skillet to oven and bake at 400°F for 14 minutes, or until just cooked through.\n5) While salmon cooks, melt remaining butter; add lemon juice and capers; simmer 1–2 minutes. Stir in dill and season with salt.\n6) Remove salmon, spoon sauce over, and serve.\n\nNote: Salmon cooked in the oven for 14 minutes.\n\n3) Roasted Asparagus (serves 4)\nIngredients\n- 1 bunch asparagus\n- 3 tablespoons olive oil\n- Salt and pepper to taste\n\nInstructions\n1) Preheat oven to 400°F.\n2) Trim ends; toss with olive oil, salt, and pepper.\n3) Roast on a sheet pan for 15 minutes, until tender-crisp.\nNote: Roast alongside the salmon to finish together.\n\n4) Tiramisu (serves 4)\nIngredients\n- 5 egg yolks\n- 3/4 cup granulated sugar\n- 1 1/3 cups mascarpone\n- 2.5 cups heavy cream\n- 2 cups espresso, cooled\n- 3 tablespoons coffee liqueur\n- 30 ladyfingers\n- Cocoa powder, for dusting\n- Optional: pinch of salt\n\nInstructions\n1) Brew espresso and cool; mix in coffee liqueur. Set aside.\n2) In a heatproof bowl over simmering water, whisk egg yolks and sugar until thick and pale (about 5–8 minutes). Remove from heat and let cool slightly.\n3) Beat mascarpone until smooth; fold into the yolk mixture until well combined.\n4) In a separate bowl, whip heavy cream to soft peaks; fold into the mascarpone mixture until smooth.\n5) Quickly dip each ladyfinger into the coffee mixture and layer in a 9x13-inch dish. Spread half the mascarpone filling over.\n6) Dip and layer remaining ladyfingers, then top with the remaining mascarpone cream. Smooth top.\n7) Dust with cocoa powder and refrigerate at least 4 hours, preferably overnight.",
+      "totalTokens": 68699,
+      "latencyMs": 409550.30620800005,
+      "retentionByType": {
+        "correction": {
+          "retained": 6,
+          "total": 7
+        }
+      }
+    },
+    {
+      "strategyName": "Full Context",
+      "scenarioName": "Rapid-fire Corrections",
+      "correct": true,
+      "answer": "Final seating chart:\n\n- Table 1 (Head Table) — 6: Alice, Bob, Carol, David, Emma, Grace (2 seats open)\n- Table 2 — 4: Henry, Iris, Mia, Wendy\n- Table 3 — 6: Karen, Leo, Paul, Quinn, Sam, Frank\n- Table 4 — 4: Olivia, Noah, Xavier, Tina\n- Table 5 — 5: Victor, Jack, Rose, Yuki, Zara\n\nTotal guests seated: 25 (40 seats total). Do you want me to fill Table 1's two open seats?",
+      "totalTokens": 40835,
+      "latencyMs": 160435.20966599975,
+      "retentionByType": {
+        "correction": {
+          "retained": 2,
+          "total": 3
+        },
+        "relationship": {
+          "retained": 1,
+          "total": 2
+        },
+        "entity": {
+          "retained": 2,
+          "total": 2
+        }
+      }
+    },
+    {
+      "strategyName": "RLM(8)",
+      "scenarioName": "Early Fact Recall",
+      "correct": false,
+      "answer": "- Project: Mercury\n- Budget: $347,250\n- Project Lead: Dr. Sarah Chen\n- Deadline: 2027-03-15\n- Frontend framework: Svelte/TypeScript (updated from React/TypeScript)",
+      "totalTokens": 151927,
+      "latencyMs": 705852.3515419997,
+      "retentionByType": {
+        "entity": {
+          "retained": 2,
+          "total": 4
+        },
+        "quantity": {
+          "retained": 1,
+          "total": 3
+        },
+        "date": {
+          "retained": 0,
+          "total": 1
+        },
+        "correction": {
+          "retained": 1,
+          "total": 1
+        },
+        "spatial": {
+          "retained": 0,
+          "total": 1
+        }
+      }
+    },
+    {
+      "strategyName": "RLM(8)",
+      "scenarioName": "State Change Tracking",
+      "correct": false,
+      "answer": "Current inventory at our location:\n- Widget-A: 370 units\n- Widget-B: 1,020 units\n- Gizmo-Z: 0 units\n- Gadget-X (clearance): 200 units\n- MegaPart-Q: 400 units\n\nNote: Widget-B total is 1,170 units (East warehouse holds 150).",
+      "totalTokens": 48242,
+      "latencyMs": 366588.27533300035,
+      "retentionByType": {
+        "quantity": {
+          "retained": 0,
+          "total": 4
+        },
+        "entity": {
+          "retained": 2,
+          "total": 2
+        },
+        "decision": {
+          "retained": 1,
+          "total": 1
+        }
+      }
+    },
+    {
+      "strategyName": "RLM(8)",
+      "scenarioName": "Contradiction Resolution",
+      "correct": true,
+      "answer": "Here’s your complete trip summary:\n\n- Dates: June 1–18 (Year not specified)\n- Total budget cap: $8,500\n- Provisional total cost: $8,270\n  - Flight: $1,350\n  - Lodging: Aman Tokyo 10 nights @ $500 = $5,000; 7 non-Aman nights @ $120 = $840; total lodging = $5,840\n  - Other costs (meals/transport/activities, etc.): $800\n  - Kyoto Shinkansen: $280\n  - Kyoto activities added: cooking class $95 and tea ceremony $60 (June 8)\n- Hotel name and nightly rate: Aman Tokyo; Aman nights = $500 per night (10 nights)\n- Total hotel cost: $5,840\n- Kenji’s neighborhood and phone: Shinjuku; 090-8765-4321\n- When you’re meeting Kenji: June 10 (time TBD)\n\nIf you want, I can finalize times, confirm the year, origin city, and passenger details to lock bookings.",
+      "totalTokens": 116541,
+      "latencyMs": 598944.298,
+      "retentionByType": {
+        "correction": {
+          "retained": 4,
+          "total": 5
+        },
+        "phone/id": {
+          "retained": 1,
+          "total": 1
+        },
+        "quantity": {
+          "retained": 2,
+          "total": 2
+        }
+      }
+    },
+    {
+      "strategyName": "RLM(8)",
+      "scenarioName": "Multi-hop Reasoning",
+      "correct": true,
+      "answer": "1) 60 attendees\n2) $6,300\n3) Floor 3 main conference room — the largest available (capacity 50) for the all-hands keynote; overflow to Floor 2 and Floor 4 if needed\n4) $38,000\n5) Yes — two 30-seat charter buses provide exactly 60 seats (assuming no no-shows; adjust if attendance changes)",
+      "totalTokens": 81431,
+      "latencyMs": 444731.6928749997,
+      "retentionByType": {
+        "quantity": {
+          "retained": 1,
+          "total": 5
+        },
+        "spatial": {
+          "retained": 2,
+          "total": 2
+        },
+        "relationship": {
+          "retained": 1,
+          "total": 1
+        }
+      }
+    },
+    {
+      "strategyName": "RLM(8)",
+      "scenarioName": "Long Horizon + Noise",
+      "correct": true,
+      "answer": "Here are your important personal facts:\n\n1) Doctor appointment\n- Doctor: Dr. Martinez\n- Location: Riverside Medical Center\n- Patient ID: RMC-2847\n- Time: 2:30 PM\n- Day: Thursday\n- Date: not specified\n\n2) Prescription\n- Lisinopril 10 mg\n- Dose: once daily in the morning\n\n3) Car mechanic and mileage\n- Mechanic’s phone: 555-0147\n- Current mileage: 38,500 miles\n- Threshold: 40,000 miles\n- Miles left until due: 1,500 miles\n\n4) Son’s school play\n- Date: Friday, March 14\n- Time: 6:00 PM\n- Venue: Jefferson Elementary\n- Role: Lead Peter Pan\n\n5) Insurance policy and claim numbers\n- Policy number: Not on file\n- Claim number: Not on file\n\n6) House alarm code\n- Alarm code: 8472 (old: 1234)\n- Security company: SafeGuard\n\n7) Flight to Denver\n- Destination: Denver\n- Airline/Flight: United UA447\n- Date: March 20 (year TBD)\n- Departure time: 7:15 AM\n- Gate: B12\n- Confirmation code: XKRM47",
+      "totalTokens": 139521,
+      "latencyMs": 596309.7145420006,
+      "retentionByType": {
+        "date": {
+          "retained": 2,
+          "total": 2
+        },
+        "phone/id": {
+          "retained": 4,
+          "total": 6
+        }
+      }
+    },
+    {
+      "strategyName": "RLM(8)",
+      "scenarioName": "Cascading Corrections",
+      "correct": true,
+      "answer": "Final deal summary:\n\n1) Pre-money valuation: $12,000,000\n2) Round size: $3,000,000\n3) Post-money valuation: $15,000,000\n4) Total dilution percentage: 20%\n5) Sequoia's ownership percentage: 10.0%\n6) Net proceeds after legal fees: $2,925,000\n7) Monthly burn rate: $175,000\n8) Runway: ~16.7 months",
+      "totalTokens": 93192,
+      "latencyMs": 466241.68954099994,
+      "retentionByType": {
+        "correction": {
+          "retained": 4,
+          "total": 4
+        },
+        "quantity": {
+          "retained": 0,
+          "total": 3
+        }
+      }
+    },
+    {
+      "strategyName": "RLM(8)",
+      "scenarioName": "Implicit Corrections",
+      "correct": true,
+      "answer": "Bruschetta (serves 6)\n- Ingredients\n  - San Marzano tomatoes: 12\n  - Garlic: 6 cloves\n  - Fresh basil: 3/8 cup\n  - Baguette: 1 1/2\n  - Olive oil: 4 1/2 tablespoons\n  - Balsamic vinegar: 1 1/2 to 3 teaspoons\n  - Salt: to taste\n  - Pepper: to taste\n  - Bread slices (for serving): 1/2-inch thick\n- Method\n  - In a bowl, combine tomatoes, minced garlic, basil, olive oil, balsamic vinegar, salt, and pepper. Mix gently and let marinate 15–20 minutes.\n  - While marinating, preheat oven to toast the bread. Lightly toast bread slices until golden.\n  - Spoon tomato mixture onto toasted slices and serve.\n\nSalmon (serves 4)\n- Ingredients\n  - Salmon fillets: 4 x 8 oz each\n  - Butter: 3 tablespoons\n  - Lemon juice: 1 tablespoon\n  - Capers: 2 tablespoons\n  - Dill: 2 tablespoons\n- Oven temp: 400°F\n- Bake time: 14 minutes\n- Method\n  - Preheat oven to 400°F. Place fillets on a parchment-lined baking sheet.\n  - Top each fillet with butter, a little lemon juice, capers, and dill.\n  - Bake 14 minutes, until cooked through.\n\nRoasted asparagus (side)\n- Ingredients\n  - Asparagus: 1 bunch\n  - Olive oil: to lightly coat\n  - Salt: to taste\n  - Pepper: to taste\n- Oven temp: 400°F\n- Roast time: 15 minutes\n- Method\n  - Preheat oven to 400°F. Toss asparagus with olive oil, salt, and pepper.\n  - Arrange in a single layer on a baking sheet. Roast 15 minutes until tender-crisp.\n\nTiramisù (serves 8)\n- Key quantities you asked for\n  - Egg yolks: 5\n  - Heavy cream: 2.5 cups\n  - Ladyfingers: 30\n- Additional ingredients (from current recipe)\n  - Sugar: 3/4 cup\n  - Mascarpone: 1 1/3 cups\n  - Espresso: 2 cups\n  - Coffee liqueur: 3 tablespoons\n  - Cocoa powder: for dusting\n  - Salt: pinch (optional)\n- Method\n  - Whisk yolks with sugar over a warm bath to create sabayon; cool slightly.\n  - Fold in mascarpone until smooth.\n  - Beat heavy cream to soft peaks, fold into mascarpone mixture.\n  - Dip ladyfingers briefly in espresso mixed with liqueur; layer half in a dish.\n  - Spread half the mascarpone mixture, layer remaining dipped ladyfingers, top with remaining mascarpone.\n  - Dust with cocoa powder. Chill at least 4 hours (overnight preferred).",
+      "totalTokens": 100920,
+      "latencyMs": 638555.6388330003,
+      "retentionByType": {
+        "correction": {
+          "retained": 6,
+          "total": 7
+        }
+      }
+    },
+    {
+      "strategyName": "RLM(8)",
+      "scenarioName": "Rapid-fire Corrections",
+      "correct": true,
+      "answer": "Table 1 (Head table) — 6 of 8\n- Alice\n- Bob\n- Carol\n- David\n- Emma\n- Grace\n\nTable 2 — 4 of 8\n- Henry\n- Iris\n- Mia\n- Wendy\n\nTable 3 — 6 of 8\n- Karen\n- Leo\n- Paul\n- Quinn\n- Sam\n- Frank\n\nTable 4 — 4 of 8\n- Olivia\n- Noah\n- Xavier\n- Tina\n\nTable 5 — 5 of 8\n- Victor\n- Jack\n- Rose\n- Yuki\n- Zara\n\nTotal seated: 25\nUma remains withdrawn/not seated.",
+      "totalTokens": 93584,
+      "latencyMs": 480887.70816600043,
+      "retentionByType": {
+        "correction": {
+          "retained": 2,
+          "total": 3
+        },
+        "relationship": {
+          "retained": 1,
+          "total": 2
+        },
+        "entity": {
+          "retained": 2,
+          "total": 2
+        }
+      }
+    },
+    {
+      "strategyName": "QPB",
+      "scenarioName": "Early Fact Recall",
+      "correct": true,
+      "answer": "Board summary:\n- Budget: $347,250\n- Project lead: Dr. Sarah Chen\n- Deadline: March 15, 2027\n- Frontend framework: Svelte + TypeScript (SvelteKit)",
+      "totalTokens": 168121,
+      "latencyMs": 596654.068,
+      "retentionByType": {
+        "entity": {
+          "retained": 1,
+          "total": 4
+        },
+        "quantity": {
+          "retained": 1,
+          "total": 3
+        },
+        "date": {
+          "retained": 1,
+          "total": 1
+        },
+        "correction": {
+          "retained": 1,
+          "total": 1
+        },
+        "spatial": {
+          "retained": 0,
+          "total": 1
+        }
+      }
+    },
+    {
+      "strategyName": "QPB",
+      "scenarioName": "State Change Tracking",
+      "correct": false,
+      "answer": "- Widget-A: 370 units\n- Widget-B: 1,005 units\n- Gizmo-Z: 0 units\n- Gadget-X: 200 units (Clearance)\n- MegaPart-Q: 800 units",
+      "totalTokens": 63526,
+      "latencyMs": 325429.8209159998,
+      "retentionByType": {
+        "quantity": {
+          "retained": 0,
+          "total": 4
+        },
+        "entity": {
+          "retained": 2,
+          "total": 2
+        },
+        "decision": {
+          "retained": 1,
+          "total": 1
+        }
+      }
+    },
+    {
+      "strategyName": "QPB",
+      "scenarioName": "Contradiction Resolution",
+      "correct": true,
+      "answer": "Here’s your complete trip summary:\n\n- Dates: June 1–June 18 (18 days)\n- Destination: Tokyo, Japan\n\n- Total budget: $8,500 (pre-tax; includes all items below)\n\n- Flight (ANA): $1,350 total\n  - Original round-trip: $1,200\n  - Change fee: $150\n\n- Hotel (Plan A variant you asked about)\n  - Aman Tokyo: 10 nights at $500 per night (Aman deal)\n  - Mid-range hotels: 7 nights at about $120 per night\n  - Total hotel cost: $5,840 (10×$500 + 7×$120)\n\n- Other costs (estimated): $1,310\n\n- Kenji\n  - Neighborhood: Shinjuku\n  - Phone: 090-8765-4321\n\n- Meeting with Kenji\n  - Date: June 10\n  - Time options: 6:30–7:30 PM or 7:00–9:00 PM\n  - Location options: Shinjuku (preferred) or Shibuya\n\n- Kyoto option (not included in Plan A-E)\n  - Day trip or overnight available (adjust totals accordingly)\n\nNext steps (tell me to proceed):\n- Pick Plan A variant (E, F, or G) and confirm Kyoto option\n- Confirm Kenji time window and venue\n- I’ll lock in flights and lodging and produce a detailed day-by-day plan within your $8,500 budget.",
+      "totalTokens": 179846,
+      "latencyMs": 706324.5026660012,
+      "retentionByType": {
+        "correction": {
+          "retained": 5,
+          "total": 5
+        },
+        "phone/id": {
+          "retained": 1,
+          "total": 1
+        },
+        "quantity": {
+          "retained": 1,
+          "total": 2
+        }
+      }
+    },
+    {
+      "strategyName": "QPB",
+      "scenarioName": "Multi-hop Reasoning",
+      "correct": true,
+      "answer": "1) 60 attendees\n2) $6,300 total catering\n3) Floor 3 Conference Room, because it’s the largest room (capacity 50) suitable for the keynote; overflow viewing planned on Floor 2\n4) $38,000 total department contributions\n5) Yes—2 charter buses x 30 seats = 60 capacity, fits exactly for 60 attendees",
+      "totalTokens": 85034,
+      "latencyMs": 395858.8592080008,
+      "retentionByType": {
+        "quantity": {
+          "retained": 1,
+          "total": 5
+        },
+        "spatial": {
+          "retained": 2,
+          "total": 2
+        },
+        "relationship": {
+          "retained": 1,
+          "total": 1
+        }
+      }
+    },
+    {
+      "strategyName": "QPB",
+      "scenarioName": "Long Horizon + Noise",
+      "correct": true,
+      "answer": "1) Doctor appointment\n- Doctor: Dr. Martinez\n- Location: Riverside Medical Center\n- Time: 2:30 pm\n- Day: Thursday\n- Patient ID: RMC-2847\n\n2) Prescription\n- Lisinopril 10 mg; once daily in the morning\n\n3) Mechanic\n- Phone: 555-0147\n- Car mileage: 38,500 miles\n- Oil-change threshold: before 40,000 miles\n\n4) Son's school play\n- Role: Lead role as Peter Pan\n- Date/time: Friday March 14 at 6:00 pm\n- Location: Jefferson Elementary\n- Year: Not confirmed\n\n5) Insurance\n- Policy number: HLT-99284-B\n- Claim reference: CLM-2024-0892\n\n6) House alarm\n- New code: 8472\n- Old code: 1234\n- Security company: SafeGuard\n\n7) Flight to Denver\n- Airline/Flight: United UA447\n- Date: March 20\n- Departure: 7:15 am\n- Gate: B12\n- Confirmation code: XKRM47",
+      "totalTokens": 133451,
+      "latencyMs": 649366.5423750002,
+      "retentionByType": {
+        "date": {
+          "retained": 2,
+          "total": 2
+        },
+        "phone/id": {
+          "retained": 5,
+          "total": 6
+        }
+      }
+    },
+    {
+      "strategyName": "QPB",
+      "scenarioName": "Cascading Corrections",
+      "correct": true,
+      "answer": "Final deal summary:\n\n1) Pre-money valuation: $12,000,000\n2) Round size: $3,000,000\n3) Post-money valuation: $15,000,000\n4) Total dilution: 20% (new investors own 20%)\n5) Sequoia ownership: 10.0%\n6) Net proceeds after legal fees: $2,925,000\n7) Monthly burn rate: $175,000\n8) Runway: ≈ 16.7 months",
+      "totalTokens": 119533,
+      "latencyMs": 488220.0655420013,
+      "retentionByType": {
+        "correction": {
+          "retained": 4,
+          "total": 4
+        },
+        "quantity": {
+          "retained": 0,
+          "total": 3
+        }
+      }
+    },
+    {
+      "strategyName": "QPB",
+      "scenarioName": "Implicit Corrections",
+      "correct": false,
+      "answer": "Here are the final recipe cards for each course.\n\n1) Bruschetta (Appetizer)\n- Serves: 6\n- Ingredients\n  - Baguette: 1 1/2\n  - Diagonally cut bread slices: about 24\n  - San Marzano tomatoes: 12\n  - Garlic: 6 cloves\n  - Fresh basil, chopped: 12–15 leaves\n  - Extra-virgin olive oil: 4 1/2–6 tablespoons\n  - Salt and black pepper: to taste\n  - Optional: balsamic vinegar: 1 1/2–3 teaspoons\n- Instructions\n  - Preheat oven to 400°F (200°C).\n  - Toast baguette slices 5–7 minutes until golden.\n  - In a bowl, mix chopped tomatoes, minced garlic, basil, olive oil, salt, pepper.\n  - Drizzle with balsamic vinegar if using.\n  - Spoon mixture onto warm bread and serve.\n\n2) Salmon (Main)\n- Serves: 4\n- Fillets: 4 fillets, 8 oz each\n- Butter: 3 tablespoons\n- Lemon juice: 2 tablespoons\n- Capers: 1 tablespoon, drained\n- Dill: 1 tablespoon, chopped\n- Salt and pepper: optional\n- Temperature: 400°F (200°C)\n- Time: 14 minutes\n- Instructions\n  - Preheat oven to 400°F (200°C).\n  - Place fillets on a sheet pan; dot with butter; drizzle lemon juice.\n  - Top with capers and dill.\n  - Bake for 14 minutes, until just opaque and flaky.\n\n3) Roasted Asparagus (Side)\n- Serves: 4\n- Ingredients: 1 bunch asparagus; olive oil; salt; black pepper\n- Temperature: 400°F (200°C)\n- Time: 15 minutes\n- Instructions\n  - Preheat oven to 400°F (200°C).\n  - Trim ends; toss with olive oil, salt, pepper.\n  - Roast 15 minutes on a sheet pan (space permitting, front-load with salmon if desired).\n\n4) Tiramisu (Dessert)\n- Serves: 4\n- Egg yolks: 5\n- Heavy cream: 2 1/2 cups\n- Ladyfingers: 30\n- (Additional updated ingredients for a complete tiramisu)\n  - Sugar: 3/4 cup\n  - Mascarpone: 1 1/3 cups\n  - Espresso: 2 cups\n  - Coffee liqueur: 3 tablespoons\n- Instructions\n  - In a heatproof bowl over simmering water, whisk yolks with sugar until thick and pale; cool.\n  - Fold in mascarpone until smooth.\n  - Whip heavy cream to soft peaks; fold into mascarpone mixture.\n  - Combine espresso and coffee liqueur.\n  - Briefly dip each ladyfinger into the espresso mixture; lay a layer in a dish.\n  - Spread half the mascarpone mixture; repeat with remaining ladyfingers and mascarpone.\n  - Refrigerate at least 4 hours, ideally overnight.\n  - Optional: dust with cocoa powder before serving.\n\nNotes\n- The latest updates used: Salmon bake time 14 minutes at 400°F; Asparagus 15 minutes at 400°F; Tiramisu with 5 yolks, 2 1/2 cups heavy cream, and 30 ladyfingers. If you’d like, I can format these into a printable card or adjust measurements for a different serving size.",
+      "totalTokens": 121386,
+      "latencyMs": 518051.33279099874,
+      "retentionByType": {
+        "correction": {
+          "retained": 6,
+          "total": 7
+        }
+      }
+    },
+    {
+      "strategyName": "QPB",
+      "scenarioName": "Rapid-fire Corrections",
+      "correct": true,
+      "answer": "Table 1: Alice, Bob, Carol, David, Emma, Grace (6)\n\nTable 2: Henry, Iris, Mia, Wendy (4)\n\nTable 3: Karen, Leo, Paul, Quinn, Sam, Frank (6)\n\nTable 4: Olivia, Noah, Xavier, Tina (4)\n\nTable 5: Victor, Jack, Rose, Yuki, Zara (5)",
+      "totalTokens": 82776,
+      "latencyMs": 401440.42158399895,
+      "retentionByType": {
+        "correction": {
+          "retained": 2,
+          "total": 3
+        },
+        "relationship": {
+          "retained": 1,
+          "total": 2
+        },
+        "entity": {
+          "retained": 2,
+          "total": 2
+        }
+      }
+    }
+  ],
+  "leaderboard": [
+    {
+      "strategy": "Full Context",
+      "accuracy": 0.875,
+      "scenariosCorrect": 7,
+      "totalScenarios": 8,
+      "avgTokens": 72003.25,
+      "avgLatencyMs": 344442.6309425,
+      "overallRetention": 0.6612903225806451,
+      "retentionByType": {
+        "entity": 0.625,
+        "quantity": 0.35294117647058826,
+        "date": 1,
+        "correction": 0.85,
+        "spatial": 0.6666666666666666,
+        "decision": 0,
+        "phone/id": 0.8571428571428571,
+        "relationship": 0.6666666666666666
+      }
+    },
+    {
+      "strategy": "QPB",
+      "accuracy": 0.75,
+      "scenariosCorrect": 6,
+      "totalScenarios": 8,
+      "avgTokens": 119209.125,
+      "avgLatencyMs": 510168.2016352501,
+      "overallRetention": 0.6451612903225806,
+      "retentionByType": {
+        "entity": 0.625,
+        "quantity": 0.17647058823529413,
+        "date": 1,
+        "correction": 0.9,
+        "spatial": 0.6666666666666666,
+        "decision": 1,
+        "phone/id": 0.8571428571428571,
+        "relationship": 0.6666666666666666
+      }
+    },
+    {
+      "strategy": "RLM(8)",
+      "accuracy": 0.75,
+      "scenariosCorrect": 6,
+      "totalScenarios": 8,
+      "avgTokens": 103169.75,
+      "avgLatencyMs": 537263.9211040002,
+      "overallRetention": 0.6290322580645161,
+      "retentionByType": {
+        "entity": 0.75,
+        "quantity": 0.23529411764705882,
+        "date": 0.6666666666666666,
+        "correction": 0.85,
+        "spatial": 0.6666666666666666,
+        "decision": 1,
+        "phone/id": 0.7142857142857143,
+        "relationship": 0.6666666666666666
+      }
+    }
+  ]
+}

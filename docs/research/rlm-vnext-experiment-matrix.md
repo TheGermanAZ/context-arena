@@ -104,9 +104,9 @@ A candidate proceeds only if all gates pass:
 - Go criteria:
   - Phone/ID retention >= 90%
   - and no quantity retention drop > 5pp vs V0
-### EXP-01: Quantity Pinning Buffer (QPin) — **GO** ✅
+### EXP-01: Quantity Pinning Buffer (QPin) — **KILL** ❌
 
-**Completed in CTX-7.** QPB (RLM + regex side-channel) raises quantity retention from 65% to 100%, dates from 33% to 100%, phone/IDs from 57% to 100%. Overall: 96.8% vs RLM's 75.8%. Zero additional LLM cost. All go criteria exceeded. Results: `results/qtd-qpb-experiment-1772176379889.json`
+**Internal state GO in CTX-7, promotion gates KILL in CTX-48.** QPB raises internal-state quantity retention from 65% to 100% (CTX-7), but final-answer retention drops to 17.6% on the leaderboard (CTX-48). Internal retention ≠ final-answer retention. The pinned buffer preserves quantities in context, but the model doesn't surface them in responses. 2/6 promotion gates passed (cross-session 4/4, benign refusal 0%), 4/6 failed (quantity 17.6% < 50%, phone/ID 85.7% < 90%, token overhead 15.5% > 10%, official tracks 0/3 improved). Results: `results/qtd-qpb-experiment-1772176379889.json`, `results/qpb-leaderboard-1772232837973.json`
 
 ### EXP-02: Intent Framing Preservation (Safety) — **REWORK** 🔄
 

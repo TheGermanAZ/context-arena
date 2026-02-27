@@ -1,0 +1,154 @@
+{
+  "benchmark": "Official LongMemEval Mode",
+  "mode": "official dataset schema + deterministic fallback scoring",
+  "sampledAt": "2026-02-27T23:02:01.458Z",
+  "source": "https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned/resolve/main/longmemeval_s_cleaned.json",
+  "sampleSize": 3,
+  "strategies": [
+    {
+      "strategyName": "Full Context",
+      "total": 3,
+      "correct": 2,
+      "accuracy": 0.6666666666666666,
+      "avgLatencyMs": 9642.807680666667,
+      "totalEstimatedCostUsd": 0.2503864
+    },
+    {
+      "strategyName": "RLM(8)",
+      "total": 3,
+      "correct": 2,
+      "accuracy": 0.6666666666666666,
+      "avgLatencyMs": 4846.250430333331,
+      "totalEstimatedCostUsd": 0.28052320000000003
+    },
+    {
+      "strategyName": "QPB",
+      "total": 3,
+      "correct": 2,
+      "accuracy": 0.6666666666666666,
+      "avgLatencyMs": 5062.818027333337,
+      "totalEstimatedCostUsd": 0.2865104
+    }
+  ],
+  "byStrategy": {
+    "Full Context": [
+      {
+        "questionId": "e47becba",
+        "questionType": "single-session-user",
+        "correct": true,
+        "hypothesis": "Bachelor of Business Administration (Business Administration).",
+        "answer": "Business Administration",
+        "inputTokens": 102505,
+        "outputTokens": 174,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 5451.397833999999,
+        "estimatedCostUsd": 0.08270000000000001
+      },
+      {
+        "questionId": "118b2229",
+        "questionType": "single-session-user",
+        "correct": true,
+        "hypothesis": "90 minutes total per day (45 minutes each way).",
+        "answer": "45 minutes each way",
+        "inputTokens": 101825,
+        "outputTokens": 538,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 15902.023708,
+        "estimatedCostUsd": 0.083612
+      },
+      {
+        "questionId": "51a45a95",
+        "questionType": "single-session-user",
+        "correct": false,
+        "hypothesis": "In my email inbox.",
+        "answer": "Target",
+        "inputTokens": 103623,
+        "outputTokens": 294,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 7575.0014999999985,
+        "estimatedCostUsd": 0.08407440000000001
+      }
+    ],
+    "RLM(8)": [
+      {
+        "questionId": "e47becba",
+        "questionType": "single-session-user",
+        "correct": true,
+        "hypothesis": "Business Administration",
+        "answer": "Business Administration",
+        "inputTokens": 44929,
+        "outputTokens": 150,
+        "memoryOverheadTokens": 75431,
+        "latencyMs": 3992.089291000011,
+        "estimatedCostUsd": 0.096888
+      },
+      {
+        "questionId": "118b2229",
+        "questionType": "single-session-user",
+        "correct": true,
+        "hypothesis": "90 minutes per day (45 minutes each way).",
+        "answer": "45 minutes each way",
+        "inputTokens": 101825,
+        "outputTokens": 341,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 4180.531625000003,
+        "estimatedCostUsd": 0.08282400000000001
+      },
+      {
+        "questionId": "51a45a95",
+        "questionType": "single-session-user",
+        "correct": false,
+        "hypothesis": "In your email inbox.",
+        "answer": "Target",
+        "inputTokens": 40253,
+        "outputTokens": 589,
+        "memoryOverheadTokens": 82816,
+        "latencyMs": 6366.130374999979,
+        "estimatedCostUsd": 0.1008112
+      }
+    ],
+    "QPB": [
+      {
+        "questionId": "e47becba",
+        "questionType": "single-session-user",
+        "correct": true,
+        "hypothesis": "Business Administration",
+        "answer": "Business Administration",
+        "inputTokens": 46300,
+        "outputTokens": 247,
+        "memoryOverheadTokens": 74483,
+        "latencyMs": 4555.922582999978,
+        "estimatedCostUsd": 0.0976144
+      },
+      {
+        "questionId": "118b2229",
+        "questionType": "single-session-user",
+        "correct": true,
+        "hypothesis": "About 45 minutes each way.",
+        "answer": "45 minutes each way",
+        "inputTokens": 104692,
+        "outputTokens": 539,
+        "memoryOverheadTokens": 0,
+        "latencyMs": 6338.091833000013,
+        "estimatedCostUsd": 0.0859096
+      },
+      {
+        "questionId": "51a45a95",
+        "questionType": "single-session-user",
+        "correct": false,
+        "hypothesis": "In your email inbox.",
+        "answer": "Target",
+        "inputTokens": 43691,
+        "outputTokens": 305,
+        "memoryOverheadTokens": 83517,
+        "latencyMs": 4294.43966600002,
+        "estimatedCostUsd": 0.10298639999999999
+      }
+    ]
+  },
+  "notes": [
+    "Uses official LongMemEval-S dataset schema and question types.",
+    "Official LLM-judge scoring requires OPENAI_API_KEY; unavailable in this environment.",
+    "Deterministic exact/substring fallback used for this run."
+  ]
+}
