@@ -142,7 +142,7 @@ export interface ScenarioDifficultyResponse {
   scenarios: ScenarioDifficultyEntry[];
 }
 
-// --- Parallel Benchmarks (CTX-26 expansion) ---
+// --- Parallel Benchmarks (Proxy Benchmark Sweep) ---
 
 export interface ParallelBenchmarkRow {
   track: string;
@@ -157,4 +157,10 @@ export interface ParallelBenchmarkRow {
 export interface ParallelBenchmarksResponse {
   rows: ParallelBenchmarkRow[];
   summary: { industryCount: number; internalCount: number; totalTracks: number };
+}
+
+// --- Project Journal ---
+
+export interface JournalResponse {
+  content: string;
 }

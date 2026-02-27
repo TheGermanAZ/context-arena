@@ -35,7 +35,7 @@ const PANEL_GROUPS = [
   },
   {
     label: 'Benchmark Expansion',
-    badge: { text: 'CTX-26', color: 'emerald' as const },
+    badge: { text: 'Proxy', color: 'emerald' as const },
     panels: [
       { id: 'parallel-benchmarks', label: 'Parallel Benchmarks' },
     ],

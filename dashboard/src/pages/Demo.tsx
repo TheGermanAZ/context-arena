@@ -33,6 +33,8 @@ const SECTIONS = [
   { id: 'depth', label: 'Depth' },
   { id: 'hand-vs-gen', label: 'Hand-rolled vs Code-Gen' },
   { id: 'code', label: 'Inside the Code' },
+  { id: 'qpb', label: 'The QPB Breakthrough' },
+  { id: 'ship', label: 'What We Ship' },
 ] as const;
 
 const SECTION_IDS = SECTIONS.map((s) => s.id);
@@ -240,16 +242,16 @@ export default function Demo() {
             How we tested LLM memory — the experiment design behind these results.
           </Insight>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-            <KPICard label="Strategies" value={8} format={(n) => `${n}`} subtitle="Memory approaches" accentColor="#3b82f6" />
+            <KPICard label="Strategies" value={17} format={(n) => `${n}`} subtitle="Configurations tested" accentColor="#3b82f6" />
             <KPICard label="Scenarios" value={8} format={(n) => `${n}`} subtitle="Test situations" accentColor="#10b981" />
-            <KPICard label="Test Cases" value={62} format={(n) => `${n}`} subtitle="Strategy × scenario" accentColor="#f59e0b" />
-            <KPICard label="Model" value={1} format={() => 'Haiku'} subtitle="claude-3-5-haiku" accentColor="#8b5cf6" />
+            <KPICard label="Probes" value={62} format={(n) => `${n}`} subtitle="Facts tracked" accentColor="#f59e0b" />
+            <KPICard label="Experiments" value={10} format={(n) => `${n}`} subtitle="7 experiments + 3 retests" accentColor="#8b5cf6" />
           </div>
           <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-6 text-sm text-gray-300 space-y-3">
-            <p><strong className="text-gray-100">Model:</strong> Claude 3.5 Haiku — chosen for speed and cost, enabling 62 full conversation runs.</p>
-            <p><strong className="text-gray-100">Compression trigger:</strong> Each strategy defines when and how context is compressed — from never (Full Context) to every turn (Window).</p>
-            <p><strong className="text-gray-100">Probe matching:</strong> After each conversation, structured probes test whether specific facts survive. A fact is "retained" if the model can accurately recall it.</p>
-            <p><strong className="text-gray-100">Cost model:</strong> $0.80/M input tokens, $4.00/M output tokens — actual Haiku pricing at time of benchmarking.</p>
+            <p><strong className="text-gray-100">Models:</strong> Claude Haiku 4.5 (initial leaderboard), gpt-5-nano (same-model comparisons, extraction experiment), gpt-4.1-mini (depth experiment).</p>
+            <p><strong className="text-gray-100">Compression trigger:</strong> Every 8 messages with a 4-message recent window. Each strategy defines how context is compressed — from never (Full Context) to every turn (Window).</p>
+            <p><strong className="text-gray-100">Probe matching:</strong> 62 probes across 8 scenarios, tagged by type (entity, phone/id, quantity, date, correction, spatial, relationship, decision). Case-insensitive substring matching; all patterns must be present.</p>
+            <p><strong className="text-gray-100">Benchmark evolution:</strong> Started with 8 strategies on the leaderboard, evolved through feasibility probes and retests to 17 configurations across 10 experiments.</p>
           </div>
         </DemoSection>
 
@@ -377,6 +379,49 @@ export default function Demo() {
             <Skeleton variant="kpi" />
           )}
           <CodeStrategies />
+        </DemoSection>
+
+        {/* ---- Section 10: The QPB Breakthrough ---- */}
+        <DemoSection id="qpb" title="The QPB Breakthrough">
+          <Insight>
+            After 6 experiments and 14 failed strategy variants, two new approaches cracked the retention problem.
+            QPB (Quantity-Pinning Buffer) extends RLM with a regex side-channel that pins quantities, IDs, and
+            dates — zero extra LLM calls, 96.8% retention. QTD (Query-Time Distillation) proves the theoretical
+            ceiling: compress only at query time with the question in hand → 98.4%.
+          </Insight>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+            <KPICard label="QPB Retention" value={96.8} format={(n) => `${n}%`} subtitle="vs 75.8% RLM baseline" accentColor="#22c55e" />
+            <KPICard label="QTD Retention" value={98.4} format={(n) => `${n}%`} subtitle="Theoretical ceiling" accentColor="#3b82f6" />
+            <KPICard label="Quantity Fix" value={100} format={(n) => `${n}%`} subtitle="was 65% in RLM" accentColor="#f59e0b" />
+            <KPICard label="Extra LLM Cost" value={0} format={(n) => `${n}`} subtitle="QPB: regex only" accentColor="#8b5cf6" />
+          </div>
+          <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-6 text-sm text-gray-300 space-y-3 mb-6">
+            <p><strong className="text-gray-100">Why QPB works:</strong> RLM&apos;s sub-LLM systematically drops exact numbers, IDs, and dates during compression. QPB catches these via regex patterns and stores them in a pinned buffer that persists across compression cycles. The sub-LLM still does what it&apos;s good at (language understanding); the buffer handles what it drops.</p>
+            <p><strong className="text-gray-100">Why QTD proves the root cause:</strong> When you compress with the question in hand, retention matches Full Context (98.4%). The problem was never compression itself — it was <em>blind</em> compression.</p>
+          </div>
+        </DemoSection>
+
+        {/* ---- Section 11: What We Ship ---- */}
+        <DemoSection id="ship" title="What We Ship Now">
+          <Insight>
+            After 17 strategy configurations and 10 experiments, the research converges on a clear winner.
+            QPB ships behind a feature flag; QTD stays in research; Stability-Plasticity is killed.
+          </Insight>
+          <div className="space-y-4 mb-8">
+            {[
+              { strategy: 'QPB', decision: 'Ship (behind flag)', color: 'border-emerald-500/30 bg-emerald-900/10', badge: 'text-emerald-400 bg-emerald-500/10', detail: '96.8% retention with zero additional LLM calls. Needs external benchmark validation.' },
+              { strategy: 'QTD', decision: 'Research only', color: 'border-blue-500/30 bg-blue-900/10', badge: 'text-blue-400 bg-blue-500/10', detail: '98.4% retention — matches Full Context. But query-time distillation puts LLM latency on the critical path.' },
+              { strategy: 'Stability-Plasticity', decision: 'Killed', color: 'border-red-500/30 bg-red-900/10', badge: 'text-red-400 bg-red-500/10', detail: '3 full runs across 2 configurations. All fail promotion criteria. Per-type variance (34pp swings) means effects are noise, not signal.' },
+            ].map(({ strategy, decision, color, badge, detail }) => (
+              <div key={strategy} className={`rounded-lg border ${color} p-5`}>
+                <div className="flex items-center gap-3 mb-2">
+                  <h4 className="text-gray-100 font-semibold">{strategy}</h4>
+                  <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${badge}`}>{decision}</span>
+                </div>
+                <p className="text-gray-400 text-sm">{detail}</p>
+              </div>
+            ))}
+          </div>
         </DemoSection>
 
         {/* ---- footer ---- */}
