@@ -156,29 +156,6 @@ function GapCard({ name, severity, description }: { name: string; severity: stri
   );
 }
 
-function ProposalCard({
-  number,
-  title,
-  abstract,
-  predicted,
-}: {
-  number: number;
-  title: string;
-  abstract: string;
-  predicted: string;
-}) {
-  return (
-    <div className="rounded-lg border border-gray-800 bg-gray-900/50 p-6">
-      <div className="flex items-baseline gap-3 mb-2">
-        <span className="text-emerald-500 font-bold text-lg">#{number}</span>
-        <h4 className="text-gray-100 font-semibold">{title}</h4>
-      </div>
-      <p className="text-gray-400 text-sm leading-relaxed mb-3">{abstract}</p>
-      <div className="text-xs text-emerald-400/80 font-medium">Predicted: {predicted}</div>
-    </div>
-  );
-}
-
 function VerdictBadge({ verdict }: { verdict: 'ABANDON' | 'INCONCLUSIVE' | 'PASS' | 'KILLED' | 'REWORK' }) {
   const styles = {
     ABANDON: 'bg-red-500/10 text-red-400 border-red-500/20',
