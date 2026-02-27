@@ -5,6 +5,7 @@ const LINKS = [
   { to: '/demo', label: 'Story' },
   { to: '/findings', label: 'Findings' },
   { to: '/dashboard', label: 'Dashboard' },
+  { to: '/journal', label: 'Journal' },
 ] as const;
 
 export default function NavBar() {

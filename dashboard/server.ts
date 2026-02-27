@@ -71,7 +71,7 @@ interface CodeAnalysisData {
   classified: CodeAnalysisBlock[];
 }
 
-const app = new Hono();
+export const app = new Hono();
 app.use('*', cors());
 
 const resultsDir = path.resolve(import.meta.dir, '../results');
@@ -904,6 +904,17 @@ app.get('/api/parallel-benchmarks', async (c) => {
   });
 });
 
-const port = 3001;
-Bun.serve({ fetch: app.fetch, port });
-console.log(`Dashboard API server running on http://localhost:${port}`);
+// View 12: Project Journal (raw markdown)
+app.get('/api/journal', async (c) => {
+  const journalPath = path.resolve(import.meta.dir, '../docs/research/project-journal.md');
+  const file = Bun.file(journalPath);
+  if (!(await file.exists())) return c.json({ error: 'Journal file not found' }, 404);
+  const content = await file.text();
+  return c.json({ content });
+});
+
+if (import.meta.main) {
+  const port = 3001;
+  Bun.serve({ fetch: app.fetch, port });
+  console.log(`Dashboard API server running on http://localhost:${port}`);
+}

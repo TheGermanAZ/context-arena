@@ -12,6 +12,7 @@ import type {
   CostAccuracyResponse,
   ScenarioDifficultyResponse,
   ParallelBenchmarksResponse,
+  JournalResponse,
 } from './types';
 
 export function useLeaderboard() {
@@ -98,6 +99,14 @@ export function useParallelBenchmarks() {
   return useQuery<ParallelBenchmarksResponse>({
     queryKey: ['parallel-benchmarks'],
     queryFn: api.parallelBenchmarks,
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useJournal() {
+  return useQuery<JournalResponse>({
+    queryKey: ['journal'],
+    queryFn: api.journal,
     staleTime: 5 * 60 * 1000,
   });
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 type FlowRowState = 'active' | 'compressed' | 'dropped';
-type StrategyTheme = 'amber' | 'cyan' | 'lime' | 'violet' | 'pink';
+type StrategyTheme = 'amber' | 'cyan' | 'lime' | 'violet' | 'pink' | 'emerald' | 'red' | 'blue' | 'teal' | 'orange' | 'rose';
 
 interface FlowRow {
   label: string;
@@ -47,6 +47,12 @@ const THEME_ACTIVE_BUTTON_CLASSES: Record<StrategyTheme, string> = {
   lime: 'bg-lime-500/20 border-lime-400/40 text-lime-200 cursor-wait',
   violet: 'bg-violet-500/20 border-violet-400/40 text-violet-200 cursor-wait',
   pink: 'bg-pink-500/20 border-pink-400/40 text-pink-200 cursor-wait',
+  emerald: 'bg-emerald-500/20 border-emerald-400/40 text-emerald-200 cursor-wait',
+  red: 'bg-red-500/20 border-red-400/40 text-red-200 cursor-wait',
+  blue: 'bg-blue-500/20 border-blue-400/40 text-blue-200 cursor-wait',
+  teal: 'bg-teal-500/20 border-teal-400/40 text-teal-200 cursor-wait',
+  orange: 'bg-orange-500/20 border-orange-400/40 text-orange-200 cursor-wait',
+  rose: 'bg-rose-500/20 border-rose-400/40 text-rose-200 cursor-wait',
 };
 
 const THEME_NODE_GLOW_CLASSES: Record<StrategyTheme, string> = {
@@ -55,6 +61,12 @@ const THEME_NODE_GLOW_CLASSES: Record<StrategyTheme, string> = {
   lime: 'strategy-node-glow-theme strategy-node-glow-lime',
   violet: 'strategy-node-glow-theme strategy-node-glow-violet',
   pink: 'strategy-node-glow-theme strategy-node-glow-pink',
+  emerald: 'strategy-node-glow-theme strategy-node-glow-emerald',
+  red: 'strategy-node-glow-theme strategy-node-glow-red',
+  blue: 'strategy-node-glow-theme strategy-node-glow-blue',
+  teal: 'strategy-node-glow-theme strategy-node-glow-teal',
+  orange: 'strategy-node-glow-theme strategy-node-glow-orange',
+  rose: 'strategy-node-glow-theme strategy-node-glow-rose',
 };
 
 const ROW_STYLE: Record<FlowRowState, { fill: string; stroke: string; settledOpacity: number; animatedOpacity: string }> = {

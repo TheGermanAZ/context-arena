@@ -12,6 +12,7 @@ import { calculateCost } from "../utils/metrics";
 import type { MemoryStrategy } from "../strategies/base";
 import { FullContextStrategy } from "../strategies/full-context";
 import { RLMStrategy } from "../strategies/rlm";
+import { QPBStrategy } from "../strategies/qpb";
 
 interface ArenaAnswer {
   target_asin: string;
@@ -175,6 +176,7 @@ async function main() {
   const strategies: Array<{ name: string; create: () => MemoryStrategy }> = [
     { name: "Full Context", create: () => new FullContextStrategy() },
     { name: "RLM(8)", create: () => new RLMStrategy(8, 4) },
+    { name: "QPB", create: () => new QPBStrategy(8, 4) },
   ];
 
   const byStrategy: Record<string, ItemResult[]> = {};
