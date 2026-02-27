@@ -163,7 +163,7 @@ export const scenarioDifficultyResponseSchema = z.object({
   scenarios: z.array(scenarioDifficultyEntrySchema),
 });
 
-// --- Parallel Benchmarks (CTX-26 expansion) ---
+// --- Parallel Benchmarks (Proxy Benchmark Sweep) ---
 
 const parallelBenchmarkRowSchema = z.object({
   track: z.string(),
@@ -182,4 +182,10 @@ export const parallelBenchmarksResponseSchema = z.object({
     internalCount: z.number(),
     totalTracks: z.number(),
   }),
+});
+
+// --- Project Journal ---
+
+export const journalResponseSchema = z.object({
+  content: z.string(),
 });

@@ -7,6 +7,12 @@ import NavBar from '../components/NavBar';
 import FullContextFlowAnimation from '../components/FullContextFlowAnimation';
 import RlmFlowAnimation from '../components/RlmFlowAnimation';
 import WindowedFlowAnimation from '../components/WindowedFlowAnimation';
+import DeepRlmFlowAnimation from '../components/DeepRlmFlowAnimation';
+import PersistentRlmFlowAnimation from '../components/PersistentRlmFlowAnimation';
+import DiscoveredRlmFlowAnimation from '../components/DiscoveredRlmFlowAnimation';
+import RllmFlowAnimation from '../components/RllmFlowAnimation';
+import QtdFlowAnimation from '../components/QtdFlowAnimation';
+import QpbFlowAnimation from '../components/QpbFlowAnimation';
 
 export default function Landing() {
   const { data, isLoading } = useLeaderboard();
@@ -213,7 +219,7 @@ const strategies = [
   },
 ];
 
-type StrategyAnimationGroup = 'Core' | 'Advanced';
+type StrategyAnimationGroup = 'Core' | 'Advanced' | 'Research';
 
 interface AdditionalStrategyAnimationConfig extends GenericStrategyFlowConfig {
   id: string;
@@ -367,6 +373,27 @@ const additionalStrategyAnimations: AdditionalStrategyAnimationConfig[] = [
   },
 ];
 
+const RESEARCH_IDS = ['deep-rlm', 'persistent-rlm', 'discovered-rlm', 'rllm', 'qtd', 'qpb'] as const;
+type ResearchAnimationId = (typeof RESEARCH_IDS)[number];
+
+const researchStrategyAnimations: { id: ResearchAnimationId; pickerTitle: string; pickerDescription: string; accentColor: string }[] = [
+  { id: 'deep-rlm', pickerTitle: 'DeepRLM(d=2)', pickerDescription: 'Chains multiple sub-LLM passes per compression cycle.', accentColor: '#2563eb' },
+  { id: 'persistent-rlm', pickerTitle: 'PersistentRLM', pickerDescription: 'RLM + typed stores for incremental merge instead of wholesale replace.', accentColor: '#ea580c' },
+  { id: 'discovered-rlm', pickerTitle: 'DiscoveredRLM', pickerDescription: 'Reverse-engineered best extraction patterns from code-gen experiments.', accentColor: '#e11d48' },
+  { id: 'rllm', pickerTitle: 'RLLM', pickerDescription: 'Sub-agent writes JavaScript to extract facts via code execution.', accentColor: '#dc2626' },
+  { id: 'qtd', pickerTitle: 'QTD', pickerDescription: 'Accumulates raw messages, distills only at query time guided by the question.', accentColor: '#0d9488' },
+  { id: 'qpb', pickerTitle: 'QPB', pickerDescription: 'RLM + regex side-channel that pins quantities and IDs across compression.', accentColor: '#059669' },
+];
+
+const researchAnimationRenderers: Record<ResearchAnimationId, () => ReactNode> = {
+  'deep-rlm': () => <DeepRlmFlowAnimation />,
+  'persistent-rlm': () => <PersistentRlmFlowAnimation />,
+  'discovered-rlm': () => <DiscoveredRlmFlowAnimation />,
+  'rllm': () => <RllmFlowAnimation />,
+  'qtd': () => <QtdFlowAnimation />,
+  'qpb': () => <QpbFlowAnimation />,
+};
+
 const strategyAnimationCatalog: StrategyAnimationCatalogItem[] = [
   {
     id: 'full-context',
@@ -416,6 +443,14 @@ const strategyAnimationCatalog: StrategyAnimationCatalogItem[] = [
       />
     ),
   })),
+  ...researchStrategyAnimations.map<StrategyAnimationCatalogItem>((animation) => ({
+    id: animation.id,
+    title: animation.pickerTitle,
+    description: animation.pickerDescription,
+    accentColor: animation.accentColor,
+    group: 'Research',
+    render: researchAnimationRenderers[animation.id],
+  })),
 ];
 
 const strategyAnimationGroups: Array<{ label: StrategyAnimationGroup; items: StrategyAnimationCatalogItem[] }> = [
@@ -426,5 +461,9 @@ const strategyAnimationGroups: Array<{ label: StrategyAnimationGroup; items: Str
   {
     label: 'Advanced',
     items: strategyAnimationCatalog.filter((animation) => animation.group === 'Advanced'),
+  },
+  {
+    label: 'Research',
+    items: strategyAnimationCatalog.filter((animation) => animation.group === 'Research'),
   },
 ];

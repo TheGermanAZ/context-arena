@@ -36,7 +36,7 @@ const PANEL_MAP: Record<string, PanelConfig> = {
   'depth-comparison': { render: () => <DepthComparison />, title: 'Depth 1 vs 2', badge: { text: 'RLM', color: 'emerald' } },
   'rllm-comparison': { render: () => <RllmComparison />, title: 'RLLM vs Hand-rolled', badge: { text: 'RLLM', color: 'red' } },
   'code-strategies': { render: () => <CodeStrategies />, title: 'Code Strategies', badge: { text: 'RLLM', color: 'red' } },
-  'parallel-benchmarks': { render: () => <ParallelBenchmarks />, title: 'Benchmark Expansion', badge: { text: 'CTX-26', color: 'emerald' } },
+  'parallel-benchmarks': { render: () => <ParallelBenchmarks />, title: 'Benchmark Expansion', badge: { text: 'Proxy', color: 'emerald' } },
 };
 
 /* ── Filter Bar ───────────────────────────────────────────────── */
