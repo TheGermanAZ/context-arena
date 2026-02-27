@@ -45,6 +45,65 @@ A candidate proceeds only if all gates pass:
 
 ## Phase 1: Highest-Leverage Fixes (Run First)
 
+### EXP-01: Quantity Pinning Buffer (QPin)
+
+- Hypothesis: protecting exact values as a side-channel will close the largest RLM gap.
+- Variants:
+  - V0: `RLM(8)` baseline
+  - V1: `RLM(8)+QPin` (pin exact numeric facts with unit + entity key)
+  - V2: `RLM(8)+QPin+Supersedes` (track corrected numeric lineage)
+- Datasets:
+  - Internal 8 scenarios (focus: State Change, Contradiction, Cascading Corrections)
+  - Memory-to-Action Micro
+- Primary metrics:
+  - Quantity retention
+  - Final accuracy
+  - Token overhead
+- Kill criteria:
+  - Quantity retention gain < +15pp vs V0 after 3 reps
+  - or token overhead > +10% with no accuracy gain
+- Go criteria:
+  - Quantity retention >= 50%
+  - and no scenario accuracy regression > 1 scenario vs V0
+
+### EXP-02: Intent Framing Preservation (Safety)
+
+- Hypothesis: preserving benign framing in compressed memory eliminates false safety refusals.
+- Variants:
+  - V0: current `RLM(8)`
+  - V1: add explicit benign-context frame to delegated memory
+  - V2: benign frame + action-plan constraint template (non-operational language)
+- Datasets:
+  - Memory-to-Action Micro (all scenarios)
+  - Internal incident-like prompts (add 3 synthetic variants)
+- Primary metrics:
+  - Refusal rate on benign tasks
+  - Action correctness checks
+  - Latency delta
+- Kill criteria:
+  - Any benign refusal persists in V2 after 3 reps
+- Go criteria:
+  - 0 refusals on benign tasks across all reps
+  - and no correctness drop > 1 check total vs V0
+
+### EXP-03: Stability-Plasticity Re-test on Correct Data
+
+- Hypothesis: stable buffer helps when evaluated on scenarios that actually contain phone/id probes.
+- Variants:
+  - V0: `RLM(8)`
+  - V1: stable phone/id buffer only
+  - V2: stable phone/id + exact value pinning
+- Datasets:
+  - Scenario 5 (Long Horizon + Noise)
+  - Any scenario with >= 4 phone/id probes
+- Primary metrics:
+  - Phone/ID retention
+  - Cross-type collateral damage (entity, quantity)
+- Kill criteria:
+  - Phone/ID retention < 90% in V2
+- Go criteria:
+  - Phone/ID retention >= 90%
+  - and no quantity retention drop > 5pp vs V0
 ### EXP-01: Quantity Pinning Buffer (QPin) — **GO** ✅
 
 **Completed in CTX-7.** QPB (RLM + regex side-channel) raises quantity retention from 65% to 100%, dates from 33% to 100%, phone/IDs from 57% to 100%. Overall: 96.8% vs RLM's 75.8%. Zero additional LLM cost. All go criteria exceeded. Results: `results/qtd-qpb-experiment-1772176379889.json`
