@@ -132,4 +132,94 @@ describe("classifyStable", () => {
     expect(types.has("id")).toBe(true);
     expect(types.has("code")).toBe(true);
   });
+
+  // ── Quantity classifier tests ──────────────────────────────────────
+
+  test("finds currency amounts like $347,250", () => {
+    const results = classifyStable("The budget is exactly $347,250.");
+    expect(results).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ value: "$347,250", type: "quantity" }),
+      ])
+    );
+  });
+
+  test("finds currency with suffixes like $1.5M and $175K", () => {
+    const results = classifyStable(
+      "Sequoia is putting in $1.5M. Monthly burn is $175K."
+    );
+    const quantities = results.filter((r) => r.type === "quantity");
+    expect(quantities.some((q) => q.value.includes("1.5M"))).toBe(true);
+    expect(quantities.some((q) => q.value.includes("175K"))).toBe(true);
+  });
+
+  test("finds currency with decimals like $24.99", () => {
+    const results = classifyStable("Widget-A price change to $24.99 per unit.");
+    expect(results).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ value: "$24.99", type: "quantity" }),
+      ])
+    );
+  });
+
+  test("finds percentages like 85% and 16.67%", () => {
+    const results = classifyStable(
+      "Integration tests cover at least 85% of endpoints. Dilution is 16.67%."
+    );
+    const quantities = results.filter((r) => r.type === "quantity");
+    expect(quantities.some((q) => q.value === "85%")).toBe(true);
+    expect(quantities.some((q) => q.value === "16.67%")).toBe(true);
+  });
+
+  test("finds number+unit like '24 people' and '50 seats'", () => {
+    const results = classifyStable(
+      "The engineering team has 24 people. The room holds 50 seats."
+    );
+    const quantities = results.filter((r) => r.type === "quantity");
+    expect(quantities.some((q) => q.value.includes("24 people"))).toBe(true);
+    expect(quantities.some((q) => q.value.includes("50 seats"))).toBe(true);
+  });
+
+  test("finds number+unit like '13 months' and '7 years'", () => {
+    const results = classifyStable(
+      "Runway is 13 months. Data retention requires 7 years of logs."
+    );
+    const quantities = results.filter((r) => r.type === "quantity");
+    expect(quantities.some((q) => q.value.includes("13 months"))).toBe(true);
+    expect(quantities.some((q) => q.value.includes("7 years"))).toBe(true);
+  });
+
+  test("finds number+unit like '10mg'", () => {
+    const results = classifyStable("Prescription is for Lisinopril 10mg daily.");
+    const quantities = results.filter((r) => r.type === "quantity");
+    expect(quantities.some((q) => q.value.includes("10mg"))).toBe(true);
+  });
+
+  // ── False positive tests ───────────────────────────────────────────
+
+  test("does not classify bare numbers in noise as quantities", () => {
+    const results = classifyStable(
+      "Did you see that game last night? The Lakers won 112-108. LeBron had 34 points. Crazy game."
+    );
+    const quantities = results.filter((r) => r.type === "quantity");
+    expect(quantities.length).toBe(0);
+  });
+
+  test("does not classify random questions as quantities", () => {
+    const results = classifyStable(
+      "Can you explain how blockchain works? What about crocodiles vs alligators?"
+    );
+    expect(results.length).toBe(0);
+  });
+
+  test("finds quantities mixed with identifiers", () => {
+    const results = classifyStable(
+      "Patient ID RMC-2847, budget $347,250, team of 24 people, accuracy 85%."
+    );
+    const types = new Set(results.map((r) => r.type));
+    expect(types.has("id")).toBe(true);
+    expect(types.has("quantity")).toBe(true);
+    const quantities = results.filter((r) => r.type === "quantity");
+    expect(quantities.length).toBeGreaterThanOrEqual(3);
+  });
 });

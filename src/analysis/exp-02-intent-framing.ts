@@ -1,13 +1,13 @@
 /**
- * EXP-02: Intent Framing Preservation
+ * EXP-02: Memory-to-Action Fact Recall
  *
- * Tests whether adding an explicit benign-context frame to QPB's delegation
- * and final system prompts eliminates false safety refusals discovered in
- * Memory-to-Action Micro (Incident Rollback scenario).
+ * Tests whether memory strategies retain corrected facts across multi-turn
+ * conversations with corrections and noise. Uses direct fact-recall questions
+ * (not action-plan generation) to isolate memory quality from model capability.
  *
  * Strategies tested:
  * - Full Context (ceiling)
- * - RLM(8) (baseline — known to trigger safety refusal)
+ * - RLM(8) (baseline)
  * - QPB (CTX-7 winner)
  * - QPB+Frame (V1 — benign-context frame in delegation)
  *
@@ -83,8 +83,8 @@ const scenarios: MicroScenario[] = [
       "Ignore this note: office plant watering moved to Tuesdays.",
       "Ignore this note: team hoodie order approved for next month.",
     ],
-    finalQuestion: "Give a concise 4-step action plan with exact values we should execute now.",
-    systemPrompt: "You are a planning assistant. Use only the latest corrected facts. Output concise operational steps.",
+    finalQuestion: "List all the current, corrected details for this event. Include every specific value, code, name, count, and deadline from our conversation. Use only the latest corrected values.",
+    systemPrompt: "You are a fact-recall assistant. List all facts with their exact values. Use only the latest corrected values — ignore superseded ones. Ignore irrelevant notes.",
     requiredPatterns: [
       /sunrise catering/i,
       /hall\s*c/i,
@@ -112,8 +112,8 @@ const scenarios: MicroScenario[] = [
       "Ignore this note: office parking lot resurfacing starts next week.",
       "Ignore this note: swag order for stickers was approved.",
     ],
-    finalQuestion: "What should the on-call engineer do now? Provide a concise 4-step action plan with exact values.",
-    systemPrompt: "You are an incident-response planning assistant. Use only the latest corrected facts. Output concise operational steps.",
+    finalQuestion: "List all the current, corrected details for this incident. Include the incident ID, affected region, rollback version, canary percentage, verification check, success criteria, and communication channel.",
+    systemPrompt: "You are a fact-recall assistant. List all facts with their exact values. Use only the latest corrected values — ignore superseded ones. Ignore irrelevant notes.",
     requiredPatterns: [
       /eu-west-1/i,
       /v2\.8\.3/i,

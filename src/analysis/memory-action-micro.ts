@@ -45,7 +45,7 @@ interface MicroOutput {
 const scenario: MicroScenario = {
   name: "Conference Logistics Action",
   description:
-    "Tests whether corrected planning facts are converted into a correct action checklist.",
+    "Tests whether corrected planning facts survive compression and can be recalled with exact values.",
   steps: [
     "We are finalizing logistics for the Q2 Product Summit breakfast event.",
     "Initial plan: venue Hall A, expected headcount 90.",
@@ -61,7 +61,7 @@ const scenario: MicroScenario = {
     "Ignore this note: team hoodie order approved for next month.",
   ],
   finalQuestion:
-    "Give a concise 4-step action plan with exact values we should execute now.",
+    "List all the current, corrected details for this event. Include every specific value, code, name, count, and deadline from our conversation. Use only the latest corrected values.",
   requiredPatterns: [
     /sunrise catering/i,
     /hall\s*c/i,
@@ -96,9 +96,10 @@ async function runMicroScenario(
   const response = await chat(
     finalContext.messages,
     [
-      "You are a planning assistant.",
-      "Use only the latest corrected facts.",
-      "Output concise operational steps.",
+      "You are a fact-recall assistant.",
+      "List all facts with their exact values.",
+      "Use only the latest corrected values — ignore superseded ones.",
+      "Ignore irrelevant notes.",
       finalContext.system,
     ]
       .filter(Boolean)

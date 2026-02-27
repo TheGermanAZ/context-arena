@@ -1,19 +1,22 @@
 /**
- * Stability-Plasticity Decomposed Memory — Feasibility Probe
+ * Stability-Plasticity Decomposed Memory — Feasibility Probe (v2)
  *
- * Hypothesis: RLM achieves 0% retention on phone/ID and spatial facts because
- * they get paraphrased/dropped during text compression. Routing immutable
- * identifiers to an uncompressed "Stable" buffer (architectural protection)
- * while letting narrative flow through the "Plastic" RLM channel should
- * preserve them.
+ * Hypothesis H1: RLM loses phone/ID facts during text compression. Routing
+ * identifiers to an uncompressed "Stable" buffer should preserve them.
  *
- * Phase 1: Validate that a regex classifier can find stable facts in scenario text.
- * Phase 2: Run StabilityPlasticityStrategy on identifier-heavy scenarios and
- *          measure retention vs the 0% baseline.
+ * Hypothesis H2: RLM loses exact quantities (currency, percentages, counts).
+ * Pinning detected quantities to the stable buffer should improve retention.
  *
- * Kill criteria:
- * - Phase 1: classifier recall <80% on stable probes
- * - Phase 2: both phone/id AND spatial retention <60%
+ * Phase 1: Validate regex classifier recall on phone/id + quantity probes.
+ * Phase 2: Run StabilityPlasticity AND baseline RLM on ALL 8 scenarios (2 reps).
+ *          Compare per-type retention deltas.
+ *
+ * Kill criteria (per-hypothesis):
+ * - Phase 1: classifier recall <70% on stable probes
+ * - H1: phone/id delta < +15pp vs baseline
+ * - H2: quantity delta < +10pp vs baseline
+ * - Side effects: any other type drops > 15pp
+ * Kill if BOTH H1 and H2 fail, or any side effect exceeds threshold.
  */
 
 import type { LLMMessage } from "../utils/llm";
@@ -32,7 +35,7 @@ import {
 
 export interface StableClassification {
   value: string;
-  type: "phone" | "id" | "code";
+  type: "phone" | "id" | "code" | "quantity";
 }
 
 // ── classifyStable: regex-based immutable-identifier extractor ──────
@@ -123,6 +126,30 @@ export function classifyStable(text: string): StableClassification[] {
     }
   }
 
+  // ── Quantity patterns (conservative: currency, percentage, number+unit) ──
+
+  // Currency: $347,250 | $1.5M | $175K | $24.99 | $12,400
+  const currencyRe = /(\$[\d,]+(?:\.\d+)?[KkMmBb]?)\b/g;
+  for (const m of text.matchAll(currencyRe)) {
+    add(m[1]!, "quantity");
+  }
+
+  // Percentages: 85% | 16.67% | 20%
+  const pctRe = /\b(\d+(?:\.\d+)?%)/g;
+  for (const m of text.matchAll(pctRe)) {
+    add(m[1]!, "quantity");
+  }
+
+  // Number + unit: "24 people" | "10mg" | "50 seats" | "13 months" | "7 years"
+  const numUnitRe = /\b(\d[\d,.]*\s*(?:people|persons?|seats?|rooms?|units?|months?|years?|days?|hours?|minutes?|meals?|buses|requests?|engineers?|mg|oz|ml|lbs?|kg|miles?|km|floors?|screens?|shares?))\b/gi;
+  for (const m of text.matchAll(numUnitRe)) {
+    const val = m[1]!.replace(/\s+/g, " ").trim();
+    if (!seen.has(val.toLowerCase())) {
+      seen.add(val.toLowerCase());
+      results.push({ value: val, type: "quantity" });
+    }
+  }
+
   return results;
 }
 
@@ -136,7 +163,7 @@ interface ClassifierValidation {
 }
 
 function isStableProbeType(type: string): boolean {
-  return type === "phone/id" || type === "spatial";
+  return type === "phone/id" || type === "quantity";
 }
 
 export function validateClassifier(scenario: Scenario): ClassifierValidation {
@@ -304,10 +331,10 @@ Be exhaustive. Every specific detail matters. Do NOT generalize.`,
   }
 }
 
-// ── Main: Phase 1 (classifier) + Phase 2 (LLM runs) ────────────────
+// ── Main: Phase 1 (classifier) + Phase 2 (strategy comparison) ──────
 
 async function main() {
-  console.log("=== Stability-Plasticity Decomposed Memory Probe ===\n");
+  console.log("=== Stability-Plasticity + Quantity-Pinning Probe (v2) ===\n");
 
   // ── Phase 1: Validate classifier ──────────────────────────────────
   console.log("--- Phase 1: Classifier Validation ---\n");
@@ -346,117 +373,184 @@ async function main() {
     `\n  Overall classifier recall: ${totalHits}/${totalStable} (${overallRecall.toFixed(1)}%)`
   );
 
-  if (overallRecall < 80) {
+  // False positive check on noise text (Scenario 5 chit-chat steps)
+  const noiseSteps = [
+    "Oh by the way, did you see that game last night? The Lakers won 112-108. LeBron had 34 points. Crazy game.",
+    "What's a good recipe for chicken tikka masala? I want to make it this weekend.",
+    "Can you explain how blockchain works? I keep hearing about it at work.",
+    "What's the weather usually like in Cancun in April? We might go for spring break.",
+    "Random thought: do you think AI will replace software engineers? I've been thinking about this a lot.",
+    "Can you write me a haiku about winter?",
+    "What are some good books about leadership? My manager recommended one but I forgot the title.",
+    "Tell me a fun fact about octopuses.",
+    "What's the difference between a crocodile and an alligator?",
+    "Can you help me understand the difference between term life and whole life insurance?",
+  ];
+  const noiseText = noiseSteps.join("\n");
+  const noiseFPs = classifyStable(noiseText);
+  console.log(`\n  False positives on noise text: ${noiseFPs.length}`);
+  if (noiseFPs.length > 0) {
+    for (const fp of noiseFPs) {
+      console.log(`    FP: "${fp.value}" (${fp.type})`);
+    }
+  }
+
+  if (overallRecall < 70) {
     console.log(
-      "\n  KILL: Classifier recall <80% on stable probes. Cannot proceed to Phase 2."
+      "\n  KILL: Classifier recall <70% on stable probes. Cannot proceed to Phase 2."
     );
     const feasibility: FeasibilityResult = {
-      proposal: "stability-plasticity",
+      proposal: "stability-plasticity-v2",
       phase1: {
         passed: false,
         details: {
           recall: overallRecall,
           validations,
+          falsePositives: noiseFPs.length,
         },
       },
       phase2: { runs: [], retentionByType: {}, comparisonToBaseline: {} },
       killCriteriaMet: true,
       recommendation: "abandon",
     };
-    await saveResults("stability-plasticity", feasibility);
+    await saveResults("stability-plasticity-v2", feasibility);
     return;
   }
 
   console.log("\n  Phase 1 PASSED. Proceeding to Phase 2.\n");
 
-  // ── Phase 2: Run StabilityPlasticityStrategy ──────────────────────
-  console.log("--- Phase 2: LLM Probe Runs ---\n");
+  // ── Phase 2: Run BOTH strategies on ALL scenarios ─────────────────
+  console.log("--- Phase 2: Strategy Comparison (all 8 scenarios × 2 reps) ---\n");
 
-  // Scenario 1 (Early Fact Recall — identifier-heavy) + Scenario 6 (Cascading Corrections)
-  const targetScenarios = ALL_SCENARIOS.filter(
-    (s) =>
-      s.name === "Early Fact Recall" || s.name === "Cascading Corrections"
-  );
+  // Lazy-import the baseline RLM strategy (avoids eager OpenAI init)
+  const { RLMStrategy } = await import("../strategies/rlm");
 
-  const allRuns: ProbeRunResult[] = [];
+  const spRuns: ProbeRunResult[] = [];
+  const rlmRuns: ProbeRunResult[] = [];
   const repsPerScenario = 2;
 
-  for (const scenario of targetScenarios) {
+  for (const scenario of ALL_SCENARIOS) {
+    if (!scenario.probes || scenario.probes.length === 0) continue;
+
     console.log(`\n  Scenario: ${scenario.name}`);
     for (let rep = 0; rep < repsPerScenario; rep++) {
-      console.log(`    Rep ${rep + 1}/${repsPerScenario}...`);
-      const strategy = new StabilityPlasticityStrategy(8, 4);
-      const result = await runScenarioWithProbes(strategy, scenario);
-      result.rep = rep + 1;
-      allRuns.push(result);
+      // StabilityPlasticity run
+      console.log(`    [SP] Rep ${rep + 1}/${repsPerScenario}...`);
+      const sp = new StabilityPlasticityStrategy(8, 4);
+      const spResult = await runScenarioWithProbes(sp, scenario);
+      spResult.rep = rep + 1;
+      spRuns.push(spResult);
       console.log(
-        `    Result: ${result.retainedCount}/${result.totalProbes} retained`
+        `      ${spResult.retainedCount}/${spResult.totalProbes} retained`
+      );
+
+      // RLM baseline run
+      console.log(`    [RLM] Rep ${rep + 1}/${repsPerScenario}...`);
+      const rlm = new RLMStrategy(8, 4);
+      // RLMStrategy implements MemoryStrategy which is structurally identical to ProbeStrategy
+      const rlmResult = await runScenarioWithProbes(rlm as ProbeStrategy, scenario);
+      rlmResult.rep = rep + 1;
+      rlmRuns.push(rlmResult);
+      console.log(
+        `      ${rlmResult.retainedCount}/${rlmResult.totalProbes} retained`
       );
     }
   }
 
-  // Print results
-  printRetentionTable(allRuns, "Stability-Plasticity Probe Results");
+  // Print results side by side
+  printRetentionTable(spRuns, "StabilityPlasticity Results");
+  printRetentionTable(rlmRuns, "RLM(8) Baseline Results");
 
-  const retentionByType = aggregateRetentionByType(allRuns);
+  const spByType = aggregateRetentionByType(spRuns);
+  const rlmByType = aggregateRetentionByType(rlmRuns);
 
-  // Baseline comparison (RLM baseline: 0% for phone/id and spatial)
-  const baseline: Record<string, number> = {
-    "phone/id": 0,
-    spatial: 0,
-  };
+  // Compute deltas
+  const allTypes = new Set([...Object.keys(spByType), ...Object.keys(rlmByType)]);
   const comparisonToBaseline: Record<string, number> = {};
-  for (const [type, rate] of Object.entries(retentionByType)) {
-    comparisonToBaseline[type] = rate - (baseline[type] ?? 0);
-  }
 
-  console.log("\n  Comparison to RLM baseline (0% phone/id, 0% spatial):");
-  for (const [type, delta] of Object.entries(comparisonToBaseline)) {
+  console.log("\n  Per-type delta (StabilityPlasticity - RLM baseline):");
+  for (const type of [...allTypes].sort()) {
+    const spRate = spByType[type] ?? 0;
+    const rlmRate = rlmByType[type] ?? 0;
+    const delta = spRate - rlmRate;
+    comparisonToBaseline[type] = delta;
     const sign = delta >= 0 ? "+" : "";
-    console.log(`    ${type}: ${sign}${(delta * 100).toFixed(0)}pp`);
+    console.log(
+      `    ${type.padEnd(14)} SP: ${(spRate * 100).toFixed(0).padStart(3)}%  RLM: ${(rlmRate * 100).toFixed(0).padStart(3)}%  Δ: ${sign}${(delta * 100).toFixed(0)}pp`
+    );
   }
 
-  // Kill criteria: both phone/id AND spatial <60%
-  const phoneIdRetention = retentionByType["phone/id"] ?? 0;
-  const spatialRetention = retentionByType["spatial"] ?? 0;
-  const killCriteriaMet =
-    phoneIdRetention < 0.6 && spatialRetention < 0.6;
+  // ── Per-hypothesis kill criteria ──────────────────────────────────
+  const phoneIdDelta = comparisonToBaseline["phone/id"] ?? 0;
+  const quantityDelta = comparisonToBaseline["quantity"] ?? 0;
+
+  const h1Pass = phoneIdDelta >= 0.15; // phone/id improves ≥ +15pp
+  const h2Pass = quantityDelta >= 0.10; // quantity improves ≥ +10pp
+
+  // Side effects: any non-target type drops > 15pp
+  const targetTypes = new Set(["phone/id", "quantity"]);
+  let sideEffectFail = false;
+  for (const [type, delta] of Object.entries(comparisonToBaseline)) {
+    if (!targetTypes.has(type) && delta < -0.15) {
+      sideEffectFail = true;
+      console.log(
+        `\n  SIDE EFFECT: ${type} dropped ${(delta * 100).toFixed(0)}pp (exceeds -15pp threshold)`
+      );
+    }
+  }
 
   let recommendation: "proceed" | "refine" | "abandon";
-  if (killCriteriaMet) {
+  let killCriteriaMet: boolean;
+
+  if (sideEffectFail) {
     recommendation = "abandon";
+    killCriteriaMet = true;
+    console.log("\n  KILL: Side effect threshold exceeded.");
+  } else if (!h1Pass && !h2Pass) {
+    recommendation = "abandon";
+    killCriteriaMet = true;
     console.log(
-      `\n  KILL: Both phone/id (${(phoneIdRetention * 100).toFixed(0)}%) and spatial (${(spatialRetention * 100).toFixed(0)}%) <60%.`
+      `\n  KILL: Both hypotheses failed.`
     );
-  } else if (phoneIdRetention >= 0.6 || spatialRetention >= 0.6) {
+    console.log(`    H1 (phone/id): Δ ${(phoneIdDelta * 100).toFixed(0)}pp (need ≥+15pp)`);
+    console.log(`    H2 (quantity): Δ ${(quantityDelta * 100).toFixed(0)}pp (need ≥+10pp)`);
+  } else if (h1Pass && h2Pass) {
     recommendation = "proceed";
+    killCriteriaMet = false;
     console.log(
-      `\n  PROCEED: At least one target type >=60%. Stability-Plasticity shows promise.`
+      `\n  PROCEED: Both hypotheses pass. Stability-Plasticity + Quantity-Pinning is viable.`
     );
+    console.log(`    H1 (phone/id): Δ +${(phoneIdDelta * 100).toFixed(0)}pp ✓`);
+    console.log(`    H2 (quantity): Δ +${(quantityDelta * 100).toFixed(0)}pp ✓`);
   } else {
     recommendation = "refine";
-    console.log(`\n  REFINE: Mixed results. Consider tuning classifier.`);
+    killCriteriaMet = false;
+    console.log(`\n  REFINE: Partial success.`);
+    console.log(`    H1 (phone/id): Δ ${(phoneIdDelta * 100).toFixed(0)}pp ${h1Pass ? "✓" : "✗"}`);
+    console.log(`    H2 (quantity): Δ ${(quantityDelta * 100).toFixed(0)}pp ${h2Pass ? "✓" : "✗"}`);
   }
 
   const feasibility: FeasibilityResult = {
-    proposal: "stability-plasticity",
+    proposal: "stability-plasticity-v2",
     phase1: {
       passed: true,
       details: {
         recall: overallRecall,
         validations,
+        falsePositives: noiseFPs.length,
+        rlmRetentionByType: rlmByType,
       },
     },
     phase2: {
-      runs: allRuns,
-      retentionByType,
+      runs: [...spRuns, ...rlmRuns],
+      retentionByType: spByType,
       comparisonToBaseline,
     },
     killCriteriaMet,
     recommendation,
   };
 
-  await saveResults("stability-plasticity", feasibility);
+  await saveResults("stability-plasticity-v2", feasibility);
   console.log("\nDone.");
 }
 

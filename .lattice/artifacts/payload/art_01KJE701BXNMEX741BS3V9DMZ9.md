@@ -1,0 +1,1 @@
+Verified: arrow path terminates at x=346 (history panel boundary), payload bar at y=356 below Turn 6 (y=309). Both fixes merged via PR #9. Task was already done but status was stale.

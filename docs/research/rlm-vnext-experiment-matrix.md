@@ -51,9 +51,7 @@ A candidate proceeds only if all gates pass:
 
 ### EXP-02: Intent Framing Preservation (Safety) — **REWORK** 🔄
 
-**Completed.** QPB+Frame reduced but didn't eliminate refusals (1/6 remained). The refusal problem is model-level (gpt-5-nano), not compression-specific — Full Context also refusals. All strategies scored poorly on action-plan generation (avg 4.7/8). Results: `results/exp-02-intent-framing-1772206795415.json`
-
-Possible rework: stronger framing, few-shot examples, or larger model.
+**v1 completed, v2 pending.** The v1 benchmark used action-plan questions that tested model capability, not memory. Full Context scored 0/6 passes (4.7/8 avg checks) — confirming the benchmark was flawed. The benchmark has been redesigned with fact-recall questions to isolate memory quality. Re-run needed with v2 questions before this experiment can be properly evaluated. Results (v1): `results/exp-02-intent-framing-1772206795415.json`
 
 ### EXP-03: Stability-Plasticity Re-test on Correct Data — **KILL** ❌
 

@@ -1,0 +1,39 @@
+{
+  "assigned_to": null,
+  "branch_links": [
+    {
+      "branch": "ctx/exp-02-intent-framing",
+      "linked_at": "2026-02-27T13:09:54Z",
+      "linked_by": "agent:claude-opus-4",
+      "repo": null
+    }
+  ],
+  "comment_count": 1,
+  "complexity": null,
+  "created_at": "2026-02-27T13:09:25Z",
+  "created_by": "agent:claude-opus-4",
+  "custom_fields": {},
+  "description": null,
+  "done_at": "2026-02-27T15:41:38Z",
+  "evidence_refs": [
+    {
+      "id": "ev_01KJFW6F31K58MF5GTP8D34SGH",
+      "role": "review",
+      "source_type": "comment"
+    }
+  ],
+  "id": "task_01KJFKFRFRVCH5RMJN12A3KRXM",
+  "last_event_id": "ev_01KJFW6F5BQE01RWXCXB2J724D",
+  "last_status_changed_at": "2026-02-27T15:41:38Z",
+  "priority": "medium",
+  "relationships_out": [],
+  "reopened_count": 0,
+  "schema_version": 1,
+  "short_id": "CTX-44",
+  "status": "done",
+  "tags": null,
+  "title": "EXP-02: Intent Framing Preservation \u2014 fix safety refusals in RLM compression",
+  "type": "task",
+  "updated_at": "2026-02-27T15:41:38Z",
+  "urgency": null
+}

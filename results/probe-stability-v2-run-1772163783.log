@@ -1,0 +1,22 @@
+=== Stability-Plasticity + Quantity-Pinning Probe (v2) ===
+
+--- Phase 1: Classifier Validation ---
+
+  Early Fact Recall: 3/3 (100%)
+  State Change Tracking: 4/4 (100%)
+  Contradiction Resolution: 3/3 (100%)
+  Multi-hop Reasoning: 5/5 (100%)
+  Long Horizon + Noise: 6/6 (100%)
+  Cascading Corrections: 3/3 (100%)
+
+  Overall classifier recall: 24/24 (100.0%)
+
+  False positives on noise text: 0
+
+  Phase 1 PASSED. Proceeding to Phase 2.
+
+--- Phase 2: Strategy Comparison (all 8 scenarios × 2 reps) ---
+
+
+  Scenario: Early Fact Recall
+    [SP] Rep 1/2...
