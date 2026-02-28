@@ -108,9 +108,9 @@ A candidate proceeds only if all gates pass:
 
 **Internal state GO in CTX-7, promotion gates KILL in CTX-48.** QPB raises internal-state quantity retention from 65% to 100% (CTX-7), but final-answer retention drops to 17.6% on the leaderboard (CTX-48). Internal retention ≠ final-answer retention. The pinned buffer preserves quantities in context, but the model doesn't surface them in responses. 2/6 promotion gates passed (cross-session 4/4, benign refusal 0%), 4/6 failed (quantity 17.6% < 50%, phone/ID 85.7% < 90%, token overhead 15.5% > 10%, official tracks 0/3 improved). Results: `results/qtd-qpb-experiment-1772176379889.json`, `results/qpb-leaderboard-1772232837973.json`
 
-### EXP-02: Intent Framing Preservation (Safety) — **REWORK** 🔄
+### EXP-02: Intent Framing Preservation (Safety) — **GO** ✅
 
-**v1 completed, v2 pending.** The v1 benchmark used action-plan questions that tested model capability, not memory. Full Context scored 0/6 passes (4.7/8 avg checks) — confirming the benchmark was flawed. The benchmark has been redesigned with fact-recall questions to isolate memory quality. Re-run needed with v2 questions before this experiment can be properly evaluated. Results (v1): `results/exp-02-intent-framing-1772206795415.json`
+**v2 completed.** The v1 benchmark (action-plan questions) was flawed — it tested model capability, not memory. v2 redesigned with fact-recall questions. Results: 0 refusals across all 24 runs (4 strategies × 2 scenarios × 3 reps). QPB+Frame matched Full Context (4/6 pass, 7.3/8 avg checks). The v1 confound was entirely the question format, not compression. Results (v2): `results/exp-02-intent-framing-1772242721608.json`
 
 ### EXP-03: Stability-Plasticity Re-test on Correct Data — **KILL** ❌
 
@@ -188,12 +188,9 @@ A candidate proceeds only if all gates pass:
 
 ## Execution Order and Decision Tree
 
-1. ~~Run EXP-01 and EXP-02 in parallel.~~ **Done.** EXP-01: GO, EXP-02: REWORK.
+1. ~~Run EXP-01 and EXP-02 in parallel.~~ **Done.** EXP-01: GO (internal, killed at promotion gates), EXP-02: GO (v2).
 2. ~~Run EXP-03 after EXP-01 baseline artifacts are finalized.~~ **Done.** EXP-03: KILL.
-3. **Current state: 1 GO, 1 REWORK, 1 KILL.** Gate says "fewer than 2 GO → stop and rework." Options:
-   - (a) Rework EXP-02 with stronger framing or larger model to get a second GO.
-   - (b) Proceed to Phase 2 with QPB as the sole Phase 1 winner (relaxed gate).
-   - (c) Accept that safety refusals are a model limitation and focus Phase 2 on retention.
+3. **Current state: 2 GO, 1 KILL.** Phase 1 gate met (≥2 GO). However, QPB was killed at promotion gates (CTX-48) due to storage-vs-retrieval gap. Phase 2 experiments as designed (EXP-04/05/06) are moot — the architecture is sound but the retrieval problem must be solved first.
 4. If >= 2 `GO` in Phase 1, run EXP-04 then EXP-05.
 5. If EXP-04 and EXP-05 both `GO`, run EXP-06 final routing benchmark.
 6. Promote to default production strategy only if global gates all pass.
