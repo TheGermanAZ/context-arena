@@ -804,7 +804,7 @@ export default function Findings() {
             </Callout>
           </div>
           <div className="mt-6 flex items-center gap-3">
-            <VerdictBadge verdict="KILL" />
+            <VerdictBadge verdict="KILLED" />
             <span className="text-gray-400 text-sm">Internal retention ≠ final-answer quality. Storage solved, retrieval gap remains.</span>
           </div>
         </FindingsSection>
