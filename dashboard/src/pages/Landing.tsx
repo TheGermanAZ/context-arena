@@ -373,8 +373,7 @@ const additionalStrategyAnimations: AdditionalStrategyAnimationConfig[] = [
   },
 ];
 
-const RESEARCH_IDS = ['deep-rlm', 'persistent-rlm', 'discovered-rlm', 'rllm', 'qtd', 'qpb'] as const;
-type ResearchAnimationId = (typeof RESEARCH_IDS)[number];
+type ResearchAnimationId = 'deep-rlm' | 'persistent-rlm' | 'discovered-rlm' | 'rllm' | 'qtd' | 'qpb';
 
 const researchStrategyAnimations: { id: ResearchAnimationId; pickerTitle: string; pickerDescription: string; accentColor: string }[] = [
   { id: 'deep-rlm', pickerTitle: 'DeepRLM(d=2)', pickerDescription: 'Chains multiple sub-LLM passes per compression cycle.', accentColor: '#2563eb' },

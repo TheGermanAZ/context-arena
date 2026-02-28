@@ -1,7 +1,6 @@
+/* eslint-disable react-refresh/only-export-components -- shared animation utilities: hook + components intentionally co-located */
 import { useEffect, useState, type ReactNode } from 'react';
-
-export const SPAWN_DURATION = '6s';
-export const ANIMATION_MS = 6000;
+import { SPAWN_DURATION, ANIMATION_MS } from './animationConstants';
 
 /** Shared play/pause/reduced-motion state for all RLM-style animations. */
 export function useAnimationPlayer() {
