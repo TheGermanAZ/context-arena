@@ -65,6 +65,7 @@ const SECTIONS = [
   { id: 'proposals', label: 'Proposals Tested' },
   { id: 'sp-retest', label: 'SP Retest' },
   { id: 'qpb', label: 'QPB Breakthrough' },
+  { id: 'gates', label: 'Promotion Gates' },
   { id: 'intent-framing', label: 'Intent Framing' },
   { id: 'strategy-map', label: 'Strategy Map' },
   { id: 'ship-now', label: 'What We Ship' },
@@ -268,7 +269,7 @@ export default function Findings() {
             ) : (
               <>
                 <KPICard label="Strategies Tested" value={17} format={(n) => String(n)} subtitle="memory configurations" accentColor="#10b981" />
-                <KPICard label="Best Retention" value={96.8} format={(n) => `${n}%`} subtitle="QPB (zero extra LLM cost)" accentColor="#22c55e" />
+                <KPICard label="Best Internal" value={96.8} format={(n) => `${n}%`} subtitle="QPB (storage only)" accentColor="#f59e0b" />
                 <KPICard label="Probes" value={62} format={(n) => String(n)} subtitle="across 8 scenarios" accentColor="#f59e0b" />
                 <KPICard label="Experiments" value={10} format={(n) => String(n)} subtitle="7 experiments + 3 retests" accentColor="#8b5cf6" />
               </>
@@ -734,6 +735,77 @@ export default function Findings() {
               QTD/Full Context. The pinned buffer preserves old values alongside new values, but the
               sub-LLM&apos;s natural-language blob can still lose correction context.
             </Callout>
+            <Callout>
+              <strong>Important caveat:</strong> These numbers measure facts surviving in QPB&apos;s <em>internal state</em> (system prompt + messages).
+              The promotion gates (CTX-48) measure facts in the model&apos;s <em>final answer</em> — see the Promotion Gates section below.
+            </Callout>
+          </div>
+        </FindingsSection>
+
+        {/* ════════════════════════════════════════════
+            Section 10.5 — Promotion Gates (CTX-48)
+           ════════════════════════════════════════════ */}
+        <FindingsSection id="gates" title="QPB Promotion Gates (CTX-48)">
+          <Prose>
+            QPB&apos;s 96.8% internal retention needed to survive six promotion gates before shipping.
+            The gates measure facts in the model&apos;s <em>final answer</em>, not its internal state —
+            a harder bar. QPB was added to all benchmark runners and tested across three waves.
+          </Prose>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+            <KPICard label="Gates Passed" value={2} format={(n) => `${n}/6`} subtitle="KILL verdict" accentColor="#ef4444" />
+            <KPICard label="Quantity (Answer)" value={17.6} format={(n) => `${n}%`} subtitle="needed ≥ 50%" accentColor="#ef4444" />
+            <KPICard label="Phone/ID (Answer)" value={85.7} format={(n) => `${n}%`} subtitle="needed ≥ 90%" accentColor="#f59e0b" />
+            <KPICard label="Token Overhead" value={15.5} format={(n) => `${n}%`} subtitle="limit was ≤ 10%" accentColor="#f59e0b" />
+          </div>
+          <DataTable
+            headers={['Gate', 'Target', 'Result', 'Verdict']}
+            rows={[
+              ['Quantity retention', '≥ 50%', '17.6%', 'FAIL'],
+              ['Phone/ID retention', '≥ 90%', '85.7%', 'FAIL (marginal)'],
+              ['Cross-session', '4/4 pass', '4/4', 'PASS'],
+              ['Benign refusal rate', '0%', '0%', 'PASS'],
+              ['Official tracks improvement', '≥ 2/3', '0/3 (tie, tie, lose)', 'FAIL'],
+              ['Token overhead vs RLM', '≤ 10%', '15.5% (119K vs 103K)', 'FAIL'],
+            ]}
+          />
+          <h3 className="text-xl font-semibold text-gray-200 mt-8 mb-4">Official Benchmark Comparison (QPB vs RLM)</h3>
+          <DataTable
+            headers={['Benchmark', 'Full Context', 'RLM(8)', 'QPB', 'QPB vs RLM']}
+            rows={[
+              ['LongMemEval', '2/3 (67%)', '2/3 (67%)', '2/3 (67%)', 'Tie'],
+              ['MemoryArena', '2/4 (50%)', '4/4 (100%)', '3/4 (75%)', 'Lose'],
+              ['MemoryAgentBench', '0/4 (0%)', '0/4 (0%)', '0/4 (0%)', 'Tie'],
+            ]}
+          />
+          <h3 className="text-xl font-semibold text-gray-200 mt-8 mb-4">The Storage ≠ Retrieval Gap</h3>
+          <Prose>
+            This is the headline finding. QPB solves <em>storage</em> (quantities persist in the context
+            window at 100%) but not <em>retrieval</em> (the model surfaces only 17.6% of them in its response).
+          </Prose>
+          <DataTable
+            headers={['Measure', 'Internal State (CTX-7)', 'Final Answer (CTX-48)']}
+            rows={[
+              ['Quantity retention', '100%', '17.6%'],
+              ['Phone/ID retention', '100%', '85.7%'],
+              ['Overall retention', '96.8%', '64.5%'],
+            ]}
+          />
+          <div className="space-y-3 mt-6">
+            <Callout>
+              <strong>The &ldquo;knowing vs telling&rdquo; problem.</strong> This is analogous to human cognition — having
+              information available in working memory doesn&apos;t mean it gets activated at retrieval time. The model
+              has the facts; it just doesn&apos;t reliably surface them when generating a response.
+            </Callout>
+            <Callout>
+              <strong>Three retrieval-side interventions worth exploring:</strong> (1) Prompt engineering — explicitly instruct the model
+              to reference the pinned buffer. (2) QPB + QTD hybrid — combine QPB&apos;s zero-cost storage with QTD&apos;s
+              query-aware retrieval. (3) Structured injection — force-feed pinned values into the question context
+              rather than appending to the system prompt.
+            </Callout>
+          </div>
+          <div className="mt-6 flex items-center gap-3">
+            <VerdictBadge verdict="KILLED" />
+            <span className="text-gray-400 text-sm">Internal retention ≠ final-answer quality. Storage solved, retrieval gap remains.</span>
           </div>
         </FindingsSection>
 
@@ -847,31 +919,33 @@ export default function Findings() {
           <DataTable
             headers={['Strategy', 'Decision', 'Rationale', 'Caveat']}
             rows={[
-              ['QPB', 'Ship (behind flag)', 'Highest production-feasible retention: 96.8% with zero extra LLM calls', 'Needs external benchmark validation'],
-              ['QTD', 'Do not ship (research)', 'Matches Full Context recall (98.4%), proves question-aware compression works', 'Query-time distillation puts LLM latency on the critical path'],
+              ['QPB', 'Killed (promotion gates)', '96.8% internal retention but 17.6% final-answer quantity retention. 2/6 gates passed.', 'Storage layer is sound — retrieval gap is the blocker'],
+              ['QTD', 'Do not ship (research)', 'Matches Full Context recall (98.4%), proves question-aware retrieval works', 'Query-time distillation puts LLM latency on the critical path'],
               ['Stability-Plasticity', 'Do not ship (kill)', 'Full-run confirmation still trips kill criteria from side effects', 'Regresses date and relationship types'],
+              ['QPB + QTD Hybrid', 'Next to explore', 'Combine QPB\'s zero-cost storage with QTD\'s query-aware retrieval', 'Untested — requires new experiment'],
             ]}
           />
           <h3 className="text-xl font-semibold text-gray-200 mt-8 mb-4">Claim Confidence</h3>
           <DataTable
             headers={['Claim', 'Confidence', 'Caveat']}
             rows={[
-              ['QPB is best production candidate', 'High', 'Internal scenarios only; external generalization pending'],
+              ['Internal retention ≠ final-answer quality', 'High', 'QPB: 96.8% internal → 17.6% quantity in answers (CTX-48)'],
               ['Blind compression is dominant RLM failure', 'High', 'Demonstrated on current suite + model family'],
+              ['QPB storage layer is sound', 'High', 'Quantities persist at 100% in context; retrieval is the gap'],
               ['Stability-Plasticity abandoned', 'Medium-High', 'Both runs fail promotion; disagree on absolute baseline level'],
               ['Safety/refusal interaction is real', 'Medium', 'v1 benchmark confounded; needs v2 rerun'],
             ]}
           />
-          <h3 className="text-xl font-semibold text-gray-200 mt-8 mb-4">Promotion Checklist</h3>
+          <h3 className="text-xl font-semibold text-gray-200 mt-8 mb-4">Promotion Checklist (Final — CTX-48)</h3>
           <DataTable
-            headers={['Gate', 'Target', 'Status', 'Evidence']}
+            headers={['Gate', 'Target', 'Result', 'Evidence']}
             rows={[
-              ['Quantity retention', '≥ 50%', 'PASS (QPB)', 'QPB quantity retention 100%'],
-              ['Phone/ID retention', '≥ 90%', 'PASS (QPB)', 'QPB phone/id retention 100%'],
-              ['Cross-session', '4/4 pass', 'PENDING', 'Needs QPB run on internal cross-session track'],
-              ['Benign refusal rate', '0%', 'PENDING', 'Intent Framing needs v2 fact-recall rerun'],
-              ['Token overhead vs RLM', '≤ 10%', 'PASS (expected)', 'QPB adds regex, no extra LLM calls'],
-              ['Official tracks improvement', '≥ 2/3', 'PENDING', 'Need official-mode rerun with QPB'],
+              ['Quantity retention', '≥ 50%', 'FAIL (17.6%)', 'QPB leaderboard retentionByType.quantity'],
+              ['Phone/ID retention', '≥ 90%', 'FAIL (85.7%)', 'QPB leaderboard retentionByType.phone/id'],
+              ['Cross-session', '4/4 pass', 'PASS (4/4)', 'internal-cross-session-1772221698135.json'],
+              ['Benign refusal rate', '0%', 'PASS (0%)', 'memory-action-micro QPB 8/8, zero refusals'],
+              ['Token overhead vs RLM', '≤ 10%', 'FAIL (15.5%)', 'QPB 119K vs RLM 103K avg tokens'],
+              ['Official tracks improvement', '≥ 2/3', 'FAIL (0/3)', 'Tie on LongMemEval + MAB, lose on MemoryArena'],
             ]}
           />
         </FindingsSection>
@@ -1012,8 +1086,8 @@ export default function Findings() {
                 text: 'Seven distinct correction formats — from explicit negation to Socratic elicitation — all scored identically (57.1%). The sub-LLM already handles corrections well (100% retention). The bottleneck was never how we communicate corrections.',
               },
               {
-                title: 'Quantities Were The Critical Gap — Now Solved',
-                text: 'Across the first six experiments, exact numbers were the most fragile type (0-33%). The QPB Experiment\'s Quantity-Pinning Buffer closes this entirely: quantity retention 65% → 100%, dates 33% → 100%, phone/IDs 57% → 100%. The fix is a zero-cost regex side-channel.',
+                title: 'Quantities: Storage Solved, Retrieval Not',
+                text: 'QPB\'s regex side-channel raises internal-state quantity retention from 65% to 100% (CTX-7). But the promotion gates (CTX-48) revealed that internal retention ≠ final-answer retention: quantity retention in the model\'s response is only 17.6%. The pinned buffer preserves facts in context but the model doesn\'t surface them in output.',
               },
               {
                 title: 'Blind Compression Is The Root Cause',
@@ -1036,15 +1110,17 @@ export default function Findings() {
            ════════════════════════════════════════════ */}
         <FindingsSection id="future" title="Where Next">
           <Prose>
-            The QPB breakthrough answered the biggest open question. Here&apos;s where the research stands:
+            The QPB promotion gates answered the biggest open question — and revealed a new one. Storage is solved;
+            retrieval is the next frontier. Here&apos;s where the research stands:
           </Prose>
 
           <h3 className="text-xl font-semibold text-gray-200 mb-4">Answered Questions</h3>
           <div className="space-y-2 mb-8">
             {[
-              { q: 'Can a dual-track architecture outperform both base RLM and Hybrid?', a: 'Partially answered: QPB is exactly this — natural-language blob + regex side-channel. 96.8% retention vs RLM\'s 75.8%.' },
+              { q: 'Can a dual-track architecture outperform both base RLM and Hybrid?', a: 'Partially: QPB achieves 96.8% internal retention, but 2/6 promotion gates passed. Storage works; retrieval doesn\'t follow automatically.' },
               { q: 'Does Stability-Plasticity work when tested on the right scenarios?', a: 'Answered: Not as a promotable strategy. SP Retest (4 reps) failed outright. SP Confirmation showed small gain but triggered kill criteria from side effects.' },
-              { q: 'Can a quantity-pinning buffer improve number retention?', a: 'Answered: Yes, dramatically. QPB raises quantity retention from 65% to 100%, dates 33% → 100%, phone/IDs 57% → 100%. Zero extra LLM cost.' },
+              { q: 'Can a quantity-pinning buffer improve number retention?', a: 'Answered: In internal state, yes — 65% → 100%. In final answers, no — only 17.6% (CTX-48). The storage problem is solved; the retrieval problem is not.' },
+              { q: 'Does QPB\'s advantage hold on external benchmarks?', a: 'Answered: No. 0/3 official tracks improved. QPB tied RLM on LongMemEval and MemoryAgentBench, lost on MemoryArena.' },
             ].map(({ q, a }) => (
               <div key={q} className="rounded-lg border border-gray-800 bg-gray-900/50 p-4">
                 <p className="text-gray-200 text-sm font-medium mb-1 line-through opacity-70">{q}</p>
@@ -1056,12 +1132,13 @@ export default function Findings() {
           <h3 className="text-xl font-semibold text-gray-200 mt-8 mb-4">Remaining Open Questions</h3>
           <ul className="space-y-2 mb-10 text-gray-400">
             {[
+              'Can retrieval-side prompt engineering close the storage-retrieval gap? (e.g., "Review PINNED QUANTITIES and include relevant values")',
+              'Would a QPB + QTD hybrid combine the best of both — zero-cost storage with query-aware retrieval?',
+              'Can structured injection (force-feeding pinned values into the question context) outperform system-prompt appending?',
               'Does the self-correction effect hold at depth 3+?',
               'Can the sub-LLM prompt be tuned per-type to eliminate the 0% retention categories?',
               'Would a larger model close the agentic extraction gap?',
               'Is the format sensitivity specific to small models, or do larger models also extract worse from structured input?',
-              'What\'s the production-viable path to closing the final 3.2% gap between QPB (96.8%) and Full Context (98.4%)?',
-              'Does QPB\'s advantage hold at scale? Industry benchmarks need re-running with QPB.',
             ].map((q) => (
               <li key={q} className="flex gap-3">
                 <span className="text-emerald-500 mt-1">?</span>
