@@ -53,7 +53,7 @@ export default function DepthComparison() {
   const hasFocus = focused != null;
 
   const chartData: DepthChartRow[] = data.scenarios.map((s: DepthScenario) => ({
-    name: s.name.length > 20 ? s.name.slice(0, 18) + '...' : s.name,
+    name: s.name,
     fullName: s.name,
     depth1: s.depth1.retained,
     depth2: s.depth2.retained,
@@ -72,10 +72,10 @@ export default function DepthComparison() {
       <p className="text-sm text-gray-400 mb-6">
         Click a scenario bar group to focus — does a second delegation layer help or hurt?
       </p>
-      <ResponsiveContainer width="100%" height={400}>
+      <ResponsiveContainer width="100%" height={480}>
         <BarChart
           data={chartData}
-          margin={{ top: 20, right: 30 }}
+          margin={{ top: 20, right: 30, bottom: 100, left: 0 }}
           onClick={(state) => {
             const fullName = (state as ActivePayloadState | undefined)?.activePayload?.[0]?.payload?.fullName;
             if (fullName) onFocusClick?.(fullName);
@@ -83,7 +83,7 @@ export default function DepthComparison() {
           style={{ cursor: 'pointer' }}
         >
           <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-          <XAxis dataKey="name" tick={{ fill: '#9ca3af', fontSize: 11 }} angle={-20} textAnchor="end" height={60} />
+          <XAxis dataKey="name" tick={{ fill: '#9ca3af', fontSize: 10 }} angle={-45} textAnchor="end" dy={5} dx={-5} interval={0} />
           <YAxis tick={{ fill: '#9ca3af', fontSize: 12 }} label={{ value: 'Retained', fill: '#9ca3af', angle: -90, position: 'insideLeft' }} />
           <Tooltip
             contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
@@ -91,14 +91,14 @@ export default function DepthComparison() {
             itemStyle={{ color: '#d1d5db' }}
             labelFormatter={(_label, payload) => payload?.[0]?.payload?.fullName ?? _label}
           />
-          <Legend wrapperStyle={{ color: '#9ca3af' }} />
-          <Bar dataKey="depth1" name="Depth 1" radius={[4, 4, 0, 0]}>
+          <Legend verticalAlign="top" wrapperStyle={{ color: '#9ca3af' }} />
+          <Bar dataKey="depth1" name="Depth 1" fill="#14b8a6" radius={[4, 4, 0, 0]}>
             {chartData.map((entry) => {
               const isDimmed = hasFocus && focused !== entry.fullName;
               return <Cell key={`d1-${entry.fullName}`} fill="#14b8a6" fillOpacity={isDimmed ? 0.15 : 1} />;
             })}
           </Bar>
-          <Bar dataKey="depth2" name="Depth 2" radius={[4, 4, 0, 0]}>
+          <Bar dataKey="depth2" name="Depth 2" fill="#8b5cf6" radius={[4, 4, 0, 0]}>
             {chartData.map((entry) => {
               const isDimmed = hasFocus && focused !== entry.fullName;
               return <Cell key={`d2-${entry.fullName}`} fill="#8b5cf6" fillOpacity={isDimmed ? 0.15 : 1} />;
