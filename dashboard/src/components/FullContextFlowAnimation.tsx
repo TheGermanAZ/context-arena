@@ -169,7 +169,7 @@ export default function FullContextFlowAnimation() {
           </rect>
           <text x="192" y="351" textAnchor="middle" fontSize="10" fill="#1f2937">Context payload grows every turn</text>
 
-          <g className={isPlaying ? 'strategy-node-pop pop-delay-2' : undefined}>
+          <g className={isPlaying ? 'strategy-node-pop' : undefined} style={isPlaying ? { animationDelay: '0.6s' } : undefined}>
             <rect
               x="438"
               y="145"
@@ -180,14 +180,13 @@ export default function FullContextFlowAnimation() {
               stroke="#334155"
               strokeWidth="2"
               className={isPlaying ? 'strategy-node-glow-full' : undefined}
-              style={isPlaying ? { animationDelay: '1.2s' } : undefined}
             />
             <text x="523" y="190" textAnchor="middle" fontSize="18" fill="#111827">Language</text>
             <text x="523" y="214" textAnchor="middle" fontSize="18" fill="#111827">Model</text>
             <text x="523" y="238" textAnchor="middle" fontSize="11" fill="#334155">entire thread each turn</text>
           </g>
 
-          <g className={isPlaying ? 'strategy-node-pop pop-delay-3' : undefined}>
+          <g className={isPlaying ? 'strategy-node-pop' : undefined} style={isPlaying ? { animationDelay: '1.2s' } : undefined}>
             <rect
               x="760"
               y="176"
@@ -198,19 +197,18 @@ export default function FullContextFlowAnimation() {
               stroke="#334155"
               strokeWidth="2"
               className={isPlaying ? 'strategy-node-glow-full' : undefined}
-              style={isPlaying ? { animationDelay: '1.6s' } : undefined}
             />
             <text x="848" y="208" textAnchor="middle" fontSize="12" fill="#111827">assistant response</text>
           </g>
 
-          <FullContextPath d="M 346 210 H 438" animate={isPlaying} reduceMotion={reduceMotion} markerId={markerId} />
-          <FullContextPath d="M 608 206 H 760" animate={isPlaying} reduceMotion={reduceMotion} markerId={markerId} />
+          <FullContextPath d="M 346 210 H 438" animate={isPlaying} reduceMotion={reduceMotion} markerId={markerId} timing="0;0.04;0.16;1" />
+          <FullContextPath d="M 608 206 H 760" animate={isPlaying} reduceMotion={reduceMotion} markerId={markerId} timing="0;0.18;0.30;1" />
           <FullContextPath
             d="M 868 230 V 336 H 346"
             animate={isPlaying}
             reduceMotion={reduceMotion}
             markerId={markerId}
-            timing="0;0.4;0.72;1"
+            timing="0;0.34;0.46;1"
           />
 
           <text x="868" y="354" textAnchor="middle" fontSize="10" fill="#374151">next turn repeats with even more tokens</text>

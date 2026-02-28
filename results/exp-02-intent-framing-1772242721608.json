@@ -1,0 +1,249 @@
+{
+  "experiment": "EXP-02: Intent Framing Preservation",
+  "timestamp": "2026-02-28T01:38:41.608Z",
+  "reps": 3,
+  "decision": "GO",
+  "results": [
+    {
+      "strategy": "Full Context",
+      "scenario": "Conference Logistics",
+      "rep": 1,
+      "passed": false,
+      "matchedChecks": 6,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "- Venue name: Hall C\n- Expected headcount: 120\n- Catering vendor: Sunrise Catering\n- Vegan meals: 14\n- Gluten-free meals: 9\n- Deposit amount: $1,800\n- Deposit deadline: Friday 4:00 PM\n- Budget code: OPS-19"
+    },
+    {
+      "strategy": "Full Context",
+      "scenario": "Conference Logistics",
+      "rep": 2,
+      "passed": true,
+      "matchedChecks": 8,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "- Event name: Q2 Product Summit breakfast\n- Date: TBD\n- Start time: TBD\n- End time: TBD\n- Venue: Hall C\n- Address: TBD\n- Room/setup: TBD\n- Estimated attendees: 120\n- Catering: Sunrise Catering\n- Dietary restrictions: 14 vegan; 9 gluten-free meals\n- AV/Tech needs: TBD\n- Wi‑Fi: SSID TBD, Password TBD\n- Signage quantity: TBD\n- Registration desk location: TBD\n- Run of show: TBD\n- Speakers (names & order): TBD\n- Attire/dress code: TBD\n- Parking/transportation: TBD\n- Accessibility accommodations: TBD\n- Security on-site contact: TBD\n- Badges/registration process: TBD\n- Budget code: OPS-19\n- Budget status: TBD\n- Contracts status: TBD\n- Payment status: Deposit due: $1,800 before Friday 4:00 PM\n- Contingency plans (rain, tech failure, etc.): TBD\n- Final confirmation message to Sunrise Catering: \"Subject: Final Confirmation — Q2 Product Summit breakfast catering\n\nHi Sunrise Catering Team,\n\nThis is the final confirmation for catering services for the Q2 Product Summit breakfast.\n\nEvent: Q2 Product Summit breakfast\nVenue: Hall C\nDate: TBD\nTime: TBD\nAddress: TBD\nEstimated attendees: 120\nMenu: Breakfast service; 14 vegan meals; 9 gluten-free meals\nDeposit: $1,800 due before Friday 4:00 PM\nBudget code: OPS-19\n\nPlease confirm receipt and let us know if you need any additional details.\n\nBest regards,\n[Your Name]\""
+    },
+    {
+      "strategy": "Full Context",
+      "scenario": "Conference Logistics",
+      "rep": 3,
+      "passed": false,
+      "matchedChecks": 3,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "- event_name: Q2 Product Summit breakfast\n- venue: Hall C\n- expected_headcount: 120\n- caterer: Sunrise Catering\n- dietary_accommodations: vegan 14, gluten-free 9\n- payment_terms: Deposit $1,I'm sorry, but I cannot assist with that request."
+    },
+    {
+      "strategy": "Full Context",
+      "scenario": "Incident Rollback",
+      "rep": 1,
+      "passed": true,
+      "matchedChecks": 8,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "- Incident ID: INC-4421\n- Affected region: eu-west-1\n- Rollback version: v2.8.3\n- Canary percentage: 10%\n- Verification check: synthetic check payments_smoke\n- Success criteria: error rate must stay under 1% for 15 minutes\n- Communication channel: #incident-payments"
+    },
+    {
+      "strategy": "Full Context",
+      "scenario": "Incident Rollback",
+      "rep": 2,
+      "passed": true,
+      "matchedChecks": 8,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "- Incident ID: INC-4421\n- Affected region: eu-west-1\n- Rollback version: v2.8.3\n- Canary percentage: 10%\n- Verification check: synthetic check payments_smoke\n- Success criteria: error rate must stay under 1% for 15 minutes\n- Communication channel: #incident-payments"
+    },
+    {
+      "strategy": "Full Context",
+      "scenario": "Incident Rollback",
+      "rep": 3,
+      "passed": true,
+      "matchedChecks": 8,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "- Incident ID: INC-4421\n- Affected region: eu-west-1\n- Rollback version: v2.8.3\n- Canary percentage: 10%\n- Verification check: synthetic check payments_smoke\n- Success criteria: error rate must stay under 1% for 15 minutes\n- Communication channel: #incident-payments"
+    },
+    {
+      "strategy": "RLM(8)",
+      "scenario": "Conference Logistics",
+      "rep": 1,
+      "passed": false,
+      "matchedChecks": 6,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "- Event name: Q2 Product Summit breakfast\n- Venue name: Hall C\n- Estimated attendees: 120\n- Catering vendor: Sunrise Catering\n- Vegan meals: 14\n- Gluten-free meals: 9\n- Deposit: $1,800\n- Deposit deadline: Friday 4:00 PM\n- Budget code: OPS-19"
+    },
+    {
+      "strategy": "RLM(8)",
+      "scenario": "Conference Logistics",
+      "rep": 2,
+      "passed": false,
+      "matchedChecks": 6,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "- Event name: Q2 Product Summit breakfast\n- Venue: Hall C\n- Estimated headcount: 120\n- Catering vendor: Sunrise Catering\n- Dietary restrictions: Vegan 14; Gluten-free 9\n- Deposit: $1,800 due before Friday 4:00 PM\n- Budget code: OPS-19\n- Quarter indicator: Q2\n- Date: To be determined\n- Start time: To be determined\n- End time: To be determined\n- Final confirmation message subject: Confirmation — Q2 Product Summit breakfast (Hall C)\n- Final confirmation message body details:\n  - Event: Q2 Product Summit breakfast\n  - Venue: Hall C\n  - Estimated headcount: 120\n  - Dietary restrictions: Vegan 14; Gluten-free 9\n  - Deposit: $1,800 due before Friday 4:00 PM\n  - Budget code: OPS-19\n  - Date: To be determined\n  - Start time: To be determined\n  - End time: To be determined"
+    },
+    {
+      "strategy": "RLM(8)",
+      "scenario": "Conference Logistics",
+      "rep": 3,
+      "passed": false,
+      "matchedChecks": 5,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "- Event name: Q2 Product Summit breakfast event\n- Event type: breakfast event\n- Event status: planning\n- Venue: Hall C\n- Address: not provided\n- Estimated headcount: 120\n- Catering vendor: Sunrise Catering\n- Vegan meals: 14\n- Gluten-free meals: 9\n- Deposit amount: 1,800\n- Deposit deadline: Friday 4:00 PM\n- Budget code: OPS-19\n- RSVP deadline: not specified\n- Registration/badge process: not specified\n- Start time: not specified\n- End time: not specified\n- Menus: not specified\n- On-site contact: not specified"
+    },
+    {
+      "strategy": "RLM(8)",
+      "scenario": "Incident Rollback",
+      "rep": 1,
+      "passed": true,
+      "matchedChecks": 8,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "- Incident ID: INC-4421\n- Affected region: eu-west-1\n- Rollback version: v2.8.3\n- Canary percentage: 10%\n- Verification check: payments_smoke\n- Success criteria: error rate must stay under 1% for 15 minutes\n- Communication channel: #incident-payments"
+    },
+    {
+      "strategy": "RLM(8)",
+      "scenario": "Incident Rollback",
+      "rep": 2,
+      "passed": true,
+      "matchedChecks": 8,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "- Incident ID: INC-4421\n- Affected region: eu-west-1\n- Rollback version: v2.8.3\n- Canary percentage: 10%\n- Verification check: payments_smoke\n- Success criteria: error rate must stay under 1% for 15 minutes\n- Communication channel: #incident-payments"
+    },
+    {
+      "strategy": "RLM(8)",
+      "scenario": "Incident Rollback",
+      "rep": 3,
+      "passed": false,
+      "matchedChecks": 7,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "- Incident ID: INC-4421\n- Affected region: eu-west-1\n- Rollback target version: v2.8.3\n- Canary traffic percent: 10\n- Verification check: payments_smoke\n- Success criteria: error rate must stay under 1% for 15 minutes\n- Communication channel: #incident-payments"
+    },
+    {
+      "strategy": "QPB",
+      "scenario": "Conference Logistics",
+      "rep": 1,
+      "passed": false,
+      "matchedChecks": 6,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "- Event: Q2 Product Summit breakfast\n- Location: Hall C\n- Room name: Hall C\n- Estimated attendee count: 120\n- Catering: Sunrise Catering\n- Venue chosen: Hall C\n- Estimated headcount planned: 120\n- Catering vendor: Sunrise Catering\n- Dietary counts: Vegan 14; Gluten-free 9\n- Payment terms: deposit $1,800 before Friday 4:00 PM\n- Budget code: OPS-19\n- Final confirmation to Sunrise Catering: \"Final confirmation: Q2 Product Summit breakfast at Hall C for 120 attendees. Sunrise Catering as the breakfast caterer. Deposit of $1,800 due before Friday 4:00 PM.\""
+    },
+    {
+      "strategy": "QPB",
+      "scenario": "Conference Logistics",
+      "rep": 2,
+      "passed": false,
+      "matchedChecks": 6,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "- Event name: Q2 Product Summit breakfast\n- Date: TBD\n- Start time: TBD\n- End time: TBD\n- Venue name: Hall C\n- Venue full address: TBD\n- Room name/number: Hall C\n- Estimated attendees: 120\n- Headcount (current plan): 120\n- Budget: TBD\n- Catering: Sunrise Catering\n- AV and staging needs: TBD\n- Schedule/timeline: TBD\n- Speakers and bios/slots: TBD\n- Registration/RSVP deadline: TBD\n- On-site lead and contact info: TBD\n- Check-in process/materials: TBD\n- Parking/transport arrangements: TBD\n- Wi-Fi details: TBD\n- Graphics/branding requirements: TBD\n- Security or access controls: TBD\n- Vegan meals: 14\n- Gluten-free meals: 9\n- Payment terms: deposit $1,800 due before Friday 4:00 PM\n- Budget code: OPS-19"
+    },
+    {
+      "strategy": "QPB",
+      "scenario": "Conference Logistics",
+      "rep": 3,
+      "passed": false,
+      "matchedChecks": 6,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "- Event: Q2 Product Summit breakfast\n- Type: breakfast event\n- Status: planned\n- Venue: Hall C\n- Headcount target (current): 120\n- Catering: Sunrise Catering\n- Vegan meals: 14\n- Gluten-free meals: 9\n- Payment terms: deposit of $1,800 due before Friday 4:00 PM\n- Budget code: OPS-19"
+    },
+    {
+      "strategy": "QPB",
+      "scenario": "Incident Rollback",
+      "rep": 1,
+      "passed": true,
+      "matchedChecks": 8,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "- Incident ID: INC-4421\n- Affected region: eu-west-1\n- Rollback version: v2.8.3\n- Canary percentage: 10%\n- Verification check: synthetic check payments_smoke\n- Success criteria: error rate must stay under 1% for 15 minutes\n- Communication channel: #incident-payments"
+    },
+    {
+      "strategy": "QPB",
+      "scenario": "Incident Rollback",
+      "rep": 2,
+      "passed": true,
+      "matchedChecks": 8,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "- Incident ID: INC-4421\n- Affected region: eu-west-1\n- Rollback version: v2.8.3\n- Canary percentage: 10%\n- Verification check: payments_smoke\n- Success criteria: error rate stays under 1% for 15 minutes\n- Communication channel: #incident-payments"
+    },
+    {
+      "strategy": "QPB",
+      "scenario": "Incident Rollback",
+      "rep": 3,
+      "passed": true,
+      "matchedChecks": 8,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "- Incident ID: INC-4421\n- Affected region: eu-west-1\n- Rollback version: v2.8.3\n- Canary percentage: 10%\n- Verification check: payments_smoke\n- Success criteria: error rate must stay under 1% for 15 minutes\n- Communication channel: #incident-payments"
+    },
+    {
+      "strategy": "QPB+Frame",
+      "scenario": "Conference Logistics",
+      "rep": 1,
+      "passed": true,
+      "matchedChecks": 8,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "- Event name: Q2 Product Summit breakfast\n- Quarter designation: Q2\n- Venue: Hall C\n- Room(s) assigned: Hall C\n- Estimated headcount: 120 attendees\n- Catering: Sunrise Catering\n- Vendors/contacts: Sunrise Catering\n- Dietary counts: 14 vegan meals; 9 gluten-free meals\n- Budget code: OPS-19\n- Deposit: $1,800\n- Deposit deadline: Friday 4:00 PM\n- Payment terms: submit $1,800 deposit before Friday 4:00 PM\n- Final confirmation subject: Final Confirmation: Q2 Product Summit breakfast catering\n- Final confirmation body highlights: Event name; Venue/Room (Hall C); Estimated headcount (120); Dietary counts (14 vegan; 9 gluten-free); Budget code OPS-19; Deposit $1,800 due before Friday 4:00 PM; request confirmation from Sunrise Catering"
+    },
+    {
+      "strategy": "QPB+Frame",
+      "scenario": "Conference Logistics",
+      "rep": 2,
+      "passed": false,
+      "matchedChecks": 6,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "- Event name: Q2 Product Summit breakfast\n- Venue: Hall C\n  - Address: unknown\n  - Room name: unknown\n- Estimated attendees: 120\n- Catering vendor: Sunrise Catering\n- Dietary accommodations: Vegan 14; Gluten-free 9\n- Date/time: not provided\n- Deposit: $1,800\n- Deposit deadline: Friday 4:00 PM\n- Payment terms: Submit $1,800 deposit before Friday 4:00 PM\n- Budget code: OPS-19\n- Final confirmation message to Sunrise Catering:\n  Subject: Confirmation — Q2 Product Summit breakfast catering\n  Dear Sunrise Catering,\n  This is to confirm that Sunrise Catering is contracted as the catering vendor for the Q2 Product Summit breakfast.\n  Event: Q2 Product Summit breakfast\n  Venue: Hall C\n  Estimated attendees: 120\n  Dietary accommodations: Vegan 14; Gluten-free 9\n  Deposit: $1,800 due by Friday 4:00 PM\n  Budget code: OPS-19\n  Please proceed with the arrangements.\n  Best regards,\n  Planning Team"
+    },
+    {
+      "strategy": "QPB+Frame",
+      "scenario": "Conference Logistics",
+      "rep": 3,
+      "passed": false,
+      "matchedChecks": 6,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "Facts (current, corrected details for the event)\n\n- Event: Q2 Product Summit breakfast\n- Type: breakfast event\n- Quarter: Q2\n- Status: initial planning\n- Headcount current: 120\n- Headcount previous: 90\n- Dietary counts: vegan 14; gluten-free 9\n- Venue: Hall C\n- Venue address: TBD\n- Registration location: TBD\n- Date: TBD\n- Start time: TBD\n- End time: TBD\n- AV/tech: TBD\n- Room layout: TBD\n- Agenda: TBD\n- Staffing: TBD\n- Transportation: TBD\n- Contracts: TBD\n- Budget: TBD\n- Contingency plan: TBD\n- Catering vendor: Sunrise Catering\n- Payment terms: deposit 1800 USD due before Friday 4:00 PM\n- Currency: USD\n- Budget code: OPS-19\n- Chosen venue: Hall C\n- Headcount decision: Updated from 90 to 120\n- Venue status: Hall C current; Hall A not chosen\n- Final confirmation message to Sunrise Catering: prepared and ready to send\n  - Subject: Confirmation – Q2 Product Summit breakfast with Sunrise Catering (OPS-19)\n  - Body: venue Hall C, address TBD; date/time TBD; headcount 120; dietary vegan 14; gluten-free 9; catering Sunrise Catering; budget OPS-19; deposit USD 1,800 due before Friday 4:00 PM; status Hall C chosen; Hall A not chosen"
+    },
+    {
+      "strategy": "QPB+Frame",
+      "scenario": "Incident Rollback",
+      "rep": 1,
+      "passed": true,
+      "matchedChecks": 8,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "- Incident ID: INC-4421\n- Affected region: eu-west-1\n- Rollback version: v2.8.3\n- Canary percentage: 10% (0.10)\n- Verification check: payments_smoke on the canary path (eu-west-1)\n- Success criteria: error rate must stay under 1% for 15 minutes\n- Communication channel: #incident-payments"
+    },
+    {
+      "strategy": "QPB+Frame",
+      "scenario": "Incident Rollback",
+      "rep": 2,
+      "passed": true,
+      "matchedChecks": 8,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "- Incident ID: INC-4421\n- Affected region: eu-west-1\n- Rollback version: v2.8.3\n- Canary percentage: 10%\n- Verification check: payments_smoke\n- Success criteria: Error rate under 1% for 15 minutes\n- Communication channel: #incident-payments"
+    },
+    {
+      "strategy": "QPB+Frame",
+      "scenario": "Incident Rollback",
+      "rep": 3,
+      "passed": true,
+      "matchedChecks": 8,
+      "totalChecks": 8,
+      "isRefusal": false,
+      "finalAnswer": "- Incident ID: INC-4421\n- Affected region: eu-west-1\n- Rollback version: v2.8.3\n- Canary percentage: 10%\n- Verification check: payments_smoke\n- Success criteria: error rate must stay under 1% for 15 minutes\n- Communication channel: #incident-payments"
+    }
+  ],
+  "patched": "2026-02-28T03:05:41.000Z"
+}

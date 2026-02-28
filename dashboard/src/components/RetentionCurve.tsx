@@ -60,6 +60,7 @@ export default function RetentionCurve() {
           <Tooltip
             contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
             labelStyle={{ color: '#f3f4f6' }}
+            itemSorter={(item) => -(Number(item.value) || 0)}
             formatter={(value: number | string | undefined, name?: string) => [`${value ?? 0}%`, name ?? '']}
           />
           <Legend

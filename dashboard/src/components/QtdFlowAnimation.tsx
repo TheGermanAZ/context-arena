@@ -67,7 +67,7 @@ export default function QtdFlowAnimation() {
           </rect>
 
           {/* ── Budget check diamond ───────────────────── */}
-          <g className={isPlaying ? 'strategy-node-pop pop-delay-1' : undefined}>
+          <g className={isPlaying ? 'strategy-node-pop' : undefined} style={isPlaying ? { animationDelay: '0.8s' } : undefined}>
             <polygon
               points="410,220 490,175 570,220 490,265"
               fill="#f9f0ca" stroke="#2f3640" strokeWidth="2"
@@ -80,11 +80,11 @@ export default function QtdFlowAnimation() {
           <SpawnPath d="M 280 220 H 410" timing="0;0.12;0.28;1" reduceMotion={reduceMotion} animate={isPlaying} />
 
           {/* ── YES path: question-guided distillation ─── */}
-          <SpawnPath d="M 490 265 V 340" timing="0;0.32;0.48;1" reduceMotion={reduceMotion} animate={isPlaying} />
+          <SpawnPath d="M 490 265 V 340" timing="0;0.22;0.36;1" reduceMotion={reduceMotion} animate={isPlaying} />
           <text x="510" y="310" fontSize="10" fontWeight="600" fill="#be123c">yes</text>
 
           {/* ── User question pill ─────────────────────── */}
-          <g className={isPlaying ? 'strategy-node-pop pop-delay-2' : undefined}>
+          <g className={isPlaying ? 'strategy-node-pop' : undefined} style={isPlaying ? { animationDelay: '1.6s' } : undefined}>
             <rect x="340" y="290" width="120" height="32" rx="8" fill="#e7c5e5" stroke="#2f3640" strokeWidth="2" />
             <text x="400" y="311" textAnchor="middle" fontSize="10" fill="#111827">user question</text>
           </g>
@@ -108,19 +108,15 @@ export default function QtdFlowAnimation() {
             <text x="645" y="422" textAnchor="middle" fontSize="8" fill="#111827">Q</text>
           </SpawnGroup>
 
-          {/* ── Distilled output ───────────────────────── */}
+          {/* ── Distilled output arrow ────────────────── */}
           <SpawnPath d="M 530 480 V 530" timing="0;0.58;0.74;1" reduceMotion={reduceMotion} animate={isPlaying} />
-          <g className={isPlaying ? 'strategy-node-pop pop-delay-4' : undefined}>
-            <rect x="400" y="535" width="260" height="40" rx="8" fill="#efcfd8" stroke="#2f3640" strokeWidth="2" />
-            <text x="530" y="560" textAnchor="middle" fontSize="11" fill="#111827">distilled context + response</text>
-          </g>
 
           {/* ── NO path: direct to model ───────────────── */}
-          <SpawnPath d="M 570 220 H 700" timing="0;0.32;0.48;1" reduceMotion={reduceMotion} animate={isPlaying} />
+          <SpawnPath d="M 570 220 H 700" timing="0;0.22;0.36;1" reduceMotion={reduceMotion} animate={isPlaying} />
           <text x="620" y="210" fontSize="10" fontWeight="600" fill="#047857">no</text>
 
           {/* ── Direct LM path ─────────────────────────── */}
-          <g className={isPlaying ? 'strategy-node-pop pop-delay-2' : undefined}>
+          <g className={isPlaying ? 'strategy-node-pop' : undefined} style={isPlaying ? { animationDelay: '1.6s' } : undefined}>
             <rect x="700" y="170" width="240" height="100" rx="7" fill="#bcd0dc" stroke="#2f3640" strokeWidth="2" />
             <rect
               x="730" y="188" width="170" height="60" rx="8"
@@ -131,8 +127,14 @@ export default function QtdFlowAnimation() {
             <text x="815" y="233" textAnchor="middle" fontSize="10" fill="#334155">raw messages fit budget</text>
           </g>
 
-          {/* ── Direct response ────────────────────────── */}
+          {/* ── Direct response arrow ────────────────── */}
           <SpawnPath d="M 820 270 V 530 H 660" timing="0;0.50;0.70;1" reduceMotion={reduceMotion} animate={isPlaying} />
+
+          {/* ── Response box (animates in last) ──────── */}
+          <g className={isPlaying ? 'strategy-node-pop pop-delay-last' : undefined}>
+            <rect x="400" y="535" width="260" height="40" rx="8" fill="#efcfd8" stroke="#2f3640" strokeWidth="2" />
+            <text x="530" y="560" textAnchor="middle" fontSize="11" fill="#111827">distilled context + response</text>
+          </g>
 
           {/* ── Annotation ─────────────────────────────── */}
           <text x="160" y="420" textAnchor="middle" fontSize="10" fill="#334155">zero compression cost</text>

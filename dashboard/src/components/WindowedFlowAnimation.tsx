@@ -164,7 +164,7 @@ export default function WindowedFlowAnimation() {
             );
           })}
 
-          <g className={isPlaying ? 'strategy-node-pop pop-delay-2' : undefined}>
+          <g className={isPlaying ? 'strategy-node-pop' : undefined} style={isPlaying ? { animationDelay: '0.5s' } : undefined}>
             <rect
               x="362"
               y="182"
@@ -185,7 +185,7 @@ export default function WindowedFlowAnimation() {
             <text x="469" y="295" textAnchor="middle" fontSize="10" fill="#111827">Turn 6</text>
           </g>
 
-          <g className={isPlaying ? 'strategy-node-pop pop-delay-3' : undefined}>
+          <g className={isPlaying ? 'strategy-node-pop' : undefined} style={isPlaying ? { animationDelay: '1.1s' } : undefined}>
             <rect
               x="668"
               y="146"
@@ -196,13 +196,12 @@ export default function WindowedFlowAnimation() {
               stroke="#374151"
               strokeWidth="2"
               className={isPlaying ? 'strategy-node-glow-window' : undefined}
-              style={isPlaying ? { animationDelay: '1.1s' } : undefined}
             />
             <text x="752" y="191" textAnchor="middle" fontSize="18" fill="#111827">Language</text>
             <text x="752" y="215" textAnchor="middle" fontSize="18" fill="#111827">Model</text>
           </g>
 
-          <g className={isPlaying ? 'strategy-node-pop pop-delay-4' : undefined}>
+          <g className={isPlaying ? 'strategy-node-pop' : undefined} style={isPlaying ? { animationDelay: '1.7s' } : undefined}>
             <rect
               x="858"
               y="176"
@@ -213,12 +212,11 @@ export default function WindowedFlowAnimation() {
               stroke="#374151"
               strokeWidth="2"
               className={isPlaying ? 'strategy-node-glow-window' : undefined}
-              style={isPlaying ? { animationDelay: '1.4s' } : undefined}
             />
             <text x="907" y="208" textAnchor="middle" fontSize="12" fill="#111827">response</text>
           </g>
 
-          <g className={isPlaying ? 'strategy-node-pop pop-delay-5' : undefined}>
+          <g className={isPlaying ? 'strategy-node-pop' : undefined} style={isPlaying ? { animationDelay: '1.8s' } : undefined}>
             <rect
               x="642"
               y="292"
@@ -229,7 +227,6 @@ export default function WindowedFlowAnimation() {
               stroke="#374151"
               strokeWidth="2"
               className={isPlaying ? 'strategy-node-glow-window' : undefined}
-              style={isPlaying ? { animationDelay: '1.8s' } : undefined}
             >
               {!reduceMotion && isPlaying && (
                 <animate
@@ -245,9 +242,9 @@ export default function WindowedFlowAnimation() {
             <text x="760" y="334" textAnchor="middle" fontSize="10" fill="#111827">Turns 1-3 dropped from active context</text>
           </g>
 
-          <WindowedPath d="M 292 250 H 362" animate={isPlaying} reduceMotion={reduceMotion} markerId={markerId} />
-          <WindowedPath d="M 576 214 H 668" animate={isPlaying} reduceMotion={reduceMotion} markerId={markerId} />
-          <WindowedPath d="M 836 203 H 858" animate={isPlaying} reduceMotion={reduceMotion} markerId={markerId} />
+          <WindowedPath d="M 292 250 H 362" animate={isPlaying} reduceMotion={reduceMotion} markerId={markerId} timing="0;0.04;0.16;1" />
+          <WindowedPath d="M 576 214 H 668" animate={isPlaying} reduceMotion={reduceMotion} markerId={markerId} timing="0;0.18;0.32;1" />
+          <WindowedPath d="M 836 203 H 858" animate={isPlaying} reduceMotion={reduceMotion} markerId={markerId} timing="0;0.30;0.42;1" />
           <WindowedPath
             d="M 176 182 H 176 V 322 H 642"
             animate={isPlaying}

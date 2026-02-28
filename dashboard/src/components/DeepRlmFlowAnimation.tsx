@@ -59,8 +59,8 @@ export default function DeepRlmFlowAnimation() {
             <text x="130" y="173" textAnchor="middle" fontSize="11" fill="#111827">context</text>
           </g>
 
-          {/* ── Output pill ────────────────────────────── */}
-          <g className={isPlaying ? 'strategy-node-pop pop-delay-2' : undefined}>
+          {/* ── Output pill (animates in last) ────────── */}
+          <g className={isPlaying ? 'strategy-node-pop pop-delay-last' : undefined}>
             <rect x="760" y="108" width="155" height="42" rx="8" fill="#efcfd8" stroke="#2f3640" strokeWidth="2" />
             <text x="837" y="134" textAnchor="middle" fontSize="11" fill="#111827">response</text>
           </g>
@@ -68,7 +68,7 @@ export default function DeepRlmFlowAnimation() {
           {/* ── Top-level flow lines ───────────────────── */}
           <path className="rlm-arch-line" d="M 175 113 H 290" />
           <path className="rlm-arch-line" d="M 230 168 H 290" />
-          <path className="rlm-arch-line" d="M 670 129 H 760" />
+          <SpawnPath d="M 670 129 H 760" timing="0;0.86;0.96;1" reduceMotion={reduceMotion} animate={isPlaying} />
 
           {/* ── Delegation arrow to Pass 1 ─────────────── */}
           <SpawnPath d="M 480 250 V 320" timing="0;0.12;0.28;1" reduceMotion={reduceMotion} animate={isPlaying} />

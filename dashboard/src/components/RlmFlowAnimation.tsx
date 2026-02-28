@@ -7,6 +7,7 @@ interface SpawnPathProps {
   phase: SpawnPhase;
   reduceMotion: boolean;
   animate: boolean;
+  timing?: string;
 }
 
 const PHASE_TIMINGS: Record<SpawnPhase, string> = {
@@ -16,25 +17,25 @@ const PHASE_TIMINGS: Record<SpawnPhase, string> = {
 
 const ANIMATION_MS = 6000;
 
-function SpawnPath({ d, phase, reduceMotion, animate }: SpawnPathProps) {
+function SpawnPath({ d, phase, reduceMotion, animate, timing }: SpawnPathProps) {
   if (reduceMotion || !animate) {
     return <path className="rlm-arch-line" d={d} />;
   }
 
-  const timing = PHASE_TIMINGS[phase];
+  const resolvedTiming = timing ?? PHASE_TIMINGS[phase];
   return (
     <path className="rlm-arch-line rlm-arch-line-spawn" d={d} pathLength={100}>
       <animate
         attributeName="stroke-dashoffset"
         values="100;100;0;0"
-        keyTimes={timing}
+        keyTimes={resolvedTiming}
         dur="6s"
         repeatCount="1"
       />
       <animate
         attributeName="opacity"
         values="0;0;1;1"
-        keyTimes={timing}
+        keyTimes={resolvedTiming}
         dur="6s"
         repeatCount="1"
       />
@@ -181,7 +182,7 @@ export default function RlmFlowAnimation() {
             <text x="233" y="190" textAnchor="middle" fontSize="11" fill="#111827">context</text>
           </g>
 
-          <g className={isPlaying ? 'strategy-node-pop pop-delay-3' : undefined}>
+          <g className={isPlaying ? 'strategy-node-pop pop-delay-last' : undefined}>
             <rect x="937" y="112" width="166" height="38" rx="8" fill="#efcfd8" stroke="#2f3640" strokeWidth="2" />
             <text x="1020" y="136" textAnchor="middle" fontSize="11" fill="#111827">final response</text>
           </g>
@@ -294,7 +295,7 @@ export default function RlmFlowAnimation() {
           {/* Flow lines */}
           <path className="rlm-arch-line" d="M 280 131 H 528" />
           <path className="rlm-arch-line" d="M 414 183 H 512" />
-          <path className="rlm-arch-line" d="M 723 131 H 934" />
+          <SpawnPath d="M 723 131 H 934" phase="right" timing="0;0.86;0.96;1" reduceMotion={reduceMotion} animate={isPlaying} />
 
           <path className="rlm-arch-line" d="M 620 215 V 235" />
           <path className="rlm-arch-line" d="M 642 235 V 215" />
@@ -302,22 +303,22 @@ export default function RlmFlowAnimation() {
           <SpawnPath d="M 610 367 L 540 478" phase="left" reduceMotion={reduceMotion} animate={isPlaying} />
           <SpawnPath d="M 688 367 L 775 478" phase="right" reduceMotion={reduceMotion} animate={isPlaying} />
 
-          <SpawnPath d="M 393 524 V 552" phase="left" reduceMotion={reduceMotion} animate={isPlaying} />
-          <SpawnPath d="M 511 524 V 552" phase="left" reduceMotion={reduceMotion} animate={isPlaying} />
-          <SpawnPath d="M 457 644 V 682" phase="left" reduceMotion={reduceMotion} animate={isPlaying} />
+          <SpawnPath d="M 393 524 V 552" phase="left" timing="0;0.24;0.36;1" reduceMotion={reduceMotion} animate={isPlaying} />
+          <SpawnPath d="M 511 524 V 552" phase="left" timing="0;0.24;0.36;1" reduceMotion={reduceMotion} animate={isPlaying} />
+          <SpawnPath d="M 457 644 V 682" phase="left" timing="0;0.38;0.50;1" reduceMotion={reduceMotion} animate={isPlaying} />
 
-          <SpawnPath d="M 893 524 V 552" phase="right" reduceMotion={reduceMotion} animate={isPlaying} />
-          <SpawnPath d="M 760 524 V 670" phase="right" reduceMotion={reduceMotion} animate={isPlaying} />
-          <SpawnPath d="M 942 589 H 964" phase="right" reduceMotion={reduceMotion} animate={isPlaying} />
-          <SpawnPath d="M 848 644 V 670" phase="right" reduceMotion={reduceMotion} animate={isPlaying} />
-          <SpawnPath d="M 872 670 V 644" phase="right" reduceMotion={reduceMotion} animate={isPlaying} />
+          <SpawnPath d="M 893 524 V 552" phase="right" timing="0;0.32;0.44;1" reduceMotion={reduceMotion} animate={isPlaying} />
+          <SpawnPath d="M 760 524 V 670" phase="right" timing="0;0.32;0.44;1" reduceMotion={reduceMotion} animate={isPlaying} />
+          <SpawnPath d="M 942 589 H 964" phase="right" timing="0;0.46;0.58;1" reduceMotion={reduceMotion} animate={isPlaying} />
+          <SpawnPath d="M 848 644 V 670" phase="right" timing="0;0.46;0.58;1" reduceMotion={reduceMotion} animate={isPlaying} />
+          <SpawnPath d="M 872 670 V 644" phase="right" timing="0;0.50;0.62;1" reduceMotion={reduceMotion} animate={isPlaying} />
 
-          <SpawnPath d="M 808 806 L 785 860" phase="right" reduceMotion={reduceMotion} animate={isPlaying} />
-          <SpawnPath d="M 855 806 V 860" phase="right" reduceMotion={reduceMotion} animate={isPlaying} />
-          <SpawnPath d="M 904 806 L 934 860" phase="right" reduceMotion={reduceMotion} animate={isPlaying} />
+          <SpawnPath d="M 808 806 L 785 860" phase="right" timing="0;0.56;0.68;1" reduceMotion={reduceMotion} animate={isPlaying} />
+          <SpawnPath d="M 855 806 V 860" phase="right" timing="0;0.56;0.68;1" reduceMotion={reduceMotion} animate={isPlaying} />
+          <SpawnPath d="M 904 806 L 934 860" phase="right" timing="0;0.56;0.68;1" reduceMotion={reduceMotion} animate={isPlaying} />
 
-          <SpawnPath d="M 373 701 H 265 V 319 H 460" phase="left" reduceMotion={reduceMotion} animate={isPlaying} />
-          <SpawnPath d="M 1134 589 H 1193 V 319 H 800" phase="right" reduceMotion={reduceMotion} animate={isPlaying} />
+          <SpawnPath d="M 373 701 H 265 V 319 H 460" phase="left" timing="0;0.54;0.70;1" reduceMotion={reduceMotion} animate={isPlaying} />
+          <SpawnPath d="M 1134 589 H 1193 V 319 H 800" phase="right" timing="0;0.68;0.82;1" reduceMotion={reduceMotion} animate={isPlaying} />
         </svg>
       </div>
 
