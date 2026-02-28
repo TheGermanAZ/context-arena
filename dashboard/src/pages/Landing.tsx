@@ -1,4 +1,4 @@
-import { type ReactNode, useState } from 'react';
+import { type ReactNode, useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useLeaderboard } from '../lib/hooks';
 import { KPICard, Skeleton } from '../components/charts';
@@ -13,6 +13,42 @@ import DiscoveredRlmFlowAnimation from '../components/DiscoveredRlmFlowAnimation
 import RllmFlowAnimation from '../components/RllmFlowAnimation';
 import QtdFlowAnimation from '../components/QtdFlowAnimation';
 import QpbFlowAnimation from '../components/QpbFlowAnimation';
+
+/** Attach to any element to fade it in when it scrolls into view. */
+function useScrollReveal() {
+  const ref = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.classList.add('scroll-reveal');
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add('visible');
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+  return ref;
+}
+
+/** Wrapper that applies scroll-reveal to its children section. */
+function ScrollRevealSection({ className, children, delay }: { className?: string; children: ReactNode; delay?: number }) {
+  const ref = useScrollReveal();
+  return (
+    <section
+      ref={ref as React.RefObject<HTMLElement>}
+      className={className}
+      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+    >
+      {children}
+    </section>
+  );
+}
 
 export default function Landing() {
   const { data, isLoading } = useLeaderboard();
@@ -70,11 +106,11 @@ export default function Landing() {
 
         {/* ── Hero ──────────────────────────────────────────── */}
         <section className="text-center">
-          <h1 className="text-5xl font-bold tracking-tight mb-4">Context Arena</h1>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto mb-10">
+          <h1 className="fade-in-up text-5xl font-bold tracking-tight mb-4">Context Arena</h1>
+          <p className="fade-in-up text-lg text-gray-400 max-w-2xl mx-auto mb-10" style={{ animationDelay: '120ms' }}>
             Benchmarking memory strategies for LLM conversations
           </p>
-          <div className="flex gap-4 justify-center">
+          <div className="fade-in-up flex gap-4 justify-center" style={{ animationDelay: '240ms' }}>
             <Link
               to="/demo"
               className="px-6 py-3 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-500 transition-colors"
@@ -91,7 +127,7 @@ export default function Landing() {
         </section>
 
         {/* ── What are memory strategies? ───────────────────── */}
-        <section>
+        <ScrollRevealSection>
           <h2 className="text-2xl font-semibold text-center mb-10">What are memory strategies?</h2>
           <div className="grid gap-6 md:grid-cols-3">
             {strategies.map((s, idx) => (
@@ -115,11 +151,11 @@ export default function Landing() {
               </div>
             ))}
           </div>
-        </section>
+        </ScrollRevealSection>
       </div>
 
       {/* ── How Strategies Execute (wider container for side-by-side) ── */}
-      <section className="max-w-7xl mx-auto px-6 pb-20">
+      <ScrollRevealSection className="max-w-7xl mx-auto px-6 pb-20">
         <h2 className="text-2xl font-semibold text-center mb-4">How Strategies Execute</h2>
         <p className="text-center text-gray-400 max-w-2xl mx-auto mb-8">
           Select a strategy to focus on one execution flow at a time, then press Play to inspect how memory is handled.
@@ -192,14 +228,20 @@ export default function Landing() {
               <p className="text-xs uppercase tracking-wider text-gray-500">Now Viewing</p>
               <p className="text-sm font-semibold text-gray-200">{selectedAnimation.title}</p>
             </div>
-            {selectedAnimation.render()}
+            <div
+              key={selectedAnimation.id}
+              className="fade-in-up"
+              style={{ animationDuration: '400ms' }}
+            >
+              {selectedAnimation.render()}
+            </div>
           </div>
         </div>
-      </section>
+      </ScrollRevealSection>
 
       <div className="max-w-5xl mx-auto px-6 pb-16 space-y-20">
         {/* ── Key Findings ─────────────────────────────────── */}
-        <section>
+        <ScrollRevealSection>
           <h2 className="text-2xl font-semibold text-center mb-10">Key Findings</h2>
           {isLoading || !data ? (
             <div className="grid gap-6 md:grid-cols-3">
@@ -210,38 +252,44 @@ export default function Landing() {
           ) : (
             <div className="grid gap-6 md:grid-cols-3">
               {bestAccuracy && (
-                <KPICard
-                  label="Best Accuracy"
-                  value={bestAccuracy.accuracy * 100}
-                  format={(n) => `${n.toFixed(0)}%`}
-                  subtitle={bestAccuracy.strategy}
-                  accentColor="var(--color-strategy-rlm)"
-                />
+                <div className="strategy-reveal" style={{ animationDelay: '100ms' }}>
+                  <KPICard
+                    label="Best Accuracy"
+                    value={bestAccuracy.accuracy * 100}
+                    format={(n) => `${n.toFixed(0)}%`}
+                    subtitle={bestAccuracy.strategy}
+                    accentColor="var(--color-strategy-rlm)"
+                  />
+                </div>
               )}
               {lowestCost && (
-                <KPICard
-                  label="Lowest Cost"
-                  value={lowestCost.totalCost}
-                  format={(n) => `$${n.toFixed(4)}`}
-                  subtitle={lowestCost.strategy}
-                  accentColor="var(--color-strategy-correction-aware)"
-                />
+                <div className="strategy-reveal" style={{ animationDelay: '220ms' }}>
+                  <KPICard
+                    label="Lowest Cost"
+                    value={lowestCost.totalCost}
+                    format={(n) => `$${n.toFixed(4)}`}
+                    subtitle={lowestCost.strategy}
+                    accentColor="var(--color-strategy-correction-aware)"
+                  />
+                </div>
               )}
               {mostEfficient && (
-                <KPICard
-                  label="Most Efficient"
-                  value={mostEfficient.avgInputTokens}
-                  format={(n) => `${Math.round(n).toLocaleString()} tokens`}
-                  subtitle={mostEfficient.strategy}
-                  accentColor="var(--color-strategy-window-6)"
-                />
+                <div className="strategy-reveal" style={{ animationDelay: '340ms' }}>
+                  <KPICard
+                    label="Most Efficient"
+                    value={mostEfficient.avgInputTokens}
+                    format={(n) => `${Math.round(n).toLocaleString()} tokens`}
+                    subtitle={mostEfficient.strategy}
+                    accentColor="var(--color-strategy-window-6)"
+                  />
+                </div>
               )}
             </div>
           )}
-        </section>
+        </ScrollRevealSection>
 
         {/* ── CTA Footer ───────────────────────────────────── */}
-        <section className="text-center pb-8">
+        <ScrollRevealSection className="text-center pb-8">
           <div className="flex gap-6 justify-center">
             <Link
               to="/demo"
@@ -256,7 +304,7 @@ export default function Landing() {
               Explore the data &rarr;
             </Link>
           </div>
-        </section>
+        </ScrollRevealSection>
 
       </div>
     </div>
