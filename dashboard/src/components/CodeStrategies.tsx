@@ -93,6 +93,7 @@ export default function CodeStrategies() {
                 contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
                 labelStyle={{ color: '#f3f4f6' }}
                 itemStyle={{ color: '#d1d5db' }}
+                itemSorter={(item) => -(Number(item.value) || 0)}
                 formatter={(value: number | string | undefined, name: string | number | undefined) => [
                   `${value ?? 0} blocks`,
                   String(name ?? ''),
@@ -136,6 +137,7 @@ export default function CodeStrategies() {
                 contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
                 labelStyle={{ color: '#f3f4f6' }}
                 itemStyle={{ color: '#d1d5db' }}
+                itemSorter={(item) => -(Number(item.value) || 0)}
                 formatter={(value: number | string | undefined, _name: string | number | undefined, item: { payload?: FeatureData }) => [
                   `${value ?? 0} (${item.payload?.pct ?? 0}%)`,
                   'Count',

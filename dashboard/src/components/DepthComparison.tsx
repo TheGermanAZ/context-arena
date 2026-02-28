@@ -89,6 +89,7 @@ export default function DepthComparison() {
             contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
             labelStyle={{ color: '#f3f4f6' }}
             itemStyle={{ color: '#d1d5db' }}
+            itemSorter={(item) => -(Number(item.value) || 0)}
             labelFormatter={(_label, payload) => payload?.[0]?.payload?.fullName ?? _label}
           />
           <Legend verticalAlign="top" wrapperStyle={{ color: '#9ca3af' }} />
