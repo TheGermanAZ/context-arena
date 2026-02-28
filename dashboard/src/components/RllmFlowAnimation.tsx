@@ -1,4 +1,5 @@
-import { useAnimationPlayer, SpawnPath, SpawnGroup, AnimationCard, SPAWN_DURATION } from './animationUtils';
+import { useAnimationPlayer, SpawnPath, SpawnGroup, AnimationCard } from './animationUtils';
+import { SPAWN_DURATION } from './animationConstants';
 
 export default function RllmFlowAnimation() {
   const { reduceMotion, isPlaying, hasPlayed, playKey, onPlay } = useAnimationPlayer();
