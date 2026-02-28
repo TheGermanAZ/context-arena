@@ -20,6 +20,37 @@ export default function Landing() {
   const selectedAnimation = strategyAnimationCatalog.find((animation) => animation.id === selectedAnimationId)
     ?? strategyAnimationCatalog[0];
 
+  // Track which group the selected animation belongs to so we auto-expand it
+  const selectedGroup = selectedAnimation.group;
+  const [collapsedGroups, setCollapsedGroups] = useState<Set<StrategyAnimationGroup>>(() => {
+    // Start with non-active groups collapsed
+    return new Set(
+      strategyAnimationGroups.map((g) => g.label).filter((label) => label !== selectedGroup),
+    );
+  });
+
+  const toggleGroup = (label: StrategyAnimationGroup) => {
+    setCollapsedGroups((prev) => {
+      const next = new Set(prev);
+      if (next.has(label)) next.delete(label);
+      else next.add(label);
+      return next;
+    });
+  };
+
+  // When selecting an animation, auto-expand its group
+  const handleSelectAnimation = (id: string) => {
+    setSelectedAnimationId(id);
+    const anim = strategyAnimationCatalog.find((a) => a.id === id);
+    if (anim && collapsedGroups.has(anim.group)) {
+      setCollapsedGroups((prev) => {
+        const next = new Set(prev);
+        next.delete(anim.group);
+        return next;
+      });
+    }
+  };
+
   // Derive KPI values from leaderboard data
   const bestAccuracy = data?.reduce((best, e) => (e.accuracy > best.accuracy ? e : best), data[0]);
   const lowestCost = data?.reduce((best, e) => (e.totalCost < best.totalCost ? e : best), data[0]);
@@ -85,55 +116,88 @@ export default function Landing() {
             ))}
           </div>
         </section>
+      </div>
 
-        <section>
-          <h2 className="text-2xl font-semibold text-center mb-4">How Strategies Execute</h2>
-          <p className="text-center text-gray-400 max-w-2xl mx-auto mb-8">
-            Select a strategy to focus on one execution flow at a time, then press Play to inspect how memory is handled.
-          </p>
-          <div className="grid gap-6 2xl:grid-cols-[300px_minmax(0,1fr)] 2xl:items-start">
-            <aside className="bg-gray-900 rounded-xl border border-gray-700 p-4 shadow-lg shadow-black/20 2xl:sticky 2xl:top-6">
-              <p className="text-xs uppercase tracking-wider text-gray-500">Strategy Selector</p>
-              <div className="mt-4 space-y-5">
-                {strategyAnimationGroups.map((group) => (
+      {/* ── How Strategies Execute (wider container for side-by-side) ── */}
+      <section className="max-w-7xl mx-auto px-6 pb-20">
+        <h2 className="text-2xl font-semibold text-center mb-4">How Strategies Execute</h2>
+        <p className="text-center text-gray-400 max-w-2xl mx-auto mb-8">
+          Select a strategy to focus on one execution flow at a time, then press Play to inspect how memory is handled.
+        </p>
+        <div className="grid gap-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
+          <aside className="bg-gray-900 rounded-xl border border-gray-700 p-4 shadow-lg shadow-black/20 lg:sticky lg:top-6 lg:max-h-[calc(100vh-3rem)] lg:overflow-y-auto">
+            <p className="text-xs uppercase tracking-wider text-gray-500">Strategy Selector</p>
+            <div className="mt-4 space-y-3">
+              {strategyAnimationGroups.map((group) => {
+                const isCollapsed = collapsedGroups.has(group.label);
+                const hasSelected = group.items.some((a) => a.id === selectedAnimation.id);
+                return (
                   <div key={group.label}>
-                    <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 mb-2">{group.label}</p>
-                    <div className="grid gap-2 sm:grid-cols-2 2xl:grid-cols-1">
-                      {group.items.map((animation) => {
-                        const isSelected = animation.id === selectedAnimation.id;
-                        return (
-                          <button
-                            key={animation.id}
-                            type="button"
-                            onClick={() => setSelectedAnimationId(animation.id)}
-                            className={`w-full rounded-lg border px-3 py-2.5 text-left transition-colors ${
-                              isSelected
-                                ? 'bg-gray-800/90 text-gray-100'
-                                : 'bg-gray-900 text-gray-300 border-gray-700 hover:bg-gray-800/60 hover:text-gray-200'
-                            }`}
-                            style={isSelected ? { borderColor: animation.accentColor } : undefined}
-                          >
-                            <span className="block text-sm font-semibold">{animation.title}</span>
-                            <span className="block text-xs text-gray-400 mt-1 leading-relaxed">{animation.description}</span>
-                          </button>
-                        );
-                      })}
+                    <button
+                      type="button"
+                      onClick={() => toggleGroup(group.label)}
+                      className="flex w-full items-center justify-between py-1 group"
+                    >
+                      <span className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 group-hover:text-gray-400 transition-colors">
+                        {group.label}
+                        {isCollapsed && hasSelected && (
+                          <span className="ml-2 inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 align-middle" />
+                        )}
+                      </span>
+                      <svg
+                        className={`w-3.5 h-3.5 text-gray-500 transition-transform duration-200 ${isCollapsed ? '-rotate-90' : ''}`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    <div
+                      className={`grid transition-[grid-template-rows] duration-200 ${isCollapsed ? 'grid-rows-[0fr]' : 'grid-rows-[1fr]'}`}
+                    >
+                      <div className="overflow-hidden">
+                        <div className="grid gap-2 pt-2 sm:grid-cols-2 lg:grid-cols-1">
+                          {group.items.map((animation) => {
+                            const isSelected = animation.id === selectedAnimation.id;
+                            return (
+                              <button
+                                key={animation.id}
+                                type="button"
+                                onClick={() => handleSelectAnimation(animation.id)}
+                                className={`w-full rounded-lg border px-3 py-2.5 text-left transition-colors ${
+                                  isSelected
+                                    ? 'bg-gray-800/90 text-gray-100'
+                                    : 'bg-gray-900 text-gray-300 border-gray-700 hover:bg-gray-800/60 hover:text-gray-200'
+                                }`}
+                                style={isSelected ? { borderColor: animation.accentColor } : undefined}
+                              >
+                                <span className="block text-sm font-semibold">{animation.title}</span>
+                                <span className="block text-xs text-gray-400 mt-1 leading-relaxed">{animation.description}</span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                ))}
-              </div>
-            </aside>
-
-            <div className="min-w-0 space-y-3">
-              <div className="px-1 flex items-center justify-between gap-4">
-                <p className="text-xs uppercase tracking-wider text-gray-500">Now Viewing</p>
-                <p className="text-sm font-semibold text-gray-200">{selectedAnimation.title}</p>
-              </div>
-              {selectedAnimation.render()}
+                );
+              })}
             </div>
-          </div>
-        </section>
+          </aside>
 
+          <div className="min-w-0 space-y-3">
+            <div className="px-1 flex items-center justify-between gap-4">
+              <p className="text-xs uppercase tracking-wider text-gray-500">Now Viewing</p>
+              <p className="text-sm font-semibold text-gray-200">{selectedAnimation.title}</p>
+            </div>
+            {selectedAnimation.render()}
+          </div>
+        </div>
+      </section>
+
+      <div className="max-w-5xl mx-auto px-6 pb-16 space-y-20">
         {/* ── Key Findings ─────────────────────────────────── */}
         <section>
           <h2 className="text-2xl font-semibold text-center mb-10">Key Findings</h2>
