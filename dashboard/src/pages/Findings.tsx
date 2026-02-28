@@ -9,6 +9,11 @@ import CodeStrategies from '../components/CodeStrategies';
 import ParallelBenchmarks from '../components/ParallelBenchmarks';
 import { KPICard, Skeleton } from '../components/charts';
 import { useLeaderboard } from '../lib/hooks';
+import DeepRlmFlowAnimation from '../components/DeepRlmFlowAnimation';
+import PersistentRlmFlowAnimation from '../components/PersistentRlmFlowAnimation';
+import RllmFlowAnimation from '../components/RllmFlowAnimation';
+import QtdFlowAnimation from '../components/QtdFlowAnimation';
+import QpbFlowAnimation from '../components/QpbFlowAnimation';
 
 /* ─── Scroll spy ─────────────────────────────── */
 
@@ -442,6 +447,7 @@ export default function Findings() {
             the same format.
           </Prose>
           <DepthComparison />
+          <DeepRlmFlowAnimation />
         </FindingsSection>
 
         {/* ════════════════════════════════════════════
@@ -490,6 +496,7 @@ export default function Findings() {
             <RllmComparison />
             <CodeStrategies />
           </div>
+          <div className="mt-6"><RllmFlowAnimation /></div>
         </FindingsSection>
 
         {/* ════════════════════════════════════════════
@@ -536,6 +543,7 @@ export default function Findings() {
             compound fact in natural language, but three entries in three separate typed stores. The
             sub-LLM processes its own natural-language output better than its own structured output.
           </Callout>
+          <PersistentRlmFlowAnimation />
         </FindingsSection>
 
         {/* ════════════════════════════════════════════
@@ -740,6 +748,10 @@ export default function Findings() {
               <strong>Important caveat:</strong> These numbers measure facts surviving in QPB&apos;s <em>internal state</em> (system prompt + messages).
               The promotion gates (CTX-48) measure facts in the model&apos;s <em>final answer</em> — see the Promotion Gates section below.
             </Callout>
+          </div>
+          <div className="space-y-6 mt-6">
+            <QpbFlowAnimation />
+            <QtdFlowAnimation />
           </div>
         </FindingsSection>
 

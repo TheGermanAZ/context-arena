@@ -20,6 +20,10 @@ import RllmComparison from '../components/RllmComparison';
 import CodeStrategies from '../components/CodeStrategies';
 import ScenarioHeatmap from '../components/ScenarioHeatmap';
 import CostAccuracy from '../components/CostAccuracy';
+import DeepRlmFlowAnimation from '../components/DeepRlmFlowAnimation';
+import RllmFlowAnimation from '../components/RllmFlowAnimation';
+import QtdFlowAnimation from '../components/QtdFlowAnimation';
+import QpbFlowAnimation from '../components/QpbFlowAnimation';
 
 /* ---------- constants ---------- */
 
@@ -353,6 +357,7 @@ export default function Demo() {
             <Skeleton variant="kpi" />
           )}
           <DepthComparison />
+          <div className="mt-6"><DeepRlmFlowAnimation /></div>
         </DemoSection>
 
         {/* ---- Section 8: Hand-rolled vs Code-Gen ---- */}
@@ -365,6 +370,7 @@ export default function Demo() {
             <Skeleton variant="kpi" />
           )}
           <RllmComparison />
+          <div className="mt-6"><RllmFlowAnimation /></div>
         </DemoSection>
 
         {/* ---- Section 9: Inside the Code ---- */}
@@ -397,6 +403,10 @@ export default function Demo() {
             <p><strong className="text-gray-100">Why QPB works (internally):</strong> RLM&apos;s sub-LLM systematically drops exact numbers, IDs, and dates during compression. QPB catches these via regex patterns and stores them in a pinned buffer that persists across compression cycles. The sub-LLM still does what it&apos;s good at (language understanding); the buffer handles what it drops.</p>
             <p><strong className="text-gray-100">Why QTD proves the root cause:</strong> When you compress with the question in hand, retention matches Full Context (98.4%). The problem was never compression itself — it was <em>blind</em> compression.</p>
             <p><strong className="text-amber-400">The catch:</strong> These numbers measure facts surviving in QPB&apos;s <em>internal state</em> (system prompt + messages). The promotion gates measure facts in the model&apos;s <em>final answer</em> — a harder bar. See below.</p>
+          </div>
+          <div className="space-y-6 mt-6">
+            <QpbFlowAnimation />
+            <QtdFlowAnimation />
           </div>
         </DemoSection>
 

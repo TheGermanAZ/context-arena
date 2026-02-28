@@ -60,8 +60,8 @@ export default function RllmFlowAnimation() {
             <text x="135" y="170" textAnchor="middle" fontSize="11" fill="#111827">context</text>
           </g>
 
-          {/* ── Output pill ────────────────────────────── */}
-          <g className={isPlaying ? 'strategy-node-pop pop-delay-2' : undefined}>
+          {/* ── Output pill (animates in last) ────────── */}
+          <g className={isPlaying ? 'strategy-node-pop pop-delay-last' : undefined}>
             <rect x="790" y="108" width="155" height="42" rx="8" fill="#efcfd8" stroke="#2f3640" strokeWidth="2" />
             <text x="867" y="134" textAnchor="middle" fontSize="11" fill="#111827">response</text>
           </g>
@@ -69,7 +69,7 @@ export default function RllmFlowAnimation() {
           {/* ── Top flow lines ─────────────────────────── */}
           <path className="rlm-arch-line" d="M 180 110 H 300" />
           <path className="rlm-arch-line" d="M 235 165 H 300" />
-          <path className="rlm-arch-line" d="M 700 129 H 790" />
+          <SpawnPath d="M 700 129 H 790" timing="0;0.88;0.96;1" reduceMotion={reduceMotion} animate={isPlaying} />
 
           {/* ── Delegation arrow ───────────────────────── */}
           <SpawnPath d="M 500 235 V 298" timing="0;0.10;0.24;1" reduceMotion={reduceMotion} animate={isPlaying} />

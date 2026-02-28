@@ -129,8 +129,8 @@ export default function DiscoveredRlmFlowAnimation() {
           </SpawnGroup>
 
           {/* ── Final output ───────────────────────────── */}
-          <SpawnPath d="M 530 668 V 720" timing="0;0.72;0.86;1" reduceMotion={reduceMotion} animate={isPlaying} />
-          <g className={isPlaying ? 'strategy-node-pop pop-delay-5' : undefined}>
+          <SpawnPath d="M 530 668 V 720" timing="0;0.86;0.96;1" reduceMotion={reduceMotion} animate={isPlaying} />
+          <g className={isPlaying ? 'strategy-node-pop pop-delay-last' : undefined}>
             <rect x="400" y="725" width="260" height="40" rx="8" fill="#efcfd8" stroke="#2f3640" strokeWidth="2" />
             <text x="530" y="750" textAnchor="middle" fontSize="12" fill="#111827">verified knowledge state</text>
           </g>

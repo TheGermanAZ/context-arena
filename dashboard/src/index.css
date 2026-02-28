@@ -243,6 +243,8 @@
 .strategy-node-pop.pop-delay-3 { animation-delay: 0.5s; }
 .strategy-node-pop.pop-delay-4 { animation-delay: 0.72s; }
 .strategy-node-pop.pop-delay-5 { animation-delay: 0.9s; }
+.strategy-node-pop.pop-delay-last { animation-delay: 5.2s; }
+.strategy-node-pop.pop-delay-last-short { animation-delay: 4.2s; }
 
 .strategy-node-glow-theme {
   animation: strategy-node-glow-theme 2.4s ease-in-out infinite;

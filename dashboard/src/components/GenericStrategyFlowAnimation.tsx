@@ -256,7 +256,7 @@ export default function GenericStrategyFlowAnimation({
             );
           })}
 
-          <g className={isPlaying ? 'strategy-node-pop pop-delay-1' : undefined}>
+          <g className={isPlaying ? 'strategy-node-pop' : undefined} style={isPlaying ? { animationDelay: '0.5s' } : undefined}>
             <rect
               x="314"
               y="116"
@@ -272,7 +272,7 @@ export default function GenericStrategyFlowAnimation({
             <text x="424" y="176" textAnchor="middle" fontSize="10.5" fill="#334155">{processorNote}</text>
           </g>
 
-          <g className={isPlaying ? 'strategy-node-pop pop-delay-2' : undefined}>
+          <g className={isPlaying ? 'strategy-node-pop' : undefined} style={isPlaying ? { animationDelay: '1.1s' } : undefined}>
             <rect
               x="578"
               y="116"
@@ -288,7 +288,7 @@ export default function GenericStrategyFlowAnimation({
             <text x="656" y="174" textAnchor="middle" fontSize="17" fill="#111827">Model</text>
           </g>
 
-          <g className={isPlaying ? 'strategy-node-pop pop-delay-3' : undefined}>
+          <g className={isPlaying ? 'strategy-node-pop' : undefined} style={isPlaying ? { animationDelay: '1.7s' } : undefined}>
             <rect
               x="754"
               y="142"
@@ -303,7 +303,10 @@ export default function GenericStrategyFlowAnimation({
             <text x="810" y="167" textAnchor="middle" fontSize="10.5" fill="#111827">response</text>
           </g>
 
-          <g className={isPlaying ? 'strategy-node-pop pop-delay-4' : undefined}>
+          <g
+            className={isPlaying ? 'strategy-node-pop' : undefined}
+            style={isPlaying ? { animationDelay: optionalBlock ? '2.9s' : '2.5s' } : undefined}
+          >
             <rect
               x="314"
               y="236"
@@ -325,7 +328,7 @@ export default function GenericStrategyFlowAnimation({
                 <animate
                   attributeName="width"
                   values={`${Math.max(56, memoryWidth * 0.28)};${Math.max(56, memoryWidth * 0.28)};${memoryWidth - 46};${memoryWidth - 46}`}
-                  keyTimes="0;0.34;0.7;1"
+                  keyTimes="0;0.58;0.76;1"
                   dur="5.2s"
                   repeatCount="1"
                 />
@@ -334,7 +337,10 @@ export default function GenericStrategyFlowAnimation({
           </g>
 
           {optionalBlock ? (
-            <g className={isPlaying ? 'strategy-node-pop pop-delay-5' : undefined}>
+            <g
+              className={isPlaying ? 'strategy-node-pop' : undefined}
+              style={isPlaying ? { animationDelay: '2.5s' } : undefined}
+            >
               <rect
                 x={optionalBlockX}
                 y="236"
@@ -351,9 +357,9 @@ export default function GenericStrategyFlowAnimation({
             </g>
           ) : null}
 
-          <AnimatedPath d="M 272 162 H 314" markerId={markerId} lineColor={lineColor} animate={isPlaying} reduceMotion={reduceMotion} />
-          <AnimatedPath d="M 534 162 H 578" markerId={markerId} lineColor={lineColor} animate={isPlaying} reduceMotion={reduceMotion} />
-          <AnimatedPath d="M 734 162 H 754" markerId={markerId} lineColor={lineColor} animate={isPlaying} reduceMotion={reduceMotion} />
+          <AnimatedPath d="M 272 162 H 314" markerId={markerId} lineColor={lineColor} animate={isPlaying} reduceMotion={reduceMotion} timing="0;0.04;0.16;1" />
+          <AnimatedPath d="M 534 162 H 578" markerId={markerId} lineColor={lineColor} animate={isPlaying} reduceMotion={reduceMotion} timing="0;0.18;0.30;1" />
+          <AnimatedPath d="M 734 162 H 754" markerId={markerId} lineColor={lineColor} animate={isPlaying} reduceMotion={reduceMotion} timing="0;0.30;0.42;1" />
 
           {optionalBlock ? (
             <>
@@ -363,7 +369,7 @@ export default function GenericStrategyFlowAnimation({
                 lineColor={lineColor}
                 animate={isPlaying}
                 reduceMotion={reduceMotion}
-                timing="0;0.28;0.56;1"
+                timing="0;0.44;0.56;1"
               />
               <AnimatedPath
                 d="M 590 278 H 558"
@@ -371,7 +377,7 @@ export default function GenericStrategyFlowAnimation({
                 lineColor={lineColor}
                 animate={isPlaying}
                 reduceMotion={reduceMotion}
-                timing="0;0.42;0.62;1"
+                timing="0;0.56;0.64;1"
               />
             </>
           ) : (
@@ -381,7 +387,7 @@ export default function GenericStrategyFlowAnimation({
               lineColor={lineColor}
               animate={isPlaying}
               reduceMotion={reduceMotion}
-              timing="0;0.28;0.56;1"
+              timing="0;0.44;0.56;1"
             />
           )}
 
@@ -391,7 +397,7 @@ export default function GenericStrategyFlowAnimation({
             lineColor={lineColor}
             animate={isPlaying}
             reduceMotion={reduceMotion}
-            timing="0;0.48;0.74;1"
+            timing="0;0.62;0.72;1"
           />
 
           <text x="726" y="338" textAnchor="middle" fontSize="10" fill="#374151">{loopNote}</text>
